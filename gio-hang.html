@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link href="css/custom.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+        <div class="top-header">
+            <div class="domain-name">
+                <a href="/">
+                    <img src="images/logo.png" />
+                </a>
+            </div>
+            <div class="search-container hide-mobile">
+                <div class="input-search">
+                    <input type="text" class="txt-search" />
+                    <img src="images/btn-search_03.png" class="img-search" />
+                </div>
+                <div class="search-placeholder">Kem chống nắng, trị mụn, khóa ẩm...</div>
+            </div>
+            <div class="customer-container">
+                <div class="support-content hide-mobile">
+                    <div class="sp-img">
+                        <a href="#">
+                            <img src="images/icon-phone_01.gif" />
+                        </a>
+                    </div>
+                    <div class="sp-info">
+                        <div class="sp-desc">Hỗ trợ khách hàng</div>
+                        <div class="sp-phone">
+                            <a href="#">093.222.8863</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-content hide-mobile">
+                    <div class="lg-img">
+                        <a href="#">
+                            <img src="images/icon-user_01.gif" />
+                        </a>
+
+                    </div>
+                    <div class="lg-info">
+                        <div class="lg-desc">Tài khoản</div>
+                        <div class="lg-phone"><a href="#">Đăng nhập</a></div>
+                    </div>
+                </div>
+
+                <div class="cart-content">
+                    <div class="ct-img">
+                        <a href="#">
+                            <img src="images/header-cart_03.gif" />
+                        </a>
+                    </div>
+                    <div class="ct-info">
+                        <div class="ct-desc">Giỏ hàng <span class="cart-quancity">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-mobile hide-xl-desktop hide-desktop show-mobile">
+                <a href="#" class="icon-menu">
+                    <img src="images/icon-home.png" />
+                </a>
+                <div class="menu-mobile-container">
+                    <ul class="menu-content">
+                        <li>
+                            <a href="#" class="active">
+                                <img src="images/icon-home.png" class="menu-icon" />
+                                <span class="menu-text">Trang chủ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="images/icon-cart_01.gif" class="menu-icon" />
+                                <span class="menu-text">Giảm giá HOT</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="images/icon-cart_01.gif" class="menu-icon" />
+                                <span class="menu-text">Bán chạy nhất</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="images/icon_beauty_01.gif" class="menu-icon" />
+                                <span class="menu-text">Kiến thức làm đẹp</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="images/icon-contact_01.gif" class="menu-icon" />
+                                <span class="menu-text">Liên hệ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="images/icon_policy_user_01.gif" class="menu-icon" />
+                                <span class="menu-text">Chính sách giao hàng</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-menu hide-mobile">
+            <ul class="menu-content">
+                <li>
+                    <a href="#" class="active">
+                        <img src="images/icon-home.png" class="menu-icon" />
+                        <span class="menu-text">Trang chủ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/icon-cart_01.gif" class="menu-icon" />
+                        <span class="menu-text">Giảm giá HOT</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/icon-cart_01.gif" class="menu-icon" />
+                        <span class="menu-text">Bán chạy nhất</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/icon_beauty_01.gif" class="menu-icon" />
+                        <span class="menu-text">Kiến thức làm đẹp</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/icon-contact_01.gif" class="menu-icon" />
+                        <span class="menu-text">Liên hệ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="images/icon_policy_user_01.gif" class="menu-icon" />
+                        <span class="menu-text">Chính sách giao hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="body body-cart">
+        <div class="search-container hide-xl-desktop hide-desktop hide-tablet show-mobile">
+            <div class="input-search">
+                <input type="text" class="txt-search" />
+                <img src="images/btn-search_03.png" class="img-search" />
+            </div>
+            <div class="search-placeholder">Kem chống nắng, trị mụn, khóa ẩm...</div>
+        </div>
+        <div class="breadcrumb-container hide-mobile">
+            <div class="breadcrumb-content">
+                Trang chủ / Sản phẩm
+            </div>
+        </div>
+
+        <div class="body-cart-content">
+            <div class="box-cate-content">
+                <div class="box-cate-title">Giỏ hàng của bạn</div>
+                <div class="cart-action-continue hide-mobile">
+                    <a href="#">Tiếp tục mua hàng →</a>
+                </div>
+                <div class="box-cart-content">
+                    <div class="list-cart">
+                        <table class="table-cart hide-mobile" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td class="cart-item-img">
+                                        <a href="#">
+                                            <img src="images/anh_sanpham1.png" />
+                                        </a>
+                                    </td>
+                                    <td class="cart-item-name">
+                                        <a href="#">Sữa tắm gội dịu nhẹ cho bé Eucerin baby wash and shower</a>
+                                    </td>
+                                    <td class="cart-quantity">
+                                        <div class="cart-quantity-content">
+                                            <a href="javascript:;" class="quantity-minus">-</a>
+                                            <input type="text" class="input-quantity" value="1" />
+                                            <a href="javascript:;" class="quantity-plus">+</a>
+                                        </div>
+
+                                    </td>
+                                    <td class="cart-price">
+                                        <div class="discount-price">250,000 VNĐ</div>
+                                        <span class="price">300,000 đ</span>
+                                        <span class="discount-percent">-10%</span>
+                                    </td>
+                                    <td class="cart-total">
+                                        <div class="cart-total-label">Thành tiền:</div>
+                                        <div class="cart-total-money">250,000 VNĐ</div>
+                                        <div class="cart-item-action">
+                                            <a href="#">
+                                                <img src="images/thung_rac.png" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table-cart-mobile hide-tablet hide-desktop hide-xl-desktop show-mobile" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td class="cart-item-img">
+                                        <a href="#">
+                                            <img src="images/anh_sanpham1.png" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="cart-item-info">
+                                            <div class="cart-item-name">
+                                                <a href="#">
+                                                    Sữa tắm gội dịu nhẹ cho bé Eucerin baby wash and shower
+                                                </a>
+                                            </div>
+                                            <div class="cart-item-detail">
+                                                <div class="cart-quantity-content">
+                                                    <a href="javascript:;" class="quantity-minus">-</a>
+                                                    <input type="text" class="input-quantity" value="1" />
+                                                    <a href="javascript:;" class="quantity-plus">+</a>
+                                                </div>
+                                                <div class="cart-price">
+                                                    <div class="discount-price">250,000 VNĐ</div>
+                                                    <span class="price">300,000 đ</span>
+                                                    <span class="discount-percent">-10%</span>
+                                                </div>
+                                            </div>
+                                            <div class="cart-item-total">
+                                                <div class="cart-total">
+                                                    <div class="cart-total-label">Thành tiền:</div>
+                                                    <div class="cart-total-money">250,000 VNĐ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="cart-item-action">
+                                            <a href="#">
+                                                <img src="images/thung_rac.png" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="cart-ext">
+                            <div class="cart-ext-note">
+                                <!--<div class="form-input">
+                                    <div class="form-input-label">Ghi chú đơn hàng</div>
+                                    <textarea rows="6"></textarea>
+                                </div>-->
+                                <div class="contact-form">
+                                    <div class="contact-form-title">Thông tin khách hàng</div>
+                                    <form id="frmContact">
+                                        <div class="form-input">
+                                            <input type="text" placeholder="HỌ VÀ TÊN*" />
+                                        </div>
+                                        <div class="form-input">
+                                            <input type="text" placeholder="EMAIL*" />
+                                        </div>
+                                        <div class="form-input">
+                                            <input type="text" placeholder="SỐ ĐIỆN THOẠI*" />
+                                        </div>
+                                        <div class="form-input">
+                                            <input type="text" placeholder="ĐỊA CHỈ*" />
+                                        </div>
+                                        <div class="form-input-group">
+                                            <div class="form-input">
+                                                <select>
+                                                    <option>Tỉnh thành Tỉnh thành</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-input">
+                                                <select>
+                                                    <option>Quận huyện</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-input">
+                                                <select>
+                                                    <option>Xã phường</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-input">
+                                            <textarea placeholder="NỘI DUNG*" rows="10"></textarea>
+                                        </div>
+                                        <div class="form-action">
+                                            <button type="submit">Gửi liên hệ của bạn</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="cart-ext-policy">
+                                <div class="cart-ext-policy-title">Chính sách Đổi/Trả</div>
+                                <ul class="cart-ext-policy-list">
+                                    <li>
+                                        → Sản phẩm được đổi 1 lần duy nhất, không hỗ trợ trả
+                                    </li>
+                                    <li>
+                                        → Sản phẩm còn đủ tem mác, chưa qua sử dụng
+                                    </li>
+                                    <li>
+                                        → Sản phẩm nguyên giá được đổi trả trong 30 ngày trên toàn hệ thống
+                                    </li>
+                                    <li>
+                                        → Sản phẩm sale chỉ hỗ trợ đổi size (nếu cửa hàng còn) trong 7 ngày trên toàn hệ thống
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="cart-action-continue hide-xl-desktop hide-tablet hide-desktop show-mobile">
+                            <a href="#">Tiếp tục mua hàng →</a>
+                        </div>
+                    </div>
+
+                    <div class="cart-info">
+                        <div class="cart-info-content">
+                            <div class="cart-info-title">Thông tin đơn hàng</div>
+                            <div class="cart-info-total"><span class="cart-info-total-label">Tổng tiền: </span><span class="total-money">250,000 VNĐ</span></div>
+                            <div class="cart-info-note">Bạn có thể nhập mã giảm giá ở trang thanh toán</div>
+                            <div class="cart-action">
+                                <a href="#">
+                                    <img src="images/MUANGAY_topsanphamgiammun.png" />
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <a href="#" class="about-us-link">
+                    <div class="about-us-text">Về chúng tôi</div>
+                    <img src="images/logo_trangduoi.png" />
+                </a>
+                <div class="sologan">Cung cấp sản phẩm chất lượng từ các thương hiệu hàng đầu</div>
+                <div class="address">Địa chỉ: Tòa nhà SKYCITY 88 Láng Hạ - Đống Đa - Hà Nội</div>
+                <div class="email">Email: drthem@gmail.com</div>
+                <div class="hotline">Hotline: 0566660092 (Giờ hành chính)</div>
+                <div class="social-list">
+                    <a href="#">
+                        <img src="images/iconfb_trangduoi.png" />
+                    </a>
+                    <a href="#">
+                        <img src="images/iconzalo_trangduoi.png" />
+                    </a>
+                    <a href="#">
+                        <img src="images/iconins_trangduoi.png" />
+                    </a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="box-link box-link-1">
+                    <a href="#" class="link-item">Chính sách</a>
+                    <a href="#" class="link-item">Giới thiệu</a>
+                    <a href="#" class="link-item">Chương trình khuyến mãi</a>
+                    <a href="#" class="link-item">Hệ thống cửa hàng</a>
+                    <a href="#" class="link-item">Hướng dẫn đặt hàng</a>
+                    <a href="#" class="link-item">Kiểm tra đơn hàng</a>
+                </div>
+
+                <div class="box-link box-link-2">
+                    <a href="#" class="link-item">Hỗ trợ khách hàng</a>
+                    <a href="#" class="link-item">Thông tin liên hệ</a>
+                    <a href="#" class="link-item">Chính sách giao hàng</a>
+                    <a href="#" class="link-item">Chính sách đổi hàng</a>
+                    <a href="#" class="link-item">Chính sách bảo mật</a>
+                    <a href="#" class="link-item">Điều khoản dịch vụ</a>
+                </div>
+
+                <div class="box-link box-link-3">
+                    <a href="#" class="link-item">Phương thức thanh toán</a>
+                    <div class="list-payment">
+                        <a href="#" class="payment-item">
+                            <img src="images/icon-visa_03.png" />
+                        </a>
+                        <a href="#" class="payment-item">
+                            <img src="images/icon-mastercard_03.png" />
+                        </a>
+                        <a href="#" class="payment-item">
+                            <img src="images/icon-momo_03.png" />
+                        </a>
+                        <a href="#" class="payment-item">
+                            <img src="images/icon-zalo-pay_03.png" />
+                        </a>
+                    </div>
+                    <div class="register-img">
+                        <img src="images/bocongthuong_trangduoi.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
