@@ -644,6 +644,8 @@ ul {
 
                                 img {
                                     transition: all 0.5s ease-in-out;
+                                    height: 343px;
+                                    object-fit: cover;
                                     width: 100%;
                                     display: block;
                                 }
@@ -888,6 +890,8 @@ ul {
 
                             img {
                                 width: 100%;
+                                height: 320px;
+                                object-fit: cover;
                                 display: block;
                                 transition: all 0.5s ease-in-out;
                             }
@@ -1067,6 +1071,8 @@ ul {
 
                             img {
                                 transition: all 0.5s ease-in-out;
+                                height: 560px;
+                                object-fit: cover;
                                 width: 100%;
                                 display: block;
                             }
@@ -1360,6 +1366,8 @@ ul {
                                 img {
                                     transition: all 0.5s ease-in-out;
                                     width: 100%;
+                                    height: 244px;
+                                    object-fit: cover;
                                     display: block;
                                 }
                             }
@@ -1670,6 +1678,8 @@ ul {
 
                                 img {
                                     transition: all .5s ease-in-out;
+                                    height: 292px;
+                                    object-fit: cover;
                                     width: 100%;
                                     display: block;
                                 }
@@ -2487,6 +2497,8 @@ ul {
                                 img {
                                     transition: all 0.5s ease-in-out;
                                     width: 100%;
+                                    height: 223px;
+                                    object-fit: cover;
                                     display: block;
                                 }
                             }
@@ -3021,6 +3033,12 @@ ul {
                                 margin-bottom: 10px;
                                 width: calc(100%/3 - 20px/3);
 
+                                .product-img {
+                                    img {
+                                        height: 244px;
+                                    }
+                                }
+
                                 .product-cart {
                                     visibility: visible;
                                     opacity: 1;
@@ -3095,6 +3113,12 @@ ul {
                             margin-left: 15px;
                             width: calc(25% - 45px/4);
 
+                            .product-img {
+                                img {
+                                    height: 239px;
+                                }
+                            }
+
                             .product-cart {
                                 opacity: 1;
                                 visibility: visible;
@@ -3125,6 +3149,12 @@ ul {
                     .list-knowledges {
                         .knowledge-item {
                             width: calc(100%/3 - 15px);
+
+                            .knowledge-img {
+                                img {
+                                    height: 319px;
+                                }
+                            }
 
                             .view-more {
                                 a {
@@ -3211,6 +3241,7 @@ ul {
                                 .product-img {
 
                                     img {
+                                        height: 254px;
                                     }
                                 }
 
@@ -3455,6 +3486,8 @@ ul {
 
                                     img {
                                         width: 100%;
+                                        height: 237px;
+                                        object-fit: cover;
                                         display: block;
                                     }
                                 }
@@ -4072,6 +4105,7 @@ ul {
 
                                 .product-img {
                                     img {
+                                        height: 242px;
                                     }
                                 }
 
@@ -4438,6 +4472,11 @@ ul {
                                 width: calc(50% - 5px);
                                 margin-left: 10px;
 
+                                .product-img {
+                                    img {
+                                        width: 172px;
+                                    }
+                                }
 
                                 .product-cart {
 
@@ -4505,6 +4544,12 @@ ul {
                             width: calc(50% - 5px);
                             margin-left: 10px;
 
+                            .product-img {
+                                img {
+                                    height: 172px;
+                                }
+                            }
+
                             .product-cart {
 
                                 .product-quantity {
@@ -4555,6 +4600,12 @@ ul {
 
                         .knowledge-item {
                             width: calc(50% - 5px);
+
+                            .knowledge-img {
+                                img {
+                                    height: 172px;
+                                }
+                            }
                         }
                     }
                 }
@@ -4717,6 +4768,8 @@ ul {
 
                                     img {
                                         width: 100%;
+                                        height: 172px;
+                                        object-fit: cover;
                                         display: block;
                                     }
                                 }
@@ -5575,6 +5628,7 @@ ul {
 
                                 .product-img {
                                     img {
+                                        height: 172px;
                                     }
                                 }
 

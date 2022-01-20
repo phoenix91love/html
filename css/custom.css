@@ -418,6 +418,8 @@ ul {
             overflow: hidden; }
             .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-img img {
               transition: all 0.5s ease-in-out;
+              height: 343px;
+              object-fit: cover;
               width: 100%;
               display: block; }
           .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-info {
@@ -569,6 +571,8 @@ ul {
           overflow: hidden; }
           .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-img img {
             width: 100%;
+            height: 320px;
+            object-fit: cover;
             display: block;
             transition: all 0.5s ease-in-out; }
         .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-info {
@@ -682,6 +686,8 @@ ul {
           overflow: hidden; }
           .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item .knowledge-img img {
             transition: all 0.5s ease-in-out;
+            height: 560px;
+            object-fit: cover;
             width: 100%;
             display: block; }
         .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item .knowledge-info {
@@ -871,6 +877,8 @@ ul {
           .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item .product-img img {
             transition: all 0.5s ease-in-out;
             width: 100%;
+            height: 244px;
+            object-fit: cover;
             display: block; }
         .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item .product-info {
           margin-top: 10px; }
@@ -1061,6 +1069,8 @@ ul {
           overflow: hidden; }
           .body.body-beauty-knowledge .body-beauty-knowledge-content .box-left .box-cate-content .list-knowledges .knowledge-item .knowledge-img img {
             transition: all .5s ease-in-out;
+            height: 292px;
+            object-fit: cover;
             width: 100%;
             display: block; }
         .body.body-beauty-knowledge .body-beauty-knowledge-content .box-left .box-cate-content .list-knowledges .knowledge-item .knowledge-info {
@@ -1566,6 +1576,8 @@ ul {
           .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-img img {
             transition: all 0.5s ease-in-out;
             width: 100%;
+            height: 223px;
+            object-fit: cover;
             display: block; }
         .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-info {
           margin-top: 10px; }
@@ -1834,6 +1846,8 @@ ul {
         margin-left: 10px;
         margin-bottom: 10px;
         width: calc(100%/3 - 20px/3); }
+        .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-img img {
+          height: 244px; }
         .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-cart {
           visibility: visible;
           opacity: 1; }
@@ -1869,6 +1883,8 @@ ul {
       .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item {
         margin-left: 15px;
         width: calc(25% - 45px/4); }
+        .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-img img {
+          height: 239px; }
         .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-cart {
           opacity: 1;
           visibility: visible; }
@@ -1882,6 +1898,8 @@ ul {
       font-size: 22px; }
     .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item {
       width: calc(100%/3 - 15px); }
+      .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item .knowledge-img img {
+        height: 319px; }
       .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item .view-more a {
         opacity: 1;
         visibility: visible; }
@@ -1912,6 +1930,8 @@ ul {
           margin-left: 10px;
           margin-bottom: 10px;
           width: calc(100%/3 - 20px/3); }
+          .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item .product-img img {
+            height: 254px; }
           .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item:nth-child(4n+1) {
             margin-left: 10px; }
           .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item:nth-child(3n+1) {
@@ -2021,6 +2041,8 @@ ul {
             display: block; }
             .body.body-beauty-knowledge .body-beauty-knowledge-content .box-left .box-cate-content .list-knowledges .knowledge-item .knowledge-img img {
               width: 100%;
+              height: 237px;
+              object-fit: cover;
               display: block; }
           .body.body-beauty-knowledge .body-beauty-knowledge-content .box-left .box-cate-content .list-knowledges .knowledge-item .knowledge-info {
             margin-top: 10px; }
@@ -2311,6 +2333,8 @@ ul {
           margin-left: 10px;
           margin-bottom: 10px;
           width: calc(25% - 8px); }
+          .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-img img {
+            height: 242px; }
           .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-info {
             flex-wrap: wrap; }
             .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-info .product-title {
@@ -2455,6 +2479,8 @@ ul {
       .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item {
         width: calc(50% - 5px);
         margin-left: 10px; }
+        .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-img img {
+          width: 172px; }
         .body .list-box-cate-container .box-cate-top-sell .box-cate-top-sell-content .box-right .list-products .product-item .product-cart .product-quantity .quantity-minus {
           width: 20px;
           line-height: 20px;
@@ -2484,6 +2510,8 @@ ul {
     .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item {
       width: calc(50% - 5px);
       margin-left: 10px; }
+      .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-img img {
+        height: 172px; }
       .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-cart .product-quantity .quantity-minus {
         width: 20px;
         line-height: 20px;
@@ -2508,6 +2536,8 @@ ul {
       width: 100%; }
       .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item {
         width: calc(50% - 5px); }
+        .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges .knowledge-item .knowledge-img img {
+          height: 172px; }
   .body.body-medicine .list-box-cate-container {
     width: 100%; }
     .body.body-medicine .list-box-cate-container .box-cate-code-discount {
@@ -2587,6 +2617,8 @@ ul {
             display: block; }
             .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item .product-img img {
               width: 100%;
+              height: 172px;
+              object-fit: cover;
               display: block; }
           .body.body-medicine .body-medicine-content .box-right .box-cate-content .list-products .product-item .product-info {
             margin-top: 10px; }
@@ -3018,6 +3050,8 @@ ul {
           margin-left: 10px;
           margin-bottom: 10px;
           width: calc(50% - 5px); }
+          .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-img img {
+            height: 172px; }
           .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-info {
             flex-wrap: wrap; }
             .body.body-product-detail .body-product-detail-content .box-cate-content .product-relation-container .list-products .product-item .product-info .product-title {
