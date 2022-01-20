@@ -2530,6 +2530,8 @@ ul {
         height: 20px; }
       .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item .product-cart .btn-add-to-cart {
         width: 80px; }
+      .body .list-box-cate-container .box-acne-reduction-product .box-acne-reduction-product-content .list-products .product-item:nth-child(2n+1) {
+        margin-left: 0; }
     .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-title {
       font-size: 16px; }
     .body .list-box-cate-container .box-beauty-knowledge .box-beauty-knowledge-content .list-knowledges {
