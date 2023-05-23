@@ -22,7 +22,7 @@ body .profession #container-profess table tbody tr {
   body .profession #container-profess table tbody tr .treegrid-container .treegrid-expander {
     display: none; }
   body .profession #container-profess table tbody tr :first-child {
-    text-align: left;
+    text-align: center;
     margin: unset !important; }
   body .profession #container-profess table tbody tr :nth-child(2) {
     text-align: left; }
@@ -30,7 +30,8 @@ body .profession #container-profess table tbody tr {
       color: #3b1b70;
       font-family: "Roboto Condensed","Roboto",Arial;
       font-weight: 700;
-      text-decoration: unset; }
+      text-decoration: unset;
+      font-size: 15px; }
   body .profession #container-profess table tbody tr :nth-child(4) a, body .profession #container-profess table tbody tr :nth-child(5) a {
     color: #212529; }
     body .profession #container-profess table tbody tr :nth-child(4) a:hover, body .profession #container-profess table tbody tr :nth-child(5) a:hover {
