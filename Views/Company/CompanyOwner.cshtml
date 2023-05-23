@@ -1,0 +1,46 @@
+﻿@using System.Linq
+@model Nqs.Models.FormModel.Common.BaseModels<List<Nqs.Models.FormModel.Company.CompanyownerAndShearHolder>>
+@{
+    var code = ViewBag.Code;
+    var data = Model.DataObject;
+    if (data == null)
+    {
+        data = new List<Nqs.Models.FormModel.Company.CompanyownerAndShearHolder>();
+    }
+}
+
+<div class="company-owner-pc">
+    <div class="titletab">@code đang sở hữu</div>
+    <ul class="is-line-bottom">
+        <li class="labelname">
+            <span class="col-5">Tên công ty</span>
+            <span class="col-2">Số cổ phiếu</span>
+            <span class="col-2">Tỷ lệ %</span>
+            <span class="col-2">Tính đến ngày</span>
+        </li>
+        @foreach (var item in data)
+        {
+            <li>
+                <span class="col-5"> @item.UserOrCompanyOwnerName<span>@Html.Raw((!string.IsNullOrEmpty(item.UserOrCompanyOwner) ? $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>({item.UserOrCompanyOwner}) </a>" : ""))</span></span>
+                <span class="green col-2"> @(item.CountStock?.ToString("N0"))</span>
+                <span class="col-2">@(item.Percent!=0? $"{item.Percent}":"")</span>
+                <span class="col-2">@item.LastReview</span>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="company-owner-mobile">
+    <div class="titletab">@code đang sở hữu</div>
+    <ul class="is-line-bottom">
+
+        @foreach (var item in data)
+        {
+            <li>
+                <span> @item.UserOrCompanyOwnerName<span>@Html.Raw((!string.IsNullOrEmpty(item.UserOrCompanyOwner) ? $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>({item.UserOrCompanyOwner}) </a>" : ""))</span></span>
+                <span>Số cổ phiếu: @(item.CountStock?.ToString("N0"))</span>
+                <span>Tỉ lệ sở hữu @(item.Percent!=0? $"{item.Percent}":"")</span>
+            </li>
+        }
+    </ul>
+</div>

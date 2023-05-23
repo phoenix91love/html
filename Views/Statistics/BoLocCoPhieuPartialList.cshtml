@@ -1,0 +1,94 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.Common.BaseListModel<Nqs.Models.FormModel.Statistic.BoLocCoPhieu>
+    <h3>Tổng số: @Model.DataList.Count doanh nghiệp đáp ứng </h3>
+<div class="table-responsive-sm table-scroll" style="max-height: 800px; overflow-y: auto;">
+    <br />
+    <table class="table table-hover table-striped table-bordered table-common">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col" style="min-width: 50px;">Mã CK</th>
+                <th scope="col" style="min-width: 300px;">Tên doanh nghiệp</th>
+                <th scope="col" style="min-width: 80px;">Sàn</th>
+                <th scope="col" style="min-width: 80px;">Vốn hóa</th>
+                <th scope="col" style="min-width: 80px;">Giá</th>
+                @if (Model.Data.ShowThayDoiGia)
+                {
+                    <th scope="col" style="min-width: 100px;">Thay đổi giá</th>
+                    <th scope="col" style="min-width: 100px;">Số phiên tăng</th>
+                    <th scope="col" style="min-width: 100px;">Số phiên giảm</th>
+                }
+                @if (Model.Data.ShowKlGd)
+                {
+                    <th scope="col">KLGD</th>
+                    <th scope="col">KLTB</th>
+                    <th scope="col">KLGD vượt KLTB</th>
+                }
+                @if (Model.Data.ShowNNMuaBanRong)
+                {
+                    <th scope="col">Ròng</th>
+
+                }
+                @if (Model.Data.ShowCstc)
+                {
+                    <th scope="col">EPS</th>
+                    <th scope="col">PE</th>
+                    <th scope="col">Doanh thu 4 quý</th>
+                }
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+            <tr>
+                <td class="center" scope="row">@item.RowIndex</td>
+
+                <td class="center">
+                    @{
+                        var listExclude = new List<string>() { "VN-Index", "HNX-Index", "UPCoM-Index", "VN30-Index", "HNX30-Index" };
+                        if (listExclude.Contains(item.Code))
+                        {
+                            @item.Code
+                        }
+                        else
+                        {
+                            <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
+                        }
+                    }
+
+                </td>
+                <td class="left">@item.CompanyName</td>
+                <td class="center">@item.ExCode</td>
+                <td class="right">@item.VonHoa</td>
+                <td class="right">@item.Price</td>
+                @if (Model.Data.ShowThayDoiGia)
+                {
+                    <td class="right" scope="col">@item.PerChangexDay</td>
+                    <td class="right" scope="col">@item.SlCpTang</td>
+                    <td class="right" scope="col">@item.SlCpGiam</td>
+                }
+                @if (Model.Data.ShowKlGd)
+                {
+                    <td class="right" scope="col">@item.KLGD</td>
+                    <td class="right" scope="col">@item.KLTB5</td>
+                    <td class="right" scope="col">@item.PercentKlgdVuotKlTb</td>
+
+                }
+                @if (Model.Data.ShowNNMuaBanRong)
+                {
+                    <td class="right" scope="col">@item.Rong</td>
+
+                }
+                @if (Model.Data.ShowCstc)
+                {
+                    <td class="right" scope="col">@item.EPS</td>
+                    <td class="right" scope="col">@item.PE</td>
+                    <td class="right" scope="col">@item.DoanhThu4Quy</td>
+                }
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

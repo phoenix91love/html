@@ -1,0 +1,35 @@
+﻿
+@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Stock.CompanyModelGrid>
+<div class="table-responsive-sm table-scroll">
+    <br />
+    <table class="table table-bordered table-common">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã CK</th>
+                <th scope="col">Tên công ty</th>
+                <th scope="col">Ngành</th>
+                <th scope="col">Sàn</th>
+                <th scope="col">KLNY/ĐKGD</th>
+            </tr>
+          
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+            <tr>
+                <td class="center" scope="row">@item.RowIndex</td>
+                <td class="center"><a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></td>
+                <td>@item.Name</td>
+                <td class="">@item.ProfessionName.Split('/').Last()</td>
+                <td class="center">@item.ExchangeCode</td>
+                <td class="right">@item.KLCPNY.ToString("#,###")</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<nav id="common-paging">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</nav>

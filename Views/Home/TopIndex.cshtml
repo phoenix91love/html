@@ -1,0 +1,91 @@
+﻿@using M.Common.Extensions;﻿
+@model Nqs.Models.FormModel.Common.BaseListModel<Nqs.Models.FormModel.Home.TopIndex>
+
+<ul class="is-line-bottom">
+    <li class="label2">
+        <span class="col-1">STT</span>
+        <span class="col-2">Mã CK</span>
+        @if (Model.Data.Type == "4")
+        {
+            <span class="col-3 text-right">GTGD</span>
+        }
+        else
+            if (Model.Data.Type == "5" || Model.Data.Type == "6")
+        {
+            <span class="col-3 text-right">KL Mua ròng</span>
+        }
+        else
+        {
+            <span class="col-3 text-right">KLGD</span>
+        }
+        <span class="col-3 text-right">Giá</span>
+        <span class="col-3 text-right">Thay đổi</span>
+    </li>
+    @foreach (var item in Model.DataList)
+    {
+        <li data-toggle="tooltip" data-placement="left" data-code="@item.Code"
+            data-price="@item.Price"
+            data-change="@item.Change"
+            data-perchange="@(item.PerChange)"
+            data-price7day="@item.Price7Day"
+            data-change7day="@item.Change7Day"
+            data-perchange7day="@(item.Perchange7Day)"
+            data-klgd="@item.TotalVolume"
+            data-gtgd="@item.TotalValue"
+            data-nnmua="@item.NnMua"
+            data-nnban="@item.NnBan"
+            data-companyname="@item.CompanyName">
+
+            <span class="col-1">@item.RowIndex</span>
+            <span class="col-2 code"><a href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></span>
+            <span class="col-3 text-right">@item.Value.FormatNumber()</span>
+            <span class="col-3 text-right @(item.Change > 0 ? "green" : "red")">@item.Price.FormatNumber()</span>
+            <span class="col-3 text-right @(item.Change > 0 ? "green" : "red")">@(item.Change.FormatNumber() + " ("+ item.PerChange.FormatNumber() + "%)")</span>
+        </li>
+    }
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var isMobile = $("body").hasClass("mobile");
+        if (!isMobile) {
+            $('[data-toggle="tooltip"]').tooltip({
+                html: true,
+                delay: {
+                    //hide: 50000
+                },
+                title: function () {
+                    var code = this.getAttribute('data-code');
+                    var price = this.getAttribute('data-price');
+                    var change = this.getAttribute('data-change');
+                    var perchange = this.getAttribute('data-perchange');
+                    var price7day = this.getAttribute('data-price7day');
+                    var change7day = this.getAttribute('data-change7day');
+                    var perchange7day = this.getAttribute('data-perchange7day');
+                    var klgd = $.number(this.getAttribute('data-klgd'), 0);
+                    var gtgd = this.getAttribute('data-gtgd');
+                    var nnmua = $.number(this.getAttribute('data-nnmua'), 0);
+                    var nnban = $.number(this.getAttribute('data-nnban'), 0);
+                    var companyName = this.getAttribute('data-companyname');
+                    var priceClass = "";
+                    var price7DClass = "";
+
+                    if (this.getAttribute('data-change') > 0) priceClass = "green";
+                    if (this.getAttribute('data-change') < 0) priceClass = "red";
+                    if (this.getAttribute('data-change7day') > 0) price7DClass = "green";
+                    if (this.getAttribute('data-change7day') < 0) price7DClass = "red";
+
+                    var str = "<div class='top-tool-tip'>";
+                    str += "<span style='font-size: 15px;'>" + code + "</span>: <span style='font-size: 13px;'>" + companyName + "</span><hr/>";
+                    str += "<h3><span class='item1'>Giá: </span><span class='item2'>" + price + "</span><span class='item3 " + priceClass + "'>" + change + "</span><span class='item4 " + priceClass + "'>(" + perchange + "%)</span></h3>";
+                    str += "<h3><span class='item1'>7 ngày trước:</span><span class='item2'>" + price7day + "</span><span class='item3 " + price7DClass + "'>" + change7day + "</span><span class='item4 " + price7DClass + "'>(" + perchange7day + "%)</span></h3>";
+                    str += "<h3><span class='item1'>KLGD:</span><span class='item2'>" + klgd + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
+                    str += "<h3><span class='item1'>GTGD:</span><span class='item2'>" + gtgd + " tỷ</span><span class='item3'></span><span class='item4'></span></h3>";
+                    str += "<h3><span class='item1'>NN Mua:</span><span class='item2'>" + nnmua + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
+                    str += "<h3><span class='item1'>NN Bán:</span><span class='item2'>" + nnban + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
+                    str += "</div>";
+                    return str;
+                }
+            });
+        }
+    });
+</script>

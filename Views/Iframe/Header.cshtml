@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_IFrameLayout.cshtml";
+}
+
+@Html.Partial("Partials/Header", "false")
+
+
+<div class="modal watch-list-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-top" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-9 col-9">
+                        <div class="c-search">
+                            <div class="c-search__inner">
+                                <input class="form-control" id="txt-keyword" type="text" name="" placeholder="Mã chứng khoán muốn theo dõi" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>
+                </div>
+            </div>
+            <ul class="c-box follow is-line-bottom m-3 watch-list-popup">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    var swiper = new Swiper(".topcontents", {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+</script>

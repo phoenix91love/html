@@ -1,0 +1,68 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.History.OrderHistory>
+<div class="table-responsive-sm table-scroll">
+    <br />
+    <table class="table table-hover table-striped table-bordered table-common">
+        <thead>
+            <tr>
+                <th scope="col" rowspan="2">STT</th>
+                <th scope="col" rowspan="2">Ngày</th>
+                <th scope="col" rowspan="2">Mã CK</th>
+                <th scope="col" rowspan="2">Đóng cửa</th>
+                <th scope="col" rowspan="2">KL khớp</th>
+                <th scope="col" rowspan="2">GT khớp</th>
+
+                <th scope="col" colspan="3">Số lệnh</th>
+                <th scope="col" colspan="3">Khối lượng</th>
+                <th scope="col" colspan="2">Tổng GD</th>
+            </tr>
+            <tr>
+                <th scope="col">Mua</th>
+                <th scope="col">Bán</th>
+                <th scope="col">Mua - Bán</th>
+                <th scope="col">Mua</th>
+                <th scope="col">Bán</th>
+                <th scope="col">Mua - Bán</th>
+                <th scope="col">Tổng KL</th>
+                <th scope="col">Tổng GT</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+            <tr>
+                <td class="center" scope="row">@item.RowIndex</td>
+                <td class="center">@item.Date</td>
+                <td class="center">
+                    @{
+                        var listExclude = new List<string>() { "VN-Index", "HNX-Index", "UPCoM-Index", "VN30-Index", "HNX30-Index" };
+                        if (listExclude.Contains(item.Code))
+                        {
+                            @item.Code
+                        }
+                        else
+                        {
+                            <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
+                        }
+                    }
+                </td>
+                <td class="right">@item.ClosePrice</td>
+                <td class="right">@item.MatchVol.FormatNumber()</td>
+                <td class="right">@item.MatchVal.FormatNumber()</td>
+
+                <td class="right">@item.TotalOrderBuy.FormatNumber()</td>
+                <td class="right">@item.TotalOrderSell.FormatNumber()</td>
+                <td class="right">@((item.TotalOrderBuy - item.TotalOrderSell).FormatNumber())</td>
+                <td class="right">@item.TotalVolBuy.FormatNumber()</td>
+                <td class="right">@item.TotalVolSell.FormatNumber()</td>
+                <td class="right">@((item.TotalVolBuy - item.TotalVolSell).FormatNumber())</td>
+                <td class="right">@item.TotalVol.FormatNumber()</td>
+                <td class="right">@item.TotalVal.FormatNumber()</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<nav id="common-paging-order-history">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</nav>

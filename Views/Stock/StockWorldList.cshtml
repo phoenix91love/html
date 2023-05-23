@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Thế giới";
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <div class="row">
+            <ul class="info-navbar info-grey" id="mainTab">
+                <li class="active">
+                    <a href="#world-current" class="tablink" data-id="1" data-toggle="tab">Hiện tại</a>
+                </li>
+                <li>
+                    <a href="#world-history" class="tablink" data-id="2" data-toggle="tab">Lịch sử</a>
+                </li>
+
+            </ul>
+            <div class="tab-content clearfix">
+                <div class="tab-pane active" id="world-current">
+
+                </div>
+                <div class="tab-pane" id="world-history">
+                    @Html.Partial("~/Views/Stock/Partials/StockWorldHistory.cshtml", ViewData)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            App.loadPartial('@Url.Action("StockWorldCurrent", "Stock")', "", "#world-current");
+            setInterval(function () {
+                 App.loadPartial('@Url.Action("StockWorldCurrent", "Stock")', "", "#world-current");
+            }, 60 * 1000);
+
+            $(document).on("click", "#common-paging .page-link", function () {
+                var page = $(this).attr("data-page");
+                loadData(page);
+            });
+            loadData(1);
+            function loadData(page) {
+                var fromDate = $('#input-from-date').val();
+                var toDate = $('#input-to-date').val();
+                var code = $('#input-code').val();
+                var params = "page=" + page + "&fromDate=" + fromDate + "&toDate=" + toDate + "&code=" + code;
+
+                    App.loadPartial('@Url.Action("StockWorldHistory", "Stock")', params, "#world-history-grid");
+            }
+            $(document).on("click", ".btn-search", function () {
+                loadData(1);
+            });
+            CommonHelper.showDatePicker("#input-from-date, #input-to-date", {});
+        });
+    </script>
+}

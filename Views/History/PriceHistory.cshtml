@@ -1,0 +1,77 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.History.PriceHistory>
+<div class="table-responsive-sm table-scroll">
+    <br />
+    <table class="table table-hover table-striped table-bordered table-common">
+        <thead>
+            <tr>
+                <th scope="col" rowspan="2">STT</th>
+                <th scope="col" rowspan="2">Ngày</th>
+                <th scope="col" rowspan="2">Mã CK</th>
+                <th scope="col" rowspan="2">Tham chiếu</th>
+                <th scope="col" rowspan="2">Điều chỉnh</th>
+                <th scope="col" rowspan="2">Cao nhất</th>
+                <th scope="col" rowspan="2">Thấp nhất</th>
+                <th scope="col" rowspan="2">Mở cửa</th>
+                <th scope="col" rowspan="2">Đóng cửa</th>
+                <th scope="col" colspan="2">Thay đổi</th>
+                <th scope="col" colspan="2">GD khớp lệnh</th>
+                <th scope="col" colspan="2">GD thỏa thuận</th>
+                <th scope="col" colspan="2">Tổng GD</th>
+                <th scope="col" rowspan="2">Vốn hóa</th>
+            </tr>
+            <tr>
+                <th scope="col">+/-</th>
+                <th scope="col">%</th>
+                <th scope="col">KL</th>
+                <th scope="col">GT</th>
+                <th scope="col">KL</th>
+                <th scope="col">GT</th>
+                <th scope="col">KL</th>
+                <th scope="col">GT</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+            <tr>
+                <td class="center" scope="row">@item.RowIndex</td>
+                <td class="center">@item.Date</td>
+                <td class="center">
+                    @{
+                        var listExclude = new List<string>() { "VN-Index", "HNX-Index", "UPCoM-Index", "VN30-Index", "HNX30-Index" };
+                        if (listExclude.Contains(item.Code))
+                        {
+                            @item.Code
+                        }
+                        else
+                        {
+                            <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
+                        }
+                    }
+
+                </td>
+                <td class="right">@item.PrePrice.FormatNumber()</td>
+                <td class="right">@item.AdjPrice.FormatNumber()</td>
+                <td class="right">@item.HighestPrice.FormatNumber()</td>
+                <td class="right">@item.LowestPrice.FormatNumber()</td>
+                <td class="right">@item.OpenPrice.FormatNumber()</td>
+                <td class="right">@item.ClosePrice.FormatNumber()</td>
+                <td class="right @(item.PerChange>0 ? "green" : (item.PerChange < 0 ? "red" : "") )">@item.Change.FormatNumber()</td>
+                <td class="right @(item.PerChange>0 ? "green" : (item.PerChange < 0 ? "red" : "") )">@item.PerChange.FormatNumberPercent()</td>
+                <td class="right">@item.MatchVol.FormatNumber()</td>
+                <td class="right">@item.MatchVal.FormatNumber()</td>
+                <td class="right">@item.PtVol.FormatNumber()</td>
+                <td class="right">@item.PtVal.FormatNumber()</td>
+                <td class="right">@item.TotalVol.FormatNumber()</td>
+                <td class="right">@item.TotalVal.FormatNumber()</td>
+                <td class="right">@item.MarketCap.FormatNumber()</td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<nav id="common-paging-price-history">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</nav>

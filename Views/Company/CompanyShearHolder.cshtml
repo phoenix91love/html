@@ -1,0 +1,42 @@
+﻿@using M.Common.Helpers
+@using M.Common.Extensions
+@model Nqs.Models.FormModel.Common.BaseModels<List<Nqs.Models.FormModel.Company.CompanyownerAndShearHolder>>
+@{
+    var code = ViewBag.Code;
+    var data = Model.DataObject.OrderByDescending(x => x.Percent).ToList();
+    if (data == null)
+    {
+        data = new List<Nqs.Models.FormModel.Company.CompanyownerAndShearHolder>();
+    }
+}
+
+
+<div class="tab__3 is-line-bottom">
+    <ul class="l-tab">
+        <li><div>Tên cổ đông</div><div>Tỉ lệ</div></li>
+        @foreach (var item in data.Where(x => x.Percent > 0).OrderByDescending(x => x.Percent).Take(10))
+        {
+            <li>
+
+                @if (item.Type == 1)
+                {
+                    <div>@Html.Raw(string.IsNullOrEmpty(item.UserOrCompanyOwner) ? item.UserOrCompanyOwnerName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = item.UserOrCompanyOwner.ToLower(), companyCode = item.Code, name = M.Common.Extensions.RegexHelper.TiengVietKDau(item.UserOrCompanyOwnerName).ToLower() })}'>{item.UserOrCompanyOwnerName}</a>")</div>
+                }
+                else
+                {
+                    <div>@Html.Raw(string.IsNullOrEmpty(item.UserOrCompanyOwner) ? item.UserOrCompanyOwnerName : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>{item.UserOrCompanyOwnerName}</a>") </div>
+                }
+
+                <div>@*<span class="vuong" style="background-color: @item.Color"></span>*@  @item.Percent.FormatNumber()%</div>
+            </li>
+        }
+    </ul>
+    <div class="r-tab">
+        <canvas id="charShearHolder" width="320" height="320"></canvas>
+        <ul class="tile">
+            <li>Trong nước: N/A%</li>
+            <li>Nước ngoài : N/A%</li>
+            <li>Nước ngoài : N/A%</li>
+        </ul>
+    </div>
+</div>

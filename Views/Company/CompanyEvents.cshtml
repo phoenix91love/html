@@ -1,0 +1,34 @@
+﻿@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Event.EventMdl>
+
+@*<div class="c-box__title white__bg"><a class="c-box__title__name" href="javascript:void(0)">Lịch sự kiện</a></div>*@
+
+
+<ul class="c-box info__company is-line-bottom text-center">
+    <li class="labelname grey__bg">
+        <span class="col-2">Ngày GDKHQ</span>
+        <span class="col-2">Ngày ĐKCC</span>
+        <span class="col-2">Ngày Thực hiện</span>
+        <span>Nội dung Thực hiện</span>
+    </li>
+    @foreach (var item in Model.DataList)
+    {
+        var randomId = System.Guid.NewGuid().ToString().ToLower();
+        <li>
+            <span class="col-2">@(item.Date_GDKHQ.HasValue? item.Date_GDKHQ.Value.ToString("dd/MM/yyyy"):"")</span>
+            <span class="col-2">@(item.Date_DKCC.HasValue? item.Date_DKCC.Value.ToString("dd/MM/yyyy"):"")</span>
+            <span class="col-2">@(item.Date_TH.HasValue?item.Date_TH.Value.ToString("dd/MM/yyyy"):"")</span>
+            <span><a class="link-event" href="javascript:void(0)" onclick="eventClick(this)" id="@randomId">@item.Note</a></span>
+
+            <span id="title-@randomId" class="d-none">@item.Title</span>
+            <span id="content-@randomId" class="d-none">@MvcHtmlString.Create(item.Content)</span>
+            <span id="url-@randomId" class="d-none">@item.File</span>
+        </li>
+    }
+</ul>
+@if (Model.DataList == null || !Model.DataList.Any() || Model.TotalPage == 1)
+{
+    return;
+}
+<div class="w-100 text-center paging-event">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</div>

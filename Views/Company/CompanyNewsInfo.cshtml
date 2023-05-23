@@ -1,0 +1,33 @@
+﻿@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Company.CompanyNewsMdl>
+
+@if (Model.DataList == null || !Model.DataList.Any())
+{
+    return;
+}
+<div class="sml_title">Thông tin công bố</div>
+<input class="d-none" type="hidden" id="news-page" value="@Model.CurrentPage" />
+<input class="d-none" type="hidden" id="news-pagesize" value="@(Model.DataList==null?0:Model.DataList.Count())" />
+
+<ul>
+    @foreach (var item in Model.DataList)
+    {
+        var randomId = System.Guid.NewGuid().ToString().ToLower();
+        <li>
+            <span>@item.Date.ToString("dd/MM/yyyy")</span>
+            <a href="javascript:void(0)" onclick="eventClick(this)" id="@randomId" title="@item.Title">@item.Title </a>
+            <span id="title-@randomId" class="d-none">@item.Title</span>
+            <span id="content-@randomId" class="d-none">@MvcHtmlString.Create(item.Content)</span>
+            <span id="url-@randomId" class="d-none">@item.File</span>
+        </li>
+    }
+
+
+
+</ul>
+@if (Model.DataList == null || !Model.DataList.Any() || Model.TotalPage == 1)
+{
+    return;
+}
+<div class="w-100 text-center paging-news">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</div>

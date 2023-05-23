@@ -1,0 +1,49 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.Common.BaseListModel<Nqs.Models.FormModel.Stock.World.StockWorldCurrent>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive-sm table-scroll">
+            <br />
+            <table class="table table-bordered table-common">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Mã CK</th>
+                        <th scope="col">Giá hiện tại</th>
+                        <th scope="col">Tham chiếu</th>
+                        <th scope="col">Mở cửa</th>
+                        <th scope="col">Thay đổi(%)</th>
+                        <th scope="col">Khối lượng</th>
+                        <th scope="col">KLTB</th>
+                        <th scope="col">KLTB 10 ngày</th>
+                        <th scope="col">KLTB 30 ngày</th>
+                        <th scope="col">Cao/thấp nhất ngày</th>
+                        <th scope="col">Cao/thấp nhất 52T</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DataList)
+                    {
+                        <tr>
+                            <td class="text-center" scope="row">@item.RowIndex</td>
+                            <td class="text-center" scope="col">@item.Code</td>
+                            <td class="text-right" scope="col">@item.Price.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.PreviousClose.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Open.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Change.FormatNumber() (@item.Percent.FormatNumber()%)</td>
+                            <td class="text-right" scope="col">@item.Volume.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.AvgVolume.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.AvgVolume10Day.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.AvgVolume30Day.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.DayLow.FormatNumber() / @item.DayHigh.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Low52Week.FormatNumber() / @item.High52Week.FormatNumber()</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

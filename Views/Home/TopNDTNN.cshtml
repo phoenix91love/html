@@ -1,0 +1,24 @@
+﻿﻿@model Nqs.Models.FormModel.Common.BaseListModel<Nqs.Models.FormModel.Home.TopIndex>
+<table class="table table-bordered table-common">
+    <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Mã CK</th>
+            <th scope="col">GT</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Thay đổi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DataList)
+        {
+        <tr>
+            <td scope="col" class="center">@item.RowIndex</td>
+            <td scope="col" class="center">@item.Code</td>
+            <td scope="col" class="right">@item.Value</td>
+            <td scope="col" class="right">@item.Price</td>
+            <td scope="col" class="right">@(item.Change + " "+ item.PerChange +"%")</td>
+        </tr>
+        }
+    </tbody>
+</table>

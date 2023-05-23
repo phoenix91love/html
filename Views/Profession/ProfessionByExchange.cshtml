@@ -1,0 +1,63 @@
+﻿@using M.Common.Extensions
+@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.Profession
+@model BaseModels<List<ProfessionReportMdl>>
+
+<table class="table table-hover table-striped table-bordered table-common table-bctc table-responsive d-block d-md-table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ngành</th>
+            <th>Vốn hóa</th>
+            <th>Top Tăng</th>
+            <th>Top Giảm</th>
+            <th>KLGD</th>
+            <th>GTGD</th>
+            <th>EPS Ngành</th>
+            <th>Số doanh nghiệp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var data = Model.DataObject;
+            if (data == null || !data.Any())
+            {
+                return;
+            }
+            foreach (var item in data)
+            {
+                <tr class="treegrid-@item.ProfessionId @(item.ProfessionParrentId>0? "treegrid-parent-"+item.ProfessionParrentId : "")">
+                    <td>@item.Index</td>
+                    <td >
+                        @Html.Raw(string.IsNullOrEmpty(item.ProfessionName) ? "--" : (item.ProfessionParrentId != 0 ? $"{item.ProfessionName.Split('/').Last()}" : $"<a href='javascript:void(0)' data-id='{item.ProfessionId}' onclick='ViewChildProfession(this)'> {item.ProfessionName.Split('/').Last()}</a>"))
+                    </td>
+                    <td class="@(item.PercentMaketCapProfession>=0?"green":"red")">
+                        @(item.MaketCap == 0?"--":$"{(item.MaketCap / 1000000000).FormatNumber()}({item.PercentMaketCapProfession.FormatNumber()}%)")
+                    </td>
+                    <td class="green">
+                        @Html.Raw(string.IsNullOrEmpty(item.CodeTopUp) ? "--" : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.CodeTopUp })}' target='blank'> {item.CodeTopUp}({item.PercentUp.FormatNumber()}%)</a>")
+                    </td>
+                    <td class="red">
+                        @Html.Raw(string.IsNullOrEmpty(item.CodeTopDown) ? "--" : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.CodeTopDown })}' target='blank'> {item.CodeTopDown}({item.PercentDown.FormatNumber()}%)</a>")
+                    </td>
+
+                    <td>
+                        @(item.Volume == 0?"--":$"{item.Volume.FormatNumber()}")
+                    </td>
+                    <td>
+                        @(item.Value == 0?"--":$"{(item.Value / 1000000000).FormatNumber()}")
+                    </td>
+                    <td>
+                        @(item.AverageEPS == 0?"--":$"{item.AverageEPS.FormatNumber()}")
+                    </td>
+                    <td>
+                        <div>
+                            <div> @Html.Raw(item.CountDown == 0?"--": $"<a href='{Url.Action("CompanyList", "Company",new { exId=ViewBag.ExchangeId, professionId=item.ProfessionId })}'> {item.CountDown}</a>") </div>
+                            <div> @Html.Raw(item.CountUp == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountUp}</a>") </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

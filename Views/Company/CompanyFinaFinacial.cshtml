@@ -1,0 +1,232 @@
+﻿@using M.Common.Helpers
+@using M.Common.Extensions;
+@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.Company
+@model (BaseListModel<CompanyFinanceReport> KQKD, BaseListModel<CompanyFinanceReport> CDKT, BaseListModel<CompanyFinanceReport> KQKDChart, BaseListModel<CompanyFinanceReport> CDKTChart)
+@{
+    var unit = 1000;
+    var lableReportKQKD = new string[] { Model.KQKDChart.SearchParams["y1"].ToString(), Model.KQKDChart.SearchParams["y2"].ToString(), Model.KQKDChart.SearchParams["y3"].ToString(), Model.KQKDChart.SearchParams["y4"].ToString(), Model.KQKDChart.SearchParams["y5"].ToString() };
+    var data1 = Model.KQKDChart.DataList.OrderBy(x => x.ColumIndex).FirstOrDefault();
+    var dataReportKQKD1 = new double[] { };
+    var dataReportKQKD2 = new double[] { };
+    var dataReportCDKT1 = new double[] { };
+    var dataReportCDKT2 = new double[] { };
+    if (data1 == null)
+    {
+        dataReportKQKD1 = new double[] { 0, 0, 0, 0 };
+    }
+    else
+    {
+        dataReportKQKD1 = new double[] { Math.Round(data1.ValueYear2.Value / unit, 2), Math.Round(data1.ValueYear3.Value / unit, 2), Math.Round(data1.ValueYear4.Value / unit, 2), Math.Round(data1.ValueYear5.Value / unit, 2) };
+    }
+    data1 = Model.KQKDChart.DataList.OrderBy(x => x.ColumIndex).LastOrDefault();
+    if (data1 == null)
+    {
+        dataReportKQKD2 = new double[] { 0, 0, 0, 0 };
+    }
+    else
+    {
+        dataReportKQKD2 = new double[] { Math.Round(data1.ValueYear2.Value / unit, 2), Math.Round(data1.ValueYear3.Value / unit, 2), Math.Round(data1.ValueYear4.Value / unit, 2), Math.Round(data1.ValueYear5.Value / unit, 2) };
+    }
+
+
+    var lableReportCDKT = new string[] { Model.CDKTChart.SearchParams["y2"].ToString(), Model.CDKTChart.SearchParams["y3"].ToString(), Model.CDKTChart.SearchParams["y4"].ToString(), Model.CDKTChart.SearchParams["y5"].ToString() };
+
+    data1 = Model.CDKTChart.DataList.OrderBy(x => x.ColumIndex).FirstOrDefault();
+    if (data1 == null)
+    {
+        dataReportCDKT1 = new double[] { 0, 0, 0, 0 };
+    }
+    else
+    {
+        dataReportCDKT1 = new double[] { Math.Round(data1.ValueYear2.Value / unit, 2), Math.Round(data1.ValueYear3.Value / unit, 2), Math.Round(data1.ValueYear4.Value / unit, 2), Math.Round(data1.ValueYear5.Value / unit, 2) };
+    }
+
+    data1 = Model.CDKTChart.DataList.OrderBy(x => x.ColumIndex).LastOrDefault();
+    if (data1 == null)
+    {
+        dataReportCDKT1 = new double[] { 0, 0, 0, 0 };
+    }
+    else
+    {
+        dataReportCDKT2 = new double[] { Math.Round(data1.ValueYear2.Value / unit, 2), Math.Round(data1.ValueYear3.Value / unit, 2), Math.Round(data1.ValueYear4.Value / unit, 2), Math.Round(data1.ValueYear5.Value / unit, 2) };
+    }
+
+}
+<div class="company-financial">
+    <div class="row">
+        <div class="option col-12">
+            <a class="btn btn-light @((byte)ViewBag.TypeView==1?"active":"")" href="javascript:void(0)" onclick="ChangeTypeView(1)">Xem theo quý</a>
+            <a class="btn btn-light @((byte)ViewBag.TypeView==2?"active":"")" href="javascript:void(0)" onclick="ChangeTypeView(2)">Xem theo năm</a>
+
+            <a class="btn btn-light" href="@Url.Action("FinanceHistory", "History", new { code = ViewBag.Code })">Xem đầy đủ</a>
+        </div>
+    </div>
+    <div class="finance-chart row">
+        <div class="col-12 col-md-6">
+            <canvas id="chart-kqkd" width="300" height="200"></canvas>
+        </div>
+        <div class="col-12 col-md-6">
+            <canvas id="chart-cdkt" width="300" height="200"></canvas>
+        </div>
+    </div>
+    <div class="sub-option">
+        <span>Kết quả kinh doanh</span>
+        <a class="btn btn-light" href="javascript:void(0)" onclick="financeNext()">></a>
+        <a class="btn btn-light" href="javascript:void(0)" onclick="financePre()"><</a>
+    </div>
+    <div class="content-kqkd row">
+        <div class="col-12">
+            <table class="table table-hover table-striped table-bordered table-common table-kqkd">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <span>
+                                KQKD
+
+                                <a class="btn btn-light" href="javascript:void(0)" onclick="financePre()"><</a>
+                                <a class="btn btn-light" href="javascript:void(0)" onclick="financeNext()">></a>
+                            </span>
+                        </th>
+
+                        @*<th scope="col">
+                                @Model.KQKD.SearchParams["y1"]
+                            </th>*@
+                        <th scope="col">
+                            @Model.KQKD.SearchParams["y2"]
+                        </th>
+                        <th scope="col">
+                            @Model.KQKD.SearchParams["y3"]
+                        </th>
+                        <th scope="col">
+                            @Model.KQKD.SearchParams["y4"]
+                        </th>
+                        <th scope="col">
+                            @Model.KQKD.SearchParams["y5"]
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.KQKD.DataList.OrderBy(x => x.ColumIndex))
+                    {
+                        <tr>
+                            <td>
+                                <span> @item.ColumName</span>
+                                <span> @item.ColumNameMobile</span>
+                            </td>
+
+                            @*<td>
+                                    <span class="d-none d-lg-block"> @(item.ValueYear1==0?"N/A": item.ValueYear1.FormatNumber())</span>
+                                    <span class="d-block d-lg-none"> @(item.ValueYear1==0?"N/A": (item.ValueYear1/1000).FormatNumber())</span>
+                                </td>*@
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear2==0?"N/A": item.ValueYear2.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear2==0?"N/A": (item.ValueYear2/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear3==0?"N/A": item.ValueYear3.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear3==0?"N/A": (item.ValueYear3/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear4==0?"N/A": item.ValueYear4.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear4==0?"N/A": (item.ValueYear4/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear5==0?"N/A": item.ValueYear5.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear5==0?"N/A": (item.ValueYear5/1000).FormatNumber())</span>
+                            </td>
+                            <td class="text-center">
+                                @*<img src="@("https://chart.googleapis.com/chart?cht=bvs&chd=t:"+NumberHelper.GetValueGoogleApi_4Colum(item.ValueYear2,item.ValueYear3,item.ValueYear4,item.ValueYear5,minvalue)+"&chs=60x30&chco=3b1b70&chbh=5&chf=bg,s,f9f8fa00")" />*@
+                                <img src="@NumberHelper.GetUrlChartGoogle_4Column(item.ValueYear2,item.ValueYear3,item.ValueYear4,item.ValueYear5)" />
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="sub-option">
+        <span> Cân đối kế toán</span>
+    </div>
+    <div class="content-cdkt row">
+        <div class="col-12">
+            <table class="table table-hover table-striped table-bordered table-common table-bctc">
+                <thead>
+                    <tr>
+                        <th scope="col">
+
+                            <span> Cân đối kế toán</span>
+                        </th>
+
+                        @*<th scope="col">
+                                @Model.CDKT.SearchParams["y1"]
+                            </th>*@
+                        <th scope="col">
+                            @Model.CDKT.SearchParams["y2"]
+                        </th>
+                        <th scope="col">
+                            @Model.CDKT.SearchParams["y3"]
+                        </th>
+                        <th scope="col">
+                            @Model.CDKT.SearchParams["y4"]
+                        </th>
+                        <th scope="col">
+                            @Model.CDKT.SearchParams["y5"]
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                    @foreach (var item in Model.CDKT.DataList.OrderBy(x => x.ColumIndex))
+                    {
+                        <tr class="">
+                            <td>
+                                <span> @item.ColumName</span>
+                                <span> @item.ColumNameMobile</span>
+                            </td>
+
+                            @*<td>
+                                    @(item.ValueYear1==0?"N/A": item.ValueYear1.FormatNumber())
+                                </td>*@
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear2==0?"N/A": item.ValueYear2.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear2==0?"N/A": (item.ValueYear2/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear3==0?"N/A": item.ValueYear3.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear3==0?"N/A": (item.ValueYear3/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear4==0?"N/A": item.ValueYear4.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear4==0?"N/A": (item.ValueYear4/1000).FormatNumber())</span>
+                            </td>
+                            <td>
+                                <span class="d-none d-lg-block"> @(item.ValueYear5==0?"N/A": item.ValueYear5.FormatNumber())</span>
+                                <span class="d-block d-lg-none"> @(item.ValueYear5==0?"N/A": (item.ValueYear5/1000).FormatNumber())</span>
+                            </td>
+                            <td class="text-center">
+                                @*<img src="@("https://chart.googleapis.com/chart?cht=bvs&chd=t:"+NumberHelper.GetValueGoogleApi_4Colum(item.ValueYear2,item.ValueYear3,item.ValueYear4,item.ValueYear5,minvalue)+"&chs=60x30&chco=3b1b70&chbh=5&chf=bg,s,f9f8fa00")" />*@
+                                <img src="@NumberHelper.GetUrlChartGoogle_4Column(item.ValueYear2,item.ValueYear3,item.ValueYear4,item.ValueYear5)"/>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var lableReportKQKD = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(lableReportKQKD))');
+    var dataReportKQKD1 = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(dataReportKQKD1))');
+    var dataReportKQKD2 = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(dataReportKQKD2))');
+
+    var lableReportCDKT = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(lableReportCDKT))');
+    var dataReportCDKT1 = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(dataReportCDKT1))');
+    var dataReportCDKT2 = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(dataReportCDKT2))');
+</script>

@@ -1,0 +1,686 @@
+﻿@using M.Common.Helpers
+@using M.Common.Extensions
+@using Nqs.Models.FormModel.Company
+@model CompanyInforMdl
+@{
+
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+    var dataStock = (CompanyStockMdl)ViewBag.DataStock;
+    ViewBag.PageName = "Dữ liệu doanh nghiệp";
+    //var dataStockNN = (Nqs.Models.FormModel.Company.CompanyStockNNMdl)ViewBag.DataStockNN;
+    var dataStockLikeProfess = (List<(string Code, CompanyStockMdl CompanyStock)>)ViewBag.DataStockLikeProfess;
+    if (dataStockLikeProfess == null)
+    {
+        dataStockLikeProfess = new List<(string Code, CompanyStockMdl CompanyStock)>();
+    }
+    var topEPS = (List<CompanyTopEPSMdl>)ViewBag.DataFinanceTopEPS;
+    if (topEPS == null)
+    {
+        topEPS = new List<CompanyTopEPSMdl>();
+    }
+
+    if (Model != null)
+    {
+        if (string.IsNullOrEmpty(Model.DataObject.Code))
+        {
+            ViewBag.SubTitle = $"Không tìm thấy dữ liệu liên quan đến mã {ViewBag.Code}";
+            ViewBag.Title = $"Không tìm thấy dữ liệu liên quan đến mã {ViewBag.Code}";
+
+        }
+        else
+        {
+            ViewBag.SubTitle = $"{Model.DataObject.Name.Replace("CTCP", "Công ty Cổ phần")} ({Model.DataObject.Code} - {Model.DataObject.SanGD})";
+            ViewBag.Title = Model.DataObject.Name.Replace("CTCP", "Công ty Cổ phần");
+        }
+
+    }
+    if (dataStock == null)
+    {
+        dataStock = new CompanyStockMdl();
+    }
+    var dataFinanceEPS = (CompanyFinanceMdl)ViewBag.DataFinanceEPS;
+    if (dataFinanceEPS == null)
+    {
+        dataFinanceEPS = new CompanyFinanceMdl();
+    }
+    var EPS = (dataFinanceEPS.EPS / dataStock.ListingVolume);
+    var BVPS = (dataFinanceEPS.BVPS / dataStock.ListingVolume) / 1000;
+    var PS = (dataStock.MarketCap * 1000 / dataFinanceEPS.PS);
+
+    var dataSpecialPersonal = (List<CompanyPersonalGroupSpecialMdl>)ViewBag.DataSpecialPersonal;
+    if (dataSpecialPersonal == null)
+    {
+        dataSpecialPersonal = new List<CompanyPersonalGroupSpecialMdl>();
+    }
+    var countPercentStockCeo = (double)(NumberHelper.GetStockPercent(ViewBag.DataPercentStockCeo) ?? 0.0);
+}
+@section Styles{
+
+    @Styles.Render("~/bundles/styles/company-detail")
+}
+<div class="c-content-flex container-company-detail">
+    @if (string.IsNullOrEmpty(Model.DataObject.Code))
+    {
+        <div class="b-grid__title">
+            <span class="name">@ViewBag.SubTitle</span>
+        </div>
+        return;
+    }
+    else
+    {
+        <div class="b-grid__title">
+            <span class="name">@ViewBag.SubTitle</span>
+        </div>
+    }
+
+    <input type="hidden" id="input-code" value="@Model.DataObject.Code" />
+    <input type="hidden" class="hd-type" value="DAY" />
+    <input type="hidden" class="hd-exchange" value="@Model.DataObject.SanGD" />
+    <div class="l-main">
+        <div class="topnews b-grid c-content-flex is-line-bottom">
+            <div class="l-topnews b-grid__row col-lg-7">
+
+                <div class="b-grid__title box">
+                    <span class="point"> @dataStock.Current.FormatNumber()</span>
+                    <span class="unit @(dataStock.Change >= 0 ? "green" : "red") "> @( dataStock.Change >= 0? $"+{(dataStock.Change/1000).FormatNumber()}": $"{(dataStock.Change / 1000).FormatNumber()}")</span>
+                    <span class="unit @(dataStock.ChangePercent >= 0 ? "green" : "red")"> @(dataStock.ChangePercent >= 0 ? $"+{dataStock.ChangePercent.FormatNumber()}" : dataStock.ChangePercent.FormatNumber())%</span>
+                    <span class="unit-lastupdate">Cập nhật: @dataStock.LastUpdate.ToString("HH:mm dd/MM/yyyy")</span>
+                </div>
+                <div class="kyquy">
+                    <span class="exchange">Sàn: <span>@Model.DataObject.SanGD</span></span>
+                    @if (Model.DataObject.KyQuy)
+                    {
+                        <span class="status">Tình trạng: <span><span>Được</span> GD ký quỹ </span></span>
+                    }
+                </div>
+                <div class="">
+                    <ul class="d-flex c-chart">
+                        <li><a href="javascript:void(0)" class="btn-load active" data-type="DAY">1D</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="WEEK">1W</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="1MONTH">1M</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="3MONTH">3M</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="6MONTH">6M</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="1YEAR">1Y</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="5YEAR">5Y</a></li>
+                        <li><a href="javascript:void(0)" class="btn-load" data-type="">ALL</a></li>
+                    </ul>
+                </div>
+
+                <div id="chart-doanh-nghiep" style="height: 300px;"></div>
+                <div class="w-100 d-inline-block">
+                    <span class="float-left">So sánh cùng ngành</span>
+                    <a href="javascript:void(0)" class="infobtn">Phân tích kỹ thuật</a>
+                </div>
+                <ul class="phantich1">
+                    @foreach (var item in dataStockLikeProfess)
+                    {
+                        <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"black") )" data-toggle="tooltip"
+                            data-price="@item.CompanyStock.Current"
+                            data-code="@item.Code"
+                            data-change="@item.CompanyStock.Change.FormatNumberUnit(1)"
+                            data-percent-change="@item.CompanyStock.ChangePercent"
+                            data-volume="@item.CompanyStock.Volume"
+                            data-value="@(item.CompanyStock.Volume*item.CompanyStock.Current)"
+                            data-foreign="@item.CompanyStock.ForeignRoom"
+                            data-foreign-buy="@item.CompanyStock.ForeignBuy"
+                            data-foreign-sell="@item.CompanyStock.ForeignSell">
+                            <span><a href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a></span>
+                            <span>@item.CompanyStock.Current.ToString("N1")</span>
+                            <span>@(item.CompanyStock.Change >= 0? $"+{(item.CompanyStock.Change/1000).FormatNumber()}": $"{(item.CompanyStock.Change / 1000).FormatNumber()}")</span>
+                            <span>@( item.CompanyStock.Change >= 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}": $"{(item.CompanyStock.ChangePercent).FormatNumber()}")%</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!--end l-top-head-->
+            <div class="r-topnews col-lg-5">
+                <ul class="c-box is-border is-line-bottom mb-3">
+                    <li><span class="float-left">Tham chiếu</span><span class="float-right">@dataStock.BasePrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
+                    <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
+                    <li><span class="float-left">Mở cửa</span><span class="float-right">@dataStock.OpenPrice.FormatNumber()</span></li>
+                    @*<li><span class="float-left">Đóng cửa</span><span class="float-right">@dataStock.ClosePrice.FormatNumber()</span></li>*@
+                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
+                    <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
+                    <li><span class="float-left">GTGD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
+                </ul>
+                <!--end l-top-news-->
+                <div>
+                    <span class="titlebox">NĐTNN</span>
+                    <ul class="c-box is-border is-line-bottom">
+                        <li><span class="float-left">KL Mua</span><span class="float-right">@dataStock.BuyVol.FormatNumber()</span></li>
+                        <li><span class="float-left">KL Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
+                        <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
+                        <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
+                        <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
+                    </ul>
+                    <!--end l-top-news-->
+                </div>
+            </div>
+
+            <div class="r-topnews mobile d-block d-lg-none">
+                <ul>
+                    <li><span class="float-left">Tham chiếu</span><span class="float-right">@dataStock.BasePrice.FormatNumber()</span></li>
+                    <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
+
+                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
+                    <li><span class="float-left">Giá trị GD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
+
+                    <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
+                    <li><span class="float-left"></span><span class="float-right"></span></li>
+
+                    <li><span class="float-left">Mở cửa</span><span class="float-right">@dataStock.OpenPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">NN Mua</span><span class="float-right">@dataStock.BuyVol.FormatNumber()</span></li>
+
+                    <li><span class="float-left"></span><span class="float-right"></span></li>
+                    @*<li><span class="float-left">Đóng cửa</span><span class="float-right">@dataStock.ClosePrice.FormatNumber()</span></li>*@
+                    <li><span class="float-left">NN Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
+
+                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Mua ròng</span><span class="float-right">N/A</span></li>
+
+                    <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
+
+                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
+                    <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
+
+
+                    <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
+                </ul>
+                <hr />
+                <ul>
+                    <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)}Tỷ")</span></li>
+                    <li><span class="float-left">CP Lưu hành</span><span class="float-right">@dataStock.ListingVolume.FormatNumber() </span></li>
+                    <li><span class="float-left">P/E</span><span class="float-right">@(EPS==0?"N/A": (dataStock.Current/( EPS/1000)).FormatNumber()) </span></li>
+                    <li><span class="float-left">EPS</span><span class="float-right">@(EPS==0?"N/A":(EPS).FormatNumber())</span></li>
+                    <li><span class="float-left">P/B</span><span class="float-right">@(BVPS==0?"N/A":(dataStock.Current/BVPS).FormatNumber())</span></li>
+                    <li><span class="float-left">PS</span><span class="float-right">@(PS == 0?"N/A":(PS).FormatNumber())</span></li>
+                    <li><span class="float-left">BVPS</span><span class="float-right">@(BVPS==0?"N/A":(BVPS).FormatNumber())</span></li>
+                    <li><span class="float-left">BETA</span><span class="float-right">N/A</span></li>
+                </ul>
+                <hr />
+                <ul>
+                    <li class="note">
+                        <span>PE EPS: Tính theo số liệu quý 3/2022</span>
+                        <span>Beta: Tính theo số liệu 100 phiên gần nhất</span>
+                        <span>ĐVT: Giá: 1000đ; GTGD: Tỷ đồng</span>
+                    </li>
+                </ul>
+
+            </div>
+            <!--end c-head-->
+        </div>
+        <div class="personal-special d-block d-lg-none">
+            <ul>
+                @{
+                    var groupPersonal = dataSpecialPersonal.OrderBy(x => (x.Position.OrderBy(y => y.PositionIndex)).FirstOrDefault().PositionIndex);
+                    foreach (CompanyPersonalGroupSpecialMdl itemPersonal in groupPersonal)
+                    {
+                        <li>
+                            <div class="grid">
+                                <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
+                                <div class="g-content">
+                                    <h3 class="g-title">
+                                        @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
+                                    </h3>
+                                    <ul>
+                                        @{
+
+                                            foreach (var sub in itemPersonal.Position.OrderBy(x => x.PositionIndex))
+                                            {
+                                                <li>@sub.PositionName</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    }
+                }
+            </ul>
+        </div>
+        <div>
+            <ul class="c-box history is-border is-line-bottom mb-3 d-lg-none" id="pricehistory-mobile">
+                <li>
+                    <div class="c-box__title">
+                        <div class="c-box__title__name">Lịch sử giao dịch</div>
+                    </div>
+                </li>
+                <li class="labelname">
+                    <span>Ngày</span>
+                    <span>Thay đổi giá</span>
+                    <span>KLGD</span>
+                    <span>GTGD</span>
+                    <span>GTGD</span>
+                </li>
+                <li class="note">
+                    <a href="@Url.Action("History", "History", new { code= Model.DataObject.Code })" class="float-left text-nowrap">Xem tất cả > </a>
+                    <span class="float-right text-nowrap text-right">Đơn vị GTGD: Tỷ đồng</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="c-box is-border is-minus-mobile is-primary-mobile c-grey content-struct">
+            <div class="c-box__content">
+                <div class="info-navbar-content">
+                    <ul class="nav info-navbar info-grey">
+                        <li class="active"><a href="#tab1" data-toggle="tab" class="nav-link">Tin tức sự kiện</a></li>
+                        <li><a href="#tab6" data-toggle="tab" class="nav-link">Thông tin cơ bản</a></li>
+                        <li><a href="#tab2" data-toggle="tab" class="nav-link">Ban lãnh đạo</a></li>
+                        <li><a href="#tab3" data-toggle="tab" class="nav-link">Cơ cấu sở hữu</a></li>
+                        <li><a href="#tab4" data-toggle="tab" class="nav-link">Thông tin tài chính</a></li>
+                        <li><a href="#tab5" data-toggle="tab" class="nav-link">Doanh nghiệp tương đương</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab tab-pane active" id="tab1">
+                        <div class="c-box c-other mb-3">
+                            <div class="option-events">
+                                <div class="sml_title">Lịch sự kiện</div>
+                                <select id="option-events" class="form-control">
+                                    <option value="0" data-type="0">Tất cả</option>
+                                    @foreach (var item in ViewBag.ListType)
+                                    {
+                                        <option value="@item.Value" data-type="@item.AppendData">@item.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <div id="company_events">
+
+                            </div>
+                        </div>
+                        <div id="company-News"></div>
+                    </div>
+                    <div id="tab6" class="tab tab-pane">
+                        <div class="c-box__content white__bg">
+                            <div class="c-news-info">
+                                @if (!string.IsNullOrEmpty(Model.DataObject.Logo))
+                                {
+                                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
+                                }
+
+                                <div>
+                                    @Model.DataObject.ShortDescription
+                                    @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
+                                    {
+                                        <div class="d-none content-extent">
+                                            @Html.Raw(Model.DataObject.ShortDescriptionFireant)
+                                        </div>
+                                        <div class="option">
+                                            <a href="javascript:void(0)" onclick="ShowMoreDetail(this)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                                                    <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                    }
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
+                                {
+                                    <div>
+                                        <div class="profession">
+                                            <a href="@Url.Action("CompanyList","Company",new { professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
+                                        </div>
+                                    </div>
+                                }
+                                <ul>
+                                    <li><b>Trụ sở:</b> @Model.DataObject.Location</li>
+                                    <li><b>Điện thoại:</b> @Model.DataObject.Phone</li>
+                                    <li><b>Email:</b> @Model.DataObject.Email</li>
+                                    <li><b>Website:</b> @Model.DataObject.Website</li>
+                                    <li><b>Tổng nhân sự:</b> @(Model.DataObject.EmployeeCount==0?"N/A":Model.DataObject.EmployeeCount.FormatNumber()) </li>
+                                    <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
+
+                                    <li><b>Đại diện pháp luật:</b> @Model.DataObject.PublishPersonalRule</li>
+                                    <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal</li>
+                                    <li><b>Niêm yết lần đầu:</b> @Model.DataObject.FirstTradeDate.ToString("dd/MM/yyyy")</li>
+                                    <li><b>KLCP Niêm yết:</b> @Model.DataObject.CurrentCPNY.FormatNumber()</li>
+                                    <li><b>KLCP Lưu hành:</b> @dataStock.ListingVolume.FormatNumber()</li>
+                                </ul>
+
+                            </div>
+                            <!--end c-news-new-->
+                        </div>
+                    </div>
+                    <div id="tab2" class="tab tab-pane">
+                        @{ Html.RenderAction("CompanyProfileTab", "Company", new { code = Model.DataObject.Code }); }
+                    </div>
+                    <!--end Tab2-->
+                    <div id="tab3" class="tab tab-pane">
+                        @{ Html.RenderAction("CompanyStructureTab", "Company", new { code = Model.DataObject.Code }); }
+                    </div>
+                    <!--end Tab3-->
+                    <div id="tab4" class="tab tab-pane">
+                        <div id="content-finance"></div>
+                        <div id="content-finance-target"></div>
+                    </div>
+                    <input type="hidden" class="d-none" id="finance-typeView" value="1" />
+                    <input type="hidden" class="d-none" id="finance-year" value="@DateTime.Now.Year" />
+                    <input type="hidden" class="d-none" id="finance-quarter" value="@((int)(DateTime.Now.Month/3))" />
+                    <input type="hidden" class="d-none" id="finance-code" value="@Model.DataObject.Code" />
+                    <input type="hidden" class="d-none" id="finance-target-year" value="@DateTime.Now.Year" />
+                    <div id="tab5" class="tab tab-pane">
+                        <ul class="c-box history is-border is-line-bottom mb-3">
+                            <li class="labelname">
+                                <span>Mã</span>
+                                <span>Sàn</span>
+                                <span>EPS</span>
+                                <span>Giá</span>
+                                <span>P/E</span>
+                                <span>Vốn hóa TT</span>
+                            </li>
+                            @foreach (var item in topEPS)
+                            {
+                                <li>
+                                    <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
+                                    <span>@item.Exchange</span>
+                                    <span>@item.EPS.FormatNumber()</span>
+                                    <span>@item.Price.FormatNumber()</span>
+                                    <span>@item.PE.FormatNumber()</span>
+                                    <span>@((item.MarketCap/1000000).FormatNumber())</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <!--end Tab4-->
+            </div>
+        </div>
+
+
+        <!--end topnews-->
+        <div class="c-box c-other mb-3">
+            <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Tin tức</a></div>
+            <div class="c-template-list">
+                <ul id="company-get-news">
+                </ul>
+            </div>
+            <!--end c-box__content-->
+        </div>
+        <!--end topnews-->
+        <div class="w-100 text-center mb-3">
+            <input type="hidden" value="0" id="getnew-page" />
+            <a class="btn btn-grey m-auto" href="javascript:void(0)" onclick="LoadMoreNews(this)">Xem thêm</a>
+        </div>
+    </div>
+    <div class="l-sidebar">
+        <ul class="c-box is-border is-line-bottom mb-3 d-none d-lg-block">
+            <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)}Tỷ")</span></li>
+            <li><span class="float-left">CP Lưu hành</span><span class="float-right">@dataStock.ListingVolume.FormatNumber() </span></li>
+            <li><span class="float-left">P/E</span><span class="float-right">@(EPS==0?"N/A": (dataStock.Current/( EPS/1000)).FormatNumber()) </span></li>
+            <li><span class="float-left">EPS</span><span class="float-right">@(EPS==0?"N/A":(EPS).FormatNumber())</span></li>
+            <li><span class="float-left">P/B</span><span class="float-right">@(BVPS==0?"N/A":(dataStock.Current/BVPS).FormatNumber())</span></li>
+            <li><span class="float-left">PS</span><span class="float-right">@(PS == 0?"N/A":(PS).FormatNumber())</span></li>
+            <li><span class="float-left">BVPS</span><span class="float-right">@(BVPS==0?"N/A":(BVPS).FormatNumber())</span></li>
+            <li><span class="float-left">BETA</span><span class="float-right">N/A</span></li>
+            <li class="note">
+                <span>PE EPS: Tính theo số liệu quý 3/2022</span>
+                <span>Beta: Tính theo số liệu 100 phiên gần nhất</span>
+                <span>ĐVT: Giá: 1000đ; GTGD: Tỷ đồng</span>
+            </li>
+        </ul>
+        <!--end c-box-->
+        <div class="c-box h-show-pc">
+            <div class="c-box__content ad">
+                <div class="c-banner-item is-300x250">
+                    <div class="c-banner-item__inner">
+                        <div class="c-banner-item__box">
+                            <img class="ad" src="/Upload/images/banner.png" alt="ad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="personal-special d-none d-lg-block">
+            <ul>
+                @{
+                    foreach (CompanyPersonalGroupSpecialMdl itemPersonal in groupPersonal)
+                    {
+                        <li>
+                            <div class="grid">
+                                <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
+                                <div class="g-content">
+                                    <h3 class="g-title">
+                                        @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
+                                    </h3>
+                                    <ul>
+                                        @{
+
+                                            foreach (var sub in itemPersonal.Position.OrderBy(x => x.PositionIndex))
+                                            {
+                                                <li>@sub.PositionName</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    }
+                }
+            </ul>
+        </div>
+        <!--end c-box-->
+        <ul class="c-box history is-border is-line-bottom mb-3 d-sm-none d-none d-lg-block" id="pricehistory">
+            <li>
+                <div class="c-box__title">
+                    <div class="c-box__title__name">Lịch sử giao dịch</div>
+                </div>
+            </li>
+            <li class="labelname">
+                <span>Ngày</span>
+                <span>Thay đổi giá</span>
+                <span>KLGD</span>
+                <span>GTGD</span>
+            </li>
+            <li class="note">
+                <a href="@Url.Action("History", "History", new { code= Model.DataObject.Code })" class="float-left text-nowrap">Xem tất cả > </a>
+                <span class="float-right text-nowrap text-right">Đơn vị GTGD: Tỷ đồng</span>
+            </li>
+        </ul>
+        <!--end c-box-->
+
+        <div class="c-box is-border is-primary is-minus-mobile d-none d-lg-block">
+            <div class="c-box__title">
+                <div class="c-box__title__name">Giới thiệu</div>
+            </div>
+            <div class="c-box__content white__bg">
+                <div class="c-news-info">
+                    @if (!string.IsNullOrEmpty(Model.DataObject.Logo))
+                    {
+                        <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
+                    }
+
+                    <div>
+                        @Model.DataObject.ShortDescription
+                        @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
+                        {
+                            <div class="d-none content-extent">
+                                @Html.Raw(Model.DataObject.ShortDescriptionFireant)
+                            </div>
+                            <div class="option">
+                                <a href="javascript:void(0)" onclick="ShowMoreDetail(this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                                        <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
+                                    </svg>
+                                </a>
+                            </div>
+
+                        }
+
+
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
+                    {
+                        <div>
+                            <div class="profession">
+                                <a href="@Url.Action("CompanyList","Company",new { professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
+                            </div>
+                        </div>
+                    }
+
+                    <ul>
+                        <li><b>Trụ sở:</b> @Model.DataObject.Location</li>
+                        <li><b>Điện thoại:</b> @Model.DataObject.Phone</li>
+                        <li><b>Email:</b> @Model.DataObject.Email</li>
+                        <li><b>Website:</b> @Model.DataObject.Website</li>
+                        <li><b>Tổng nhân sự:</b> @(Model.DataObject.EmployeeCount==0?"N/A":Model.DataObject.EmployeeCount.FormatNumber()) </li>
+                        <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
+                        <li><b>Ngành nghề chính:</b> @Model.DataObject.NganhGICS</li>
+                        <li><b>Đại diện pháp luật:</b> @Model.DataObject.PublishPersonalRule</li>
+                        <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal</li>
+                        <li><b>Niêm yết lần đầu:</b> @Model.DataObject.FirstTradeDate.ToString("dd/MM/yyyy")</li>
+                        <li><b>KLCP Niêm yết:</b> @Model.DataObject.CurrentCPNY.FormatNumber()</li>
+                        <li><b>KLCP Lưu hành:</b> @dataStock.ListingVolume.FormatNumber()</li>
+                    </ul>
+
+                </div>
+                <!--end c-news-new-->
+            </div>
+        </div>
+        <!--end c-box__content-->
+        <div class="c-box top-eps">
+            <div class="c-box__title">
+                <div class="c-box__title__name">Top 10 EPS tương đương</div>
+            </div>
+            <ul class="c-box history is-border is-line-bottom mb-3">
+                <li class="labelname">
+                    <span>Mã</span>
+                    <span>Sàn</span>
+                    <span>EPS</span>
+                    <span>Giá</span>
+                    <span>P/E</span>
+                    <span>Vốn hóa TT</span>
+                </li>
+                @foreach (var item in topEPS)
+                {
+                    <li>
+                        <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
+                        <span>@item.Exchange</span>
+                        <span>@item.EPS.FormatNumber()</span>
+                        <span>@item.Price.FormatNumber()</span>
+                        <span>@item.PE.FormatNumber()</span>
+                        <span>@((item.MarketCap/1000000).FormatNumber())</span>
+                    </li>
+                }
+            </ul>
+        </div>
+        <!--end c-box-->
+        <!--end l-sidebar-->
+    </div>
+
+</div>
+<div class="modal modal-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="event-detail-title"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p id="event-detail-content">Modal body text goes here.</p>
+                <p id="event-detail-download">
+
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal modal-company-detail" tabindex="-1" role="dialog" id="Modal-company-detail">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 30%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="title-company-detail">@Model.DataObject.Name</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-2 divlogo">
+                        <img class="logo" src='@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))' />
+                    </div>
+                    <div class="col-lg-10">
+                        @Model.DataObject.ShortDescription
+                    </div>
+                </div>
+                <hr class="clearfix" />
+                <div class="row mb-lg-5 mt-1">
+                    <div class="col-lg-12">Nhóm ngành: @Model.DataObject.NganhGICS</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Trụ sở: @Model.DataObject.Location</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Điện thoại: @Model.DataObject.Phone</div>
+
+                </div>
+                <div class="row mb-1 ">
+                    <div class="col-lg-12">Email: @Model.DataObject.Email</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Website: @Model.DataObject.Website</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Tổng số nhân sự: N/A</div>
+                </div>
+                <div class="row mb-lg-5">
+                    <div class="col-lg-12">Mã số DK: @Model.DataObject.MSKinhDoanh</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Đại diện pháp luật: @Model.DataObject.PublishPersonalRule</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Đại diện công bố thông tin: @Model.DataObject.PublishPersonal</div>
+                </div>
+                <hr class="clearfix" />
+                <div class="row mb-1">
+                    <div class="col-lg-12">Vốn điều lệ: @Model.DataObject.CurrentCapital.ToString("N0")</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">Niêm yết lần đầu: @Model.DataObject.FirstTradeDate.ToString("dd/MM/yyyy")</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">KLCP Niêm yết: @Model.DataObject.CurrentCPNY.ToString("N0")</div>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-lg-12">KLCP Lưu hành: @Model.DataObject.LoadingCPNY.ToString("N0")</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script rel="preload" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script type="text/javascript">
+        var urlCompanyFinaFinacial = '@Url.Action("CompanyFinaFinacial", "Company")';
+        var urlGetDataStockBy = '@Url.Action("GetDataStockBy", "Home")';
+        var urlPriceHistoryData = '@Url.Action("PriceHistoryData", "History")';
+        var urlCompanyEvents = '@Url.Action("CompanyEvents", "Company")';
+        var urlCompanyNews = '@Url.Action("CompanyNewsInfo", "Company")';
+        var urlHistoryTrade = '@Url.Action("History", "History", new { code= Model.DataObject.Code })';
+        var urlFinanceTarget = '@Url.Action("CompanyFinancialTarget", "Company")';
+        var urlGetNews = '@Url.Action("CompanyGetNews", "Company")';
+        var overRatios = parseFloat('@Model.DataObject.ForeignOwnership*100');
+        var percentStockCeo = parseFloat('@countPercentStockCeo.FormatNumber()');
+    </script>
+    @Scripts.Render("~/bundles/script/company-detail")
+
+}

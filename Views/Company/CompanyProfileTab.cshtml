@@ -1,0 +1,55 @@
+﻿@using System.Collections.Generic
+@model Nqs.Models.FormModel.Common.BaseModels<List<Nqs.Models.FormModel.Personal.PersonCompanyMdl>>
+@{
+    List<Nqs.Models.FormModel.Personal.PersonCompanyMdl> data = new List<Nqs.Models.FormModel.Personal.PersonCompanyMdl>();
+    if (Model.IsSuccess)
+    {
+        data = (List<Nqs.Models.FormModel.Personal.PersonCompanyMdl>)Model.DataObject;
+    }
+    var dataGroup = data.GroupBy(x => x.GroupId).OrderBy(x => x.Key);
+}
+
+<div class="c-template-list">
+    @foreach (var group in dataGroup)
+    {
+        <div class="group-name">@group.FirstOrDefault().GroupName</div>
+        <ul class="is-line-bottom">
+            @{
+                var groupPersonal = group.GroupBy(x => x.PersonalId).OrderBy(x => x.FirstOrDefault().PositionIndex);
+                foreach (var itemPersonal in groupPersonal)
+                {
+                    <li>
+                        <div class="b-grid">
+                            <div class="b-grid__img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.FirstOrDefault().PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.FirstOrDefault().Name).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.FirstOrDefault().ImagePath.Replace(@"\","/"))" alt="@itemPersonal.FirstOrDefault().Name" title="@itemPersonal.FirstOrDefault().Name"></a></div>
+                            <div class="b-grid__content">
+                                <h3 class="b-grid__title">
+                                    @Html.Raw(string.IsNullOrEmpty(itemPersonal.FirstOrDefault().PersonalCode) ? itemPersonal.FirstOrDefault().Name : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.FirstOrDefault().PersonalCode.ToLower(),  name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.FirstOrDefault().Name).ToLower() })}'>{itemPersonal.FirstOrDefault().Name}</a>")
+                                </h3>
+                                <ul>
+                                    @{
+                                        var positions = itemPersonal.GroupBy(x => x.PositionId);
+                                        foreach (var sub in positions)
+                                        {
+                                            <li>@sub.FirstOrDefault().PositionName</li>
+                                        }
+                                    }
+                                </ul>
+                                @if (itemPersonal.FirstOrDefault().Birthday.HasValue)
+                                {
+                                    <div>Năm sinh @itemPersonal.FirstOrDefault().Birthday.Value.Year</div>
+                                }
+                                else
+                                {
+                                    <div></div>
+                                }
+                            </div>
+                        </div>
+                    </li>
+
+
+                }
+            }
+        </ul>
+    }
+
+</div>

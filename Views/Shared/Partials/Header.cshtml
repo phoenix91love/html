@@ -1,0 +1,110 @@
+﻿<div class="container h-show-pc top-header-watch-list">
+    <div class="c-content-flex">
+        <div class="c-content-inner__left d-flex">
+            <div class="c-logo">
+                <a href="https://nguoiquansat.vn" target="_top">
+                    <img class="lazyload" src="~/Upload/images/logo.svg" data-src="https://asset.1cdn.vn/nqs/images/logo.svg" alt="logo">
+                </a>
+            </div>
+        </div>
+        <div class="c-content-inner__right ">
+            <ul class="wl watch-list">
+                <li class="li-btn-wl">
+                    <button type="button" class="btn btn-blue a-btn-show-popup-watch-list">
+                        Watch list
+                    </button>
+                </li>
+                <li>
+                    <div class="c-search-wrapper">
+                        <div class="c-search">
+                            <div class="c-search__inner custom-autocomplete">
+                                <input class="form-control txt-keyword-header" type="text" placeholder="Mã CK / Từ khóa" />
+                                <button class="c-search__btn btn-header-search" type="button"><i class="icon16-search"></i></button>
+                                <button class="c-search__close js-search-close" type="button"><i class="icon12-close"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-light h-show-mobile js-search-expand" href="#">Tìm kiếm<i class="icon16-search is-right"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--end c-header-banner-->
+<div class="c-nav-inner">
+    <div class="c-header">
+        <div class="container">
+            @if (!bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
+            {
+                <div class="row topnews h-show-pc">
+                    @{Html.RenderAction("ChartHeader", "Home");}
+                </div>
+            }
+            else
+            {
+                <div class="h-show-mobile">
+                    <div class="c-header-inner__left">
+                        @if (@Model != "false")
+                        {
+                            <button class="c-menu-expand js-menu-expand" type="button"><span></span></button>
+                        }
+                        <div class="c-logo">
+                            <a href="https://nguoiquansat.vn" target="_top">
+                                <img class="lazyload" src="~/Upload/images/logo.svg" data-src="https://asset.1cdn.vn/nqs/images/logo.svg" alt="logo" />
+                            </a>
+                        </div>
+                        <a href="https://nguoiquansat.vn/tin-moi-nhat"> <i class="icon16-clock c-clock"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+        <!--end container-->
+    </div>
+    <!--end c-header-->
+    <div class="c-button h-show-mobile">
+        <div class="container">
+            <ul class="d-flex">
+                <li><a target="_top" href="@Url.Action("Index", "Home")" class="btn btn-light">Market</a></li>
+                <li>
+                    <button type="button" class="btn btn-light a-btn-show-popup-watch-list">
+                        Watch list
+                    </button>
+                </li>
+                <li>
+                    <div class="c-search">
+                        <div class="c-search__inner custom-autocomplete">
+                            <input class="form-control txt-keyword-header-mobile" type="text" name="" placeholder="Mã CK / Từ khóa" autocomplete="off" />
+                            <button class="c-search__btn btn-header-mobile-search" type="button">
+                                <i class="icon16-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3 h-show-mobile">
+    <div class="w-100">
+        <a href="https://dop.cake.vn/affiliate?ref=NQS-S3328858" target="_blank"><img src="~/Upload/images/PR_640x320_mb.png" class="w-100" alt="banner" /></a>
+    </div>
+    <div class="swiper-container topcontents mt-3 mb-3 swiper-container-horizontal swiper-container-android">
+        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+            @if (bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
+            {
+                Html.RenderAction("ChartHeader", "Home");
+            }
+        </div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
+
+</div>
+
+@if (@Model != "false")
+{
+    <div class="c-mega-menu">
+        @Html.Partial("Partials/MegaMenu")
+    </div>
+}
+<!-- c-mega-menu-->

@@ -1,0 +1,70 @@
+﻿@using M.Common.Extensions;
+@using M.Common.Helpers;
+@model  Nqs.Models.FormModel.Common.BaseListModel<Nqs.Models.FormModel.History.Bctc>
+
+<br />
+<table class="table table-hover table-striped table-bordered table-common table-cdkt">
+    <thead>
+        <tr>
+            <th scope="col" style="min-width: 200px; max-width: 200px;">
+                Chỉ tiêu
+            </th>
+
+            <th scope="col">
+                @Model.SearchParams["y1"]
+            </th>
+            <th scope="col">
+                @Model.SearchParams["y2"]
+            </th>
+            <th scope="col">
+                @Model.SearchParams["y3"]
+            </th>
+            <th scope="col">
+                @Model.SearchParams["y4"]
+            </th>
+            <th scope="col">
+                @Model.SearchParams["y5"]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.DataList)
+        {
+            <tr class="treegrid-@item.Id @(item.Level > 1 ? "treegrid-parent-"+item.ParentId : "") @(item.Level <=2  ? "expanded" : "")">
+                <td class="text-left @(item.Level <=2  ? "text-bold" : "")">
+                    @item.Name
+                </td>
+
+                <td class="text-right @(item.Level <=2  ? "text-bold" : "")">
+                    @item.V1.FormatNumber()
+                </td>
+                <td class="text-right @(item.Level <=2  ? "text-bold" : "")">
+                    @item.V2.FormatNumber()
+                </td>
+                <td class="text-right @(item.Level <=2  ? "text-bold" : "")">
+                    @item.V3.FormatNumber()
+                </td>
+                <td class="text-right @(item.Level <=2  ? "text-bold" : "")">
+                    @item.V4.FormatNumber()
+                </td>
+                <td class="text-right @(item.Level <=2  ? "text-bold" : "")">
+                    @item.V5.FormatNumber()
+                </td>
+                <td class="text-center">
+                    @if (item.Level != 1)
+                    {
+                        <img src="@("https://chart.googleapis.com/chart?cht=bvs&chd=t:"+NumberHelper.GetValueGoogleApi(item.V1)+","+NumberHelper.GetValueGoogleApi(item.V2)+","+ NumberHelper.GetValueGoogleApi(item.V3)+","+NumberHelper.GetValueGoogleApi(item.V4)+","+NumberHelper.GetValueGoogleApi(item.V5)+"&chs=60x30&chco=3b1b70&chbh=5&chf=bg,s,f9f8fa00")" />
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.table-cdkt').treegrid();
+    });
+</script>

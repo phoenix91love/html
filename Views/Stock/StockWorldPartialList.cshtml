@@ -1,0 +1,47 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Stock.World.StockWorldDate>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive-sm table-scroll">
+            <br />
+            <table class="table table-bordered table-common">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Ngày</th>
+                        <th scope="col">Mã CK</th>
+                        <th scope="col">Giá hiện tại</th>
+                        <th scope="col">Mở cửa</th>
+                        <th scope="col">Thay đổi(%)</th>
+                        <th scope="col">Khối lượng</th>
+                        <th scope="col">Cao nhất</th>
+                        <th scope="col">Thấp nhất</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DataList)
+                    {
+                        <tr>
+                            <td class="text-center" scope="row">@item.RowIndex</td>
+                            <td class="text-center" scope="col">@item.Date</td>
+                            <td class="text-center" scope="col">@item.Code</td>
+                            <td class="text-right" scope="col">@item.Price.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Open.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Change.FormatNumber()</td>
+                            <td class="text-right" scope="col">@item.Volume.FormatNumber()</td>
+                            <td class="text-center" scope="col">@item.DayHigh.FormatNumber()</td>
+                            <td class="text-center" scope="col">@item.DayLow.FormatNumber()</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+        <nav id="common-paging">
+            @{Html.RenderPartial("Partials/Paging", Model);}
+        </nav>
+    </div>
+</div>
+

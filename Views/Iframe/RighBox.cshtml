@@ -1,0 +1,158 @@
+﻿
+@model Dictionary<string, List<Nqs.Models.FormModel.Home.ExchangeRateModel>>
+@{
+    Layout = "~/Views/Shared/_IFrameLayout.cshtml";
+}
+<div class="l-sidebar d-inline-grid">
+    <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
+        <div class="c-box__content">
+            <ul class="is-line-bottom">
+                <li class="active">
+                    <a href="javascript:void(0)" class="infolinks btn-tab-tigia active" data-tab="tigia" data-toggle="tab">TỈ GIÁ</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="infolinks btn-tab-tigia" data-tab="giavang" data-toggle="tab">GIÁ VÀNG</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin" data-tab="hanghoa" data-toggle="tab">HÀNG HÓA</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin" data-tab="coin" data-toggle="tab">COIN</a>
+                </li>
+            </ul>
+            <ul class="contentinfo ul-tigia" data-tab="tigia" style="display: block;">
+                <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                @{
+                    foreach (var item in Model["MoneyExchange"])
+                    {
+                        <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Code</span><span class="price">@item.Value.ToString("N0")</span><span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span></li>
+                    }
+                }
+
+                <li class="source">
+                    <span class="float-left">Nguồn Eximbank</span>
+                    <span class="float-right"></span>
+                </li>
+            </ul>
+            <ul class="contentinfo ul-tigia" data-tab="giavang" style="display: none;">
+                <li class="label1"><span class="code">Mã</span><span class="price">Giá mua</span><span class="change">Giá bán</span></li>
+                @{
+                    foreach (var item in Model["GoldExchange"])
+                    {
+                        <li title="@item.Name">
+                            <span class="code">@item.Code</span>
+                            <span class="price text-right">@item.Change.ToString("N0")</span>
+                            <span class="change text-right">@item.Value.ToString("N0")</span>
+                        </li>
+                    }
+                }
+
+                <li class="source">
+                    <span class="float-left">Nguồn Eximbank</span>
+                    <span class="float-right"></span>
+                </li>
+            </ul>
+
+            <ul class="contentinfo ul-hanghoacoin" data-tab="hanghoa" style="display: none;">
+                <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                @{
+                    foreach (var item in Model["HHExchange"])
+                    {
+                        <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
+                            <span class="code">
+                                @item.Name
+                            </span>
+                            <span class="price">@item.Value.ToString("N2")</span>
+                            <span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange + ")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span>
+                        </li>
+                    }
+                }
+
+                <li class="source">
+                    <span class="float-left"></span>
+                    <span class="float-right"></span>
+                </li>
+            </ul>
+            <ul class="contentinfo ul-hanghoacoin" data-tab="coin" style="display: none;">
+                <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                @{
+                    foreach (var item in Model["CoinExchange"])
+                    {
+                        <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Name</span><span class="price">@item.Value.ToString("N2")</span><span class="text-center change price-change ">@(item.Change.ToString("N2") + "("+ @item.PerChange.ToString("N2") + "%)")</span></li>
+
+                    }
+                }
+
+                <li class="source">
+                    <span class="float-left"></span>
+                    <span class="float-right"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="c-box is-border is-primary is-minus-mobile c-update">
+        <div class="c-box__title">
+            <div class="c-box__title__name">THÔNG TIN CÔNG BỐ</div>
+        </div>
+        <div class="c-box__content white__bg">
+            <div class="c-news-new">
+                <ul>
+
+                    @foreach (var item in Model["TTCB"])
+                    {
+                        <li>
+                            <h4>
+                                <a href="javascript:void(0)" class="a-btn-show-ttcb-detail" data-id="@item.Id">
+                                    <span class="label1">@item.Code</span>
+                                    <span>@item.Title</span>
+                                </a>
+                                <span id="title-@item.Id" style="display: none;">@item.Code - @item.Title</span>
+                                <span id="link-download-@item.Id" style="display: none;">
+                                    @if (item.Files.Count > 0)
+                                    {
+                                        <h3>File đính kèm:</h3>
+                                    }
+
+                                    @{
+                                        int i = 1;
+                                        foreach (var f in item.Files)
+                                        {
+                                            <a target="_blank" href="@f">@(i). @Path.GetFileName(f)</a><br />
+                                            i++;
+                                        }
+                                    }
+                                </span>
+                                <span id="content-@item.Id" style="display: none;">@MvcHtmlString.Create(item.Content)</span>
+                            </h4>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+            <!--end c-news-new-->
+        </div>
+        <!--end c-box__content-->
+    </div>
+</div>
+<div class="modal modal-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="detail-title"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p id="detail-content"></p>
+                <p id="detail-download">
+
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/homepage")

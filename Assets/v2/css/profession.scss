@@ -1,0 +1,120 @@
+﻿body {
+    .profession {
+        .option {
+            display: flex;
+            margin-bottom: 10px;
+            float: right;
+
+            :nth-child(1) {
+                margin-left: 5px;
+            }
+
+            :nth-child(2) {
+                margin-left: 5px;
+            }
+
+            :nth-child(3) {
+                margin-left: 5px;
+            }
+
+            :nth-child(4) {
+                margin-left: 5px;
+            }
+        }
+
+        #container-profess {
+            table {
+                thead {
+                    tr {
+                        text-align: center;
+                        align-self: center;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        background: none;
+
+                        .treegrid-container .treegrid-expander {
+                            display: none;
+                        }
+
+                        text-align: right;
+                        align-self: center;
+
+                        :first-child {
+                            text-align: left;
+                            margin: unset !important;
+                        }
+
+                        :nth-child(2) {
+                            text-align: left;
+
+                            a {
+                                color: #3b1b70;
+                                font-family: "Roboto Condensed","Roboto",Arial;
+                                font-weight: 700;
+                                text-decoration: unset;
+                            }
+                        }
+
+                        :nth-child(4), :nth-child(5) {
+                            a {
+                                color: #212529;
+
+                                &:hover {
+                                    color: #3b1b70;
+                                }
+                            }
+                        }
+
+                        :last-child {
+                            div {
+                                div:nth-child(1) {
+                                    width: 50%;
+                                    float: left;
+                                    background: #da374a;
+                                    color: white;
+                                    text-align: center;
+                                }
+
+                                div:nth-child(2) {
+                                    width: 50%;
+                                    float: left;
+                                    background: #00873c;
+                                    text-align: center;
+                                    color: white;
+                                }
+
+                                a {
+                                    color: white;
+                                }
+                            }
+                        }
+
+                        .green {
+                            color: #00873c !important;
+
+                            * {
+                                color: #00873c !important;
+                            }
+                        }
+
+                        .red {
+                            color: #da374a !important;
+
+                            * {
+                                color: #da374a !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .note {
+            float: right;
+            margin: 10px 0 0px 0;
+        }
+    }
+}

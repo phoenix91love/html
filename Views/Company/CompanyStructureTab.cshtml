@@ -1,0 +1,21 @@
+﻿
+@{
+    var code = ViewBag.Code;
+}
+
+@{ Html.RenderAction("CompanyShearHolder", "Company", new { code = code }); }
+@{ Html.RenderAction("CompanyOwner", "Company", new { code = code }); }
+@{ Html.RenderAction("CompanyChild", "Company", new { code = code }); }
+@*<div class="col-lg-12">
+    <div class="container-isMe">
+
+    </div>
+    <hr class="clearfix" />
+    <div class="container-isMe">
+
+    </div>
+    <hr class="clearfix" />
+    <div class="container-isMe">
+
+    </div>
+</div>*@

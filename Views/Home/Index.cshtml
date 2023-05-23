@@ -1,0 +1,539 @@
+﻿@using M.Common.Extensions;
+@{
+    ViewBag.Title = "Dữ liệu | nguoiquansat.vn";
+    ViewBag.PageName = "Toàn cảnh thị trường";
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+
+@model Nqs.Models.FormModel.Stock.HomePageModel
+
+<script src="~/Assets/bundles/anychart/dist/js/anychart-core.min.js"></script>
+<script src="~/Assets/bundles/anychart/dist/js/anychart-treemap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<input type="hidden" class="hd-tab" value="vn" />
+<input type="hidden" class="hd-type" value="DAY" />
+<input type="hidden" class="hd-code" value="VN-Index" />
+<input type="hidden" class="hd-type-world" value="3MONTH" />
+<input type="hidden" class="hd-code-world" value="DJI" />
+<input type="hidden" class="hd-exchange-id" value="HOSE" />
+<input type="hidden" class="hd-exchange-type" value="0" />
+<input type="hidden" class="hd-nganh" value="" />
+<input type="hidden" class="hd-top-code" value="HOSE" />
+<input type="hidden" class="hd-top-type" value="1" />
+<div class="c-content-flex home-index">
+    <div class="l-main">
+        <div class="topnews b-grid c-content-flex is-line-bottom swiper-container-horizontal">
+            <div class="l-topnews b-grid__row">
+                <ul class="info-navbar info-grey" id="tabChart">
+                    <li class="active">
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="VN-Index" data-toggle="tab">VnIndex</a>
+                    </li>
+                    <li>
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="HNX-Index" data-toggle="tab">HNX</a>
+                    </li>
+                    <li>
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="UPCOM-Index" data-toggle="tab">UPcom</a>
+                    </li>
+                    <li>
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="VN30-Index" data-toggle="tab">VN30</a>
+                    </li>
+                    <li>
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="HNX30-Index" data-toggle="tab">HNX30</a>
+                    </li>
+                    <li>
+                        <a href="#tab-index-tg" class="tablink" data-tab="tg" data-code="DJI" data-toggle="tab">Thế giới</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="tab-chart-vn">
+                    <div class="col-md-12">
+                        <div class="row tab-chart-index">
+                            <div class="b-grid__title">
+                                <span class="name vn-stock-code"></span>
+                                <span class="point vn-stock-price"></span>
+                                <span class="unit vn-stock-change price-change"></span>
+                                <span class="unit vn-stock-per-change price-change"></span>
+                                <span class="sp-last-update-data">
+                                    Cập nhật: <span class="div-last-update"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7 chart-col">
+
+                                <ul class="d-flex c-chart ul-select-time">
+                                    <li><a href="javascript:void(0)" class="btn-load active" data-type="DAY">1D</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="WEEK">1W</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="1MONTH">1M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="3MONTH">3M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="6MONTH">6M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="1YEAR">1Y</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="5YEAR">5Y</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load" data-type="">ALL</a></li>
+                                </ul>
+                                <div id="chart-index" style="height: 350px;"></div>
+
+                            </div>
+                            <div class="col-md-5">
+                                <div class="r-topnews index-data" data-tab="vn" style="display: block;">
+                                    <ul class="c-box is-line-bottom mb-3 ul-chiso-ex">
+                                        <li><span class="float-left">Tổng vốn hóa</span><span class="float-right vn-vonhoa"></span></li>
+                                        <li><span class="float-left">Khối lượng GD</span><span class="float-right vn-klgd"></span></li>
+                                        <li><span class="float-left">Giá trị GD</span><span class="float-right vn-gtgd"></span></li>
+                                        <li><span class="float-left">NĐT NN Mua</span><span class="float-right vn-nnmua"></span></li>
+                                        <li><span class="float-left">NĐT NN Bán</span><span class="float-right vn-nnban"></span></li>
+                                        <li><span class="float-left">Cao nhất</span><span class="float-right vn-highest"></span></li>
+                                        <li><span class="float-left">Thấp nhất</span><span class="float-right vn-lowest"></span></li>
+                                    </ul>
+                                    <!--end l-top-news-->
+                                    <div class="thongso">
+                                        <div>Số lượng cổ phiếu</div>
+                                        <ul class="percent slcp">
+                                        </ul>
+                                        <div>Phân bố dòng tiền (Tỷ đồng)</div>
+                                        <ul class="percent pbdt">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab-index-tg">
+                    <div class="col-md-12">
+                        <div class="row tab-chart-index">
+                            <div class="b-grid__title">
+                                <span class="name tg-stock-code"></span>
+                                <span class="point tg-stock-price"></span>
+                                <span class="unit tg-stock-change price-change"></span>
+                                <span class="unit tg-stock-per-change price-change"></span>
+                                <span class="sp-last-update-data">
+                                    Cập nhật: <span class="div-last-update-world"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-7 chart-col">
+                                <ul class="d-flex c-chart ul-select-time">
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="WEEK">1W</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="1MONTH">1M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world active" data-type="3MONTH">3M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="6MONTH">6M</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="1YEAR">1Y</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="5YEAR">5Y</a></li>
+                                    <li><a href="javascript:void(0)" class="btn-load-world" data-type="">ALL</a></li>
+                                </ul>
+                                <div id="chart-tg-index" style="height: 350px;"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <ul class="c-box is-border  is-line-bottom">
+                                    @foreach (var item in Model.IndexWorldModel.ChauMy)
+                                    {
+                                        <li class="form-check">
+                                            <input class="form-check-input rd-select-chart" type="radio" name="rd-tg" id="rd-select-chart-@item.Code" value="@item.Code" @(item.Code == "DJI" ? "checked" : "")>
+                                            <label class="form-check-label" for="rd-select-chart-@item.Code">
+                                                <span class="name">@item.Code</span><span class="@(item.Code)-stock-price point">@item.Price</span><span class="@(item.Code)-change">@item.Change</span><span class="@(item.Code)-per-change @(item.PerChange > 0 ? "green" : (item.PerChange < 0 ? "red" : ""))">@item.PerChange</span>
+                                            </label>
+                                        </li>
+                                    }
+                                    @foreach (var item in Model.IndexWorldModel.ChauAu)
+                                    {
+                                        <li class="form-check">
+                                            <input class="form-check-input rd-select-chart" type="radio" name="rd-tg" id="rd-select-chart-@item.Code" value="@item.Code">
+                                            <label class="form-check-label" for="rd-select-chart-@item.Code">
+                                                <span class="name">@item.Code</span><span class="@(item.Code)-stock-price point">@item.Price</span><span class="@(item.Code)-change">@item.Change</span><span class="@(item.Code)-per-change @(item.PerChange > 0 ? "green" : (item.PerChange < 0 ? "red" : ""))">@item.PerChange</span>
+                                            </label>
+                                        </li>
+                                    }
+                                    @foreach (var item in Model.IndexWorldModel.ChauA)
+                                    {
+                                        <li class="form-check">
+                                            <input class="form-check-input rd-select-chart" type="radio" name="rd-tg" id="rd-select-chart-@item.Code" value="@item.Code">
+                                            <label class="form-check-label" for="rd-select-chart-@item.Code">
+                                                <span class="name">@item.Code</span><span class="@(item.Code)-stock-price point">@item.Price</span><span class="@(item.Code)-change">@item.Change</span><span class="@(item.Code)-per-change @(item.PerChange > 0 ? "green" : (item.PerChange < 0 ? "red" : ""))">@item.PerChange</span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="topnews b-grid is-line-bottom">
+
+            <div class="c-box c-other">
+                <div class="c-box__title white__bg"><a class="c-box__title__name" href="#">BẢN ĐỒ THỊ TRƯỜNG</a></div>
+                <div class="c-box__content filter">
+                    <!--filter-->
+                    <div class="">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-form-bdtt">
+
+                                <form>
+
+                                    <div class="form-row">
+                                        <label class="col-form-label col-lg-1 text-right h-show-pc">Sàn</label>
+                                        <div class="col-lg-2 col-3">
+                                            <select id="ddl-exchange" class="form-control">
+                                                <option value="HOSE">HOSE</option>
+                                                <option value="HNX">HNX</option>
+                                                <option value="UPCoM">UPCOM</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-form-label col-lg-2 text-right h-show-pc">Tiêu chí</label>
+                                        <div class="col-lg-3 col-4">
+                                            <select id="ddl-exchange-type" class="form-control">
+                                                <option value="0">Khối lượng giao dịch</option>
+                                                <option value="1">Giá trị giao dịch</option>
+                                                <option value="2">Vốn hóa</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-form-label col-lg-1 text-right h-show-pc">Ngành</label>
+                                        <div class="col-lg-3 col-5">
+                                            <select id="ddl-nganh" class="form-control">
+                                                <option value="">--Tất cả--</option>
+                                                @foreach (var item in Model.ListNganh)
+                                                {
+                                                    <option value="@item.Value">@item.Text</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-filter-->
+                </div>
+                <!--end c-box__content-->
+                <div class="c-topic-grid">
+                    <div id="treeMap" style="height: 500px; width: 104%;"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="topnews b-grid is-line-bottom">
+            <div class="c-box c-other">
+                <div class="c-box__title white__bg">
+                    <a class="c-box__title__name" href="#">TOP 10 CỔ PHIẾU</a>
+                    @if (!ViewBag.IsMobile)
+                    {
+                        <div class="l-topnews1 float-right h-show-pc">
+                            <ul class="c-list top">
+                                <li class="active"> <a class="a-btn-tab-exchange" href="javascript:void(0)" data-code="HOSE">HOSE</a></li>
+                                <li><a class="a-btn-tab-exchange" href="javascript:void(0)" data-code="HNX">HNX</a></li>
+                                <li><a class="a-btn-tab-exchange" href="javascript:void(0)" data-code="UPCoM">UPCoM</a></li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <!--filter-->
+                @if (!ViewBag.IsMobile)
+                {
+                    <div class="c-topnews-a is-line-bottom h-show-pc top10-tab">
+                        <ul>
+                            <li class="active"><a class="a-btn-tab-type" href="javascript:void(0)" data-type="1" style="margin-right: 10px;">Tăng giá</a></li>
+                            <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="2" style="margin-right: 10px;">Giảm giá</a></li>
+                            <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="3" style="margin-right: 10px;">KLGD</a></li>
+                            <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="4" style="margin-right: 10px;">GTGD</a></li>
+                            <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="5" style="margin-right: 10px;">NN Mua</a></li>
+                            <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="6" style="margin-right: 10px;">NN Bán</a></li>
+                            <li> <a class="a-btn-tab-type1" href="javascript:void(0)" data-type="6" style="margin-right: 10px;">Quan tâm</a></li>
+                            <li><a class="a-btn-tab-type1" style="float:right; margin-right: 10px;">Tùy biến</a></li>
+
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="h-show-mobile">
+                            <div class="form-group">
+                                <select class="form-control" id="ddl-top-cp-exchange">
+                                    <option>HOSE</option>
+                                    <option>HNX</option>
+                                    <option>UPCoM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" id="ddl-top-cp-type">
+                                    <option value="1">Tăng</option>
+                                    <option value="2">Giảm</option>
+                                    <option value="3">KLGD</option>
+                                    <option value="4">GTGD</option>
+                                    <option value="5">NN Mua</option>
+                                    <option value="6">NN Bán</option>
+                                    <option value="7">Quan tâm</option>
+                                    <option value="8">Tùy biến</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!--end-filter-->
+                <!--end c-box__content-->
+                <div class="c-topic-grid c-content-flex">
+                    <div class="l-topic-grid top-content">
+
+                    </div>
+                    <div class="r-topic-grid">
+                        <div class="contentbox">
+                            <div class="contentbox_title">Ảnh hưởng thị trường</div>
+                            <canvas id="container-top-10-cp-anh-huong" style="max-width: 300px; min-height: 150px; height: 300px"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!--end c-topic-grid-->
+            </div>
+        </div>
+
+        <div class="topnews is-line-bottom">
+            <div class="c-box c-other">
+                <div class="c-box__title white__bg">
+                    <a class="c-box__title__name" href="#">GIAO DỊCH KHỐI NGOẠI</a>
+                    <div class="l-topnews1 float-right">
+                        <ul class="c-list top">
+                            <li class="active">
+                                <a class="a-btn-tab-exchange-nn" href="javascript:void(0)" data-code="VN-Index">HOSE</a>
+                            </li>
+                            <li>
+                                <a class="a-btn-tab-exchange-nn" href="javascript:void(0)" data-code="HNX-Index">HNX</a>
+                            </li>
+                            <li>
+                                <a class="a-btn-tab-exchange-nn" href="javascript:void(0)" data-code="UPCOM-Index">UPCoM</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="container-nn-value" style="min-height: 250px;"></canvas>
+            </div>
+            <div class="col-lg-6">
+                <canvas id="container-nn-volume" style="min-height: 250px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="l-sidebar d-inline-grid">
+        <div class="c-box is-border is-primary is-minus-mobile order-sm-2">
+            <div class="c-box__title">
+                <div class="c-box__title__name">TIN TỨC NỔI BẬT</div>
+            </div>
+            <div class="c-box__content">
+                <div class="c-other c-news-forcus is-line-bottom is-last">
+                    <ul>
+                        @foreach (var item in Model.NewsList.DataList)
+                        {
+                            <li>
+                                <div class="b-grid">
+                                    <div class="b-grid__img">
+                                        <a href="@item.Url" target="_blank">
+                                            <img src="@item.Thumbnai" alt="@item.Title" title="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="b-grid__content">
+                                        <div class="b-grid__row">
+                                            <h3 class="b-grid__title"><a target="_blank" title="@item.Title" href="@item.Url">@(item.Title.Length > 120 ? item.Title.Substring(0, 120) +"..." : item.Title)</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li><!--end li c-news-forcus-->
+                        }
+
+                        <!--end li c-news-forcus-->
+                    </ul>
+                </div>
+                <!--end c-news-new-->
+            </div>
+            <!--end c-box__content-->
+        </div>
+        <!--end c-box-->
+        <div class="c-box h-show-pc">
+            <div class="c-box__content ad">
+                <div class="c-banner-item is-300x250">
+                    <div class="c-banner-item__inner">
+                        <div class="c-banner-item__box">
+                            <img class="ad" src="~/Upload/images/banner.png" alt="ad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end c-box-->
+        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
+            <div class="c-box__content">
+                <ul class="is-line-bottom">
+                    <li class="active">
+                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia active" data-tab="tigia" data-toggle="tab">TỈ GIÁ</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia" data-tab="giavang" data-toggle="tab">GIÁ VÀNG</a>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-tigia" data-tab="tigia" style="display: block;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["MoneyExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Code</span><span class="price">@item.Value.ToString("N0")</span><span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span></li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left">Nguồn Eximbank</span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-tigia" data-tab="giavang" style="display: none;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá mua</span><span class="change">Giá bán</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["GoldExchange"])
+                        {
+                            <li title="@item.Name">
+                                <span class="code">@item.Code</span>
+                                <span class="price text-right">@item.Change.ToString("N0")</span>
+                                <span class="change text-right">@item.Value.ToString("N0")</span>
+                            </li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left">Nguồn Eximbank</span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <!--end c-box-->
+        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
+            <div class="c-box__content white__bg">
+                <ul class="is-line-bottom">
+                    <li class="active">
+                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin active" data-tab="hanghoa" data-toggle="tab">HÀNG HÓA</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin" data-tab="coin" data-toggle="tab">COIN</a>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-hanghoacoin" data-tab="hanghoa" style="display: block;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["HHExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
+                                <span class="code">
+                                    @item.Name
+                                </span>
+                                <span class="price">@item.Value.ToString("N2")</span>
+                                <span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange + ")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span>
+                            </li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left"></span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-hanghoacoin" data-tab="coin" style="display: none;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["CoinExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Name</span><span class="price">@item.Value.ToString("N2")</span><span class="text-center change price-change ">@(item.Change.ToString("N2") + "("+ @item.PerChange.ToString("N2") + "%)")</span></li>
+
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left"></span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--end c-box-->
+        <div class="c-box is-border is-primary is-minus-mobile c-update">
+            <div class="c-box__title">
+                <div class="c-box__title__name">THÔNG TIN CÔNG BỐ</div>
+            </div>
+            <div class="c-box__content white__bg">
+                <div class="c-news-new">
+                    <ul>
+
+                        @foreach (var item in Model.ExchangeData["TTCB"])
+                        {
+                            <li>
+                                <h4>
+                                    <a href="javascript:void(0)" class="a-btn-show-ttcb-detail" data-id="@item.Id">
+                                        <span class="label1">@item.Code</span>
+                                        <span>@item.Title</span>
+                                    </a>
+                                    <span id="title-@item.Id" style="display: none;">@item.Code - @item.Title</span>
+                                    <span id="link-download-@item.Id" style="display: none;">
+                                        @if (item.Files.Count > 0)
+                                        {
+                                            <h3>File đính kèm:</h3>
+                                        }
+
+                                        @{
+                                            int i = 1;
+                                            foreach (var f in item.Files)
+                                            {
+                                                <a target="_blank" href="@f">@(i). @Path.GetFileName(f)</a><br />
+                                                i++;
+                                            }
+                                        }
+                                    </span>
+                                    <span id="content-@item.Id" style="display: none;">@MvcHtmlString.Create(item.Content)</span>
+                                </h4>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+                <!--end c-news-new-->
+            </div>
+            <!--end c-box__content-->
+        </div>
+        <!--end c-box-->
+    </div>
+</div>
+<div class="modal modal-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="detail-title"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p id="detail-content"></p>
+                <p id="detail-download">
+
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/homepage")

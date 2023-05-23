@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Thống kê ngành";
+    ViewBag.PageName = "Thống kê ngành";
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+    ViewBag.SubTitle = "Thống kê ngành";
+}
+@section Styles{
+    @Styles.Render("~/bundles/styles/profession")
+}
+<div class="container-fluid profession">
+    <div class="option">
+        
+            <input type="text" class="form-control datetimepicker-input" id="datelast" readonly />
+          
+     
+        <select class="form-control" id="exchange">
+            <option value="0">Tất cả</option>
+            <option value="1">HOSE</option>
+            <option value="2">HNX</option>
+            <option value="5">Upcom</option>
+        </select>
+        <button class="btn btn-blue" onclick="loadDataReportProfession()">Tra cứu </button>
+    </div>
+    <div id="container-profess"></div>
+    <div class="note">
+        <span>ĐVT: Vốn hóa: Tỷ đồng; GTGD: Tỷ đồng</span>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+    var urlLoadReportProfess = '@Url.Action("ProfessionByExchange", "Profession")';
+    </script>
+    @Scripts.Render("~/bundles/script/profession")
+}
+

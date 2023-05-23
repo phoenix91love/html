@@ -1,0 +1,71 @@
+﻿<link href="/Content/NsqCss?v=qWxSU4TyogW345Vb8UwXsWyDbPszxUTjTKeMiyFyQpg1" rel="stylesheet" />
+
+<script src="/bundles/jquery?v=8Oos0avDZyPg-cbyVzvkIfERIE1DGSe3sRQdCSYrgEQ1"></script>
+<script src="/bundles/bootstrap?v=Z-Nfbr8iF_hZQuhWYsTtXS7gNwWkL6104wntnS-JLfU1"></script>
+<script src="/bundles/common?v=lzIWc-8gh_zZGk3pa_07wYyh4vOnNO129jnDRg8ESnY1"></script>
+
+<div class="c-header-action__left watch-list">
+
+</div>
+<div class="c-header-action__right">
+    <div class="c-search-wrapper">
+        <div class="c-search">
+            <div class="c-search__inner">
+                <input class="form-control" id="txt-keyword" type="text" name=""
+                       placeholder="Mã chứng khoán" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadCompany();
+        function loadCompany() {
+            var url =  "@Url.Action("GetCompany", "Home")";
+            var params = "";
+                AjaxHelper.ajaxCall(url, params, function (result) {
+                    if (result.ErrCode != "01") {
+                        var options = {
+                            data: result.DataList,
+                            getValue: "Name",
+                            list: {
+                                sort: {
+                                    enabled: true
+                                },
+                                match: {
+                                    enabled: true
+                                },
+                                maxNumberOfElements: 10,
+                                onClickEvent: function () {
+                                    var item = $("#txt-keyword").getSelectedItemData();
+
+                                    CommonIndex.saveWatchList(item);
+                                    loadWatchList();
+                                }
+                            }
+                        };
+
+                        $("#txt-keyword").easyAutocomplete(options);
+                    }
+
+                });
+
+        }
+
+        $(document).on("click", ".a-btn-remove-item-watch-list",  function () {
+            var code = $(this).attr("data-code");
+            CommonIndex.removeItemWatchList(code);
+            $(".div-watch-list-item-" + code).remove();
+        });
+        loadWatchList();
+
+        setInterval(() => {
+            loadWatchList();
+        }, 60 * 1000);
+        function loadWatchList() {
+            var url = '@Url.Action("GetWatchList", "Home")';
+            CommonIndex.loadWatchList(url);
+        }
+    });
+</script>

@@ -1,0 +1,67 @@
+﻿@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Event.EventModel>
+<div class="table-responsive-sm table-scroll">
+    <br />
+    <table class="table table-bordered table-common">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã CK</th>
+                <th scope="col">Sàn</th>
+                <th scope="col">Ngày GDKHQ</th>
+                <th scope="col">Ngày ĐKCC</th>
+                <th scope="col">Tỉ lệ</th>
+                <th scope="col">Khối lượng DKPH</th>
+                <th scope="col">Nội dung sự kiện</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+            <tr>
+                <td class="center" scope="row">@item.RowIndex</td>
+                <td class="center"><a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></td>
+                <td class="center">@item.ExchangeCode</td>
+                <td class="center">@item.DateGdkhq</td>
+                <td class="center">@item.DateDkcc</td>
+                <td class="right">@item.Rate</td>
+                <td class="center">@item.KlDkPh</td>
+                <td class="left">
+                    <a href="javascript:void(0)" class="a-btn-show-modal-detail" data-id="@item.Id">
+                        @item.Note
+                    </a>
+                    <span id="title-@item.Id" style="display: none;">@item.Title</span>
+                    <span id="link-download-@item.Id" style="display: none;">@item.FileUrl</span>
+                    <span id="content-@item.Id" style="display: none;">@MvcHtmlString.Create(item.Content)</span>
+                </td>
+
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<nav id="common-paging">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</nav>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".a-btn-show-modal-detail").click(function () {
+            var id = $(this).attr("data-id");
+            var title = $("#title-" + id).html();
+            var url = $("#link-download-" + id).html();
+            var content = $("#content-" + id).html();
+            $("#event-detail-title").html("");
+            $("#event-detail-content").html("");
+            $("#event-detail-download").html("");
+
+            $("#event-detail-title").html(title);
+            $("#event-detail-content").html(content);
+            if (url != "" && url != null)
+                $("#event-detail-download").html("<a target='_blank' href=" + url + ">" + url + "</a>");
+
+            $('.modal-detail').modal('show');
+        });
+    });
+</script>

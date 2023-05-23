@@ -1,0 +1,78 @@
+﻿@using M.Common.Helpers
+@using M.Common.Extensions
+@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.Finacial
+@model  BaseListModel<FinanceTargetMdl>
+<div class="company-finance-target">
+    <div class="row">
+        <div class="option col-12">
+            <span>Chỉ tiêu tài chính</span>
+            <a class="btn btn-light" href="javascript:void(0)" onclick="financeTargetNext()">></a>
+            <a class="btn btn-light" href="javascript:void(0)" onclick="financeTargetPre()"><</a>
+        </div>
+    </div>
+    <div class="content-cttc row">
+        <div class="col-12">
+            <table class="table table-hover table-striped table-bordered table-common ">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <span>Chỉ tiêu</span>
+                        </th>
+
+                        @*<th scope="col">
+                                Năm @Model.SearchParams["year5"]
+                            </th>*@
+                        <th scope="col">
+                            Năm @Model.SearchParams["year4"]
+                        </th>
+                        <th scope="col">
+                            Năm @Model.SearchParams["year3"]
+                        </th>
+                        <th scope="col">
+                            Năm @Model.SearchParams["year2"]
+                        </th>
+                        <th scope="col">
+                            Năm @Model.SearchParams["year1"]
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.DataList)
+                    {
+                        <tr>
+                            <td scope="col">
+                                @item.Name
+                            </td>
+
+                            @*<td scope="col">
+                                    @(item.Year5==0?"N/A":item.Year5.FormatNumber())
+                                </td>*@
+                            <td scope="col">
+                                @(item.Year4 == 0 ? "N/A" : item.Year4.FormatNumber())
+                            </td>
+                            <td scope="col">
+                                @(item.Year3 == 0 ? "N/A" : item.Year3.FormatNumber())
+                            </td>
+                            <td scope="col">
+                                @(item.Year2 == 0 ? "N/A" : item.Year2.FormatNumber())
+                            </td>
+                            <td scope="col">
+                                @(item.Year1 == 0 ? "N/A" : item.Year1.FormatNumber())
+                            </td>
+                            <td>
+                                @*<img src="@("https://chart.googleapis.com/chart?cht=bvs&chd=t:"+NumberHelper.GetValueGoogleApi_4Colum(item.Year4,item.Year3,item.Year2,item.Year1)+"&chs=60x30&chco=3b1b70&chbh=5&chf=bg,s,f9f8fa00")" />*@
+                                <img src="@NumberHelper.GetUrlChartGoogle_4Column(item.Year4,item.Year3,item.Year2,item.Year1)" />
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<input type="hidden" class="d-none" id="finance-finish-pre" value="@(Model.DataList.Any(x=>x.IsFinish)?Model.SearchParams["year1"]:string.Empty)" />

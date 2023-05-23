@@ -1,0 +1,94 @@
+﻿@using M.Common.Extensions
+@using System.Linq
+@model Nqs.Models.FormModel.Common.BaseModels<List<Nqs.Models.FormModel.Company.CompanyChildMdl>>
+@{
+    var dataCompanyChild = Model.DataObject.Where(x => x.Type == 1);
+    var dataCompanyLinked = Model.DataObject.Where(x => x.Type == 2);
+}
+
+<div class="company-child-pc">
+    <div class="titletab">CÔNG TY CON VÀ CÔNG TY LIÊN KẾT</div>
+    <ul class="is-line-bottom">
+        <li class="labelname">
+            <span class="col-4">Tên công ty</span>
+            <span class="col-2">Vốn điều lệ</span>
+            <span class="col-2">Vốn góp</span>
+            <span class="col-2">Tỉ lệ sở hữu</span>
+            <span class="col-2">Ghi chú</span>
+        </li>
+        <li class="companyname">Công ty con<span>(@dataCompanyChild.Count())</span></li>
+
+        @foreach (var item in dataCompanyChild)
+        {
+            <li>
+                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span class="col-2">@(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
+                <span class="col-2">@(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
+                <div class="col-2 d-flex">
+                    <div> @((item.TiLeSoHuu??0).FormatNumberPercent())</div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @((item.TiLeSoHuu??0).FormatNumberPercent())%" aria-valuenow="@((item.TiLeSoHuu??0).FormatNumber())" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <span class="col-2"></span>
+            </li>
+        }
+
+
+        <li class="companyname">Công ty liên kết<span>(@dataCompanyLinked.Count())</span></li>
+        @foreach (var item in dataCompanyLinked)
+        {
+            <li>
+                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span class="col-2">@(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
+                <span class="col-2">@(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
+                <div class="col-2 d-flex">
+                    <div> @((item.TiLeSoHuu??0).FormatNumberPercent())</div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @((item.TiLeSoHuu??0).FormatNumberPercent())%" aria-valuenow="@((item.TiLeSoHuu??0).FormatNumber())" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <span class="col-2"></span>
+            </li>
+        }
+    </ul>
+</div>
+<div class="company-child-mobile">
+    <ul class="is-line-bottom">
+        <li class="companyname">Công ty con<span>(@dataCompanyChild.Count())</span></li>
+
+        @foreach (var item in dataCompanyChild)
+        {
+            <li>
+                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span>Vốn điều lệ: @(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
+                <span>Vốn góp: @(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
+                <span>Tỉ lệ sở hữu: @((item.TiLeSoHuu??0).FormatNumberPercent())</span>
+                @*<div class="col-2 d-flex">
+                    <div> @((item.TiLeSoHuu??0).FormatNumberPercent())</div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @((item.TiLeSoHuu??0).FormatNumberPercent())%" aria-valuenow="@((item.TiLeSoHuu??0).FormatNumber())" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>*@
+            </li>
+        }
+
+
+        <li class="companyname">Công ty liên kết<span>(@dataCompanyLinked.Count())</span></li>
+        @foreach (var item in dataCompanyLinked)
+        {
+            <li>
+                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span>Vốn điều lệ: @(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
+                <span>Vốn góp: @(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
+                <span>Tỉ lệ sở hữu: @((item.TiLeSoHuu??0).FormatNumberPercent())</span>
+                @*<div class="col-2 d-flex">
+                    <div> @((item.TiLeSoHuu??0).FormatNumberPercent())</div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @((item.TiLeSoHuu??0).FormatNumberPercent())%" aria-valuenow="@((item.TiLeSoHuu??0).FormatNumber())" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>*@
+            </li>
+        }
+    </ul>
+</div>

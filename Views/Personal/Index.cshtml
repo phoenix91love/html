@@ -1,0 +1,860 @@
+﻿@using M.Common.Extensions
+@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.Personal
+@model BaseModels<PersonalInforMdl>
+@{
+
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+    var dataPersonal = Model.DataObject;
+    var dataGroupPerson = ViewBag.GroupPerson as BaseModels<List<PersonalGroupInforMdl>>;
+    ViewBag.Title = $"{dataPersonal?.Name}";
+    if (dataGroupPerson == null)
+    {
+        dataGroupPerson = new BaseModels<List<PersonalGroupInforMdl>>();
+    }
+    var companyGroupPerson = dataGroupPerson.DataObject;
+    if (companyGroupPerson == null || !companyGroupPerson.Any())
+    {
+        companyGroupPerson = new List<PersonalGroupInforMdl>();
+    }
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/styles/personal-detail")
+}
+<div class="personal-detail">
+
+    <div class="title-name"><span>Cá nhân</span> <span>@dataPersonal.Name</span> </div>
+    <hr class="clearfix" />
+
+    <div class="c-content-flex">
+        <div class="l-main">
+            <div class="c-news-detail">
+                <div class="b-maincontent">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img onerror="this.src='/Upload/images/noimage.png'" src='@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+(dataPersonal.ImagePath.Replace(@"\","/")))' alt="@dataPersonal.Name" />
+                        </div>
+                        <div class="col-lg-9 profile-info">
+                            <ul>
+                                <li>
+                                    <span>Họ tên :</span>
+                                    <span>@dataPersonal.Name</span>
+                                </li>
+                                @if (dataPersonal.Birthday.HasValue)
+                                {
+                                    <li>
+                                        <span>Năm sinh :</span>
+                                        <span>@(dataPersonal.Birthday?.ToString("dd/MM/yyyy"))</span>
+                                    </li>
+
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.NguyenQuan))
+                                {
+                                    <li>
+                                        <span>Nguyên quán :</span>
+                                        <span>  @dataPersonal.NguyenQuan</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.NoiSinh))
+                                {
+                                    <li>
+                                        <span>Nơi sinh :</span>
+                                        <span>@dataPersonal.NoiSinh</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.NoiCuTru))
+                                {
+                                    <li>
+                                        <span>Cư trú :</span>
+                                        <span>@dataPersonal.NoiCuTru</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.CMTND))
+                                {
+                                    <li>
+                                        <span>Số CMND :</span>
+                                        <span>@dataPersonal.CMTND</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.Phone))
+                                {
+                                    <li>
+                                        <span>Điện thoại :</span>
+                                        <span>@dataPersonal.Phone</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.Email))
+                                {
+                                    <li>
+                                        <span>Email :</span>
+                                        <span>@(dataPersonal.Email)</span>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(dataPersonal.TrinhDo))
+                                {
+                                    <li>
+                                        <span>Trình độ :</span>
+                                        <span>@(dataPersonal.TrinhDo)</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="clearfix" />
+                </div>
+                @if (dataPersonal.PositionPersonals.Any())
+                {
+                    var index = 0;
+                    <div class="positon-content">
+                        <div class="title">Chức vụ hiện tại</div>
+                        <ul class="desktop">
+                            <li>
+                                <span>STT</span>
+                                <span>Công ty</span>
+                                <span>Chức vụ</span>
+                                <span>Bổ nhiệm</span>
+                            </li>
+                            @foreach (var item in dataPersonal.PositionPersonals)
+                            {
+                                index++;
+                                <li>
+                                    <span>@index</span>
+
+                                    @if (string.IsNullOrEmpty(item.CompanyCode))
+                                    {
+
+                                        <span>
+                                            @item.CompanyName.Replace("CTCP", "Công ty Cổ phần")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            <a href="@Url.Action("CompanyDetail","Company",new {code=item.CompanyCode })">@item.CompanyName.Replace("CTCP", "Công ty Cổ phần")</a>
+                                        </span>
+                                    }
+
+                                    <span>@item.PositonName</span>
+                                    <span>@item.LastUpdate</span>
+                                </li>
+                            }
+                        </ul>
+                        <hr class="clearfix" />
+                    </div>
+                }
+
+                @if (dataPersonal.PersonalStocks.Any())
+                {
+                    var index = 0;
+                    var namgiu = dataPersonal.PersonalStocks.Where(x => x.Type == 1);
+                    var sohuu = dataPersonal.PersonalStocks.Where(x => x.Type == 2);
+
+                    <div class="stock-conent">
+                        @if (namgiu.Any())
+                        {
+                            <div class="title">Cổ phiếu sở hữu</div>
+                            <ul class="desktop">
+                                <li>
+                                    <span>STT</span>
+                                    <span>Mã CP</span>
+                                    <span>Khối lượng</span>
+                                    <span>Tỉ lệ sở hữu</span>
+                                    <span>Tính đến ngày</span>
+                                    <span>Giá trị<br /><span class="label-unit">(tỷ VNĐ)</span></span>
+                                </li>
+                                @foreach (var item in namgiu)
+                                {
+                                    index++;
+                                    <li>
+                                        <span>@index</span>
+                                        <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></span>
+                                        <span>@item.CountStock.FormatNumber()</span>
+                                        <span>@item.Percent.FormatNumber()</span>
+                                        <span>@item.LastUpdate</span>
+                                        <span>@item.CountValue.FormatNumberUnit(2)</span>
+                                    </li>
+                                }
+                            </ul>
+                            <ul class="mobile">
+                                <li>
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                STT
+                                            </div>
+                                            <div>
+                                                Mã CP
+                                            </div>
+                                            <div>
+                                                Khối lượng
+                                            </div>
+                                            <div>
+                                                Tỉ lệ sở hữu
+                                            </div>
+                                        </li>
+                                        @{ index = 0;}
+                                        @foreach (var item in namgiu)
+                                        {
+                                            index++;
+                                            <li>
+                                                <div>
+                                                    <span>
+                                                        @index
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        <a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.CountStock.FormatNumber()
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.Percent.FormatNumber()%
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                Tính đến ngày
+                                            </div>
+                                            <div>
+                                                Giá trị&nbsp;<span class="label-unit">(tỷ VNĐ)</span>
+                                            </div>
+                                        </li>
+                                        @{ index = 0;}
+                                        @foreach (var item in namgiu)
+                                        {
+                                            index++;
+                                            <li>
+                                                <div>
+                                                    <span>
+                                                        @item.LastUpdate
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.CountValue.FormatNumberUnit(2)
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                        @if (sohuu.Any())
+                        {
+                            index = 0;
+                            <div class="title">Cổ phiếu đại diện sở hữu</div>
+                            <ul class="desktop">
+                                <li>
+                                    <span>STT</span>
+                                    <span>Mã CP</span>
+                                    <span>Khối lượng</span>
+                                    <span>Tỉ lệ sở hữu</span>
+                                    <span>Tính đến ngày</span>
+                                    <span>Giá trị<br /><span class="label-unit">(tỷ VNĐ)</span></span>
+                                </li>
+                                @foreach (var item in sohuu)
+                                {
+                                    index++;
+                                    <li>
+                                        <span class="index">@index</span>
+                                        <span class="name"><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></span>
+                                        <span class="wigth">@item.CountStock.FormatNumber()</span>
+                                        <span class="percent">@item.Percent.FormatNumber()%</span>
+                                        <span class="last">@item.LastUpdate</span>
+                                        <span class="value">@item.CountValue.FormatNumberUnit(2)</span>
+                                    </li>
+                                }
+                            </ul>
+                            <ul class="mobile">
+                                <li>
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                STT
+                                            </div>
+                                            <div>
+                                                Mã CP
+                                            </div>
+                                            <div>
+                                                Khối lượng
+                                            </div>
+                                            <div>
+                                                Tỉ lệ sở hữu
+                                            </div>
+                                        </li>
+                                        @{ index = 0;}
+                                        @foreach (var item in sohuu)
+                                        {
+                                            index++;
+                                            <li>
+                                                <div>
+                                                    <span>
+                                                        @index
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        <a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.CountStock.FormatNumber()
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.Percent.FormatNumber()%
+                                                    </span>
+                                                </div>
+                                            </li>
+
+                                        }
+                                    </ul>
+
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                Tính đến ngày
+                                            </div>
+                                            <div>
+                                                Giá trị&nbsp;<span class="label-unit">(tỷ VNĐ)</span>
+                                            </div>
+                                        </li>
+                                        @{ index = 0;}
+                                        @foreach (var item in sohuu)
+                                        {
+                                            index++;
+                                            <li>
+                                                <div>
+                                                    <span>
+                                                        @item.LastUpdate
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span>
+                                                        @item.CountValue.FormatNumberUnit(2)
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                        <hr class="clearfix" />
+                    </div>
+                }
+                @if (dataPersonal.PersonalStockRelationships.Any())
+                {
+                    dataPersonal.PersonalStockRelationships = dataPersonal.PersonalStockRelationships.Where(x => !string.IsNullOrEmpty(x.Relationship)).ToList();
+
+                    <div class="relationship-content">
+                        <div class="title">Cá nhân liên quan</div>
+                        <div class="relationship-detail">
+                            <table class="table table-hover table-striped table-bordered table-common table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh</th>
+                                        <th>Họ tên</th>
+                                        <th>Quan hệ</th>
+                                        <th>Mã CP</th>
+                                        <th>Khối lượng</th>
+                                        <th>Tính đến ngày</th>
+                                        <th>Giá trị<br /><span class="label-unit">(tỷ VNĐ)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in dataPersonal.PersonalStockRelationships)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage) ? "/Upload/images/noimage.png" : System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString() + "/Image" + (item.PersonalImage.Replace(@"\", "/")))" /></div>
+                                            </td>
+                                            <td>
+                                                @if (string.IsNullOrEmpty(item.PersonalCode))
+                                                {
+                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3>
+                                                        <a href='@Url.Action("Index", "Personal", new { nqsCode = item.PersonalCode.ToLower(), companyCode = ViewBag.CompanyCode, name = M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
+                                                            @item.PersonalName
+                                                        </a>
+                                                    </h3>
+                                                }
+                                            </td>
+                                            <td><span>@item.Relationship</span> </td>
+                                            <td><span> <a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></span></td>
+                                            <td><span> @item.CountStock.FormatNumber()</span></td>
+                                            <td><span> @item.LastUpdateDate.ToString("dd/MM/yyyy")</span></td>
+                                            <td><span> @item.CountValue.FormatNumberUnit(2)</span></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        @*<ul class="desktop">
+                                <li>
+                                    <div class="d-grid">
+                                        <div class="img">Ảnh</div>
+                                        <div class="content">
+                                            <div>Họ tên</div>
+                                            <div>Mã CP</div>
+                                            <div>Khối lượng</div>
+                                            <div>Tính đến ngày</div>
+                                            <div>Giá trị</div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                @foreach (var item in dataPersonal.PersonalStockRelationships)
+                                {
+
+                                    <li>
+                                        <div class="d-grid">
+                                            <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage)?"/Upload/images/noimage.png":System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+(item.PersonalImage.Replace(@"\","/")))" /></div>
+                                            <div class="content">
+
+                                                @if (string.IsNullOrEmpty(item.PersonalCode))
+                                                {
+                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3>
+                                                        <a href='@Url.Action("Index","Personal",new { nqsCode=item.PersonalCode.ToLower(),companyCode= ViewBag.CompanyCode, name =M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
+                                                            @item.PersonalName
+                                                        </a>
+                                                    </h3>
+                                                }
+
+                                                <div><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></div>
+                                                <div>@item.CountStock.FormatNumber()</div>
+                                                <div>@item.LastUpdateDate.ToString("dd/MM/yyyy")</div>
+                                                <div>@item.CountValue.FormatNumber()</div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                }
+                            </ul>
+                            <ul class="mobile">
+
+                                @foreach (var item in dataPersonal.PersonalStockRelationships)
+                                {
+                                    <li>
+                                        <div class="d-grid">
+                                            <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage)?"/Upload/images/noimage.png":System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+(item.PersonalImage.Replace(@"\","/")))" /></div>
+                                            <div class="content">
+
+                                                @if (string.IsNullOrEmpty(item.PersonalCode))
+                                                {
+                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3>
+                                                        <a href='@Url.Action("Index","Personal",new { nqsCode=item.PersonalCode.ToLower(),companyCode= ViewBag.CompanyCode, name =M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
+                                                            @item.PersonalName
+                                                        </a>
+                                                    </h3>
+                                                }
+
+                                                <div><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">Mã CP: @item.StockCode</a></div>
+                                                <div>Khối lượng: @item.CountStock.FormatNumber()</div>
+                                                <div>Tính đến ngày: @item.LastUpdateDate.ToString("dd/MM/yyyy")</div>
+                                                <div>Giá trị: @item.CountValue.FormatNumber()</div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                }
+                            </ul>*@
+
+                        <hr class="clearfix" />
+                    </div>
+                }
+
+
+
+                @*@if (dataPersonal.PersonalHistorys.Any())
+                    {
+                        var dataHistory = dataPersonal.PersonalHistorys.Where(x => x.Type == 1);
+                        if (dataHistory.Any())
+                        {
+                            <div class="history-content">
+
+                                <div>
+                                    <div class="row">
+                                        <div class="col-lg-12 history-title">Quá trình học tập</div>
+                                    </div>
+                                    <ul class="history-body">
+                                        @foreach (var item in dataHistory.OrderBy(x => x.IndexHistory))
+                                        {
+                                            <li>@item.History</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        dataHistory = dataPersonal.PersonalHistorys.Where(x => x.Type == 2);
+                        if (dataHistory.Any())
+                        {
+                            <div class="history-content">
+
+                                <div>
+                                    <div class="row">
+                                        <div class="col-lg-12 history-title">Quá trình làm việc</div>
+                                    </div>
+                                    <ul class="history-body">
+                                        @foreach (var item in dataHistory.OrderBy(x => x.IndexHistory))
+                                        {
+                                            <li>@item.History</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    }*@
+
+            </div>
+            <!--end c-news-detail-->
+        </div>
+        <!--end l-main-->
+        <div class="l-sidebar">
+            <div class="info">
+                <div class="title">Thông tin chi tiết</div>
+                <div class="content-personal">
+                    @dataPersonal.Name @(dataPersonal.Birthday.HasValue?$"sinh ngày {dataPersonal.Birthday?.ToString("dd/MM/yyyy")}.":string.Empty) @(!string.IsNullOrEmpty(dataPersonal.NguyenQuan)?$"Nguyên quán {dataPersonal.NguyenQuan}.":string.Empty)
+                    @(!string.IsNullOrEmpty(dataPersonal.NoiCuTru)?$"Hiện cư trú tại {dataPersonal.NoiCuTru}.":string.Empty)
+
+                    @if (dataPersonal.PersonalHistorys.Any())
+                    {
+                        <div class="d-none content-extent">
+                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderBy(x => x.IndexHistory).Take(4).Select(x => x.History).Reverse())}.</br>" : string.Empty)}" : string.Empty)
+                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderBy(x => x.IndexHistory).Take(4).Select(x => x.History).Reverse())}.</br>" : string.Empty)}" : string.Empty)
+                        </div>
+                        <div class="option">
+                            <a href="javascript:void(0)" onclick="ShowDetail(this)">Mở rộng</a>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+            @if (companyGroupPerson.Any())
+            {
+                <div class="c-grey content-struct">
+                    <div class="title">Doanh nghiệp liên quan</div>
+                    <div class="tab-struct">
+                        <ul class="nav info-navbar info-grey">
+                            @foreach (var item in companyGroupPerson)
+                            {
+                                <li class="@(item.CompanyCode==companyGroupPerson.First().CompanyCode?"active":string.Empty)"><a href="#tab-@item.CompanyCode" data-toggle="tab" class="nav-link">@item.CompanyCode</a></li>
+                            }
+                        </ul>
+                        <div class="tab-content">
+                            @foreach (var item in companyGroupPerson)
+                            {
+                                <div id="tab-@item.CompanyCode" class="tab tab-pane @(item.CompanyCode == companyGroupPerson.First().CompanyCode ? "active" : string.Empty)">
+                                    <div>@item.CompanyName</div>
+                                    <div>
+                                        @item.CompanyCode
+                                        <div class="b-grid__title box">
+                                            <span class="point"> @((item.Price/1000).FormatNumber())</span>
+                                            <span class="unit @(item.Change >= 0 ? "green" : "red") "> @( item.Change >= 0? $"+{(item.Change/1000).FormatNumber()}": $"{(item.Change / 1000).FormatNumber()}")</span>
+                                            <span class="unit @(item.PercentChange >= 0 ? "green" : "red")"> @(item.PercentChange >= 0 ? $"+{item.PercentChange.FormatNumber()}" : item.PercentChange.FormatNumber())%</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div id="chart-doanh-nghiep-@item.CompanyCode" width="300" height="300"></div>
+                                        </div>
+                                    </div>
+
+                                    @{
+                                        var dataGroup = item.PersonalGroup.GroupBy(x => x.GroupId).OrderBy(x => x.Key);
+                                        foreach (var data in dataGroup)
+                                        {
+
+                                            <div class="struct">
+                                                <div>
+                                                    <div>@data.FirstOrDefault().GroupName</div>
+                                                </div>
+                                                <div>
+                                                    <ul class="is-line-bottom">
+
+                                                        @foreach (var subItem in data.OrderBy(x => x.PositionIndex))
+                                                        {
+                                                            <li>
+                                                                <div class="b-grid">
+                                                                    <div class="b-grid__img">
+                                                                        <a href="@Url.Action("Index","Personal",new { nqsCode=subItem.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.Name).ToLower() })">
+                                                                            <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+subItem.ImagePath.Replace(@"\","/"))" alt="@subItem.Name" title="@subItem.Name">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="b-grid__content">
+                                                                        <h3 class="b-grid__title">
+                                                                            @Html.Raw(string.IsNullOrEmpty(subItem.PersonalCode) ? subItem.Name : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = subItem.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.Name).ToLower() })}'>{subItem.Name}</a>")
+                                                                        </h3>
+                                                                        <ul>
+                                                                            <li>@subItem.PositionName</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        }
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var urlGetDataStockBy = '@Url.Action("GetDataStockBy", "Home")';
+        var arrayCompany = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(companyGroupPerson.Select(x=>x.CompanyCode)))');
+        var isShow = false;
+        var Arraychart=[];
+        function loadDataChartHeader(el, type, code) {
+            var url = urlGetDataStockBy + '?type=' + type + '&code=' + code;
+            var params = "";
+            AjaxHelper.ajaxCall(url, params, function (result) {
+                if (result.ErrCode != "01") {
+                    renderChart(el,
+                        code,
+                        result.DataIndex,
+                        result.DataVolume,
+                        result.BasePrice,
+                        result.MinPrice,
+                        result.MaxPrice
+                        , type == "6MONTH");
+                }
+            });
+        }
+        function ShowDetail(e) {
+            isShow = !isShow;
+            if (isShow) {
+                $(e).text('Thu gọn');
+                $('.content-extent').removeClass('d-none');
+            } else {
+                $(e).text('Mở rộng');
+                $('.content-extent').addClass('d-none');
+            }
+        }
+        $(function () {
+            arrayCompany.forEach((item) => {
+                loadDataChartHeader("chart-doanh-nghiep-" + item, 'DAY', item);
+            });
+        });
+
+       function renderChart(containerId, code, priceData, volumeData, openPrice, min, max, isStock = true) {
+            const chartAtr = {
+                lineColor: '#ffb800',
+                redColor: '#fc0002',
+                greenColor: "#33a42e"
+           };
+           if (priceData.length == 0 && volumeData.length==0) {
+               return;
+           }
+            var last = priceData[priceData.length - 1];
+            var color = openPrice > last[1] ? chartAtr.redColor : chartAtr.greenColor;
+            // create the chart
+            Highcharts.setOptions(highchartOption);
+          var chart=  Highcharts.stockChart(containerId, {
+
+                exporting: {
+                    enabled: false
+                },
+
+                credits: {
+                    enabled: false
+                },
+                rangeSelector: {
+                    enabled: false
+                },
+                scrollbar: {
+                    enabled: false
+                },
+                navigator: {
+                    enabled: false
+                },
+
+                title: {
+                    enabled: false
+                },
+                xAxis: [{
+                    tickAmount: 3,
+                    lineWidth: 0,
+                    tickWidth: 0
+                }],
+                yAxis: [
+                    {
+                        labels: {
+                            align: "right",
+                            x: -7,
+                            formatter: function () {
+                                if (isStock)
+                                    return new Intl.NumberFormat("es-US").format(this.value / 1000);
+                                else
+                                    return new Intl.NumberFormat("es-US").format(this.value);
+                            },
+                        },
+                        title: {
+                            enabled: false
+                        },
+                        height: "70%",
+                        resize: {
+                            enabled: true
+                        },
+                        opposite: false,
+                        min: min,
+                        //max: max,
+                        plotLines: [{
+                            value: openPrice,
+                            color: chartAtr.lineColor,
+                            dashStyle: 'shortdash',
+                            width: 1.5,
+                            zIndex: 3
+                        }],
+                        //tickAmount: 3,
+                        lineWidth: 0,
+                    },
+                    {
+                        labels: {
+                            align: "right",
+                            x: -7
+                        },
+                        title: {
+                            enabled: false,
+                        },
+                        top: "75%",
+                        height: "25%",
+                        offset: 0,
+                        opposite: false,
+                        lineWidth: 0,
+                    }
+                ],
+                tooltip: {
+                    style: {
+                        color: 'black',
+                        fontSize: '10px',
+                        fontWeight: 'bold'
+                    },
+                    backgroundColor: 'transparent',
+                    borderWidth: 0,
+                    shadow: false,
+                    positioner: function () {
+                        return { x: 60, y: 0 };
+                    },
+                    valueDecimals: 0,
+                    shared: true,
+                    formatter: function () {
+                        let time = Highcharts.dateFormat('%A, %e/%b/%Y %H:%M', this.points[0].point.x);
+                        let index = Math.round((this.points[0].point.y + Number.EPSILON) * 100) / 100;
+                        let volume = this.points[1].point.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return code + ":" + time + "<br>Giá:" + $.number(isStock ? index / 1000 : index, 2) + ",Volume:" + $.number(volume, 0);
+                    }
+                },
+                series: [
+                    {
+                        type: "area",
+                        name: "xxxx",
+                        data: priceData,
+                        dataGrouping: {
+                            enabled: false
+                        },
+
+                        lineColor: "transparent",
+                        fillColor: {
+                            linearGradient: {
+                                x1: 0,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, color],
+                                [
+                                    1,
+                                    Highcharts.color(color)
+                                        .setOpacity(0.2)
+                                        .get("rgba")
+                                ]
+                            ]
+                        }
+
+                    },
+                    {
+                        pointWidth: 2,//độ rộng cột
+                        dataGrouping: {
+                            enabled: false
+                        },
+                        type: "column",
+                        name: "Khối lượng",
+                        data: volumeData,
+                        yAxis: 1,
+                        color: 'rgb(124,181,236)'
+                    }
+              ]
+              , responsive: {
+                  rules: [{
+                      condition: {
+                          maxWidth: 500
+                      },
+                      chartOptions: {
+                          chart: {
+                              height: 300
+                          },
+                          subtitle: {
+                              text: null
+                          },
+                          navigator: {
+                              enabled: false
+                          }
+                      }
+                  }]
+              }
+          });
+           chart.setSize(null);
+           Arraychart.push(chart);
+        }
+
+        $(window).on("resize", function () {
+            Arraychart.forEach((item) => {
+                var width = $('.personal-detail').width();
+                if (width > $('.info').width())
+                    width = $('.info').width();
+                item.setSize(width);
+            });
+        });
+    </script>
+
+}
