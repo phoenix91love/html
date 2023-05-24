@@ -4,14 +4,24 @@ function loadDataChartHeader(el, type, code) {
     var params = "";
     AjaxHelper.ajaxCall(url, params, function (result) {
         if (result.ErrCode != "01") {
-            ChartHelper.renderChartIndex(el,
-                code,
-                result.DataIndex,
-                result.DataVolume,
-                result.BasePrice,
-                result.MinPrice,
-                result.MaxPrice
-                , type == "DAY");
+            if (type === "DAY" || type == "6MONTH" || type == "1YEAR" || type == "5YEAR" || type == "") {
+                ChartHelper.renderChartIndex(el,
+                    code,
+                    result.DataIndex,
+                    result.DataVolume,
+                    result.BasePrice,
+                    result.MinPrice,
+                    result.MaxPrice,
+                    type == "DAY"
+                );
+            } else {
+                ChartHelper.renderChartCandleStick(el,
+                    code,
+                    result.DataIndex,
+                    result.DataVolume,
+                    result.BasePrice
+                );
+            }
         }
     });
 }

@@ -54,6 +54,7 @@ var CommonIndex = {
             result.forEach(function (item) {
                 if (arrExclude.indexOf(item.Code) < 0) {
                     var cssColor = item.Change > 0 ? "green" : (item.Change < 0 ? "red" : "yellow");
+                    var priceCssColor = item.Change > 0 ? "green" : (item.Change < 0 ? "red" : "black");
                     if (item.Type == 0) {
                         //$('.header-' + item.Code + '-price').html($.number(item.Price, 2));
                         //$('.header-' + item.Code + '-change').html($.number(item.Change, 2));
@@ -72,8 +73,8 @@ var CommonIndex = {
                         //}
                     } else {
                         if (i < 5) {
-                            $('.watch-list').prepend('<li class="wl is-border-right ' + cssColor + '" data-code="' + item.Code + '"><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '"><div><span class="unit">' + item.Code +
-                                '</span><span>' + $.number(item.Price, 2) + '</span></div><div><span>' + $.number(item.Change, 2) + '</span><span>' + $.number(item.PerChange, 2) + '%</span></div></li>');
+                            $('.watch-list').prepend('<li class="wl is-border-right" data-code="' + item.Code + '"><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '"><div><span class="unit">' + item.Code +
+                                '</span><span class="' + priceCssColor + '">' + $.number(item.Price, 2) + '</span></div><div><span class="' + cssColor + '">' + $.number(item.Change, 2) + '</span><span class="' + cssColor + '">' + $.number(item.PerChange, 2) + '%</span></div></li>');
                         }
 
                         $('.watch-list-popup').append('<li class="li-watch-list-item-' + item.Code + '"><span>' + (i + 1) + '</span><span><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '">' + item.Code + '</a></span><span>' + $.number(item.Price, 2) +
@@ -247,6 +248,13 @@ var CommonIndex = {
                             $('.header-' + item.Code + '-color').addClass("green");
                             $('.header-' + item.Code + '-arow').removeClass("down");
                             $('.header-' + item.Code + '-arow').addClass("up");
+                        }
+                        if (item.Change == 0) {
+                            $('.header-' + item.Code + '-color').removeClass("red");
+                            $('.header-' + item.Code + '-color').removeClass("green");
+                            $('.header-' + item.Code + '-arow').removeClass("down");
+                            $('.header-' + item.Code + '-arow').removeClass("up");
+                            $('.header-' + item.Code + '-color').addClass("yellow");
                         }
                         if (item.Change < 0) {
                             $('.header-' + item.Code + '-color').removeClass("green");

@@ -1,4 +1,4 @@
-﻿
+﻿@using M.Common.Extensions
 @model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Stock.CompanyModelGrid>
 <div class="table-responsive-sm table-scroll">
     <br />
@@ -10,21 +10,25 @@
                 <th scope="col">Tên công ty</th>
                 <th scope="col">Ngành</th>
                 <th scope="col">Sàn</th>
-                <th scope="col">KLNY/ĐKGD</th>
+                <th scope="col">Giá</th>
+                <th scope="col">EPS</th>
+                <th scope="col">Vốn hóa</th>
             </tr>
-          
+
         </thead>
         <tbody>
             @foreach (var item in Model.DataList)
             {
-            <tr>
-                <td class="center" scope="row">@item.RowIndex</td>
-                <td class="center"><a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></td>
-                <td>@item.Name</td>
-                <td class="">@item.ProfessionName.Split('/').Last()</td>
-                <td class="center">@item.ExchangeCode</td>
-                <td class="right">@item.KLCPNY.ToString("#,###")</td>
-            </tr>
+                <tr>
+                    <td class="center" scope="row">@item.RowIndex</td>
+                    <td class="center"><a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></td>
+                    <td>@item.Name</td>
+                    <td class="">@item.ProfessionName.Split('/').Last()</td>
+                    <td class="center">@item.ExchangeCode</td>
+                    <td class="center">@item.Price.FormatNumber()</td>
+                    <td class="center">@(item.EPS==0?"N/A":item.EPS.FormatNumber())</td>
+                    <td class="right">@item.MarketCap.FormatNumberUnit(1)</td>
+                </tr>
             }
 
         </tbody>
