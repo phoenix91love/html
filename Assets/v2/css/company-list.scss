@@ -1,0 +1,185 @@
+﻿@mixin r( $point ) {
+
+    @if $point==320 {
+        @media ( min-width: 320px ) {
+            @content;
+        }
+    }
+
+    @if $point==480 {
+        @media ( min-width: 480px ) {
+            @content;
+        }
+    }
+
+    @if $point==600 {
+        @media ( min-width: 600px ) {
+            @content;
+        }
+    }
+
+    @if $point==768 {
+        @media ( min-width: 768px ) {
+            @content;
+        }
+    }
+
+    @if $point==1024 {
+        @media ( min-width: 1024px ) {
+            @content;
+        }
+    }
+
+    @if $point==1140 {
+        @media ( min-width: 1140px ) {
+            @content;
+        }
+    }
+
+    @if $point==1280 {
+        @media ( min-width: 1280px ) {
+            @content;
+        }
+    }
+
+    @if $point==1500 {
+        @media ( min-width: 1500px ) {
+            @content;
+        }
+    }
+
+    @if $point==991 {
+        @media ( max-width: 991px ) {
+            @content;
+        }
+    }
+}
+
+.company-list {
+    form {
+
+        @include r(320) {
+            display: block;
+        }
+
+        @include r(768) {
+            display: flex;
+        }
+
+        .exchange {
+            width: 30%;
+            padding-right: 15px;
+
+            @include r(320) {
+                width: 100%;
+                margin-bottom: 10px;
+                display: flex;
+            }
+
+            @include r(768) {
+                width: 30%;
+                margin-bottom: unset;
+            }
+
+            label.col-form-label {
+                white-space: nowrap;
+                float: left;
+                width: 25%;
+            }
+
+            select {
+                margin-left: 10px;
+                float: left;
+                width: 70%;
+            }
+        }
+
+        .profession {
+            width: 30%;
+            padding-right: 15px;
+
+            @include r(320) {
+                width: 100%;
+                margin-bottom: 10px;
+                display: flex;
+            }
+
+            @include r(768) {
+                width: 30%;
+                margin-bottom: unset;
+            }
+
+            label.col-form-label {
+                white-space: nowrap;
+                float: left;
+                width: 25%;
+            }
+
+            div.comboTreeWrapper {
+                width: 70%;
+                margin-left: 10px;
+                float: left;
+
+                input.comboTreeInputBox {
+                    border-radius: unset;
+                }
+            }
+        }
+
+        .code {
+            width: 30%;
+            padding-right: 15px;
+
+            @include r(320) {
+                width: 100%;
+                margin-bottom: 10px;
+                display: flex;
+            }
+
+            @include r(768) {
+                width: 30%;
+                margin-bottom: unset;
+            }
+
+            label.col-form-label {
+                white-space: nowrap;
+                float: left;
+                width: 25%;
+            }
+
+            input.form-control {
+                width: 70%;
+                margin-left: 10px;
+                float: left;
+            }
+        }
+
+        .btn-submit {
+            button {
+                margin: 0;
+            }
+        }
+    }
+
+    .info-count {
+        margin: 15px 0px 0px 0px;
+
+        span:first-child, span:last-child {
+            span {
+                font-weight: 600;
+            }
+        }
+
+        :nth-child(2) {
+            margin-left:30px;
+        }
+    }
+
+    .pagination {
+        .page-link.active {
+            pointer-events: none;
+            cursor: default;
+            background-color: #EEE;
+        }
+    }
+}

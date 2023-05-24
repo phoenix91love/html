@@ -1,0 +1,1633 @@
+﻿@mixin r( $point ) {
+
+    @if $point==320 {
+        @media ( min-width: 320px ) {
+            @content;
+        }
+    }
+
+    @if $point==480 {
+        @media ( min-width: 480px ) {
+            @content;
+        }
+    }
+
+    @if $point==600 {
+        @media ( min-width: 600px ) {
+            @content;
+        }
+    }
+
+    @if $point==768 {
+        @media ( min-width: 768px ) {
+            @content;
+        }
+    }
+
+    @if $point==1024 {
+        @media ( min-width: 1024px ) {
+            @content;
+        }
+    }
+
+    @if $point==1140 {
+        @media ( min-width: 1140px ) {
+            @content;
+        }
+    }
+
+    @if $point==1280 {
+        @media ( min-width: 1280px ) {
+            @content;
+        }
+    }
+
+    @if $point==1500 {
+        @media ( min-width: 1500px ) {
+            @content;
+        }
+    }
+
+    @if $point==991 {
+        @media ( max-width: 991px ) {
+            @content;
+        }
+    }
+}
+
+
+body {
+    font-size: 14px;
+
+    .mobile {
+        display: none;
+
+        @include r(991) {
+            display: block;
+        }
+    }
+
+    .desktop {
+        display: block;
+
+        @include r(991) {
+            display: none;
+        }
+    }
+
+    .title-name {
+        font-size: 37px;
+        line-height: 37px;
+        font-weight: 600;
+        color: #222222;
+        display: flex;
+        justify-content: flex-start;
+
+        @include r(991) {
+            font-size: 25px;
+            line-height: 30px;
+            font-weight: 600;
+            margin-bottom: 14px;
+
+            + .clearfix {
+                display: none;
+            }
+        }
+
+        :nth-child(1) {
+            &::after {
+                content: "/";
+                margin: 0 5px;
+            }
+        }
+
+        :nth-child(2) {
+        }
+
+        + .clearfix {
+            border-top: solid 1px #E5E5E5;
+            margin: 19px 0;
+        }
+    }
+
+
+
+    .l-main {
+
+        .b-maincontent {
+            margin-bottom: 18px;
+
+            @include r(991) {
+                margin-bottom: 20px;
+            }
+
+            * {
+                font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+            }
+
+            .row {
+                margin: 0;
+                display: flex;
+                justify-content: space-between;
+
+                @include r(991) {
+                    flex-wrap: wrap;
+                }
+
+                .col-lg-3 {
+                    padding: 0;
+                    width: 253px;
+                    flex: unset;
+                    max-width: unset;
+
+                    @include r(991) {
+                        width: 100%;
+                    }
+
+                    img {
+                        width: 253px;
+                        height: 292px !important;
+                        border-radius: 8px;
+
+                        @include r(991) {
+                            width: 253px;
+                            height: 292px !important;
+                            margin: 0 auto;
+                        }
+                    }
+                }
+
+                .col-lg-9 {
+                    padding: 0;
+                    width: calc(100% - 280px);
+                    flex: unset;
+                    max-width: unset;
+
+                    @include r(991) {
+                        width: 100%;
+                        margin-top: 25px;
+                    }
+
+                    &.profile-info {
+                        font-size: 18px;
+                        line-height: 23px;
+                        padding-left: unset;
+
+                        @include r(991) {
+                            font-size: 14px;
+                            line-height: 17px;
+                            width: 290px;
+                            margin: 0 auto 50px;
+                        }
+
+                        ul {
+                            padding-left: 0 !important;
+                            margin-bottom: 0;
+
+                            li {
+                                margin-top: 15px;
+
+                                @include r(991) {
+                                    margin-top: 10px;
+                                    text-align: center;
+                                    line-height: 23px;
+                                }
+
+                                &:first-child {
+                                    margin-top: 0;
+
+                                    @include r(991) {
+                                        margin-top: 25px;
+                                    }
+
+                                    span {
+                                        &:nth-child(2) {
+                                            @include r(991) {
+                                                font-weight: bold;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                &:before, &:after {
+                    display: none;
+                }
+            }
+
+            .clearfix {
+                border-top: solid 1px #E5E5E5;
+                margin: 15px 0 0;
+
+                @include r(991) {
+                    margin: 20px 0;
+                }
+            }
+        }
+
+        .positon-content {
+            .desktop {
+                @include r(991) {
+                    display: block;
+                }
+            }
+
+            .title {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 20px;
+                background-color: #FFF;
+                color: #222222;
+                text-transform: uppercase;
+                margin-bottom: 18px;
+
+                @include r(991) {
+                    margin-bottom: 20px;
+                }
+            }
+
+            ul {
+                li:first-child {
+                    font-weight: 600;
+                    color: #222222;
+                    margin-top: 0;
+
+                    span {
+                        vertical-align: middle;
+
+                        @include r(991) {
+                            font-size: 14px;
+                            line-height: 16px;
+                        }
+                    }
+                }
+
+                li {
+                    line-height: 1.42857143;
+                    padding: 0;
+                    width: 100%;
+                    display: flex;
+                    margin-top: 11px;
+
+                    @include r(991) {
+                        margin-top: 8px;
+                    }
+
+                    :nth-child(1) {
+                        width: 8%;
+
+                        @include r(991) {
+                            width: 12%;
+                        }
+                    }
+
+                    :nth-child(2) {
+                        width: 38%;
+                    }
+
+                    :nth-child(3) {
+                        width: 30%;
+                    }
+
+                    :nth-child(4) {
+                        text-align: right;
+                        width: 22%
+                    }
+
+                    span {
+                        color: #222222;
+                        font-size: 16px;
+                        line-height: 18px;
+
+                        @include r(991) {
+                            font-size: 12px;
+                            line-height: 14px;
+                        }
+
+                        a {
+                            color: #222222;
+                            font-size: 16px;
+                            line-height: 18px;
+
+                            @include r(991) {
+                                font-size: 12px;
+                                line-height: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .clearfix {
+                border-top: solid 1px #E5E5E5;
+                margin: 18px 0;
+
+                @include r(991) {
+                    margin: 20px 0;
+                }
+            }
+        }
+
+        .stock-conent {
+            .title {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 20px;
+                background-color: #FFF;
+                color: #222222;
+                text-transform: uppercase;
+                margin-bottom: 18px;
+            }
+
+            ul {
+                li:first-child {
+                    font-weight: 600;
+                    color: #222222;
+                    margin-top: 0;
+
+                    span {
+                        vertical-align: middle;
+
+                        @include r(991) {
+                            font-size: 14px;
+                            line-height: 16px;
+                        }
+
+                        &.label-unit {
+                            font-size: 12px;
+                            line-height: 14px;
+                            color: #222;
+                            font-weight: normal;
+                        }
+                    }
+                }
+
+                li {
+                    line-height: 1.42857143;
+                    padding: 0;
+                    width: 100%;
+                    display: flex;
+                    margin-top: 11px;
+
+                    :nth-child(1) {
+                        width: 10%;
+                    }
+
+                    :nth-child(2) {
+                        width: 14%;
+                    }
+
+                    :nth-child(3) {
+                        width: 20%;
+                    }
+
+                    :nth-child(4) {
+                        width: 16%;
+                    }
+
+                    :nth-child(5) {
+                        width: 18%;
+                    }
+
+                    :nth-child(6) {
+                        width: 22%;
+                        text-align: right;
+                    }
+
+                    span {
+                        color: #222222;
+                        font-size: 16px;
+                        line-height: 18px;
+
+                        @include r(991) {
+                            font-size: 12px;
+                            line-height: 14px;
+                        }
+
+                        a {
+                            color: #222222;
+                            font-size: 16px;
+                            line-height: 18px;
+
+                            @include r(991) {
+                                font-size: 12px;
+                                line-height: 14px;
+                            }
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    margin-bottom: 18px;
+                    padding-bottom: 18px;
+                    border-bottom: 1px solid #E5E5E5;
+                }
+
+                &.mobile {
+                    @include r(991) {
+                        padding: 0;
+                    }
+
+                    li {
+                        @include r(991) {
+                            display: block;
+                            width: 100%;
+                        }
+
+                        span {
+                            &:nth-child(1) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: left;
+                                }
+                            }
+
+                            &:nth-child(2) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: center;
+                                }
+                            }
+
+                            &:nth-child(3) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: center;
+                                }
+                            }
+
+                            &:nth-child(4) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: center;
+                                }
+                            }
+
+                            &:nth-child(5) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: right;
+                                }
+                            }
+
+                            &:nth-child(6) {
+                                @include r(991) {
+                                    width: 25%;
+                                    text-align: right;
+                                }
+                            }
+                        }
+
+                        .d-grid {
+                            @include r(991) {
+                                width: 100%;
+                                display: flex;
+                                justify-content: flex-start;
+                            }
+
+                            .stock-code {
+                                @include r(991) {
+                                    width: 80px;
+                                    align-self: center;
+                                }
+
+                                span {
+                                    @include r(991) {
+                                        display: block;
+                                        width: 80px;
+                                        font-size: 12px;
+                                        line-height: 14px;
+                                    }
+
+                                    a {
+                                        @include r(991) {
+                                            display: block;
+                                            width: 80px;
+                                            text-align: center;
+                                            font-weight: 600;
+                                            font-size: 12px;
+                                            line-height: 14px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .content {
+                                @include r(991) {
+                                    width: calc(100% - 95px);
+                                    margin-left: 15px;
+                                }
+
+                                span {
+                                    @include r(991) {
+                                        width: 100%;
+                                        display: block;
+                                        font-weight: normal;
+                                        font-size: 12px;
+                                        line-height: 14px;
+                                    }
+                                }
+                            }
+                        }
+
+                        ul {
+                            @include r(991) {
+                                width: 100%;
+                            }
+
+                            li {
+                                @include r(991) {
+                                    margin-top: 0;
+                                    display: flex;
+                                    justify-content: flex-start;
+                                    width: 100%;
+                                }
+
+                                div:nth-child(1) {
+                                    @include r(991) {
+                                        width: 11%;
+                                        font-weight: 600;
+                                    }
+                                }
+
+                                div:nth-child(2) {
+                                    @include r(991) {
+                                        width: 22%;
+                                        text-align: center;
+                                        font-weight: 600;
+                                    }
+                                }
+
+                                div:nth-child(3) {
+                                    @include r(991) {
+                                        width: 33%;
+                                        text-align: center;
+                                        font-weight: 600;
+                                    }
+                                }
+
+                                div:nth-child(4) {
+                                    @include r(991) {
+                                        width: 33%;
+                                        text-align: right;
+                                        font-weight: 600;
+                                    }
+                                }
+
+                                div {
+                                    @include r(991) {
+                                        width: 100%;
+                                        font-weight: 600;
+
+                                        span {
+                                            @include r(991) {
+                                                text-align: right;
+                                                font-weight: normal;
+                                                display: block;
+                                                width: 100%;
+                                            }
+                                        }
+                                    }
+
+                                    + div {
+                                        @include r(991) {
+                                            font-weight: normal;
+                                        }
+
+                                        span {
+                                            @include r(991) {
+                                                text-align: right;
+                                                font-weight: normal;
+                                                display: block;
+                                                width: 100%;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                &:nth-child(n+2) {
+                                    @include r(991) {
+                                        margin-top: 7px;
+                                    }
+
+                                    div {
+                                        span {
+                                            @include r(991) {
+                                                font-size: 12px;
+                                                line-height: 14px;
+                                            }
+                                        }
+
+                                        &:nth-child(1) {
+
+                                            span {
+                                                @include r(991) {
+                                                    text-align: left;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+
+                                        &:nth-child(2) {
+                                            span {
+                                                @include r(991) {
+                                                    text-align: center;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+
+                                        &:nth-child(3) {
+                                            span {
+                                                @include r(991) {
+                                                    text-align: center;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+
+                                        &:nth-child(4) {
+                                            span {
+                                                @include r(991) {
+                                                    text-align: center;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+                                        }
+
+                                        text-align: center;
+                                    }
+                                }
+                            }
+
+                            + ul {
+                                @include r(991) {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    margin-top: 11px;
+                                    padding-bottom: 0;
+                                    border-bottom: none;
+                                }
+
+                                li {
+                                    margin-top: 0;
+                                    border-bottom: none;
+                                    padding-bottom: 0;
+                                    width: 100%;
+                                    justify-content: flex-end;
+
+                                    &:nth-child(1) {
+                                        div {
+                                            @include r(991) {
+                                                width: 33%;
+                                                text-align: center !important;
+                                            }
+
+                                            span {
+                                                @include r(991) {
+                                                    text-align: center !important;
+                                                    font-weight: normal;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+
+                                            + div {
+                                                @include r(991) {
+                                                    width: 33%;
+                                                    text-align: right !important;
+                                                }
+
+                                                span {
+                                                    @include r(991) {
+                                                        text-align: right !important;
+                                                        font-weight: normal;
+                                                        display: block;
+                                                        width: 100%;
+                                                    }
+
+                                                    &.label-unit {
+                                                        @include r(991) {
+                                                            display: unset;
+                                                            width: auto;
+                                                            font-weight: 600;
+                                                            font-size: 14px;
+                                                            line-height: 18px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &:nth-child(n+2) {
+                                        div {
+                                            @include r(991) {
+                                                width: 33%;
+                                                text-align: center !important;
+                                            }
+
+                                            span {
+                                                @include r(991) {
+                                                    text-align: center !important;
+                                                    font-weight: normal;
+                                                    display: block;
+                                                    width: 100%;
+                                                }
+                                            }
+
+
+                                            + div {
+                                                @include r(991) {
+                                                    width: 33%;
+                                                    text-align: right !important;
+                                                }
+
+                                                span {
+                                                    @include r(991) {
+                                                        text-align: right !important;
+                                                        font-weight: normal;
+                                                        display: block;
+                                                        width: 100%;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    + .title {
+                        @include r(991) {
+                            margin-top: 15px;
+                            padding-top: 15px;
+                            border-top: solid 1px #E5E5E5;
+                        }
+                    }
+                }
+            }
+
+            .clearfix {
+                border-top: solid 1px #E5E5E5;
+                margin: 18px 0;
+
+                @include r(991) {
+                    margin: 15px 0;
+                }
+            }
+        }
+
+        .relationship-content {
+            .title {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 20px;
+                background-color: #FFF;
+                color: #222222;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                li:first-child {
+                    font-weight: 600;
+                    color: #222222;
+                    margin-top: 0;
+
+                    .content {
+                        padding: 0px;
+                        text-align: center;
+
+                        :nth-child(1) {
+                            width: 40%;
+                            text-align: center !important;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600 !important;
+                            color: #222;
+                        }
+
+                        :nth-child(2) {
+                            width: 10%;
+                            text-align: center !important;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600 !important;
+                            color: #222;
+                        }
+
+                        :nth-child(3) {
+                            width: 15%;
+                            text-align: center !important;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600 !important;
+                            color: #222;
+                        }
+
+                        :nth-child(4) {
+                            width: 20%;
+                            text-align: center !important;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600 !important;
+                            color: #222;
+                        }
+
+                        :nth-child(5) {
+                            width: 20%;
+                            text-align: center !important;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600 !important;
+                            color: #222;
+                        }
+                    }
+                }
+
+                li {
+                    line-height: 1.42857143;
+                    padding: 0;
+                    width: 100%;
+                    margin-top: 11px;
+
+                    div.d-grid {
+                        display: flex;
+
+                        .img {
+                            width: 78px;
+                            text-align: center;
+                            align-items: center;
+
+                            img {
+                                border-radius: 50%;
+                                width: 78px;
+                                height: 80px;
+                            }
+                        }
+
+                        .content {
+                            display: flex;
+                            width: calc(100% - 78px);
+                            align-self: center;
+                            padding: 0px 0px 0px 8px;
+
+                            h3:nth-child(1) {
+                                width: 40%;
+                                text-align: left;
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: normal;
+
+                                a {
+                                    text-decoration: none;
+                                    color: #222;
+                                }
+                            }
+
+
+
+                            div:nth-child(2) {
+                                width: 10%;
+                                text-align: center;
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: normal;
+
+                                a {
+                                    text-decoration: none;
+                                    color: #222;
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    font-weight: normal;
+                                }
+                            }
+
+                            :nth-child(3) {
+                                width: 15%;
+                                text-align: right;
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: normal;
+                                color: #222;
+                            }
+
+                            :nth-child(4) {
+                                width: 20%;
+                                text-align: right;
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: normal;
+                                color: #222;
+                            }
+
+                            :nth-child(5) {
+                                width: 20%;
+                                text-align: right;
+                                font-size: 16px;
+                                line-height: 18px;
+                                font-weight: normal;
+                                color: #222;
+                            }
+                        }
+                    }
+                }
+
+                &.mobile {
+                    @include r(991) {
+                        padding: 0 15px;
+                    }
+
+                    li {
+                        @include r(991) {
+                            margin-top: 20px;
+                        }
+
+                        .d-grid {
+                            @include r(991) {
+                                display: flex;
+                                justify-content: flex-start;
+                            }
+
+                            .img {
+                                @include r(991) {
+                                    width: 80px;
+                                    height: 80px;
+                                    align-self: center;
+                                }
+
+                                img {
+                                    @include r(991) {
+                                        width: 80px;
+                                        height: 80px;
+                                    }
+                                }
+                            }
+
+                            .content {
+                                @include r(991) {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                    width: calc(100% - 95px);
+                                    margin-left: 15px;
+                                    text-align: left;
+                                    padding-left: 0;
+                                }
+
+                                h3 {
+                                    @include r(991) {
+                                        width: 100% !important;
+                                        text-align: left !important;
+                                        margin-bottom: 8px;
+                                    }
+
+                                    a {
+                                        color: #222;
+                                        font-size: 16px;
+                                        line-height: 18px;
+                                    }
+                                }
+
+                                div {
+                                    @include r(991) {
+                                        width: 100% !important;
+                                        text-align: left !important;
+                                        line-height: 22px;
+                                        color: #222;
+                                        font-size: 14px;
+                                        font-weight: normal !important;
+                                    }
+
+                                    a {
+                                        @include r(991) {
+                                            line-height: 22px !important;
+                                            color: #222;
+                                            font-size: 14px !important;
+                                            font-weight: normal !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .label-unit {
+                            font-size: 12px;
+                            line-height: 14px;
+                            color: #222;
+                        }
+                    }
+                }
+            }
+
+            .relationship-detail {
+
+                @include r(991) {
+                    overflow-x: auto;
+                }
+
+                &::-webkit-scrollbar {
+                    @include r(991) {
+                        height: 8px !important;
+                    }
+                }
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    @include r(991) {
+                        background: #F4F4F4 !important;
+                    }
+                }
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    @include r(991) {
+                        background: #3B1B70 !important;
+                        border-radius: 4px !important;
+                    }
+                }
+                /* Handle on hover */
+                &::-webkit-scrollbar-thumb:hover {
+                    @include r(991) {
+                        background: #3B1B70 !important;
+                        border-radius: 4px !important;
+                    }
+                }
+
+                table {
+                    width: 100%;
+                    display: table;
+
+                    @include r(991) {
+                        width: 928px;
+                        max-width: unset;
+                        border: none;
+                    }
+
+                    thead {
+                        @include r(991) {
+                            width: 100%;
+                        }
+
+                        tr {
+                            th {
+                                background: #fff;
+                                border: none;
+                                font-size: 16px;
+                                line-height: 18px;
+                                color: #222;
+                                text-align: center;
+                                vertical-align: top !important;
+                                padding: 7px;
+
+                                @include r(991) {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    color: #222;
+                                    text-align: center;
+                                    vertical-align: top !important;
+                                    background: #fff;
+                                    border: none;
+                                }
+
+                                &:nth-child(1) {
+                                    padding-left: 0;
+                                }
+
+                                &:nth-child(2) {
+                                    @include r(991) {
+                                        width: 210px;
+                                    }
+                                }
+
+                                &:nth-child(5) {
+                                    @include r(991) {
+                                        width: 150px;
+                                    }
+                                }
+
+                                &:last-child {
+                                    text-align: right !important;
+
+                                    @include r(991) {
+                                        width: 170px;
+                                    }
+                                }
+
+                                .label-unit {
+                                    font-size: 12px;
+                                    line-height: 14px;
+                                    color: #222;
+                                    font-weight: normal;
+                                }
+                            }
+                        }
+                    }
+
+                    tbody {
+                        @include r(991) {
+                            width: 100%;
+                        }
+
+                        tr {
+                            td {
+                                font-size: 16px;
+                                line-height: 18px;
+                                color: #222;
+                                text-align: center;
+                                vertical-align: middle;
+                                background: #fff;
+                                border: none;
+                                padding: 7px;
+
+                                @include r(991) {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    color: #222;
+                                    text-align: center;
+                                    vertical-align: middle;
+                                    background: #fff;
+                                    border: none;
+                                }
+
+                                &:nth-child(1) {
+                                    padding-left: 0;
+                                }
+
+                                &:nth-child(2) {
+                                    text-align: left;
+
+                                    @include r(991) {
+                                        text-align: left;
+                                    }
+                                }
+
+                                span {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    color: #222;
+
+                                    @include r(991) {
+                                        font-size: 16px;
+                                        line-height: 18px;
+                                        color: #222;
+                                    }
+
+                                    a {
+                                        font-size: 16px;
+                                        line-height: 18px;
+                                        color: #222;
+
+                                        @include r(991) {
+                                            font-size: 16px;
+                                            line-height: 18px;
+                                            color: #222;
+                                        }
+                                    }
+                                }
+
+                                h3 {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    color: #222;
+                                    margin-bottom: 0;
+
+                                    @include r(991) {
+                                        margin-bottom: 0;
+                                        font-size: 16px;
+                                        line-height: 18px;
+                                        color: #222;
+                                    }
+
+                                    a {
+                                        font-size: 16px;
+                                        line-height: 18px;
+                                        color: #222;
+
+                                        @include r(991) {
+                                            font-size: 16px;
+                                            line-height: 18px;
+                                            color: #222;
+                                        }
+                                    }
+                                }
+
+                                .img {
+                                    width: 80px;
+                                    height: 80px;
+
+                                    @include r(991) {
+                                        width: 78px;
+                                        height: 80px;
+                                    }
+
+                                    img {
+                                        width: 80px;
+                                        height: 80px;
+                                        border-radius: 50%;
+
+                                        @include r(991) {
+                                            width: 78px;
+                                            height: 80px;
+                                            border-radius: 50%;
+                                        }
+                                    }
+                                }
+
+                                &:last-child {
+                                    text-align: right;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .clearfix {
+                border-top: solid 1px #E5E5E5;
+                margin: 18px 0;
+            }
+        }
+
+        .history-content {
+            .history-title {
+                font-size: 17px;
+                font-weight: 600;
+                color: #555;
+                margin-bottom: 1rem;
+            }
+
+            .history-body {
+                font-size: 14px;
+                list-style: circle;
+            }
+        }
+    }
+
+    .l-sidebar {
+        .info {
+            padding: 23px 15px 10px;
+            background: #F8F8F8;
+            border-radius: 10px;
+
+            div.title {
+                font-size: 18px;
+                line-height: 21px;
+                font-weight: 600;
+                color: #222;
+                text-transform: uppercase;
+                text-align: center;
+
+                @include r(991) {
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+            }
+
+            .content-personal {
+                margin-top: 11px;
+                font-size: 16px;
+                line-height: 24px;
+
+                @include r(991) {
+                    font-size: 14px;
+                    line-height: 22px;
+                }
+            }
+
+            .option {
+                text-align: center;
+                align-content: center;
+
+                a {
+                    text-decoration: unset;
+                    color: #3b1b70;
+                }
+            }
+        }
+
+        .content-struct {
+            margin-top: 10px;
+            padding: 18px 15px 10px;
+            background: #F8F8F8;
+            border-radius: 10px;
+
+            div.title:first-child {
+                font-size: 18px;
+                line-height: 21px;
+                font-weight: 600;
+                color: #222;
+                text-transform: uppercase;
+                text-align: center;
+
+                @include r(991) {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+            }
+
+            .tab-struct {
+                margin-top: 10px;
+
+                ul.info-navbar {
+                    display: flex;
+                    justify-content: center;
+
+                    li {
+                        border-right: none;
+                        padding: 0;
+                        margin: 0 5px;
+
+                        a {
+                            padding: 0 6px 3px 6px;
+                            position: relative;
+                            font-size: 18px;
+                            line-height: 21px;
+                            text-align: center;
+                            color: #222;
+
+                            @include r(991) {
+                                font-size: 16px;
+                                line-height: 20px;
+                            }
+
+                            &:hover {
+                                background: none;
+                                font-weight: 600;
+                            }
+
+                            &:before {
+                                content: '';
+                                height: 20px;
+                                width: 1px;
+                                background: #222;
+                                position: absolute;
+                                right: -5px;
+                                top: 3px;
+
+                                @include r(991) {
+                                    height: 13px;
+                                }
+                            }
+                        }
+
+                        &.active {
+                            a {
+                                background: none;
+                                font-weight: 600;
+
+                                &:after {
+                                    content: '';
+                                    height: 1px;
+                                    width: calc(100% - 6px);
+                                    background: #222;
+                                    position: absolute;
+                                    left: 3px;
+                                    bottom: 0;
+                                    border-bottom: none;
+                                }
+                            }
+                        }
+
+                        &:first-child {
+                            margin-left: 0;
+
+                            a {
+                                padding-left: 0;
+
+                                &:after {
+                                    left: 0;
+                                }
+                            }
+                        }
+
+                        &:last-child {
+                            a {
+                                &:before {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .tab-content {
+                    margin-top: 10px;
+
+                    .chart {
+                        margin-bottom: 10px;
+                    }
+
+                    .tab div:first-child {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #222;
+                        text-align: center;
+
+                        @include r(991) {
+                            font-size: 14px;
+                        }
+                    }
+
+                    .tab {
+                        > div:nth-child(2) {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 16px;
+                            line-height: 18px;
+                            font-weight: 600;
+
+                            @include r(991) {
+                                font-size: 14px;
+                                line-height: 17px;
+                            }
+
+                            div {
+                                .point {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    font-weight: normal;
+
+                                    @include r(991) {
+                                        font-size: 14px;
+                                        line-height: 17px;
+                                    }
+                                }
+
+                                .unit {
+                                    font-size: 16px;
+                                    line-height: 18px;
+                                    font-weight: normal;
+
+                                    @include r(991) {
+                                        font-size: 14px;
+                                        line-height: 17px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .b-grid__title.box {
+                            background: none;
+                        }
+
+                        .struct {
+                            &:last-child {
+                                border-bottom: none;
+                                padding-bottom: 10px;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+
+                    #chart-doanh-nghiep-FOX {
+                        margin-bottom: 21px;
+
+                        @include r(991) {
+                            margin-bottom: 15px;
+                        }
+                    }
+
+                    .struct {
+                        border-bottom: 1px solid #E5E5E5;
+                        padding-bottom: 8px;
+                        margin-bottom: 28px;
+
+                        @include r(991) {
+                            padding-bottom: 0;
+                            margin-bottom: 20px;
+                        }
+
+                        > div {
+                            &:first-child {
+                                font-size: 18px;
+                                line-height: 21px;
+                                color: #222;
+                                font-weight: 600;
+                                padding-bottom: 11px;
+
+                                @include r(991) {
+                                    font-size: 16px;
+                                    line-height: 20px;
+                                }
+                            }
+                        }
+
+                        ul {
+                            @include r(991) {
+                                padding: 0 15px;
+                            }
+
+                            li {
+                                margin: 10px 0px 10px 0px;
+                                font-size: 16px;
+                                line-height: 22px;
+                                padding-bottom: unset;
+                                border-bottom: unset;
+
+                                @include r(991) {
+                                    font-size: 14px;
+                                    line-height: 20px;
+                                }
+
+                                .b-grid {
+                                    display: flex;
+                                    justify-content: flex-start;
+
+                                    .b-grid__img {
+                                        width: 78px;
+                                        height: 80px;
+                                        float: none;
+                                        overflow: unset;
+
+                                        @include r(991) {
+                                            width: 80px;
+                                        }
+
+                                        a {
+                                            width: 78px;
+                                            height: 80px;
+                                            display: block;
+
+                                            @include r(991) {
+                                                width: 80px;
+                                            }
+
+                                            img {
+                                                width: 78px;
+                                                height: 80px;
+                                                border-radius: 50%;
+                                                border: 2px solid #fff;
+
+                                                @include r(991) {
+                                                    width: 80px;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .b-grid__content {
+                                        float: none;
+                                        width: calc(100% - 90px);
+                                        margin-left: 12px;
+                                        text-align: left;
+                                        align-self: center;
+
+                                        @include r(991) {
+                                            width: calc(100% - 95px);
+                                            margin-left: 15px;
+                                        }
+
+                                        h3 {
+                                            font-size: inherit;
+                                            font-weight: 600;
+                                            font-size: 16px;
+                                            line-height: 22px;
+                                            color: #222;
+                                            margin-right: 0;
+                                            margin-bottom: 2px;
+
+                                            @include r(991) {
+                                                font-size: 14px;
+                                                line-height: 20px;
+                                                text-align: left;
+                                            }
+                                        }
+
+                                        ul {
+                                            padding: 0;
+
+                                            li {
+                                                margin: 0;
+                                                font-weight: 500;
+                                                font-size: 16px;
+                                                line-height: 22px;
+
+                                                @include r(991) {
+                                                    font-size: 14px;
+                                                    line-height: 20px;
+                                                    text-align: left;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

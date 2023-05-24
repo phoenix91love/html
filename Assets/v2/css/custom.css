@@ -1860,6 +1860,88 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
     .l-nav .topnews .col-header-news .title {
         padding-left: 15px;
     }
+
+    .l-nav .topnews .is-line-bottom {
+        border-color: #E5E5E5;
+    }
+
+    .l-nav .col-header-index .chiso li {
+        border-color: #E5E5E5;
+    }
+
+    .l-nav ul.thitruong li {
+        border-color: #E5E5E5;
+    }
+
+    .l-nav ul.tinmoi li {
+        border-color: #E5E5E5;
+    }
+
+    .top-menu .c-topnews.is-line-bottom {
+        border-color: #E5E5E5;
+        width: 100%;
+        padding-bottom: 13px;
+    }
+
+    .c-topnews ul li {
+        font-size: 15px;
+        line-height: 20px;
+        color: #222;
+        font-weight: normal;
+        display: flex;
+    }
+
+    .c-topnews ul li.active a {
+        font-size: 17px;
+        line-height: 20px;
+        color: #222;
+        font-weight: 600;
+    }
+
+        .c-topnews ul li a:hover {
+            color: #222;
+        }
+
+        .c-topnews ul li a {
+            align-self: center;
+            display: block;
+            color: #222;
+        }
+
+    .l-content .l-sidebar .c-box.is-primary .c-box__title {
+        background: #EAEBED;
+    }
+
+        .l-content .l-sidebar .c-box.is-primary .c-box__title .c-box__title__name {
+            color: #222;
+            font-size: 18px;
+            line-height: 21px;
+        }
+
+    .l-content .l-sidebar .c-box.is-primary .c-box__content {
+        background: #fff;
+    }
+
+        .l-content .l-sidebar .c-box.is-primary .c-box__content .c-news-forcus.is-line-bottom > ul > li {
+            border-color: #E5E5E5;
+        }
+
+        .l-content .l-sidebar .c-box.is-primary .c-box__content .c-news-forcus.is-line-bottom {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+    ul.info-navbar#mainTab {
+        margin-top: 10px;
+    }
+
+    #common-paging-price-history .pagination .page-item a.active {
+        z-index: 2;
+        color: #23527c;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+
 }
 
 

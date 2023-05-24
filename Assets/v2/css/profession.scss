@@ -43,7 +43,7 @@
                         align-self: center;
 
                         :first-child {
-                            text-align: left;
+                            text-align: center;
                             margin: unset !important;
                         }
 
@@ -55,6 +55,7 @@
                                 font-family: "Roboto Condensed","Roboto",Arial;
                                 font-weight: 700;
                                 text-decoration: unset;
+                                font-size: 15px;
                             }
                         }
 
@@ -117,4 +118,5 @@
             margin: 10px 0 0px 0;
         }
     }
+
 }
