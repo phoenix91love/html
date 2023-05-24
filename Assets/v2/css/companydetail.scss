@@ -1769,6 +1769,57 @@
         #company-get-news {
             margin-top: 10px;
 
+            .b-grid {
+                .b-grid__row {
+                    &.h-show-pc {
+                        @include r(1024) {
+                            display: none;
+                        }
+                    }
+                }
+
+                .b-grid__content {
+                    @include r(1024) {
+                        width: calc(100% - 257px);
+                    }
+
+                    h3 {
+                        @include r(1024) {
+                            width: 100%;
+                        }
+                    }
+
+                    .b-grid__row {
+                        &.h-show-mobile {
+                            @include r(1024) {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+
+                .b-grid__img {
+                    @include r(1024) {
+                        width: 242px;
+                        height: 164px;
+                    }
+
+                    a {
+                        @include r(1024) {
+                            width: 242px;
+                            height: 164px;
+                        }
+                    }
+
+                    img {
+                        @include r(1024) {
+                            width: 242px;
+                            height: 164px;
+                        }
+                    }
+                }
+            }
+
             @include r(991) {
                 margin-top: 0;
             }

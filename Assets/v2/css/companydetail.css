@@ -1130,6 +1130,30 @@
 
 .container-company-detail .l-main #company-get-news {
   margin-top: 10px; }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__row.h-show-pc {
+      display: none; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__content {
+      width: calc(100% - 257px); } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__content h3 {
+      width: 100%; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__content .b-grid__row.h-show-mobile {
+      display: block; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__img {
+      width: 242px;
+      height: 164px; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__img a {
+      width: 242px;
+      height: 164px; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main #company-get-news .b-grid .b-grid__img img {
+      width: 242px;
+      height: 164px; } }
   @media (max-width: 991px) {
     .container-company-detail .l-main #company-get-news {
       margin-top: 0; } }
