@@ -11,8 +11,16 @@
                 <form>
                     <input type="hidden" id="hd-type" value="1" />
                     <div class="form-group row">
-                        <label for="input-from-date" class="col-lg-1 col-sm-12 col-form-label">Loại</label>
-                        <div class="col-lg-3 col-sm-12">
+                        <label for="input-from-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Từ ngày</label>
+                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                            <input type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
+                        </div>
+                        <label for="input-to-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Đến ngày</label>
+                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                            <input type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
+                        </div>
+                        <label for="input-from-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Loại</label>
+                        <div class="col-lg-3 col-sm-8 col-8">
                             <select id="ddl-type" class="form-control">
                                 @foreach (var item in ViewBag.ListType)
                                 {
@@ -21,24 +29,11 @@
 
                             </select>
                         </div>
-                        <div class="col-lg-1 col-sm-3">
-                            <button type="button" class="btn btn-blue btn-search">Tìm kiếm</button>
-                        </div>
+                    </div>
 
-                    </div>
                     <div class="form-group row">
-                        <label for="input-from-date" class="col-lg-1 col-sm-12 col-form-label">Từ ngày</label>
-                        <div class="col-lg-2 col-sm-12">
-                            <input type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
-                        </div>
-                        <label for="input-to-date" class="col-lg-1 col-sm-12 col-form-label">Đến ngày</label>
-                        <div class="col-lg-2 col-sm-12">
-                            <input type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="input-code" class="col-lg-1 col-sm-12 col-form-label">Sàn</label>
-                        <div class="col-lg-2 col-sm-12">
+                        <label for="input-code" class="col-lg-1 col-sm-4 col-4 col-form-label">Sàn</label>
+                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
                             <select id="ddl-exchange" class="form-control">
                                 <option value="" selected>--Tất cả--</option>
                                 <option value="HOSE">HOSE</option>
@@ -46,13 +41,22 @@
                                 <option value="UPCOM">UPCOM</option>
                             </select>
                         </div>
-                        <label for="input-code" class="col-lg-1 col-sm-12 col-form-label">Mã CK</label>
-                        <div class="col-lg-3 col-sm-12">
+                        <label for="input-code" class="col-lg-1 col-sm-4 col-4 col-form-label">Mã CK</label>
+                        <div class="col-lg-3 col-sm-8 col-8 mb-2">
                             <input type="hidden" class="form-control" id="input-code" />
                             <input type="text" class="form-control" id="txt-input-code" placeholder="Mã CK">
                         </div>
+                        <div class="col-lg-1 col-sm-12 col-12">
+                            <button type="button" class="btn btn-blue btn-search">Tìm kiếm</button>
+                        </div>
+
+
 
                     </div>
+                    <div class="form-group row">
+                        
+                    </div>
+
                 </form>
             </div>
         </div>

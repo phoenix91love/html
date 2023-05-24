@@ -3,254 +3,330 @@
     ViewBag.Title = "Bộ lọc cổ phiếu";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
 }
-
+<link href="~/Assets/bundles/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+<link href="~/Assets/bundles/bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css" rel="stylesheet" />
+<script src="~/Assets/bundles/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="~/Assets/bundles/bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js"></script>
 <div class="row">
     <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-12">
-                <form>
-                    <div class="form-group row">
-                        <label for="ddl-exchange" class="col-lg-3 col-sm-12 col-form-label text-right">Sàn</label>
-                        <div class="col-lg-2 col-sm-12">
-                            <select id="ddl-exchange" class="form-control">
-                                <option value="" selected>Tất cả</option>
-                                <option value="HOSE">HOSE</option>
-                                <option value="HNX">HNX</option>
-                                <option value="UPCOM">UPCOM</option>
-                            </select>
-                        </div>
-                        <label for="ddl-nganh" class="col-lg-1 col-sm-12 col-form-label text-right">Ngành</label>
-                        <div class="col-lg-2 col-sm-12">
-                            <select id="ddl-nganh" class="form-control">
-                                <option value="" selected>Tất cả ngành</option>
-                            </select>
-                        </div>
+        <form>
+            <div class="row">
+                <div class="col-lg-12">
 
-                    </div>
-                    <hr />
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h4 class="mb-0">
+                                    <b>Lọc cổ phiếu - Tìm kiếm cơ hội</b>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="ddl-exchange" class="col-lg-3 col-sm-12 col-4 col-form-label text-right">Sàn</label>
+                                        <div class="col-lg-2 col-sm-12 col-8 mb-2">
+                                            <select id="ddl-exchange" class="form-control">
+                                                <option value="" selected>Tất cả</option>
+                                                <option value="HOSE">HOSE</option>
+                                                <option value="HNX">HNX</option>
+                                                <option value="UPCOM">UPCOM</option>
+                                            </select>
+                                        </div>
+                                        <label for="ddl-nganh" class="col-lg-1 col-sm-12 col-4 col-form-label text-right">Ngành</label>
+                                        <div class="col-lg-5 col-sm-12 col-8 mb-2">
+                                            <select id="ddl-nganh" class="form-control ddl-loc-cp-nganh">
+                                                <option value="" selected>Tất cả ngành</option>
+                                                @foreach (var p in ViewBag.ListNganh)
+                                                {
+                                                    <optgroup label="@p.Text">
+                                                        @foreach (var c in p.Childs)
+                                                        {
+                                                            <option value="@c.Value">@c.Text</option>
+                                                        }
+                                                    </optgroup>
+                                                }
 
-                    <div class="form-group row">
-                        <label for="ddl-tang-giam-phien" class="col-lg-3 col-sm-12 col-form-label text-right">Thay đổi giá so với</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <select id="ddl-tang-giam-phien" class="form-control">
-                                <option value="5">5 phiên gần nhất</option>
-                                <option value="10">10 phiên gần nhất</option>
-                                <option value="25">25 phiên gần nhất</option>
-                            </select>
-                        </div>
-                        <label for="txt-change-pre-x-day-from" class="col-lg-1 col-sm-12 col-form-label text-right">Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-change-pre-x-day-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <label for="txt-change-pre-x-day-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-change-pre-x-day-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">%</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="ddl-tang-giam-phien" class="col-lg-3 col-sm-12 col-form-label text-right">Liên tục tăng/giảm giá trong</label>
-                        <label for="ddl-tang-giam-loai" class="col-lg-3 col-sm-12 col-form-label text-right">Kiểu</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <select id="ddl-tang-giam-loai" class="form-control">
-                                <option value="">Chọn kiểu tăng/giảm</option>
-                                <option value="0">Tăng</option>
-                                <option value="1">Giảm</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-sm-12 col-form-label text-right">KLTB của</label>
-                        <label for="txt-kl5phien-from" class="col-lg-3 col-sm-12 col-form-label text-right">Từ</label>
+                                            </select>
+                                        </div>
 
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-kl5phien-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">CP</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <label for="txt-kl5phien-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                           
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-kl5phien-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">CP</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-sm-12 col-form-label text-right">KLGD vượt KLTB</label>
-                        <label for="txt-klgd-vuot-gttb-tu" class="col-lg-3 col-sm-12 col-form-label text-right">Từ</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="ddl-tang-giam-phien" class="col-lg-3 col-sm-12 col-12 col-form-label text-right h-show-pc">Thay đổi giá so với [Số phiên]</label>
+                                        <label for="ddl-tang-giam-phien" class="col-sm-12 col-12 col-form-label text-left h-show-mobile">Thay đổi giá so với</label>
+                                        <label for="ddl-tang-giam-phien" class="col-sm-4 col-4 col-form-label text-right h-show-mobile">[Số phiên]</label>
+                                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                                            <select id="ddl-tang-giam-phien" class="form-control" style="font-weight: 700;">
+                                                <option value="5">5 phiên gần nhất</option>
+                                                <option value="10">10 phiên gần nhất</option>
+                                                <option value="25">25 phiên gần nhất</option>
+                                            </select>
+                                        </div>
+                                        <label for="txt-change-pre-x-day-from" class="col-lg-1 col-sm-12 col-4 col-form-label text-right">Từ</label>
+                                        <div class="col-lg-2 col-sm-3 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-change-pre-x-day-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label for="txt-change-pre-x-day-to" class="col-lg-1 col-sm-12 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-3 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-change-pre-x-day-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">%</div>
+                                                </div>
+                                            </div>
 
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-klgd-vuot-gttb-tu" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="ddl-tang-giam-phien" class="col-lg-3 col-sm-12 col-12 col-form-label text-right h-show-pc">Liên tục tăng/giảm giá trong</label>
+                                        <label for="ddl-tang-giam-phien" class="col-lg-3 col-sm-7 col-7 col-form-label text-left h-show-mobile">Liên tục tăng/giảm giá trong</label>
+                                        <label for="ddl-tang-giam-loai" class="col-lg-2 col-sm-7 col-5 col-form-label text-center">[Số phiên]</label>
+                                        <label for="ddl-tang-giam-loai" class="col-lg-1 col-sm-12 col-4 col-form-label text-right">Kiểu</label>
+                                        <div class="col-lg-2 col-sm-3 col-8">
+                                            <select id="ddl-tang-giam-loai" class="form-control">
+                                                <option value="">Chọn tăng/giảm</option>
+                                                <option value="0">Tăng</option>
+                                                <option value="1">Giảm</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-sm-12 col-form-label text-right">Nước ngoài</label>
-                        <div class="col-lg-2 col-sm-3">
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button type="button" style="color: #3b1b70;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Thêm điều kiện lọc theo phiên
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
 
-                            <div class="form-check ">
-                                <input type="hidden" id="hd-rd-mua-ban-rong-type" value="0"/>
-                                <input class="form-check-input rd-nn-rong text-right" type="radio" name="nn-rong" id="rd-nn-mua-rong" checked value="0"/>
-                                <label class="form-check-label" for="rd-nn-mua-rong">
-                                    Mua ròng
-                                </label>
 
-                            </div>
-                            <div class="form-check">
+                                   
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-right h-show-pc">KLTB của</label>
+                                        <label class="col-sm-7 col-7 col-form-label text-left h-show-mobile">KLTB của</label>
+                                        <label class="col-lg-2 col-sm-5 col-5 col col-form-label text-center">[Số phiên]</label>
+                                        <label for="txt-kl5phien-from" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Từ</label>
 
-                                <input class="form-check-input rd-nn-rong text-right" type="radio" name="nn-rong" id="rd-nn-ban-rong" value="1">
-                                <label class="form-check-label" for="rd-nn-ban-rong">
-                                    Bán ròng
-                                </label>
-                            </div>
-                        </div>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-kl5phien-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">CP</div>
+                                                </div>
+                                            </div>
 
-                        <label for="txt-nn-rong-from" class="col-lg-1 col-sm-12 col-form-label text-right">Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-nn-rong-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
+                                        </div>
+                                        <label for="txt-kl5phien-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-kl5phien-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">CP</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label text-right h-show-pc">KLGD vượt KLTB</label>
+                                        <label class="col-sm-7 col-7 col-form-label text-left h-show-mobile">KLGD vượt KLTB</label>
+                                        <label class="col-lg-2 col-sm-5 col-5 col col-form-label text-center">[Số phiên]</label>
+                                        <label for="txt-klgd-vuot-gttb-tu" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Từ</label>
+
+
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-klgd-vuot-gttb-tu" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-sm-4 col-4 col-form-label text-right">Nước ngoài</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+
+                                            <div class="form-check ">
+                                                <input type="hidden" id="hd-rd-mua-ban-rong-type" value="0" />
+                                                <input class="form-check-input rd-nn-rong text-right" type="radio" name="nn-rong" id="rd-nn-mua-rong" checked value="0" />
+                                                <label class="form-check-label" for="rd-nn-mua-rong">
+                                                    Mua ròng [Số phiên]
+                                                </label>
+
+                                            </div>
+                                            <div class="form-check">
+
+                                                <input class="form-check-input rd-nn-rong text-right" type="radio" name="nn-rong" id="rd-nn-ban-rong" value="1">
+                                                <label class="form-check-label" for="rd-nn-ban-rong">
+                                                    Bán ròng [Số phiên]
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <label for="txt-nn-rong-from" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-nn-rong-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label for="txt-nn-rong-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-nn-rong-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <label for="txt-nn-rong-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-nn-rong-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button type="button" style="color: #3b1b70;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Thêm điều kiện lọc khác
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="txt-price-from" class="col-lg-3 col-sm-4 col-4 col-form-label text-right">Giá CP Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-price-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">.000</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <label for="txt-price-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-price-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">.000</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="txt-eps-from" class="col-lg-3 col-sm-4 col-4 col-form-label text-right">EPS Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                                            <input type="number" class="form-control text-right" id="txt-eps-from" />
+                                        </div>
+                                        <label for="txt-eps-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <input type="number" class="form-control text-right" id="txt-eps-to" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="txt-pe-from" class="col-lg-3 col-sm-4 col-4 col-form-label text-right">P/E Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                                            <input type="number" class="form-control text-right" id="txt-pe-from" />
+                                        </div>
+                                        <label for="txt-pe-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <input type="number" class="form-control text-right" id="txt-pe-to" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="txt-vonhoa-from" class="col-lg-3 col-sm-4 col-4 col-form-label text-right">Vốn hóa Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-vonhoa-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <label for="txt-vonhoa-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-vonhoa-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="txt-doanhthu-4quy-from" class="col-lg-3 col-sm-4 col-4 col-form-label text-right">Doanh thu 4 quý Từ</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-doanhthu-4quy-from" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <label for="txt-doanhthu-4quy-to" class="col-lg-1 col-sm-4 col-4 col-form-label text-right">Tới</label>
+                                        <div class="col-lg-2 col-sm-8 col-8">
+                                            <div class="input-group mb-2">
+                                                <input type="number" class="form-control text-right" id="txt-doanhthu-4quy-to" />
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">tỷ</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
 
-                    <hr />
+                </div>
+
+                <div class="col-lg-12">
+                    <br />
                     <div class="form-group row">
-                        <label for="txt-price-from" class="col-lg-3 col-sm-12 col-form-label text-right">Giá CP Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-price-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">.000</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <label for="txt-price-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-price-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">.000</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="txt-eps-from" class="col-lg-3 col-sm-12 col-form-label text-right">EPS Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <input type="number" class="form-control text-right" id="txt-eps-from" />
-                        </div>
-                        <label for="txt-eps-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <input type="number" class="form-control text-right" id="txt-eps-to" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="txt-pe-from" class="col-lg-3 col-sm-12 col-form-label text-right">P/E Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <input type="number" class="form-control text-right" id="txt-pe-from" />
-                        </div>
-                        <label for="txt-pe-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <input type="number" class="form-control text-right" id="txt-pe-to" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="txt-vonhoa-from" class="col-lg-3 col-sm-12 col-form-label text-right">Vốn hóa Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-vonhoa-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <label for="txt-vonhoa-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-vonhoa-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                       
-                    </div>
-                    <div class="form-group row">
-                        <label for="txt-doanhthu-4quy-from" class="col-lg-3 col-sm-12 col-form-label text-right">Doanh thu 4 quý Từ</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-doanhthu-4quy-from" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <label for="txt-doanhthu-4quy-to" class="col-lg-1 col-sm-12 col-form-label text-right">Tới</label>
-                        <div class="col-lg-2 col-sm-3">
-                            <div class="input-group mb-2">
-                                <input type="number" class="form-control text-right" id="txt-doanhthu-4quy-to" />
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">tỷ</div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-lg-1 col-sm-3">
+                        <div class="col-lg-12 col-sm-3 text-center">
                             <button type="button" class="btn btn-blue btn-search">Áp dụng lọc</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-        <hr/>
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12" id="grid-data">
+            <hr />
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12" id="grid-data">
 
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
-
+<style>
+    .ddl-loc-cp-nganh optgroup{
+        font-size: 15px;
+    }
+    .ddl-loc-cp-nganh optgroup option {
+        font-size: 13px;
+    }
+</style>
 @Scripts.Render("~/bundles/boloccophieu")

@@ -1,0 +1,87 @@
+﻿@media (min-width: 320px) {
+  .company-list form {
+    display: block; } }
+
+@media (min-width: 768px) {
+  .company-list form {
+    display: flex; } }
+
+.company-list form .exchange {
+  width: 30%;
+  padding-right: 15px; }
+  @media (min-width: 320px) {
+    .company-list form .exchange {
+      width: 100%;
+      margin-bottom: 10px;
+      display: flex; } }
+  @media (min-width: 768px) {
+    .company-list form .exchange {
+      width: 30%;
+      margin-bottom: unset; } }
+  .company-list form .exchange label.col-form-label {
+    white-space: nowrap;
+    float: left;
+    width: 25%; }
+  .company-list form .exchange select {
+    margin-left: 10px;
+    float: left;
+    width: 70%; }
+
+.company-list form .profession {
+  width: 30%;
+  padding-right: 15px; }
+  @media (min-width: 320px) {
+    .company-list form .profession {
+      width: 100%;
+      margin-bottom: 10px;
+      display: flex; } }
+  @media (min-width: 768px) {
+    .company-list form .profession {
+      width: 30%;
+      margin-bottom: unset; } }
+  .company-list form .profession label.col-form-label {
+    white-space: nowrap;
+    float: left;
+    width: 25%; }
+  .company-list form .profession div.comboTreeWrapper {
+    width: 70%;
+    margin-left: 10px;
+    float: left; }
+    .company-list form .profession div.comboTreeWrapper input.comboTreeInputBox {
+      border-radius: unset; }
+
+.company-list form .code {
+  width: 30%;
+  padding-right: 15px; }
+  @media (min-width: 320px) {
+    .company-list form .code {
+      width: 100%;
+      margin-bottom: 10px;
+      display: flex; } }
+  @media (min-width: 768px) {
+    .company-list form .code {
+      width: 30%;
+      margin-bottom: unset; } }
+  .company-list form .code label.col-form-label {
+    white-space: nowrap;
+    float: left;
+    width: 25%; }
+  .company-list form .code input.form-control {
+    width: 70%;
+    margin-left: 10px;
+    float: left; }
+
+.company-list form .btn-submit button {
+  margin: 0; }
+
+.company-list .info-count {
+  margin: 15px 0px 0px 0px; }
+  .company-list .info-count span:first-child span, .company-list .info-count span:last-child span {
+    font-weight: 600; }
+  .company-list .info-count :nth-child(2) {
+    margin-left: 30px; }
+
+.company-list .pagination .page-link.active {
+  pointer-events: none;
+  cursor: default;
+  background-color: #EEE; }
