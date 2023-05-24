@@ -1892,21 +1892,12 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
         display: flex;
     }
 
-<<<<<<< HEAD
-    .c-topnews ul li.active a {
-        font-size: 17px;
-        line-height: 20px;
-        color: #222;
-        font-weight: 600;
-    }
-=======
         .c-topnews ul li.active a {
             font-size: 17px;
             line-height: 20px;
             color: #222;
             font-weight: 600;
         }
->>>>>>> c91410024c0c3360bbf32f0a64d7b8a69be8959e
 
         .c-topnews ul li a:hover {
             color: #222;
@@ -1947,8 +1938,8 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 
     #common-paging-price-history .pagination .page-item a.active {
         z-index: 2;
-        color: #23527c;
-        background-color: #eee;
+        color: #ffffff;
+        background-color: #3b1b70;
         border-color: #ddd;
     }
 }

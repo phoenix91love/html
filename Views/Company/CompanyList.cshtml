@@ -5,7 +5,7 @@
     ViewBag.PageName = "Dữ liệu doanh nghiệp";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     var dataProfess = (BaseModels<List<Nqs.Models.FormModel.Profession.ProfessionTreeMdl>>)ViewBag.DataProfess;
-    var dataReportCountCompany= ((int CountCompany, double CountMarketCap))ViewBag.DataReportCount;
+   
 }
 @section styles{
     @Styles.Render("~/bundles/styles/company-list")
@@ -43,10 +43,7 @@
                     </form>
                 </div>
             </div>
-            <div class="info-count">
-                <span>Tổng số doanh nghiệp: <span>@dataReportCountCompany.CountCompany</span></span>
-                <span>Tổng vốn hóa: <span>@dataReportCountCompany.CountMarketCap.FormatNumberUnit(3)</span> Nghìn tỷ</span>
-            </div>
+          
             <div class="row">
                 <div class="col-lg-12" id="grid-data">
                 </div>

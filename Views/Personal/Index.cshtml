@@ -98,6 +98,23 @@
                                         <span>@(dataPersonal.TrinhDo)</span>
                                     </li>
                                 }
+                                @if (dataPersonal.PersonalStocks.Any())
+                                {
+                                    if (dataPersonal.PersonalStocks.Any(x => x.Type == 1))
+                                    {
+                                        <li>
+                                            <span>Tổng tài sản cá nhân :</span>
+                                            <span><span>@(dataPersonal.PersonalStocks.Where(x=>x.Type==1).Sum(x=>x.CountValue).FormatNumberUnit(2))</span> tỷ đồng</span>
+                                        </li>
+                                    }
+                                    if (dataPersonal.PersonalStocks.Any(x => x.Type == 1))
+                                    {
+                                        <li>
+                                            <span>Tổng tài sản cá nhân và đại diện sở hữu :</span>
+                                            <span>@(dataPersonal.PersonalStocks.Sum(x=>x.CountValue).FormatNumberUnit(2)) tỷ đồng</span>
+                                        </li>
+                                    }
+                                }
                             </ul>
                         </div>
                     </div>
@@ -671,7 +688,7 @@
         }
         $(function () {
             arrayCompany.forEach((item) => {
-                loadDataChartHeader("chart-doanh-nghiep-" + item, 'DAY', item);
+                loadDataChartHeader("chart-doanh-nghiep-" + item, '6MONTH', item);
             });
         });
 

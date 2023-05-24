@@ -1,5 +1,17 @@
 ﻿@using M.Common.Extensions
+@using Nqs.Models.FormModel.Company
 @model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Stock.CompanyModelGrid>
+    @{ 
+        var dataReportCountCompany = (GetCountCompanyAndMarketCapMdl)ViewBag.DataReportCount;
+        if (dataReportCountCompany == null)
+        {
+            dataReportCountCompany = new GetCountCompanyAndMarketCapMdl();
+        }
+    }
+<div class="info-count">
+    <span>Tổng số doanh nghiệp: <span>@dataReportCountCompany.TotalRow</span></span>
+    <span>Tổng vốn hóa: <span>@dataReportCountCompany.MarketCap.FormatNumberUnit(3)</span> Nghìn tỷ</span>
+</div>
 <div class="table-responsive-sm table-scroll">
     <br />
     <table class="table table-bordered table-common">

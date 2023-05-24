@@ -29,14 +29,6 @@
 
     <script src="~/Assets/bundles/bootstrap-4-autocomplete/bootstrap-4-autocomplete.js"></script>
 
-    @*<script src="~/Assets/common/js/app/App.js"></script>
-        <script src="~/Assets/common/js/app/AjaxHelper.js"></script>
-        <script src="~/Assets/common/js/app/CommonHelper.js"></script>
-        <script src="~/Assets/common/js/app/ChartHelper.js"></script>
-        <script src="~/Assets/v2/js/all.min.js"></script>
-        <script src="~/Assets/bundles/jquery-number/jquery.number.min.js"></script>
-        <script src="~/Assets/common/js/app/Config.js"></script>
-        <script src="~/Assets/common/js/app/Common.js"></script>*@
     @Scripts.Render("~/bundles/jquery/common")
 
     @RenderSection("Styles", required: false)
@@ -94,6 +86,9 @@
                     <li class="@(Request.RawUrl == Url.Action("Index", "Profession") ? "active" : "")">
                         <a href="@Url.Action("Index", "Profession")">Thống kê ngành</a>
                     </li>
+                    <li class="@(Request.RawUrl == Url.Action("BoLocCoPhieuList", "statistics") ? "active" : "")">
+                        <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
+                    </li>
                     <li>
                         <a href="#">Vĩ mô</a>
                     </li>
@@ -125,6 +120,9 @@
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("Index", "Profession") ? "active" : "")">
                                     <a href="@Url.Action("Index", "Profession")">Thống kê ngành</a>
+                                </li>
+                                <li class="@(Request.RawUrl == Url.Action("BoLocCoPhieuList", "statistics") ? "active" : "")">
+                                    <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
                                 </li>
                                 <li>
                                     <a href="#">Vĩ mô</a>

@@ -462,6 +462,7 @@ function ShowMoreDetail(e) {
 function CreateTooltip() {
     $('[data-toggle="tooltip"]').tooltip({
         html: true,
+        trigger: 'hover',
         delay: {
             //hide: 50000
         },

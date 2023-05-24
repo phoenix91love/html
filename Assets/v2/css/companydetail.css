@@ -1349,14 +1349,6 @@
 .container-company-detail .l-sidebar .content-struct div[id^="chart-doanh-nghiep"] {
   margin-bottom: 21px; }
 
-.container-company-detail .pagination .page-link.active {
-  pointer-events: none;
-  cursor: default;
-  background: repeat-x;
-  color: #23527c;
-  background-color: #eee;
-  border-color: #ddd; }
-
 .container-company-detail .c-box .c-box__title a.c-box__title__name {
   text-transform: uppercase; }
 
