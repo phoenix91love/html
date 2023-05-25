@@ -2368,7 +2368,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
             display: flex;
             flex-wrap: wrap;
             margin: 0;
-            padding-left: 25px;
+            padding-left: 35px;
         }
 
         .l-nav .c-mega-menu .c-category-flex .c-category-flex__bottom .c-category-menu ul li {
