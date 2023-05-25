@@ -2383,6 +2383,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
             line-height: 18px;
             color: #333;
             font-weight: 400;
+            text-transform: uppercase;
         }
 
             .l-nav .c-mega-menu .c-category-flex .c-category-flex__bottom .c-category-menu ul li:after {
@@ -2401,7 +2402,8 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
                 color: #333333;
                 font-size: 18px;
                 line-height: 21px;
-                font-weight: normal;
+                font-weight: 400;
+                font-family: 'Roboto Condensed'
             }
 
             .l-nav .c-mega-menu .c-category-flex .c-footer-social.mobile a {
