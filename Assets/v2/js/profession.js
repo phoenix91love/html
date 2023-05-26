@@ -31,4 +31,6 @@ function loadDataReportProfession() {
 function ViewChildProfession(e) {
     var id = $(e).attr('data-id');
     $('tr.treegrid-' + id + ' .treegrid-expander').click();
+    $('.fixed-table-body').css('height', 'auto');
+    $('.fixed-columns').css('height', 'auto');
 }

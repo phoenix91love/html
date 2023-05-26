@@ -139,8 +139,9 @@ body {
                     tr {
                         text-align: center;
                         align-self: center;
-                        th{
-                            white-space:nowrap;
+
+                        th {
+                            white-space: nowrap;
                         }
                     }
                 }
@@ -148,13 +149,12 @@ body {
                 tbody {
                     tr {
                         background: none;
+                        text-align: right;
+                        align-self: center;
 
                         .treegrid-container .treegrid-expander {
                             display: none;
                         }
-
-                        text-align: right;
-                        align-self: center;
 
                         :first-child {
                             text-align: center;
@@ -169,7 +169,7 @@ body {
                                 font-family: "Roboto Condensed","Roboto",Arial;
                                 font-weight: 700;
                                 text-decoration: unset;
-                                font-size: 15px;
+                                font-size: 14px;
                                 white-space: nowrap;
                             }
                         }

@@ -64,7 +64,7 @@ body .profession #container-profess table tbody tr {
       font-family: "Roboto Condensed","Roboto",Arial;
       font-weight: 700;
       text-decoration: unset;
-      font-size: 15px;
+      font-size: 14px;
       white-space: nowrap; }
   body .profession #container-profess table tbody tr :nth-child(4) a, body .profession #container-profess table tbody tr :nth-child(5) a {
     color: #212529; }
