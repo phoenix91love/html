@@ -6,6 +6,8 @@
             fixedColumns: true,
             fixedNumber: 2
         });
+        $('.fixed-table-body').css('height', 'auto');
+        $('.fixed-columns').css('height', 'auto');
     });
 }
 $(function () {
