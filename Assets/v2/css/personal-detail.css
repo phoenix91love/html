@@ -99,6 +99,8 @@
                 @media (max-width: 991px) {
                   body .l-main .b-maincontent .row .col-lg-9.profile-info ul li:first-child span:nth-child(2) {
                     font-weight: bold; } }
+              body .l-main .b-maincontent .row .col-lg-9.profile-info ul li .count-money {
+                font-weight: 600; }
           body .l-main .b-maincontent .row .col-lg-9.profile-info img {
             width: 100%; }
       body .l-main .b-maincontent .row:before, body .l-main .b-maincontent .row:after {

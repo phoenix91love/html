@@ -1142,6 +1142,8 @@
   @media (min-width: 1024px) {
     .container-company-detail .l-main #company-get-news .b-grid .b-grid__content .b-grid__row.h-show-mobile {
       display: block; } }
+  .container-company-detail .l-main #company-get-news .b-grid .b-grid__content div:last-child {
+    text-align: left; }
   @media (min-width: 1024px) {
     .container-company-detail .l-main #company-get-news .b-grid .b-grid__img {
       width: 242px;

@@ -2,11 +2,15 @@
     var params = { date: date, exchangeId: exchangeId };
     App.loadPartialCallback(urlLoadReportProfess, params, "#container-profess", function () {
         $('.table-bctc').treegrid();
+        $('.table-bctc').bootstrapTable({
+            fixedColumns: true,
+            fixedNumber: 2
+        });
     });
 }
 $(function () {
     $('#datelast').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'dd/mm/yyyy',
         daysOfWeekDisabled: '0,6',
         autoclose: true,
         endDate: '+1d',

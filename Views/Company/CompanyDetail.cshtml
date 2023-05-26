@@ -155,6 +155,7 @@
                         <li><span class="float-left">KL Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
                         <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
                         <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
+                        <li><span class="float-left">Mua ròng</span><span class="float-right">@((dataStock.BuyVol - dataStock.SellVol).FormatNumber())</span></li>
                         <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
                     </ul>
                     <!--end l-top-news-->
@@ -180,7 +181,7 @@
                     <li><span class="float-left">NN Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
 
                     <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Mua ròng</span><span class="float-right">N/A</span></li>
+                    <li><span class="float-left">Mua ròng</span><span class="float-right">@((dataStock.BuyVol - dataStock.SellVol).FormatNumber())</span></li>
 
                     <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
                     <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
@@ -191,6 +192,7 @@
 
                     <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
                     <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
+
                 </ul>
                 <hr />
                 <ul>

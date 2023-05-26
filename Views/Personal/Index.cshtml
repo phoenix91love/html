@@ -4,6 +4,7 @@
 @model BaseModels<PersonalInforMdl>
 @{
 
+    ViewBag.PageName = "Dữ liệu doanh nghiệp";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     var dataPersonal = Model.DataObject;
     var dataGroupPerson = ViewBag.GroupPerson as BaseModels<List<PersonalGroupInforMdl>>;
@@ -104,14 +105,14 @@
                                     {
                                         <li>
                                             <span>Tổng tài sản cá nhân :</span>
-                                            <span><span>@(dataPersonal.PersonalStocks.Where(x=>x.Type==1).Sum(x=>x.CountValue).FormatNumberUnit(2))</span> tỷ đồng</span>
+                                            <span><span class="count-money">@(dataPersonal.PersonalStocks.Where(x=>x.Type==1).Sum(x=>x.CountValue).FormatNumberUnit(2))</span> tỷ đồng</span>
                                         </li>
                                     }
                                     if (dataPersonal.PersonalStocks.Any(x => x.Type == 1))
                                     {
                                         <li>
                                             <span>Tổng tài sản cá nhân và đại diện sở hữu :</span>
-                                            <span>@(dataPersonal.PersonalStocks.Sum(x=>x.CountValue).FormatNumberUnit(2)) tỷ đồng</span>
+                                            <span class="count-money">@(dataPersonal.PersonalStocks.Sum(x=>x.CountValue).FormatNumberUnit(2)) tỷ đồng</span>
                                         </li>
                                     }
                                 }

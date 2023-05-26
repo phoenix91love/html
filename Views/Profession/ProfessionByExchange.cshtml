@@ -3,7 +3,7 @@
 @using Nqs.Models.FormModel.Profession
 @model BaseModels<List<ProfessionReportMdl>>
 
-<table class="table table-hover table-striped table-bordered table-common table-bctc table-responsive d-block d-md-table">
+<table class="table table-hover table-striped table-bordered table-common table-bctc" id="table-report">
     <thead>
         <tr>
             <th>STT</th>
@@ -26,13 +26,13 @@
             }
             foreach (var item in data)
             {
-                <tr class="treegrid-@item.ProfessionId @(item.ProfessionParrentId>0? "treegrid-parent-"+item.ProfessionParrentId : "")">
+                <tr class="treegrid-@item.ProfessionId @(item.ProfessionParrentId > 0 ? "treegrid-parent-" + item.ProfessionParrentId : "")">
                     <td>@item.Index</td>
-                    <td >
+                    <td>
                         @Html.Raw(string.IsNullOrEmpty(item.ProfessionName) ? "--" : (item.ProfessionParrentId != 0 ? $"{item.ProfessionName.Split('/').Last()}" : $"<a href='javascript:void(0)' data-id='{item.ProfessionId}' onclick='ViewChildProfession(this)'> {item.ProfessionName.Split('/').Last()}</a>"))
                     </td>
-                    <td class="@(item.PercentMaketCapProfession>=0?"green":"red")">
-                        @(item.MaketCap == 0?"--":$"{(item.MaketCap / 1000000000).FormatNumber()}({item.PercentMaketCapProfession.FormatNumber()}%)")
+                    <td class="@(item.PercentMaketCapProfession >= 0 ? "green" : "red")">
+                        <a href='@Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })'> @(item.MaketCap == 0 ? "--" : $"{item.MaketCap.FormatNumberUnit(3)}({item.PercentMaketCapProfession.FormatNumber()}%)")</a>
                     </td>
                     <td class="green">
                         @Html.Raw(string.IsNullOrEmpty(item.CodeTopUp) ? "--" : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.CodeTopUp })}' target='blank'> {item.CodeTopUp}({item.PercentUp.FormatNumber()}%)</a>")
@@ -42,18 +42,32 @@
                     </td>
 
                     <td>
-                        @(item.Volume == 0?"--":$"{item.Volume.FormatNumber()}")
+                        @(item.Volume == 0 ? "--" : $"{item.Volume.FormatNumber()}")
                     </td>
                     <td>
-                        @(item.Value == 0?"--":$"{(item.Value / 1000000000).FormatNumber()}")
+                        @(item.Value == 0 ? "--" : $"{item.Value.FormatNumberUnit(3)}")
                     </td>
                     <td>
-                        @(item.AverageEPS == 0?"--":$"{item.AverageEPS.FormatNumber()}")
+                        @(item.AverageEPS == 0 ? "--" : $"{item.AverageEPS.FormatNumber()}")
                     </td>
                     <td>
                         <div>
-                            <div> @Html.Raw(item.CountDown == 0?"--": $"<a href='{Url.Action("CompanyList", "Company",new { exId=ViewBag.ExchangeId, professionId=item.ProfessionId })}'> {item.CountDown}</a>") </div>
-                            <div> @Html.Raw(item.CountUp == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountUp}</a>") </div>
+                            @if (item.CountDown == 0 && item.CountUp == 0)
+                            {
+                                <div> @Html.Raw(item.CountDown == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountDown}</a>") </div>
+                                <div> @Html.Raw(item.CountUp == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountUp}</a>") </div>
+                            }
+                            else if (item.CountDown == 0 || item.CountUp == 0)
+                            {
+                                <div style="@(item.CountDown==0?"width:0%":"width:100%")"> @Html.Raw(item.CountDown == 0 ? string.Empty : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountDown}</a>") </div>
+                                <div style="@(item.CountUp==0?"width:0%":"width:100%")"> @Html.Raw(item.CountUp == 0 ? string.Empty : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountUp}</a>") </div>
+                            }
+                            else
+                            {
+                                <div style="@($"width:{item.CountDown*100/(item.CountDown+item.CountUp)}%")"> @Html.Raw(item.CountDown == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountDown}</a>") </div>
+                                <div style="@($"width:{item.CountUp*100/(item.CountDown+item.CountUp)}%")"> @Html.Raw(item.CountUp == 0 ? "--" : $"<a href='{Url.Action("CompanyList", "Company", new { exId = ViewBag.ExchangeId, professionId = item.ProfessionId })}'> {item.CountUp}</a>") </div>
+                            }
+
                         </div>
                     </td>
                 </tr>
