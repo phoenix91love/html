@@ -1,17 +1,18 @@
 ﻿@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.Event.EventModel>
 <div class="table-responsive-sm table-scroll">
     <br />
-    <table class="table table-bordered table-common">
+    <table class="table table-bordered table-common" id="event-thuongcp-table">
         <thead>
             <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Mã CK</th>
+                <th scope="col" style="min-width: 300px;">Nội dung sự kiện</th>
                 <th scope="col">Sàn</th>
                 <th scope="col" style="min-width: 100px;">Ngày GDKHQ</th>
                 <th scope="col" style="min-width: 100px;">Ngày ĐKCC</th>
                 <th scope="col" style="min-width: 100px;">Tỉ lệ</th>
                 <th scope="col" style="min-width: 100px;">Khối lượng DKPH</th>
-                <th scope="col" style="min-width: 300px;">Nội dung sự kiện</th>
+
 
             </tr>
 
@@ -22,11 +23,6 @@
             <tr>
                 <td class="center" scope="row">@item.RowIndex</td>
                 <td class="center"><a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></td>
-                <td class="center">@item.ExchangeCode</td>
-                <td class="center">@item.DateGdkhq</td>
-                <td class="center">@item.DateDkcc</td>
-                <td class="right">@item.Rate</td>
-                <td class="center">@item.KlDkPh</td>
                 <td class="left">
                     <a href="javascript:void(0)" class="a-btn-show-modal-detail" data-id="@item.Id">
                         @item.Note
@@ -35,6 +31,12 @@
                     <span id="link-download-@item.Id" style="display: none;">@item.FileUrl</span>
                     <span id="content-@item.Id" style="display: none;">@MvcHtmlString.Create(item.Content)</span>
                 </td>
+
+                <td class="center">@item.ExchangeCode</td>
+                <td class="center">@item.DateGdkhq</td>
+                <td class="center">@item.DateDkcc</td>
+                <td class="right">@item.Rate</td>
+                <td class="center">@item.KlDkPh</td>
 
             </tr>
             }
@@ -62,6 +64,11 @@
                 $("#event-detail-download").html("<a target='_blank' href=" + url + ">" + url + "</a>");
 
             $('.modal-detail').modal('show');
+        });
+
+        $('#event-thuongcp-table').bootstrapTable({
+            fixedColumns: true,
+            fixedNumber: 3
         });
     });
 </script>
