@@ -1947,9 +1947,13 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
         display: none;
     }
 
-    .l-nav .c-menu > ul > li.c-menu-child:last-child {
-        float: right;
+    .l-nav .c-menu > ul {
+        display: flex;
     }
+
+        .l-nav .c-menu > ul > li.c-menu-child:nth-child(11) {
+            margin-left: auto;
+        }
 }
 
 
