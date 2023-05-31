@@ -2080,6 +2080,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 
     .l-nav > .container.mt-3.h-show-mobile {
         margin-top: 12px !important;
+        padding: 0;
     }
 
         .l-nav > .container.mt-3.h-show-mobile .topcontents {
