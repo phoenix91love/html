@@ -1,4 +1,5 @@
-﻿
+﻿@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.TechnicalTerms
 @{
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     ViewBag.PageName = "Thuật ngữ";
@@ -7,7 +8,29 @@
 @section Styles{
     @Styles.Render("~/bundles/styles/technical-term")
 }
+@model BaseModels<TechnicalTermsGetByIdMdl>
+@if (Model != null)
+{
+    if (Model.DataObject==null)
+    {
+        ViewBag.SubTitle = $"Không tìm thấy dữ liệu liên quan đến thuật ngữ {ViewBag.Terms}";
+        ViewBag.Title = $"Không tìm thấy dữ liệu liên quan đến thuật ngữ {ViewBag.Terms}";
+    }
+    else
+    {
+        ViewBag.SubTitle = $"Thuật ngữ: {Model.DataObject.Title}";
+        ViewBag.Title = $"Thuật ngữ: {Model.DataObject.Title}";
+    }
+}
+
 <div class="technical-terms-detail">
+    @if (Model.DataObject == null)
+    {
+        <div class="b-grid__title">
+            <span class="name">@ViewBag.SubTitle</span>
+        </div>
+        return;
+    }
     <div class="c-content-flex">
         <div class="l-main">
             <div class="c-news-detail">
@@ -38,8 +61,15 @@
                     <input type="hidden" id="type" value="0" />
                     <input type="hidden" id="typeSearch" value="1" />
                     <input type="hidden" id="valueSearch" value="" />
-                    <div id="content-list-terms">
-
+                    <div>
+                        <div class="b-grid__title">
+                            <span class="name">@Model.DataObject.Title</span>
+                        </div>
+                        <div>
+                            <p>
+                                @Model.DataObject.Content
+                            </p>
+                        </div>
                     </div>
 
                 </div>
