@@ -155,6 +155,10 @@
                         font-size: 12px;
                         align-self: center;
                     }
+
+                    a {
+                        color: #000000;
+                    }
                 }
 
                 @include r(320) {
@@ -1796,8 +1800,9 @@
                             }
                         }
                     }
-                    div:last-child{
-                        text-align:left;
+
+                    div:last-child {
+                        text-align: left;
                     }
                 }
 

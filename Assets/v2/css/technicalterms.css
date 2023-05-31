@@ -1,0 +1,8 @@
+﻿.technical-terms .option .filter-symbol ul li {
+  float: left;
+  margin-right: 10px; }
+  .technical-terms .option .filter-symbol ul li a {
+    color: #3b1b70; }
+  .technical-terms .option .filter-symbol ul li a.active {
+    font-weight: 600;
+    text-decoration: underline; }

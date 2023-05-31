@@ -1,0 +1,16 @@
+﻿@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.TechnicalTerms
+@model BasePagingModel<TechnicalTermsMdl>
+
+@if (Model.DataList != null && Model.DataList.Any())
+{
+    <ul>
+        @foreach (var item in Model.DataList)
+        {
+            <li><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title),id=item.TermId})">@item.Title</a></li>
+        }
+    </ul>
+    <div class="w-100 text-center paging-event">
+        @{Html.RenderPartial("Partials/Paging", Model);}
+    </div>
+}

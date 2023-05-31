@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+    ViewBag.PageName = "Thuật ngữ";
+    ViewBag.Title = "Thuật ngữ";
+}
+@section Styles{
+    @Styles.Render("~/bundles/styles/technical-term")
+}
+<div class="technical-terms-detail">
+    <div class="c-content-flex">
+        <div class="l-main">
+            <div class="c-news-detail">
+                <div class="b-maincontent">
+                    <div class="option">
+                        <div class="search">
+                            <div class="input-group col-md-4">
+                                <input class="form-control py-2" type="search" value="search" id="search-input">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="SearchType(2)">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="filter-symbol">
+                            @{
+                                var arrarSymbol = "#,A, B, C, D, E, F, G, H, I ,J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z".Split(',');
+                            }
+                            <ul>
+                                @foreach (var item in arrarSymbol)
+                                {
+                                    <li><a href="javascrip:void(0)" onclick="SearchBySymbol(this)" data-symbol="@item.Trim()">@item.Trim()</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="hidden" id="type" value="0" />
+                    <input type="hidden" id="typeSearch" value="1" />
+                    <input type="hidden" id="valueSearch" value="" />
+                    <div id="content-list-terms">
+
+                    </div>
+
+                </div>
+            </div>
+            <!--end c-news-detail-->
+        </div>
+        <!--end l-main-->
+        <div class="l-sidebar">
+
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var urlLoadMoreTerms = '@Url.Action("SearchTerns", "TechnicalTerms")';
+    </script>
+    @Scripts.Render("~/bundles/script/technical-term")
+}

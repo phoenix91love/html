@@ -62,6 +62,8 @@
   .container-company-detail .l-main .l-topnews ul.phantich1 li :nth-child(2), .container-company-detail .l-main .l-topnews ul.phantich1 li :nth-child(3), .container-company-detail .l-main .l-topnews ul.phantich1 li :nth-child(4) {
     font-size: 12px;
     align-self: center; }
+  .container-company-detail .l-main .l-topnews ul.phantich1 li a {
+    color: #000000; }
 
 @media (min-width: 320px) {
   .container-company-detail .l-main .l-topnews ul.phantich1 li:first-child {

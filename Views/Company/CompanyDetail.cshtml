@@ -82,8 +82,24 @@
 
                 <div class="b-grid__title box">
                     <span class="point"> @dataStock.Current.FormatNumber()</span>
-                    <span class="unit @(dataStock.Change >= 0 ? "green" : "red") "> @( dataStock.Change >= 0? $"+{(dataStock.Change/1000).FormatNumber()}": $"{(dataStock.Change / 1000).FormatNumber()}")</span>
-                    <span class="unit @(dataStock.ChangePercent >= 0 ? "green" : "red")"> @(dataStock.ChangePercent >= 0 ? $"+{dataStock.ChangePercent.FormatNumber()}" : dataStock.ChangePercent.FormatNumber())%</span>
+
+                    <span class="unit @(dataStock.Change > 0 ? "green" : (dataStock.Change<0? "red":"yellow")) ">
+                        @if (dataStock.Change > 0)
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
+                            </svg>
+                        }
+                        else if (dataStock.Change < 0)
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-down-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14 13.5a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1 0-1h4.793L2.146 2.854a.5.5 0 1 1 .708-.708L13 12.293V7.5a.5.5 0 0 1 1 0v6z" />
+                            </svg>
+                        }
+
+                        @( dataStock.Change >= 0? $"{(dataStock.Change/1000).FormatNumber()}": $"{ Math.Abs(dataStock.Change).FormatNumberUnit(1)}")
+                    </span>
+                    <span class="unit @(dataStock.Change > 0 ? "green" : (dataStock.Change<0? "red":"yellow"))"> (@(dataStock.ChangePercent >= 0 ? $"{dataStock.ChangePercent.FormatNumber()}" : Math.Abs(dataStock.ChangePercent).FormatNumber())%)</span>
                     <span class="unit-lastupdate">Cập nhật: @dataStock.LastUpdate.ToString("HH:mm dd/MM/yyyy")</span>
                 </div>
                 <div class="kyquy">
@@ -136,14 +152,14 @@
             <div class="r-topnews col-lg-5">
                 <ul class="c-box is-border is-line-bottom mb-3">
                     <li><span class="float-left">Tham chiếu</span><span class="float-right">@dataStock.BasePrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
                     <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
+                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
                     <li><span class="float-left">Mở cửa</span><span class="float-right">@dataStock.OpenPrice.FormatNumber()</span></li>
                     @*<li><span class="float-left">Đóng cửa</span><span class="float-right">@dataStock.ClosePrice.FormatNumber()</span></li>*@
-                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
                     <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
                     <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
                     <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
                     <li><span class="float-left">GTGD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
                 </ul>
@@ -167,10 +183,11 @@
                     <li><span class="float-left">Tham chiếu</span><span class="float-right">@dataStock.BasePrice.FormatNumber()</span></li>
                     <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
 
-                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
-                    <li><span class="float-left">Giá trị GD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
 
                     <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
+                    <li><span class="float-left">Giá trị GD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
+
+                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
                     <li><span class="float-left"></span><span class="float-right"></span></li>
 
                     <li><span class="float-left">Mở cửa</span><span class="float-right">@dataStock.OpenPrice.FormatNumber()</span></li>
@@ -180,17 +197,17 @@
                     @*<li><span class="float-left">Đóng cửa</span><span class="float-right">@dataStock.ClosePrice.FormatNumber()</span></li>*@
                     <li><span class="float-left">NN Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
 
-                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
                     <li><span class="float-left">Mua ròng</span><span class="float-right">@((dataStock.BuyVol - dataStock.SellVol).FormatNumber())</span></li>
 
-                    <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
+
+                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
                     <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
 
-                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
                     <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
 
-
-                    <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
                     <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
 
                 </ul>
