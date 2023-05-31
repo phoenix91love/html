@@ -28,6 +28,9 @@
     margin: unset; }
   .container-company-detail .l-main .l-topnews .b-grid__title.box .unit {
     font-size: 27px; }
+    .container-company-detail .l-main .l-topnews .b-grid__title.box .unit svg {
+      position: relative;
+      top: -3px; }
   .container-company-detail .l-main .l-topnews .b-grid__title.box .unit-lastupdate {
     color: #757575;
     font-weight: 500;

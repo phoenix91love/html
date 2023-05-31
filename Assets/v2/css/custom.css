@@ -2087,8 +2087,9 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
             padding-bottom: 0px !important;
+            padding-left: 15px;
+            padding-right: 15px;
         }
-
 
             .l-nav > .container.mt-3.h-show-mobile .topcontents .m-auto {
             }

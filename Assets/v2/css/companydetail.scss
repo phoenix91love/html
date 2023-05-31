@@ -107,6 +107,11 @@
 
                 .unit {
                     font-size: 27px;
+
+                    svg {
+                        position: relative;
+                        top: -3px;
+                    }
                 }
 
                 .unit-lastupdate {
