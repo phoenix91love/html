@@ -2434,6 +2434,10 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
         .l-content ul.info-navbar#mainTab li.active a {
             font-weight: 600;
         }
+
+    .wrap-iframe {
+        overflow: hidden;
+    }
 }
 
 
