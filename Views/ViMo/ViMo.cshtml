@@ -1,0 +1,283 @@
+﻿@model Nqs.Models.FormModel.ViMo.ViMoListModel
+@{
+    ViewBag.Title = "Vĩ mô";
+    ViewBag.PageName = "Vĩ mô";
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+
+@section Styles{
+    @Styles.Render("~/bundles/styles/bootstrap-table")
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<input type="hidden" id="hd-vimo-selected-tab" value="1" />
+<div class="c-content-flex home-index">
+    <div class="l-main">
+        <div class="row">
+            
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="topnews b-grid">
+
+                    <div class="c-box c-other">
+                        <div class="c-box__title white__bg is-line-bottom"><a class="c-box__title__name" href="#">TỔNG QUAN</a></div>
+                       
+                        <!--end c-box__content-->
+                        <div class="c-topic-grid">
+                            <div class="table-responsive-sm table-scroll">
+                                <br />
+                                <table class="table table-hover table-striped table-bordered table-common" id="x">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Chỉ số</th>
+                                            <th scope="col" style="min-width: 100px;">Kỳ</th>
+                                            <th scope="col" style="min-width: 100px;">Giá trị</th>
+                                            <th scope="col" style="min-width: 50px;">Đơn vị tính</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DataList)
+                                        {
+                                            <tr>
+                                                <td scope="col">@item.name</td>
+                                                <td class="text-center">@item.timePart</td>
+                                                <td class="text-right">@item.strValue</td>
+                                                <td class="text-center">@item.unit</td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <ul class="info-navbar info-grey" id="mainTab">
+                    <li class="active">
+                        <a href="#tab-gdp" class="tablink" data-id="1" data-toggle="tab">GDP</a>
+                    </li>
+                    <li>
+                        <a href="#tab-cpi-lamphat" class="tablink" data-id="2" data-toggle="tab">CPI - Lạm phát</a>
+                    </li>
+                    <li>
+                        <a href="#tab-xuat-nhap-khau" class="tablink" data-id="3" data-toggle="tab">Xuất nhập khẩu</a>
+                    </li>
+                    <li>
+                        <a href="#tab-fdi" class="tablink" data-id="4" data-toggle="tab">FDI</a>
+                    </li>
+                    <li>
+                        <a href="#tab-tin-dung" class="tablink" data-id="5" data-toggle="tab">Tín dụng</a>
+                    </li>
+                    <li>
+                        <a href="#tab-dan-so-lao-dong" class="tablink" data-id="6" data-toggle="tab">Dân số lao động</a>
+                    </li>
+                    <li>
+                        <a href="#tab-vang-ngoai-te" class="tablink" data-id="7" data-toggle="tab">Vàng ngoại tệ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="tab-content clearfix">
+                    <br />
+                    <div class="tab-pane active" id="tab-gdp">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/Gdp.cshtml")
+                        </div>
+                        <div class="row" id="gdp-partial">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-cpi-lamphat">
+                        @Html.Partial("~/Views/ViMo/Partials/Cpi.cshtml")
+                    </div>
+                    <div class="tab-pane" id="tab-xuat-nhap-khau">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/XuatNhapKhau.cshtml")
+                        </div>
+                        <div class="row" id="xuatnhapkhau-partial">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-fdi">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/Fdi.cshtml")
+                        </div>
+                        <div class="row" id="fdi-partial">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-tin-dung">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/TinDung.cshtml")
+                        </div>
+                        <div class="row" id="tindung-partial">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-dan-so-lao-dong">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/Dsld.cshtml")
+                        </div>
+                        <div class="row" id="dsld-partial">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-vang-ngoai-te">
+                        <div class="row">
+                            @Html.Partial("~/Views/ViMo/Partials/VangNgoaiTe.cshtml")
+                        </div>
+                        <div class="row" id="vangngoaite-partial">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="l-sidebar d-inline-grid">
+        <div class="c-box is-border is-primary is-minus-mobile order-sm-2">
+            <div class="c-box__title">
+                <div class="c-box__title__name">TIN VĨ MÔ</div>
+            </div>
+            <div class="c-box__content">
+                <div class="c-other c-news-forcus is-line-bottom is-last">
+                    <ul>
+                        @foreach (var item in Model.NewsList)
+                        {
+                            <li>
+                                <div class="b-grid">
+                                    <div class="b-grid__img">
+                                        <a href="@item.Url" target="_blank">
+                                            <img src="@item.Thumbnai" alt="@item.Title" title="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="b-grid__content">
+                                        <div class="b-grid__row">
+                                            <h3 class="b-grid__title"><a target="_blank" title="@item.Title" href="@item.Url">@(item.Title.Length > 120 ? item.Title.Substring(0, 120) +"..." : item.Title)</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li><!--end li c-news-forcus-->
+                        }
+                    </ul>
+                </div>
+                <!--end c-news-new-->
+            </div>
+            <!--end c-box__content-->
+        </div>
+        <!--end c-box-->
+        <div class="c-box h-show-pc">
+            <div class="c-box__content ad">
+                <div class="c-banner-item is-300x250">
+                    <div class="c-banner-item__inner">
+                        <div class="c-banner-item__box">
+                            <img class="ad" src="~/Upload/images/banner.png" alt="ad">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end c-box-->
+        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
+            <div class="c-box__content">
+                <ul class="is-line-bottom">
+                    <li class="active">
+                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia active" data-tab="tigia" data-toggle="tab">TỈ GIÁ</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia" data-tab="giavang" data-toggle="tab">GIÁ VÀNG</a>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-tigia" data-tab="tigia" style="display: block;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["MoneyExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Code</span><span class="price">@item.Value.ToString("N0")</span><span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span></li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left">Nguồn Eximbank</span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-tigia" data-tab="giavang" style="display: none;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá mua</span><span class="change">Giá bán</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["GoldExchange"])
+                        {
+                            <li title="@item.Name">
+                                <span class="code">@item.Code</span>
+                                <span class="price text-right">@item.Change.ToString("N0")</span>
+                                <span class="change text-right">@item.Value.ToString("N0")</span>
+                            </li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left">Nguồn Eximbank</span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <!--end c-box-->
+        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
+            <div class="c-box__content white__bg">
+                <ul class="is-line-bottom">
+                    <li class="active">
+                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin active" data-tab="hanghoa" data-toggle="tab">HÀNG HÓA</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin" data-tab="coin" data-toggle="tab">COIN</a>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-hanghoacoin" data-tab="hanghoa" style="display: block;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["HHExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
+                                <span class="code">
+                                    @item.Name
+                                </span>
+                                <span class="price">@item.Value.ToString("N2")</span>
+                                <span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange + ")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span>
+                            </li>
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left"></span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+                <ul class="contentinfo ul-hanghoacoin" data-tab="coin" style="display: none;">
+                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
+                    @{
+                        foreach (var item in Model.ExchangeData["CoinExchange"])
+                        {
+                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Name</span><span class="price">@item.Value.ToString("N2")</span><span class="text-center change price-change ">@(item.Change.ToString("N2") + "("+ @item.PerChange.ToString("N2") + "%)")</span></li>
+
+                        }
+                    }
+
+                    <li class="source">
+                        <span class="float-left"></span>
+                        <span class="float-right"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/script/bootstrap-table")
+    @Scripts.Render("~/bundles/vimo")
+}

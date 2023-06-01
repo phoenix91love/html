@@ -98,7 +98,7 @@
                     <li class="@(Request.RawUrl == Url.Action("BoLocCoPhieuList", "statistics") ? "active" : "")">
                         <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
                     </li>
-                    <li>
+                    <li class="@(Request.RawUrl == Url.Action("ViMo", "ViMo") ? "active" : "")">
                         <a href="#">Vĩ mô</a>
                     </li>
                     <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">
@@ -133,7 +133,7 @@
                                 <li class="@(Request.RawUrl == Url.Action("BoLocCoPhieuList", "statistics") ? "active" : "")">
                                     <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
                                 </li>
-                                <li>
+                                <li class="@(Request.RawUrl == Url.Action("ViMo", "ViMo") ? "active" : "")">
                                     <a href="#">Vĩ mô</a>
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">

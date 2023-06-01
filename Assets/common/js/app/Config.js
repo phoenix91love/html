@@ -39,3 +39,13 @@ var eventUrl = {
 var stattisticUrl = {
     boLocCoPhieu: "/statistics/BoLocCoPhieuPartialList"
 };
+
+var vimoUrl = {
+    vimoGdp: "/vimo/gdp",
+    vimoCpi: "/vimo/cpi",
+    vimoXuatNhapKhau: "/vimo/xuatnhapkhau",
+    vimoFdi: "/vimo/fdi",
+    vimoTinDung: "/vimo/tindung",
+    vimoDanSoLaoDong: "/vimo/dsld",
+    vimoVangNgoaiTe: "/vimo/vangngoaite",
+}

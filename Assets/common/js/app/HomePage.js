@@ -232,7 +232,6 @@
         AjaxHelper.ajaxCall(url, params, function (result) {
             if (result.ErrCode != "01") {
 
-                //ChartHelper.renderChartColumnNN("container-nn-value", 0, result.Value.BuyData, result.Value.SellData);
                 if (this.chart1 != null)
                     this.chart1.destroy();
                 if (this.chart2 != null)

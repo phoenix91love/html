@@ -52,7 +52,12 @@
         return temp;
     },
     replacePersonName: function (str) {
-        return CommonHelper.replaceAll(str.toLowerCase()," ", "-");
+        return CommonHelper.replaceAll(str.toLowerCase(), " ", "-");
+    },
+    getQueryStringByForm: function (formEl) {
+        let form_data = new FormData(document.querySelector(formEl));
+        let queryString = new URLSearchParams(form_data).toString();
+        return queryString;
     }
 }
 

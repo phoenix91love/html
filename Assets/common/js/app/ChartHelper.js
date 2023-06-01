@@ -257,7 +257,7 @@ var ChartHelper = {
     },
     renderChartIndex1: function (containerId, code, priceData, volumeData, openPrice, min, max) {
         var isMobile = $("body").hasClass("mobile");
-        
+
         const chartAtr = {
             lineColor: '#ffb800',
             redColor: '#fc0002',
@@ -344,7 +344,7 @@ var ChartHelper = {
                             x2: 0,
                             y2: 1
                         },
-                        stops: [                         
+                        stops: [
                             [0, color],
                             [
                                 1,
@@ -637,24 +637,24 @@ var ChartHelper = {
     renderChart10CpAnhHuong: function (containerId, labels, dataTop) {
 
         const ctx = document.getElementById(containerId);
-       
+
         const data = {
             labels: labels,
             datasets: [
                 {
-                    
+
                     data: dataTop,
-                  
+
                     order: 0
                 }
             ]
         };
-       
+
         function colorize() {
             return (ctx) => {
                 const v = ctx.parsed.y;
                 const c = v > 0 ? '#33A42E' : "#e45959";
-                   
+
                 return c;
             };
         }
@@ -692,7 +692,7 @@ var ChartHelper = {
     },
     renderChartSlCp: function (containerId, giamSan, giam, khongDoi, tang, tangTran) {
         const ctx = document.getElementById(containerId);
- 
+
         const data = {
             labels: ["Giảm sàn", "Giảm", "Không đổi", "Tăng", "Tăng trần"],
             datasets: [
@@ -765,7 +765,7 @@ var ChartHelper = {
                     },
                     title: {
                         display: false,
-                      
+
                     }
                 },
                 animation: {
@@ -775,13 +775,13 @@ var ChartHelper = {
                         console.log(chartInstance);
                         var width = chartInstance.boxes[0].width;
                         ctx.textAlign = "center";
-                        chartInstance.data.datasets.forEach((dataset,i) => {
+                        chartInstance.data.datasets.forEach((dataset, i) => {
                             var meta = chartInstance.getDatasetMeta(i);
                             var startPoint = 0;
                             Chart.helpers.each(meta.data.forEach(function (bar, index) {
                                 if (dataset.data[index] > 0) {
-                                    
-                                    var pos = (bar.x - startPoint) + ((bar.x - startPoint)/2);
+
+                                    var pos = (bar.x - startPoint) + ((bar.x - startPoint) / 2);
                                     startPoint = bar.x - startPoint;
                                     ctx.fillText(dataset.data[index], pos, bar.y + 5);
                                 }
@@ -795,5 +795,582 @@ var ChartHelper = {
 
         var chart = new Chart(ctx, config);
         return chart;
-    }
+    },
+
+    renderChartGdp: function (containerId, time, percentData, valueData) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "GDP";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: "Tăng trưởng GDP (%)",
+                    data: percentData,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 0,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'bar',
+                    label: "GDP theo giá hiện hành (tỷ đồng)",
+                    data: valueData,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 1,
+                    yAxisID: 'y1',
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        display: true,
+                        position: 'left',
+
+                    },
+                    y1: {
+                        display: true,
+                        position: 'right',
+                        // grid line settings
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+                    tooltip: {
+                        callbacks: {
+
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Tăng trưởng GDP: " + item.raw + "%";
+                                if (item.datasetIndex == 1)
+                                    return "GDP theo giá hiện hành: " + $.number(item.raw,0) + " tỷ đồng";
+                            },
+                        }
+                    }
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartCpi: function (containerId, time, dataValue) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "CPI";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Chỉ số giá tiêu dùng",
+                    data: dataValue,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 0,
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartXnk: function (containerId, time, value1, value2, value3) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "GDP";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: "Cán cân thương mại",
+                    data: value3,
+                    borderColor: "#ee7224",
+                    backgroundColor: "#ee7224",
+                    order: 0,
+                },
+                {
+                    type: 'bar',
+                    label: "Xuất khẩu",
+                    data: value1,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 1,
+                },
+                {
+                    type: 'bar',
+                    label: "Nhập khẩu",
+                    data: value2,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 2,
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartFdi: function (containerId, time, value1, value2) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "GDP";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: "Đăng ký (tỷ USD)",
+                    data: value1,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 0,
+                },
+                {
+                    type: 'line',
+                    label: "Giải ngân (tỷ USD)",
+                    data: value2,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 1,
+                }
+            ]
+        };
+        const config = {
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartTinDung: function (containerId, time, values1, values2, values3, values4) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "Tín dụng";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Tín dụng (MoM)",
+                    data: values1,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 2,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'bar',
+                    label: "Cung tiền M2 (MoM)",
+                    data: values2,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 3,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'line',
+                    label: "Tăng trưởng tín dụng (YoY)",
+                    data: values3,
+                    borderColor: "#3b1b70",
+                    backgroundColor: "#3b1b70",
+                    order: 0,
+                    yAxisID: 'y1',
+                },
+                {
+                    type: 'line',
+                    label: "Tăng trưởng Cung tiền M2 (YoY)",
+                    data: values4,
+                    borderColor: "#ee7224",
+                    backgroundColor: "#ee7224",
+                    order: 1,
+                    yAxisID: 'y1',
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                //responsive: true,
+                //maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        display: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        display: true,
+                        position: 'right',
+                        // grid line settings
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+
+    renderChartDsld: function (containerId, time, values1, values2, values3) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "Tín dụng";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'bar',
+                    label: "Dân số",
+                    data: values1,
+                    borderColor: "#058dc7",
+                    backgroundColor: "#058dc7",
+                    order: 1,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'bar',
+                    label: "Lao động",
+                    data: values2,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 2,
+                    yAxisID: 'y',
+                },
+                {
+                    type: 'line',
+                    label: "Tỉ lệ lao động",
+                    data: values3,
+                    borderColor: "#ee7224",
+                    backgroundColor: "#ee7224",
+                    order: 0,
+                    yAxisID: 'y1',
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        display: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        display: true,
+                        position: 'right',
+                        // grid line settings
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: false,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+
+    renderChartVangSjc: function (containerId, time, values1, values2) {
+
+        const ctx = document.getElementById(containerId);
+        const title = "Giá vàng SJC Hà Nội";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: "Giá mua",
+                    data: values2,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 1,
+                },
+                {
+                    type: 'line',
+                    label: "Giá bán",
+                    data: values1,
+                    borderColor: "#ee7224",
+                    backgroundColor: "#ee7224",
+                    order: 0,
+                }
+            ]
+        };
+        const config = {
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartVangUSD: function (containerId, time, values1, values2) {
+
+        const ctx = document.getElementById(containerId);
+        const title = "Giá USD";
+        const labels = time;
+
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    type: 'line',
+                    label: "Giá mua",
+                    data: values2,
+                    borderColor: "#50b432",
+                    backgroundColor: "#50b432",
+                    order: 1,
+                },
+                {
+                    type: 'line',
+                    label: "Giá bán",
+                    data: values1,
+                    borderColor: "#ee7224",
+                    backgroundColor: "#ee7224",
+                    order: 0,
+                }
+            ]
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    },
+
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
 }

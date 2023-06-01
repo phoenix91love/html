@@ -1,0 +1,33 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.ViMo.GdpAllChartModel
+
+@if (ViewBag.Type == 0)
+{
+    <canvas id="container-chart-cpi-month" style="height: 60px;"></canvas>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        function showChart() {
+            var time = JSON.parse('@MvcHtmlString.Create(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Time))');
+            var valueData = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Value.Value1)');
+            ChartHelper.renderChartCpi("container-chart-cpi-month", time, valueData);
+        }
+        showChart();
+    });
+    </script>
+}
+else
+{
+    <canvas id="container-chart-cpi-year" style="height: 60px;"></canvas>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        function showChart() {
+            var time = JSON.parse('@MvcHtmlString.Create(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Time))');
+            var valueData = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Value.Value1)');
+            ChartHelper.renderChartCpi("container-chart-cpi-year", time, valueData);
+        }
+        showChart();
+    });
+    </script>
+}

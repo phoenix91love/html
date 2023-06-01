@@ -4,7 +4,7 @@
 
 @if (Model.DataList != null && Model.DataList.Any())
 {
-    <ul>
+    <ul class="data-list-terms">
         @foreach (var item in Model.DataList)
         {
             <li><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></li>

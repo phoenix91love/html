@@ -1,0 +1,57 @@
+﻿@using M.Common.Extensions;
+@model Nqs.Models.FormModel.ViMo.GdpAllChartModel
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <canvas id="container-chart-fdi" style="min-height: 100px;"></canvas>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <div class="table-responsive-sm table-scroll">
+        <br />
+        <table class="table table-hover table-striped table-bordered table-common" id="vimo-fdi-table">
+            <thead>
+                <tr>
+                    <th scope="col" style="min-width: 200px; width: 200px; text-align: left;">Chỉ tiêu</th>
+                    <th scope="col" style="min-width: 100px;">Đơn vị tính</th>
+                    @foreach (var item in Model.Header)
+                    {
+                        <th style="min-width: 50px;">@item</th>
+                    }
+                </tr>
+
+            </thead>
+            <tbody>
+                
+                @foreach (var item in Model.DataList)
+                {
+                    <tr>
+                        <td style="min-width: 200px; width: 200px;" class="text-left" scope="row">@item.Name</td>
+                        <td class="text-center">@item.Unit</td>
+
+                        @foreach (var item1 in item.ListByCate)
+                        {
+                            <td class="text-right">@item1.Value</td>
+                        }
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#vimo-fdi-table').bootstrapTable({
+            fixedColumns: true,
+            fixedNumber: 2
+        });
+
+        function showChart() {
+            var time = JSON.parse('@MvcHtmlString.Create(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Time))');
+            var value1 = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Value.Value1)');
+            var value2 = JSON.parse('@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Value.Value2)');
+            ChartHelper.renderChartFdi("container-chart-fdi", time, value1, value2);
+        }
+        showChart();
+    });
+</script>

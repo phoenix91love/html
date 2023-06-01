@@ -1,0 +1,23 @@
+﻿
+
+<div class="col-lg-12">
+    <form id="vangngoaite-form">
+
+        <div class="form-group row">
+            <label for="ddl-vangngoaite-from-date" class="col-form-label col-lg-2 col-4">Từ ngày</label>
+            <div class="col-lg-2 col-8 mb-2">
+                <input type="text" class="form-control" id="ddl-vangngoaite-from-date" readonly placeholder="Từ ngày" value="@DateTime.Now.AddMonths(-6).ToString("dd/MM/yyyy")" name="fromDate" />
+            </div>
+            <label for="ddl-vangngoaite-to-date" class="col-form-label col-lg-2 col-4">Đến ngày</label>
+            <div class="col-lg-2 col-8 mb-2">
+                <input type="text" class="form-control" id="ddl-vangngoaite-to-date" readonly placeholder="Đến ngày" value="@DateTime.Now.ToString("dd/MM/yyyy")" name="toDate" />
+            </div>
+            <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                <button type="button" class="btn btn-blue btn-search-vangngoaite">Xem</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    CommonHelper.showDatePicker("#ddl-vangngoaite-from-date, #ddl-vangngoaite-to-date", {});
+</script>

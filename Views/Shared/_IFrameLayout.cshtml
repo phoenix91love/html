@@ -35,6 +35,7 @@
     <script src="~/Assets/bundles/bootstrap-4-autocomplete/bootstrap-4-autocomplete.js"></script>
 
     @Scripts.Render("~/bundles/jquery/common")
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2K5TMT0L8L"></script>
     <script>
@@ -43,6 +44,15 @@
         gtag('js', new Date());
 
         gtag('config', 'G-2K5TMT0L8L');
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NWJFMPMVCW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-NWJFMPMVCW');
     </script>
 </head>
 <body class="@(bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"]+"") == true ? "mobile" : "") wrap-iframe l-nav">

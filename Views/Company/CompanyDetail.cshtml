@@ -86,13 +86,13 @@
                     <span class="unit @(dataStock.Change > 0 ? "green" : (dataStock.Change<0? "red":"yellow")) ">
                         @if (dataStock.Change > 0)
                         {
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="22" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                            </svg>
                         }
                         else if (dataStock.Change < 0)
                         {
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="22" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
                             </svg>
                         }
@@ -130,7 +130,7 @@
                 <ul class="phantich1">
                     @foreach (var item in dataStockLikeProfess)
                     {
-                        <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"black") )" data-toggle="tooltip"
+                        <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"yellow") )" data-toggle="tooltip"
                             data-price="@item.CompanyStock.Current"
                             data-code="@item.Code"
                             data-change="@item.CompanyStock.Change.FormatNumberUnit(1)"
@@ -142,8 +142,8 @@
                             data-foreign-sell="@item.CompanyStock.ForeignSell">
                             <span><a href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a></span>
                             <span>@item.CompanyStock.Current.ToString("N1")</span>
-                            <span>@(item.CompanyStock.Change >= 0? $"+{(item.CompanyStock.Change/1000).FormatNumber()}": $"{(item.CompanyStock.Change / 1000).FormatNumber()}")</span>
-                            <span>@( item.CompanyStock.Change >= 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}": $"{(item.CompanyStock.ChangePercent).FormatNumber()}")%</span>
+                            <span>@(item.CompanyStock.Change > 0? $"+{(item.CompanyStock.Change/1000).FormatNumber()}": (item.CompanyStock.Change <0? $"{(item.CompanyStock.Change / 1000).FormatNumber()}":"0"))</span>
+                            <span>@( item.CompanyStock.Change > 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}":(item.CompanyStock.Change < 0 ? $"{(item.CompanyStock.ChangePercent).FormatNumber()}":"0"))%</span>
                         </li>
                     }
                 </ul>
@@ -355,7 +355,7 @@
                                     <li><b>Trụ sở:</b> @Model.DataObject.Location</li>
                                     <li><b>Điện thoại:</b> @Model.DataObject.Phone</li>
                                     <li><b>Email:</b> @Model.DataObject.Email</li>
-                                    <li><b>Website:</b> @Model.DataObject.Website</li>
+                                    <li><b>Website:</b> <a target="_blank" href="@Model.DataObject.Website">@Model.DataObject.Website</a></li>
                                     <li><b>Tổng nhân sự:</b> @(Model.DataObject.EmployeeCount==0?"N/A":Model.DataObject.EmployeeCount.FormatNumber()) </li>
                                     <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
 
@@ -554,7 +554,7 @@
                         <li><b>Trụ sở:</b> @Model.DataObject.Location</li>
                         <li><b>Điện thoại:</b> @Model.DataObject.Phone</li>
                         <li><b>Email:</b> @Model.DataObject.Email</li>
-                        <li><b>Website:</b> @Model.DataObject.Website</li>
+                        <li><b>Website:</b> <a target="_blank" href="@Model.DataObject.Website">@Model.DataObject.Website</a></li>
                         <li><b>Tổng nhân sự:</b> @(Model.DataObject.EmployeeCount==0?"N/A":Model.DataObject.EmployeeCount.FormatNumber()) </li>
                         <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
                         <li><b>Ngành nghề chính:</b> @Model.DataObject.NganhGICS</li>

@@ -1,11 +1,26 @@
-﻿
+﻿@using Nqs.Models.FormModel.Common
+@using Nqs.Models.FormModel.News
+@using Nqs.Models.FormModel.TechnicalTerms
 @{
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
-    ViewBag.PageName = "Thuật ngữ";
-    ViewBag.Title = "Thuật ngữ";
+    ViewBag.PageName = "Tra cứu thuật ngữ";
+    ViewBag.Title = "Tra cứu thuật ngữ";
 }
 @section Styles{
     @Styles.Render("~/bundles/styles/technical-term")
+}
+@{
+    var dataReadTop = (BaseModels<List<TechnicalTermsMdl>>)ViewBag.DataTermsTop5;
+    if (!dataReadTop.IsSuccess)
+    {
+        dataReadTop = new BaseModels<List<TechnicalTermsMdl>>() { DataObject = new List<TechnicalTermsMdl>() };
+    }
+
+    var dataNews = (BaseListModel<NewsModel>)ViewBag.NewsList;
+    if (dataNews == null)
+    {
+        dataNews = new BaseListModel<NewsModel>() { DataList = new List<NewsModel>() };
+    }
 }
 <div class="technical-terms">
     <div class="c-content-flex">
@@ -14,19 +29,19 @@
                 <div class="b-maincontent">
                     <div class="option">
                         <div class="tag">
-                            <a href="javascrip:void(0)" onclick="SetTag(1)">Bất động sản</a>
-                            <a href="javascrip:void(0)" onclick="SetTag(2)">Tài chính</a>
-                            <a href="javascrip:void(0)" onclick="SetTag(3)">Ngân hàng</a>
-                            <a href="javascrip:void(0)" onclick="SetTag(4)">Chứng khoán</a>
+                            <a href="javascrip:void(0)" data-type="1" onclick="SetTag(this)">Bất động sản</a>
+                            <a href="javascrip:void(0)" data-type="2" onclick="SetTag(this)">Tài chính</a>
+                            <a href="javascrip:void(0)" data-type="3" onclick="SetTag(this)">Ngân hàng</a>
+                            <a href="javascrip:void(0)" data-type="4" onclick="SetTag(this)">Chứng khoán</a>
                         </div>
                         <div class="search">
                             <div class="input-group col-md-4">
-                                <input class="form-control py-2" type="search" value="search" id="search-input">
-                                <span class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="SearchType(2)">
-                                        <i class="fa fa-search"></i>
+                                <div class="custom-autocomplete-terms">
+                                    <input class="form-control technical-terms-search" type="text" name="" placeholder="Thuật ngữ" autocomplete="off" id="input-technical-terms-search" />
+                                    <button class="c-search__btn btn-search" type="button" onclick="SearchByText()">
+                                        <i class="icon16-search"></i>
                                     </button>
-                                </span>
+                                </div>
                             </div>
                         </div>
                         <div class="filter-symbol">
@@ -36,14 +51,14 @@
                             <ul>
                                 @foreach (var item in arrarSymbol)
                                 {
-                                    <li><a href="javascrip:void(0)" onclick="SearchBySymbol(this)" data-symbol="@item.Trim()">@item.Trim()</a></li>
+                                    <li><a href="javascript:void(0)" onclick="SearchBySymbol(this)" data-symbol="@(item.Trim()=="#"?string.Empty: item.Trim())">@item.Trim()</a></li>
                                 }
                             </ul>
                         </div>
                     </div>
                     <input type="hidden" id="type" value="0" />
-                    <input type="hidden" id="typeSearch" value="1" />
-                    <input type="hidden" id="valueSearch" value="" />
+                    <input type="hidden" id="typeSearch" value="@ViewBag.TypeSearch" />
+                    <input type="hidden" id="valueSearch" value="@ViewBag.ValueSearch" />
                     <div id="content-list-terms">
 
                     </div>
@@ -54,7 +69,43 @@
         </div>
         <!--end l-main-->
         <div class="l-sidebar">
-
+            <div class="c-box read-more-top">
+                <div class="c-box__title">
+                    <div class="c-box__title__name">Tra cứu nhiều</div>
+                </div>
+                <ul class="c-box is-border is-line-bottom mb-3">
+                    @foreach (var item in dataReadTop.DataObject)
+                    {
+                        <li>
+                            <span><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="c-box top-news">
+                <div class="c-box__title">
+                    <div class="c-box__title__name">Tin tức nổi bật</div>
+                </div>
+                <ul class="c-box is-border">
+                    @foreach (var item in dataNews.DataList)
+                    {
+                        <li>
+                            <div class="b-grid">
+                                <div class="b-grid__img">
+                                    <a href="@item.Url" target="_blank">
+                                        <img src="@item.Thumbnai" alt="@item.Title" title="@item.Title">
+                                    </a>
+                                </div>
+                                <div class="b-grid__content">
+                                    <div class="b-grid__row">
+                                        <h3 class="b-grid__title"><a target="_blank" title="@item.Title" href="@item.Url">@(item.Title.Length > 120 ? item.Title.Substring(0, 120) +"..." : item.Title)</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
 
     </div>
@@ -62,6 +113,7 @@
 @section Scripts{
     <script>
         var urlLoadMoreTerms = '@Url.Action("SearchTerns", "TechnicalTerms")';
+        var urlLoadAllTerms = '@Url.Action("LoadAllTermsForComplete", "TechnicalTerms")';
     </script>
     @Scripts.Render("~/bundles/script/technical-term")
 }
