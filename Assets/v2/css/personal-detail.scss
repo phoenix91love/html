@@ -209,8 +209,8 @@ body {
                                     }
                                 }
 
-                                .count-money{
-                                    font-weight:600;
+                                .count-money {
+                                    font-weight: 600;
                                 }
                             }
                         }
@@ -1631,6 +1631,10 @@ body {
                         }
                     }
                 }
+            }
+
+            div[id^="chart-doanh-nghiep"] {
+                margin-bottom: 21px;
             }
         }
     }

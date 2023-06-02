@@ -2439,6 +2439,34 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
     .wrap-iframe {
         overflow: hidden;
     }
+
+    .home-index .c-news-forcus.is-last {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    .home-index .c-news-forcus ul li:last-child .b-grid {
+        padding-bottom: 0;
+    }
+
+    .home-index .c-news-forcus .b-grid {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 12px;
+    }
+
+    .home-index .c-news-forcus .b-grid .b-grid__img {
+        width: 140px;
+    }
+
+    .home-index .c-news-forcus .b-grid .b-grid__content {
+        width: calc(100% - 140px);
+    }
+
+    .home-index .c-news-forcus .b-grid .b-grid__content .b-grid__title {
+        font-size: 15px;
+    }
 }
 
 

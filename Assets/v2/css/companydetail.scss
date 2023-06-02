@@ -1481,7 +1481,7 @@
                             @include r(991) {
                                 margin: 0;
                                 border-bottom: none;
-                                font-size: 11px;
+                                font-size: 13px;
                                 width: calc(100% - 10px);
                                 padding: 5px;
                             }
@@ -1508,6 +1508,15 @@
                                     margin-right: unset;
                                     padding: 0 5px;
                                     margin: 0 auto;
+                                }
+
+                                &:first-child {
+                                    a {
+                                        @include r(991) {
+                                            color: #007bff;
+                                            font-weight: 600;
+                                        }
+                                    }
                                 }
                             }
 
@@ -1591,6 +1600,7 @@
                                 @include r(991) {
                                     font-weight: 600 !important;
                                     color: #222;
+                                    font-size: 13px;
                                     text-align: center;
                                     margin: 0 auto;
                                 }
@@ -2093,7 +2103,7 @@
 
                             img {
                                 width: 90px;
-                                height: 90px;
+                                height: auto;
                                 position: relative;
                                 left: -6px;
                                 top: -5px;
@@ -2301,7 +2311,7 @@
         font-size: 14px;
         line-height: 16px;
         font-weight: normal;
-        color: #757575;
+        color: #222;
     }
 
     .container-company-detail .l-main .r-topnews.mobile ul:last-child li span {

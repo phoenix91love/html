@@ -1022,3 +1022,5 @@
                         font-size: 14px;
                         line-height: 20px;
                         text-align: left; } }
+    body .l-sidebar .content-struct div[id^="chart-doanh-nghiep"] {
+      margin-bottom: 21px; }

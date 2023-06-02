@@ -935,7 +935,7 @@
     .container-company-detail .l-main .content-struct .c-box__content #tab5 ul.history li {
       margin: 0;
       border-bottom: none;
-      font-size: 11px;
+      font-size: 13px;
       width: calc(100% - 10px);
       padding: 5px; } }
   @media (max-width: 991px) {
@@ -954,6 +954,10 @@
         margin-right: unset;
         padding: 0 5px;
         margin: 0 auto; } }
+    @media (max-width: 991px) {
+      .container-company-detail .l-main .content-struct .c-box__content #tab5 ul.history li span:first-child a {
+        color: #007bff;
+        font-weight: 600; } }
   .container-company-detail .l-main .content-struct .c-box__content #tab5 ul.history li :first-child {
     width: 10% !important; }
     @media (max-width: 991px) {
@@ -1012,6 +1016,7 @@
     .container-company-detail .l-main .content-struct .c-box__content #tab5 ul.history li.labelname span {
       font-weight: 600 !important;
       color: #222;
+      font-size: 13px;
       text-align: center;
       margin: 0 auto; } }
   @media (max-width: 991px) {
@@ -1328,7 +1333,7 @@
           overflow: hidden; }
           .container-company-detail .l-sidebar .personal-special ul li .grid .g-img img {
             width: 90px;
-            height: 90px;
+            height: auto;
             position: relative;
             left: -6px;
             top: -5px; }
@@ -1461,7 +1466,7 @@
     font-size: 14px;
     line-height: 16px;
     font-weight: normal;
-    color: #757575; }
+    color: #222; }
   .container-company-detail .l-main .r-topnews.mobile ul:last-child li span {
     font-size: 13px;
     line-height: 15px;
