@@ -933,8 +933,7 @@
         body .l-sidebar .content-struct .tab-struct .tab-content .struct {
           border-bottom: 1px solid #E5E5E5;
           padding-bottom: 8px;
-          margin-bottom: 28px;
-          margin-top: 20px; }
+          margin-bottom: 28px; }
           @media (max-width: 991px) {
             body .l-sidebar .content-struct .tab-struct .tab-content .struct {
               padding-bottom: 0;

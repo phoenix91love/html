@@ -1,11 +1,19 @@
 ﻿.technical-terms .l-main .option .tag {
   margin-bottom: 10px;
   display: flex; }
+  @media (max-width: 991px) {
+    .technical-terms .l-main .option .tag {
+      justify-content: space-between; } }
   .technical-terms .l-main .option .tag a {
     display: block;
     text-decoration: none;
     margin-right: 15px;
-    color: #3b1b70; }
+    color: #3b1b70;
+    font-family: "Roboto Condensed","Roboto",Arial; }
+    @media (max-width: 991px) {
+      .technical-terms .l-main .option .tag a {
+        margin-right: 0;
+        font-size: 16px; } }
     .technical-terms .l-main .option .tag a:hover, .technical-terms .l-main .option .tag a.active {
       font-weight: 600;
       text-decoration: underline; }
@@ -18,8 +26,12 @@
     .technical-terms .l-main .option div.filter-symbol ul li {
       float: left;
       margin-right: 10px; }
+      @media (max-width: 991px) {
+        .technical-terms .l-main .option div.filter-symbol ul li {
+          font-size: 16px; } }
       .technical-terms .l-main .option div.filter-symbol ul li a {
-        color: #3b1b70; }
+        color: #3b1b70;
+        font-family: "Roboto Condensed","Roboto",Arial; }
         .technical-terms .l-main .option div.filter-symbol ul li a:hover, .technical-terms .l-main .option div.filter-symbol ul li a.active {
           font-weight: 600;
           text-decoration: underline; }
@@ -28,7 +40,8 @@
   margin-bottom: 15px; }
   .technical-terms .l-main .option div.search .custom-autocomplete-terms {
     position: relative;
-    width: 100%; }
+    width: 100%;
+    font-family: "Roboto Condensed","Roboto",Arial; }
     .technical-terms .l-main .option div.search .custom-autocomplete-terms .technical-terms-search {
       height: 28px;
       font-size: 12px !important;
@@ -36,7 +49,8 @@
       border: 1px solid #3b1b70;
       -moz-border-radius: 15px;
       -webkit-border-radius: 15px;
-      border-radius: 15px; }
+      border-radius: 15px;
+      font-family: "Roboto Condensed","Roboto",Arial; }
     .technical-terms .l-main .option div.search .custom-autocomplete-terms .btn-search {
       float: left;
       position: absolute;
@@ -45,15 +59,31 @@
       border: unset;
       background: unset;
       margin-top: -5px; }
+      @media (max-width: 991px) {
+        .technical-terms .l-main .option div.search .custom-autocomplete-terms .btn-search {
+          float: none;
+          margin-left: 0;
+          right: 0;
+          margin-top: -3px; } }
 
 .technical-terms .l-main div#content-list-terms ul.data-list-terms {
   padding: unset; }
   .technical-terms .l-main div#content-list-terms ul.data-list-terms li a {
     display: block;
     text-decoration: none;
-    color: #000; }
+    color: #000;
+    font-family: "Roboto Condensed","Roboto",Arial; }
+    @media (max-width: 991px) {
+      .technical-terms .l-main div#content-list-terms ul.data-list-terms li a {
+        font-size: 16px; } }
     .technical-terms .l-main div#content-list-terms ul.data-list-terms li a:hover {
       color: #ee7224; }
+
+.technical-terms .l-main .pagination > li > a {
+  font-family: "Roboto Condensed","Roboto",Arial; }
+  @media (max-width: 991px) {
+    .technical-terms .l-main .pagination > li > a {
+      font-size: 16px; } }
 
 .technical-terms .l-sidebar .top-news .c-box__title {
   background-color: #3b1b70;
@@ -86,10 +116,15 @@
     width: calc(100% - 100px);
     margin-left: 0;
     padding-left: 15px;
-    float: left; }
+    float: left;
+    font-family: "Roboto Condensed","Roboto",Arial; }
     .technical-terms .l-sidebar .top-news ul li div.b-grid div.b-grid__content h3.b-grid__title {
-      font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
-      font-size: 13px; }
+      font-family: "Roboto Condensed","Roboto",Arial;
+      font-size: 13px;
+      text-align: left; }
+      @media (max-width: 991px) {
+        .technical-terms .l-sidebar .top-news ul li div.b-grid div.b-grid__content h3.b-grid__title {
+          font-size: 14px; } }
       .technical-terms .l-sidebar .top-news ul li div.b-grid div.b-grid__content h3.b-grid__title a {
         display: block;
         text-decoration: none;
@@ -99,14 +134,17 @@
 
 .technical-terms .l-sidebar .read-more-top .c-box__title {
   background-color: #3b1b70;
-  color: #fff; }
+  color: #fff;
+  font-family: "Roboto Condensed","Roboto",Arial; }
 
 .technical-terms .l-sidebar .read-more-top ul li {
   width: 100%; }
   .technical-terms .l-sidebar .read-more-top ul li a {
     display: block;
     text-decoration: none;
-    color: #000; }
+    color: #000;
+    font-family: "Roboto Condensed","Roboto",Arial;
+    font-size: 14px; }
     .technical-terms .l-sidebar .read-more-top ul li a:hover {
       color: #ee7224; }
 

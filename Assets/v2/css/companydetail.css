@@ -1427,7 +1427,7 @@
     margin-bottom: 0;
     padding-right: 0 !important; }
   .container-company-detail .l-main .r-topnews.mobile {
-    background: #f8f8f8;
+    background: #fff;
     margin: 0;
     border: 1px solid #F1F1F1;
     border-radius: 3px; }
@@ -1453,12 +1453,12 @@
   .container-company-detail .l-main .r-topnews.mobile ul li:last-child {
     margin-bottom: 0; }
   .container-company-detail .l-main .r-topnews.mobile ul li span {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 16px;
     font-weight: 700;
     color: #222; }
   .container-company-detail .l-main .r-topnews.mobile ul li span + span {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 16px;
     font-weight: normal;
     color: #757575; }
