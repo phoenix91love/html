@@ -57,5 +57,6 @@
 </head>
 <body class="@(bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"]+"") == true ? "mobile" : "") wrap-iframe l-nav">
     @RenderBody()
+    <script src='https://dataview.nguoiquansat.vn/dulieu.js'></script>
 </body>
 </html>

@@ -870,9 +870,9 @@ var ChartHelper = {
 
                             label: function (item) {
                                 if (item.datasetIndex == 0)
-                                    return "Tăng trưởng GDP: " + item.raw + "%";
+                                    return "Tăng trưởng GDP: " + item.raw + " (%)";
                                 if (item.datasetIndex == 1)
-                                    return "GDP theo giá hiện hành: " + $.number(item.raw,0) + " tỷ đồng";
+                                    return "GDP theo giá hiện hành: " + $.number(item.raw, 0) + " (tỷ đồng)";
                             },
                         }
                     }
@@ -998,7 +998,18 @@ var ChartHelper = {
                         display: false,
                         text: title
                     },
-
+                    tooltip: {
+                        callbacks: {
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Cán cân thương mại: " + $.number(item.raw, 0) + " (triệu USD)";
+                                if (item.datasetIndex == 1)
+                                    return "Xuất khẩu: " + $.number(item.raw, 0) + " (triệu USD)";
+                                if (item.datasetIndex == 2)
+                                    return "Nhập khẩu: " + $.number(item.raw, 0) + " (triệu USD)";
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -1017,7 +1028,7 @@ var ChartHelper = {
             datasets: [
                 {
                     type: 'line',
-                    label: "Đăng ký (tỷ USD)",
+                    label: "Đăng ký",
                     data: value1,
                     borderColor: "#50b432",
                     backgroundColor: "#50b432",
@@ -1025,7 +1036,7 @@ var ChartHelper = {
                 },
                 {
                     type: 'line',
-                    label: "Giải ngân (tỷ USD)",
+                    label: "Giải ngân",
                     data: value2,
                     borderColor: "#058dc7",
                     backgroundColor: "#058dc7",
@@ -1058,7 +1069,17 @@ var ChartHelper = {
                         display: false,
                         text: title
                     },
+                    tooltip: {
+                        callbacks: {
 
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Đăng ký: " + $.number(item.raw, 2) + " (tỷ USD)";
+                                if (item.datasetIndex == 1)
+                                    return "Giải ngân FDI: " + $.number(item.raw, 2) + " (tỷ USD)";
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -1159,7 +1180,6 @@ var ChartHelper = {
         var chart = new Chart(ctx, config);
         return chart;
     },
-
     renderChartDsld: function (containerId, time, values1, values2, values3) {
 
         const ctx = document.getElementById(containerId);
@@ -1180,7 +1200,7 @@ var ChartHelper = {
                 },
                 {
                     type: 'bar',
-                    label: "Lao động",
+                    label: "Số lượng lao động",
                     data: values2,
                     borderColor: "#50b432",
                     backgroundColor: "#50b432",
@@ -1236,7 +1256,19 @@ var ChartHelper = {
                         display: false,
                         text: title
                     },
+                    tooltip: {
+                        callbacks: {
 
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Dân số: " + $.number(item.raw, 2) + " (triệu người)";
+                                if (item.datasetIndex == 1)
+                                    return "Số lượng lao động: " + $.number(item.raw, 2) + " (triệu người)";
+                                if (item.datasetIndex == 2)
+                                    return "Tỉ lệ lao động: " + $.number(item.raw, 2) + "(%)";
+                            },
+                        }
+                    }
                 }
             },
         };

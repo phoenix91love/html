@@ -2161,8 +2161,19 @@
         text-transform: uppercase;
     }
 }
-/* Detail */
 
+.top-tool-tip {
+    h2 {
+        .code {
+            font-size: 1.8rem;
+        }
+
+        .name {
+            font-size: 1.5rem;
+        }
+    }
+}
+/* Detail */
 @media (max-width: 991px) {
 
     .container-company-detail > .b-grid__title {

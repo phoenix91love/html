@@ -1368,6 +1368,12 @@
 .container-company-detail .c-box .c-box__title a.c-box__title__name {
   text-transform: uppercase; }
 
+.top-tool-tip h2 .code {
+  font-size: 1.8rem; }
+
+.top-tool-tip h2 .name {
+  font-size: 1.5rem; }
+
 /* Detail */
 @media (max-width: 991px) {
   .container-company-detail > .b-grid__title {

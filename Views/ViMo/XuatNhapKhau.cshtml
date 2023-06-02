@@ -1,15 +1,16 @@
 ﻿@using M.Common.Extensions;
 @model Nqs.Models.FormModel.ViMo.XNKAllChartModel
+
 <div class="col-sm-12 col-md-12 col-lg-12">
     <canvas id="container-chart-xuatnhapkhau" style="min-height: 200px;"></canvas>
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
     <div class="table-responsive-sm table-scroll">
         <br />
-        <table class="table table-hover table-striped table-bordered table-common" id="vimo-xuatnhapkhau-table">
+        <table class="table table-hover table-striped table-bordered table-common vimo-table" id="vimo-xuatnhapkhau-table">
             <thead>
                 <tr>
-                    <th scope="col" style="min-width: 200px; width: 200px;">Chỉ tiêu</th>
+                    <th scope="col" class="left" style="min-width: 200px; width: 200px;">Chỉ tiêu</th>
                     <th scope="col" style="min-width: 100px;">Đơn vị tính</th>
                     @foreach (var item in Model.Header)
                     {

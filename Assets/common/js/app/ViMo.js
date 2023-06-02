@@ -70,25 +70,11 @@ $(document).on("change", "#lbl-gdp-view-by", function () {
 });
 
 //CPI
-$(document).on("click", "#btn-cpi-part-month-prev", function () {
-    var part = parseInt($('#hd-cpi-part-month').val());
-    if (part <= 0) {
-        part -= 1;
-        $('#hd-cpi-part-month').val(part);
-    }
+$(document).on("click", ".btn-search-cpi", function () {
     var params = CommonHelper.getQueryStringByForm("#cpi-form-month");
     App.loadPartial(vimoUrl.vimoCpi, params, "#cpi-partial");
 });
 
-$(document).on("click", "#btn-cpi-part-month-next", function () {
-    var part = parseInt($('#hd-cpi-part-month').val());
-    if (part < 0) {
-        part += 1;
-        $('#hd-cpi-part-month').val(part);
-    }
-    var params = CommonHelper.getQueryStringByForm("#cpi-form-month");
-    App.loadPartial(vimoUrl.vimoCpi, params, "#cpi-partial");
-});
 
 $(document).on("click", "#btn-cpi-part-year-prev", function () {
     var part = parseInt($('#hd-cpi-part-year').val());

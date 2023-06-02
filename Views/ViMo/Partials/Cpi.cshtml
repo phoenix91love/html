@@ -1,36 +1,85 @@
 ﻿<div class="row">
-    <div class="col-lg-12">
-
-        <div class="table-responsive-sm table-scroll">
-            <table class="table table-hover table-striped table-bordered table-common">
-                <thead>
-                    <tr>
-                        <th scope="col" style="text-align: left !important;">
-                            Biểu đồ biến động CPI so với tháng trước
-                        </th>
-                        <th scope="col" style="max-width: 150px; width: 150px;" class="text-right">
-                            <form id="cpi-form-month">
-                                <input type="hidden" name="type" value="0" />
-                                <input type="hidden" id="hd-cpi-part-month" name="part" value="0" />
-                            </form>
-                            <button id="btn-cpi-part-month-prev">&lt;&lt;</button>&nbsp;
-                            <button id="btn-cpi-part-month-next">&gt;&gt;</button>&nbsp;
-                        </th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+    <div class="col-lg-12 col-12">
+        <table class="table table-hover table-striped table-bordered table-common">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: left !important;">
+                        Biểu đồ biến động CPI so với tháng trước
+                    </th>
+                </tr>
+            </thead>
+        </table>
 
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12" id="cpi-partial">
-        
+    <div class="col-lg-12 col-12">
+        <form id="cpi-form-month">
+            <input type="hidden" name="type" value="0" />
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
+                <div class="form-group">
+                    <label for="ddl-cpi-from-quy">Từ tháng</label>
+                    <select class="form-control" id="ddl-cpi-from-quy" name="fromThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-cpi-from-nam" class="lbl-cpi-from-nam">Năm</label>
+                    <select class="form-control" id="ddl-cpi-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 fdi-group-quy">
+                <div class="form-group">
+                    <label for="ddl-cpi-to-quy">Đến Tháng</label>
+                    <select class="form-control" id="ddl-cpi-to-quy" name="toThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-cpi-to-nam" class="lbl-cpi-to-nam">Năm</label>
+                    <select class="form-control" id="ddl-cpi-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-blue btn-search-cpi">Xem</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-12 col-12" id="cpi-partial">
+
     </div>
 </div>
-<br/>
+<br />
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-12 col-12">
 
         <div class="table-responsive-sm table-scroll">
             <table class="table table-hover table-striped table-bordered table-common">
@@ -51,11 +100,10 @@
                 </thead>
             </table>
         </div>
-
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12" id="cpi-partial-year">
-        
+    <div class="col-lg-12 col-12" id="cpi-partial-year">
+
     </div>
 </div>

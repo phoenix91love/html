@@ -8,10 +8,10 @@
     var dataStock = (CompanyStockMdl)ViewBag.DataStock;
     ViewBag.PageName = "Dữ liệu doanh nghiệp";
     //var dataStockNN = (Nqs.Models.FormModel.Company.CompanyStockNNMdl)ViewBag.DataStockNN;
-    var dataStockLikeProfess = (List<(string Code, CompanyStockMdl CompanyStock)>)ViewBag.DataStockLikeProfess;
+    var dataStockLikeProfess = (List<(string Code, string Name, CompanyStockMdl CompanyStock)>)ViewBag.DataStockLikeProfess;
     if (dataStockLikeProfess == null)
     {
-        dataStockLikeProfess = new List<(string Code, CompanyStockMdl CompanyStock)>();
+        dataStockLikeProfess = new List<(string Code, string Name, CompanyStockMdl CompanyStock)>();
     }
     var topEPS = (List<CompanyTopEPSMdl>)ViewBag.DataFinanceTopEPS;
     if (topEPS == null)
@@ -131,18 +131,22 @@
                     @foreach (var item in dataStockLikeProfess)
                     {
                         <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"yellow") )" data-toggle="tooltip"
-                            data-price="@item.CompanyStock.Current"
+                            data-price="@item.CompanyStock.Current.FormatNumber()"
                             data-code="@item.Code"
+                            data-name="@item.Name"
                             data-change="@item.CompanyStock.Change.FormatNumberUnit(1)"
-                            data-percent-change="@item.CompanyStock.ChangePercent"
-                            data-volume="@item.CompanyStock.Volume"
-                            data-value="@(item.CompanyStock.Volume*item.CompanyStock.Current)"
-                            data-foreign="@item.CompanyStock.ForeignRoom"
-                            data-foreign-buy="@item.CompanyStock.ForeignBuy"
-                            data-foreign-sell="@item.CompanyStock.ForeignSell">
+                            data-percent-change="@item.CompanyStock.ChangePercent.FormatNumber()"
+                            data-priceBefor7day="@item.CompanyStock.ClosePriceBefor7Day.FormatNumber()"
+                            data-changeBefor7day="@item.CompanyStock.ChangeBefor7Day.FormatNumber()"
+                            data-changePercentBefor7day="@item.CompanyStock.ChangePercentBefor7Day.FormatNumber()"
+                            data-volume="@item.CompanyStock.Volume.FormatNumber()"
+                            data-value="@item.CompanyStock.Value.FormatNumberUnit(3)"
+                            data-foreign="@item.CompanyStock.ForeignRoom.FormatNumber()"
+                            data-foreign-buy="@item.CompanyStock.ForeignBuy.FormatNumber()"
+                            data-foreign-sell="@item.CompanyStock.ForeignSell.FormatNumber()">
                             <span><a href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a></span>
                             <span>@item.CompanyStock.Current.ToString("N1")</span>
-                            <span>@(item.CompanyStock.Change > 0? $"+{(item.CompanyStock.Change/1000).FormatNumber()}": (item.CompanyStock.Change <0? $"{(item.CompanyStock.Change / 1000).FormatNumber()}":"0"))</span>
+                            <span>@(item.CompanyStock.Change > 0? $"+{item.CompanyStock.Change.FormatNumberUnit(1)}": (item.CompanyStock.Change <0? $"{item.CompanyStock.Change.FormatNumberUnit(1)}":"0"))</span>
                             <span>@( item.CompanyStock.Change > 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}":(item.CompanyStock.Change < 0 ? $"{(item.CompanyStock.ChangePercent).FormatNumber()}":"0"))%</span>
                         </li>
                     }
@@ -161,7 +165,7 @@
                     <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
                     <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
                     <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
-                    <li><span class="float-left">GTGD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
+                    <li><span class="float-left">GTGD</span><span class="float-right">@(dataStock.Value.FormatNumberUnit(type:3))</span></li>
                 </ul>
                 <!--end l-top-news-->
                 <div>
@@ -169,9 +173,9 @@
                     <ul class="c-box is-border is-line-bottom">
                         <li><span class="float-left">KL Mua</span><span class="float-right">@dataStock.BuyVol.FormatNumber()</span></li>
                         <li><span class="float-left">KL Bán</span><span class="float-right">@dataStock.SellVol.FormatNumber()</span></li>
-                        <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
-                        <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
                         <li><span class="float-left">Mua ròng</span><span class="float-right">@((dataStock.BuyVol - dataStock.SellVol).FormatNumber())</span></li>
+                        <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(3)</span></li>
+                        <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(3)</span></li>
                         <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
                     </ul>
                     <!--end l-top-news-->
@@ -185,7 +189,7 @@
 
 
                     <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
-                    <li><span class="float-left">Giá trị GD</span><span class="float-right">@((dataStock.Volume*dataStock.ClosePrice).FormatNumberUnit(type:0))</span></li>
+                    <li><span class="float-left">Giá trị GD</span><span class="float-right">@(dataStock.Value.FormatNumberUnit(type:3))</span></li>
 
                     <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
                     <li><span class="float-left"></span><span class="float-right"></span></li>
@@ -202,10 +206,10 @@
 
 
                     <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
-                    <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(2)</span></li>
+                    <li><span class="float-left">GT Mua</span><span class="float-right">@dataStock.BuyVal.FormatNumberUnit(3)</span></li>
 
                     <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
-                    <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(2)</span></li>
+                    <li><span class="float-left">GT Bán</span><span class="float-right">@dataStock.SellVal.FormatNumberUnit(3)</span></li>
 
                     <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
                     <li><span class="float-left">Tỉ lệ sở hữu</span><span class="float-right">@((Model.DataObject.ForeignOwnership).FormatNumber())%</span></li>
@@ -213,7 +217,7 @@
                 </ul>
                 <hr />
                 <ul>
-                    <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)}Tỷ")</span></li>
+                    <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)} Tỷ")</span></li>
                     <li><span class="float-left">CP Lưu hành</span><span class="float-right">@dataStock.ListingVolume.FormatNumber() </span></li>
                     <li><span class="float-left">P/E</span><span class="float-right">@(EPS==0?"N/A": (dataStock.Current/( EPS/1000)).FormatNumber()) </span></li>
                     <li><span class="float-left">EPS</span><span class="float-right">@(EPS==0?"N/A":(EPS).FormatNumber())</span></li>
@@ -225,7 +229,7 @@
                 <hr />
                 <ul>
                     <li class="note">
-                        <span>PE EPS: Tính theo số liệu quý 3/2022</span>
+                        <span>PE EPS: Tính theo số liệu quý 1/2023</span>
                         <span>Beta: Tính theo số liệu 100 phiên gần nhất</span>
                         <span>ĐVT: Giá: 1000đ; GTGD: Tỷ đồng</span>
                     </li>
@@ -434,7 +438,7 @@
     </div>
     <div class="l-sidebar">
         <ul class="c-box is-border is-line-bottom mb-3 d-none d-lg-block">
-            <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)}Tỷ")</span></li>
+            <li><span class="float-left">Vốn hóa</span><span class="float-right">@(dataStock.MarketCap==0?"N/A": $"{dataStock.MarketCap.FormatNumberUnit(type: 2)} Tỷ")</span></li>
             <li><span class="float-left">CP Lưu hành</span><span class="float-right">@dataStock.ListingVolume.FormatNumber() </span></li>
             <li><span class="float-left">P/E</span><span class="float-right">@(EPS==0?"N/A": (dataStock.Current/( EPS/1000)).FormatNumber()) </span></li>
             <li><span class="float-left">EPS</span><span class="float-right">@(EPS==0?"N/A":(EPS).FormatNumber())</span></li>
@@ -443,7 +447,7 @@
             <li><span class="float-left">BVPS</span><span class="float-right">@(BVPS==0?"N/A":(BVPS).FormatNumber())</span></li>
             <li><span class="float-left">BETA</span><span class="float-right">N/A</span></li>
             <li class="note">
-                <span>PE EPS: Tính theo số liệu quý 3/2022</span>
+                <span>PE EPS: Tính theo số liệu quý 1/2023</span>
                 <span>Beta: Tính theo số liệu 100 phiên gần nhất</span>
                 <span>ĐVT: Giá: 1000đ; GTGD: Tỷ đồng</span>
             </li>

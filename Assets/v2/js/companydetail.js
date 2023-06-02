@@ -467,31 +467,38 @@ function CreateTooltip() {
             //hide: 50000
         },
         title: function () {
+            var name = this.getAttribute('data-name');
             var code = this.getAttribute('data-code');
             var price = this.getAttribute('data-price');
             var change = this.getAttribute('data-change');
             var perchange = this.getAttribute('data-percent-change');
-            var klgd = $.number(this.getAttribute('data-volume'), 0);
-            var gtgd = new Intl.NumberFormat("en-IN").format(this.getAttribute('data-value'));
-            var nnmua = new Intl.NumberFormat("en-IN").format( $.number(this.getAttribute('data-foreign-buy'), 0));
-            var nnban = new Intl.NumberFormat("en-IN").format( $.number(this.getAttribute('data-foreign-sell'), 0));
+            var klgd =this.getAttribute('data-volume');
+            var gtgd = this.getAttribute('data-value');
+            var nnmua =this.getAttribute('data-foreign-buy');
+            var nnban =this.getAttribute('data-foreign-sell');
+            var price7D = this.getAttribute('data-priceBefor7day');
+            var change7D = this.getAttribute('data-changeBefor7day');
+            var percentChange7D = this.getAttribute('data-changePercentBefor7day');
             var priceClass = "";
             var price7DClass = "";
+            
 
-            if (this.getAttribute('data-change') > 0) priceClass = "green";
-            if (this.getAttribute('data-change') < 0) priceClass = "red";
-            if (this.getAttribute('data-change7day') > 0) price7DClass = "green";
-            if (this.getAttribute('data-change7day') < 0) price7DClass = "red";
-
-            var str = "<div class='top-tool-tip'>";
-            str += "<h2>" + code + "</h2><hr/>";
-            str += "<h3><span class='item1'>Giá: </span><span class='item2'>" + price + "</span><span class='item3 " + priceClass + "'>" + change + "</span><span class='item4 " + priceClass + "'>(" + perchange + "%)</span></h3>";
-          /*  str += "<h3><span class='item1'>7 ngày trước:</span><span class='item2'>" + price7day + "</span><span class='item3 " + price7DClass + "'>" + change7day + "</span><span class='item4 " + price7DClass + "'>(" + perchange7day + "%)</span></h3>";*/
-            str += "<h3><span class='item1'>KLGD:</span><span class='item2'>" + klgd + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
-            str += "<h3><span class='item1'>GTGD:</span><span class='item2'>" + gtgd + " </span><span class='item3'></span><span class='item4'></span></h3>";
-            str += "<h3><span class='item1'>NN Mua:</span><span class='item2'>" + nnmua + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
-            str += "<h3><span class='item1'>NN Bán:</span><span class='item2'>" + nnban + " cp</span><span class='item3'></span><span class='item4'></span></h3>";
-            str += "</div>";
+            if (parseFloat(change.replace(/,/g,'')) > 0) priceClass = "green";
+            if (parseFloat(change.replace(/,/g, '')) == 0) priceClass = "yellow";
+            if (parseFloat(change.replace(/,/g, '')) < 0) priceClass = "red";
+            if (parseFloat(change7D.replace(/,/g, '')) > 0) price7DClass = "green";
+            if (parseFloat(change7D.replace(/,/g, '')) == 0) price7DClass = "yellow";
+            if (parseFloat(change7D.replace(/,/g, '')) < 0) price7DClass = "red";
+            
+            var str = `<div class='top-tool-tip'>
+                        <h2><span class='code'>` + code + `</span> : <span class='name'>` + name +`</span></h2><hr/>
+                        <h3><span class='item1'>Giá: </span><span class='item2'>` + price + `</span><span class='item3 ` + priceClass + "'>" + change + `</span><span class='item4 ` + priceClass + "'>(" + perchange + `%)</span></h3>
+                        <h3><span class='item1'>7 ngày trước:</span><span class='item2'>` + price7D + `</span><span class='item3 ` + price7DClass + "'>" + change7D + "</span><span class='item4 " + price7DClass + "'>(" + percentChange7D + `%)</span></h3>
+                        <h3><span class='item1'>KLGD:</span><span class='item2'>` + klgd + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
+                        <h3><span class='item1'>GTGD:</span><span class='item2'>` + gtgd + ` tỷ</span><span class='item3'></span><span class='item4'></span></h3>
+                        <h3><span class='item1'>NN Mua:</span><span class='item2'>` + nnmua + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
+                        <h3><span class='item1'>NN Bán:</span><span class='item2'>` + nnban +` cp</span><span class='item3'></span><span class='item4'></span></h3>
+                    </div>`;
             return str;
         }
     });

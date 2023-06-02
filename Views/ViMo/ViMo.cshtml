@@ -7,29 +7,38 @@
 
 @section Styles{
     @Styles.Render("~/bundles/styles/bootstrap-table")
+    <style>
+        .vimo-table th.left {
+            text-align: left !important;
+        }
+
+        .vimo-table th.right {
+            text-align: right !important;
+        }
+    </style>
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <input type="hidden" id="hd-vimo-selected-tab" value="1" />
 <div class="c-content-flex home-index">
     <div class="l-main">
         <div class="row">
-            
+
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="topnews b-grid">
 
                     <div class="c-box c-other">
                         <div class="c-box__title white__bg is-line-bottom"><a class="c-box__title__name" href="#">TỔNG QUAN</a></div>
-                       
+
                         <!--end c-box__content-->
                         <div class="c-topic-grid">
                             <div class="table-responsive-sm table-scroll">
                                 <br />
-                                <table class="table table-hover table-striped table-bordered table-common" id="x">
+                                <table class="table table-hover table-striped table-bordered table-common vimo-table" id="x">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Chỉ số</th>
+                                            <th scope="col" class="left">Chỉ số</th>
                                             <th scope="col" style="min-width: 100px;">Kỳ</th>
-                                            <th scope="col" style="min-width: 100px;">Giá trị</th>
+                                            <th scope="col" class="right" style="min-width: 100px;">Giá trị</th>
                                             <th scope="col" style="min-width: 50px;">Đơn vị tính</th>
                                         </tr>
 
@@ -137,6 +146,7 @@
     </div>
 
     <div class="l-sidebar d-inline-grid">
+
         <div class="c-box is-border is-primary is-minus-mobile order-sm-2">
             <div class="c-box__title">
                 <div class="c-box__title__name">TIN VĨ MÔ</div>
@@ -155,7 +165,7 @@
                                     </div>
                                     <div class="b-grid__content">
                                         <div class="b-grid__row">
-                                            <h3 class="b-grid__title"><a target="_blank" title="@item.Title" href="@item.Url">@(item.Title.Length > 120 ? item.Title.Substring(0, 120) +"..." : item.Title)</a></h3>
+                                            <h3 class="b-grid__title"><a target="_blank" title="@item.Title" href="@item.Url">@(item.Title.Length > 120 ? item.Title.Substring(0, 120) + "..." : item.Title)</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -167,113 +177,8 @@
             </div>
             <!--end c-box__content-->
         </div>
-        <!--end c-box-->
-        <div class="c-box h-show-pc">
-            <div class="c-box__content ad">
-                <div class="c-banner-item is-300x250">
-                    <div class="c-banner-item__inner">
-                        <div class="c-banner-item__box">
-                            <img class="ad" src="~/Upload/images/banner.png" alt="ad">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end c-box-->
-        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
-            <div class="c-box__content">
-                <ul class="is-line-bottom">
-                    <li class="active">
-                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia active" data-tab="tigia" data-toggle="tab">TỈ GIÁ</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" class="infolinks btn-tab-tigia" data-tab="giavang" data-toggle="tab">GIÁ VÀNG</a>
-                    </li>
-                </ul>
-                <ul class="contentinfo ul-tigia" data-tab="tigia" style="display: block;">
-                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
-                    @{
-                        foreach (var item in Model.ExchangeData["MoneyExchange"])
-                        {
-                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Code</span><span class="price">@item.Value.ToString("N0")</span><span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span></li>
-                        }
-                    }
-
-                    <li class="source">
-                        <span class="float-left">Nguồn Eximbank</span>
-                        <span class="float-right"></span>
-                    </li>
-                </ul>
-                <ul class="contentinfo ul-tigia" data-tab="giavang" style="display: none;">
-                    <li class="label1"><span class="code">Mã</span><span class="price">Giá mua</span><span class="change">Giá bán</span></li>
-                    @{
-                        foreach (var item in Model.ExchangeData["GoldExchange"])
-                        {
-                            <li title="@item.Name">
-                                <span class="code">@item.Code</span>
-                                <span class="price text-right">@item.Change.ToString("N0")</span>
-                                <span class="change text-right">@item.Value.ToString("N0")</span>
-                            </li>
-                        }
-                    }
-
-                    <li class="source">
-                        <span class="float-left">Nguồn Eximbank</span>
-                        <span class="float-right"></span>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-        <!--end c-box-->
-        <div class="c-box c-thongke is-border is-primary is-minus-mobile c-update">
-            <div class="c-box__content white__bg">
-                <ul class="is-line-bottom">
-                    <li class="active">
-                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin active" data-tab="hanghoa" data-toggle="tab">HÀNG HÓA</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)" class="infolinks btn-tab-hanghoacoin" data-tab="coin" data-toggle="tab">COIN</a>
-                    </li>
-                </ul>
-                <ul class="contentinfo ul-hanghoacoin" data-tab="hanghoa" style="display: block;">
-                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
-                    @{
-                        foreach (var item in Model.ExchangeData["HHExchange"])
-                        {
-                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
-                                <span class="code">
-                                    @item.Name
-                                </span>
-                                <span class="price">@item.Value.ToString("N2")</span>
-                                <span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange + ")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span>
-                            </li>
-                        }
-                    }
-
-                    <li class="source">
-                        <span class="float-left"></span>
-                        <span class="float-right"></span>
-                    </li>
-                </ul>
-                <ul class="contentinfo ul-hanghoacoin" data-tab="coin" style="display: none;">
-                    <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
-                    @{
-                        foreach (var item in Model.ExchangeData["CoinExchange"])
-                        {
-                            <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Name</span><span class="price">@item.Value.ToString("N2")</span><span class="text-center change price-change ">@(item.Change.ToString("N2") + "("+ @item.PerChange.ToString("N2") + "%)")</span></li>
-
-                        }
-                    }
-
-                    <li class="source">
-                        <span class="float-left"></span>
-                        <span class="float-right"></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
+        
+        @{Html.RenderPartial("~/Views/Shared/Partials/ExchangeRateRightBox.cshtml", Model); }
     </div>
 </div>
 
