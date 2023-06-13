@@ -1946,7 +1946,6 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
     .l-nav .c-mega-menu .c-category-flex .c-footer-social.mobile {
         display: none;
     }
-
 }
 
 
@@ -2456,17 +2455,17 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
         padding-bottom: 12px;
     }
 
-    .home-index .c-news-forcus .b-grid .b-grid__img {
-        width: 140px;
-    }
+        .home-index .c-news-forcus .b-grid .b-grid__img {
+            width: 140px;
+        }
 
-    .home-index .c-news-forcus .b-grid .b-grid__content {
-        width: calc(100% - 140px);
-    }
+        .home-index .c-news-forcus .b-grid .b-grid__content {
+            width: calc(100% - 140px);
+        }
 
-    .home-index .c-news-forcus .b-grid .b-grid__content .b-grid__title {
-        font-size: 15px;
-    }
+            .home-index .c-news-forcus .b-grid .b-grid__content .b-grid__title {
+                font-size: 15px;
+            }
 }
 
 
@@ -2489,4 +2488,48 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 .page-link.active {
     background-color: #3b1b70;
     color: #fff;
+}
+
+
+.div-link-ex-detail {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.mobile .div-link-ex-detail {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.a-btn-view-detail-ex-index {
+    color: #3b1b70;
+    text-decoration: underline;
+}
+
+.tg-stock-change.green::before, .vn-stock-change.green::before {
+    background-image: url('../images/icons/iconup.svg');
+    width: 13px;
+    height: 16px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.tg-stock-change.red::before, .vn-stock-change.red::before {
+    background-image: url('../images/icons/icondown.svg');
+    width: 13px;
+    height: 16px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.mobile .tg-stock-change.green::before, .mobile .vn-stock-change.green::before, .mobile .tg-stock-change.red::before, .mobile .vn-stock-change.red::before {
+    height: 13px;
+}
+
+.wrap-iframe ul.tab-tigia > li a {
+    padding: 0 5px 0px 5px !important;
 }

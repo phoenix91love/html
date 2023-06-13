@@ -1276,6 +1276,90 @@ body {
                 list-style: circle;
             }
         }
+
+        .news-personal {
+            .b-grid__img {
+                @include r(320) {
+                    width: 44%;
+                }
+
+                @include r(768) {
+                    width: 160px;
+                }
+            }
+
+            .h-show-pc {
+                display: none;
+            }
+
+            .b-grid__content {
+                @include r(320) {
+                    width: 56%;
+                    margin-top: unset;
+                }
+
+                @include r(768) {
+                    width: calc(100% - 160px);
+                }
+
+                .h-show-mobile {
+
+
+                    @include r(320) {
+                        display: flex;
+                    }
+
+                    @include r(768) {
+                        display: block;
+                    }
+
+                    .b-grid__title {
+                        width: 100%;
+                        text-align: left;
+
+
+                        @include r(320) {
+                            padding-left: 15px;
+                        }
+
+                        @include r(768) {
+                            padding-left: unset;
+                        }
+                    }
+                }
+
+                .b-grid__desc {
+                    @include r(320) {
+                        display: none;
+                    }
+
+                    @include r(768) {
+                        display: block;
+                    }
+                }
+
+                div:last-child {
+                    @include r(320) {
+                        text-align: left;
+                        padding-left: 15px;
+                    }
+
+                    @include r(768) {
+                        text-align: left;
+                        padding-left: unset;
+                    }
+                }
+            }
+
+            .btn-grey.m-auto {
+                background: #3b1b70;
+                color: #fff;
+
+                :hover {
+                    color: #fff;
+                }
+            }
+        }
     }
 
     .l-sidebar {

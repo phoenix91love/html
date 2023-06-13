@@ -2,66 +2,131 @@
 
 <div class="col-lg-12">
     <form id="xnk-form">
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="lbl-xnk-from-quy">Xem theo</label>
-                <select class="form-control" id="lbl-xnk-view-by" name="type">
-                    <option value="0">Tháng</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
-            <div class="form-group">
-                <label for="ddl-xnk-from-quy">Từ tháng</label>
-                <select class="form-control" id="ddl-xnk-from-quy" name="fromThang">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+        @if (!ViewBag.IsMobile)
+        {
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="lbl-xnk-from-quy">Xem theo</label>
+                    <select class="form-control" id="lbl-xnk-view-by" name="type">
+                        <option value="0">Tháng</option>
+                    </select>
+                </div>
             </div>
 
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-xnk-from-nam" class="lbl-xnk-from-nam">Năm</label>
-                <select class="form-control" id="ddl-xnk-from-nam" name="fromYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
+                <div class="form-group">
+                    <label for="ddl-xnk-from-quy">Từ tháng</label>
+                    <select class="form-control" id="ddl-xnk-from-quy" name="fromThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 xnk-group-quy">
-            <div class="form-group">
-                <label for="ddl-xnk-to-quy">Đến Tháng</label>
-                <select class="form-control" id="ddl-xnk-to-quy" name="toThang">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-xnk-from-nam" class="lbl-xnk-from-nam">Năm</label>
+                    <select class="form-control" id="ddl-xnk-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-xnk-to-nam" class="lbl-xnk-to-nam">Năm</label>
-                <select class="form-control" id="ddl-xnk-to-nam" name="toYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 xnk-group-quy">
+                <div class="form-group">
+                    <label for="ddl-xnk-to-quy">Đến Tháng</label>
+                    <select class="form-control" id="ddl-xnk-to-quy" name="toThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-xnk-to-nam" class="lbl-xnk-to-nam">Năm</label>
+                    <select class="form-control" id="ddl-xnk-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+
+
+
+                    </select>
+                </div>
+
             </div>
 
-        </div>
-        <div class="col-lg-1 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label>&nbsp;</label>
-                <button type="button" class="btn btn-blue btn-search-xnk">Xem</button>
+
+            <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-blue btn-search-xnk">Xem</button>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <label for="lbl-xnk-from-quy" class="col-form-label col-3">Xem theo</label>
+                <div class="col-4">
+                    <select class="form-control" id="lbl-xnk-view-by" name="type">
+                        <option value="0">Tháng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-xnk-from-quy" class="col-form-label col-3">Từ</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-xnk-from-quy" name="fromThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <label for="ddl-xnk-from-nam" class="col-form-label col-1">Năm</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-xnk-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-xnk-to-quy" class="col-form-label col-3">Đến</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-xnk-to-quy" name="toThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <label for="ddl-xnk-to-nam" class="col-form-label col-1">Năm</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-xnk-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12 mb-2">
+                    <button type="button" class="btn btn-blue btn-search-xnk">Xem</button>
+                </div>
+            </div>
+        }
+
     </form>
 </div>

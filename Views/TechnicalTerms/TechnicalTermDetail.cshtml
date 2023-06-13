@@ -2,6 +2,7 @@
 @using System.Text
 @using Nqs.Models.FormModel.Common
 @using Nqs.Models.FormModel.TechnicalTerms
+@using Nqs.Models.FormModel.Company
 @using Nqs.Models.FormModel.News
 @{
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
@@ -41,10 +42,10 @@
     {
         dataNews = new BaseListModel<NewsModel>() { DataList = new List<NewsModel>() };
     }
-    var dataNewsLinked = (BaseListModel<NewsModel>)ViewBag.NewsListLinked;
+    var dataNewsLinked = (List<CompanyGetNewsMdl>)ViewBag.NewsListLinked;
     if (dataNewsLinked == null)
     {
-        dataNewsLinked = new BaseListModel<NewsModel>() { DataList = new List<NewsModel>() };
+        dataNewsLinked = new List<CompanyGetNewsMdl>();
     }
 }
 @functions
@@ -109,36 +110,39 @@
                             </p>
                         </div>
                     </div>
-                    <div class="c-box c-other mb-3">
-                        <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Bài viết liên quan</a></div>
-                        <div class="c-template-list">
-                            <ul>
-                                @foreach (var item in dataNewsLinked.DataList)
-                                {
-                                    <li>
-                                        <div class="b-grid">
-                                            <div class="b-grid__row h-show-pc">
-                                                <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
-                                            </div>
-                                            <div class="b-grid__img"><a href="@item.Url"><img src="@item.Thumbnai" alt="@item.Title" title="@item.Title"></a></div>
-                                            <div class="b-grid__content">
-                                                <div class="b-grid__row h-show-mobile">
+
+                    @if (dataNewsLinked.Any())
+                    {
+                        <div class="c-box c-other mb-3">
+                            <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Bài viết liên quan</a></div>
+                            <div class="c-template-list">
+                                <ul>
+                                    @foreach (var item in dataNewsLinked)
+                                    {
+                                        <li>
+                                            <div class="b-grid">
+                                                <div class="b-grid__row h-show-pc">
                                                     <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
                                                 </div>
-                                                <div class="b-grid__row b-grid__desc">
-                                                    @*@Html.Raw(item.ShortContent)*@
-                                                    Đang được update ...
+                                                <div class="b-grid__img"><a href="@item.Url"><img src="@item.Thumbnai" alt="@item.Title" title="@item.Title"></a></div>
+                                                <div class="b-grid__content">
+                                                    <div class="b-grid__row h-show-mobile">
+                                                        <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
+                                                    </div>
+                                                    <div class="b-grid__row b-grid__desc">
+                                                        @Html.Raw(item.ShortContent)
+                                                    </div>
+                                                    <div class="b-grid__row"><a class="b-grid__cat" href='@($"https://nguoiquansat.vn/{LoaiDau(item.Category)}".ToLower())'>@item.Category</a></div>
                                                 </div>
-                                                @*<div class="b-grid__row"><a class="b-grid__cat" href='@($"https://nguoiquansat.vn/{LoaiDau(item.Category)}".ToLower())'>@item.Category</a></div>*@
                                             </div>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
+                                        </li>
+                                    }
+                                </ul>
 
+                            </div>
+                            <!--end c-box__content-->
                         </div>
-                        <!--end c-box__content-->
-                    </div>
+                    }
                 </div>
             </div>
             <!--end c-news-detail-->

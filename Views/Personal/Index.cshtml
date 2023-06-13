@@ -1,7 +1,21 @@
-﻿@using M.Common.Extensions
+﻿@using System.Text.RegularExpressions
+@using System.Text
+@using M.Common.Extensions
 @using Nqs.Models.FormModel.Common
 @using Nqs.Models.FormModel.Personal
+@using Nqs.Models.FormModel.Company
 @model BaseModels<PersonalInforMdl>
+@functions
+{
+    public string LoaiDau(string str)
+    {
+        str = str ?? string.Empty;
+        Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+        string temp = str.Normalize(NormalizationForm.FormD);
+        return regex.Replace(temp, String.Empty)
+                    .Replace('đ', 'd').Replace('Đ', 'D').Replace(" ", "-");
+    }
+}
 @{
 
     ViewBag.PageName = "Dữ liệu doanh nghiệp";
@@ -18,13 +32,19 @@
     {
         companyGroupPerson = new List<PersonalGroupInforMdl>();
     }
+
+    var dataNewsLinked = (List<CompanyGetNewsMdl>)ViewBag.NewsListLinked;
+    if (dataNewsLinked == null)
+    {
+        dataNewsLinked = new List<CompanyGetNewsMdl>();
+    }
 }
 
 @section Styles{
     @Styles.Render("~/bundles/styles/personal-detail")
 }
 <div class="personal-detail">
-
+    <input type="hidden" id="personal-code" value="@dataPersonal.PersonalCode" />
     <div class="title-name"><span>Cá nhân</span> <span>@dataPersonal.Name</span> </div>
     <hr class="clearfix" />
 
@@ -375,6 +395,7 @@
                         <hr class="clearfix" />
                     </div>
                 }
+
                 @if (dataPersonal.PersonalStockRelationships.Any())
                 {
                     dataPersonal.PersonalStockRelationships = dataPersonal.PersonalStockRelationships.Where(x => !string.IsNullOrEmpty(x.Relationship)).ToList();
@@ -425,91 +446,48 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        @*<ul class="desktop">
-                                <li>
-                                    <div class="d-grid">
-                                        <div class="img">Ảnh</div>
-                                        <div class="content">
-                                            <div>Họ tên</div>
-                                            <div>Mã CP</div>
-                                            <div>Khối lượng</div>
-                                            <div>Tính đến ngày</div>
-                                            <div>Giá trị</div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                @foreach (var item in dataPersonal.PersonalStockRelationships)
-                                {
-
-                                    <li>
-                                        <div class="d-grid">
-                                            <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage)?"/Upload/images/noimage.png":System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+(item.PersonalImage.Replace(@"\","/")))" /></div>
-                                            <div class="content">
-
-                                                @if (string.IsNullOrEmpty(item.PersonalCode))
-                                                {
-                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
-                                                }
-                                                else
-                                                {
-                                                    <h3>
-                                                        <a href='@Url.Action("Index","Personal",new { nqsCode=item.PersonalCode.ToLower(),companyCode= ViewBag.CompanyCode, name =M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
-                                                            @item.PersonalName
-                                                        </a>
-                                                    </h3>
-                                                }
-
-                                                <div><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></div>
-                                                <div>@item.CountStock.FormatNumber()</div>
-                                                <div>@item.LastUpdateDate.ToString("dd/MM/yyyy")</div>
-                                                <div>@item.CountValue.FormatNumber()</div>
-
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                }
-                            </ul>
-                            <ul class="mobile">
-
-                                @foreach (var item in dataPersonal.PersonalStockRelationships)
-                                {
-                                    <li>
-                                        <div class="d-grid">
-                                            <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage)?"/Upload/images/noimage.png":System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+(item.PersonalImage.Replace(@"\","/")))" /></div>
-                                            <div class="content">
-
-                                                @if (string.IsNullOrEmpty(item.PersonalCode))
-                                                {
-                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
-                                                }
-                                                else
-                                                {
-                                                    <h3>
-                                                        <a href='@Url.Action("Index","Personal",new { nqsCode=item.PersonalCode.ToLower(),companyCode= ViewBag.CompanyCode, name =M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
-                                                            @item.PersonalName
-                                                        </a>
-                                                    </h3>
-                                                }
-
-                                                <div><a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">Mã CP: @item.StockCode</a></div>
-                                                <div>Khối lượng: @item.CountStock.FormatNumber()</div>
-                                                <div>Tính đến ngày: @item.LastUpdateDate.ToString("dd/MM/yyyy")</div>
-                                                <div>Giá trị: @item.CountValue.FormatNumber()</div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                }
-                            </ul>*@
-
                         <hr class="clearfix" />
                     </div>
                 }
 
+                @if (dataNewsLinked.Any())
+                {
+                    <div class="news-personal">
+                        <div class="c-box c-other mb-3 ">
+                            <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Bài viết liên quan</a></div>
+                            <div class="c-template-list">
+                                <ul>
+                                    @foreach (var item in dataNewsLinked)
+                                    {
+                                        <li>
+                                            <div class="b-grid">
+                                                <div class="b-grid__row h-show-pc">
+                                                    <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
+                                                </div>
+                                                <div class="b-grid__img"><a href="@item.Url"><img src="@item.Thumbnai" alt="@item.Title" title="@item.Title"></a></div>
+                                                <div class="b-grid__content">
+                                                    <div class="b-grid__row h-show-mobile">
+                                                        <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
+                                                    </div>
+                                                    <div class="b-grid__row b-grid__desc">
+                                                        @Html.Raw(item.ShortContent)
+                                                    </div>
+                                                    <div class="b-grid__row"><a class="b-grid__cat" href='@($"https://nguoiquansat.vn/{LoaiDau(item.Category)}".ToLower())'>@item.Category</a></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
 
+                            </div>
+                            <!--end c-box__content-->
+                        </div>
+                        <div class="w-100 text-center mt-3">
+                            <input type="hidden" value="1" id="getnew-page" />
+                            <a class="btn btn-grey m-auto" href="javascript:void(0)" onclick="LoadMoreNews(this)">Xem thêm</a>
+                        </div>
+                    </div>
+                }
 
                 @*@if (dataPersonal.PersonalHistorys.Any())
                     {
@@ -610,7 +588,7 @@
                                         var dataGroup = item.PersonalGroup.GroupBy(x => x.GroupId).OrderBy(x => x.Key);
                                         foreach (var data in dataGroup)
                                         {
-
+                                            var dataGroupPosition = data.GroupBy(x => x.PersonalCode);
                                             <div class="struct">
                                                 <div>
                                                     <div>@data.FirstOrDefault().GroupName</div>
@@ -618,21 +596,25 @@
                                                 <div>
                                                     <ul class="is-line-bottom">
 
-                                                        @foreach (var subItem in data.OrderBy(x => x.PositionIndex))
+                                                        @foreach (var subItem in dataGroupPosition.OrderBy(x => x.First().PositionIndex))
                                                         {
                                                             <li>
                                                                 <div class="b-grid">
                                                                     <div class="b-grid__img">
-                                                                        <a href="@Url.Action("Index","Personal",new { nqsCode=subItem.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.Name).ToLower() })">
-                                                                            <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+subItem.ImagePath.Replace(@"\","/"))" alt="@subItem.Name" title="@subItem.Name">
+                                                                        <a href="@Url.Action("Index","Personal",new { nqsCode=subItem.First().PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.First().Name).ToLower() })">
+                                                                            <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+subItem.First().ImagePath.Replace(@"\","/"))" alt="@subItem.First().Name" title="@subItem.First().Name">
                                                                         </a>
                                                                     </div>
                                                                     <div class="b-grid__content">
                                                                         <h3 class="b-grid__title">
-                                                                            @Html.Raw(string.IsNullOrEmpty(subItem.PersonalCode) ? subItem.Name : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = subItem.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.Name).ToLower() })}'>{subItem.Name}</a>")
+                                                                            @Html.Raw(string.IsNullOrEmpty(subItem.First().PersonalCode) ? subItem.First().Name : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = subItem.First().PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(subItem.First().Name).ToLower() })}'>{subItem.First().Name}</a>")
                                                                         </h3>
                                                                         <ul>
-                                                                            <li>@subItem.PositionName</li>
+                                                                            @foreach (var s in subItem)
+                                                                            {
+                                                                                <li>@s.PositionName</li>
+                                                                            }
+
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -655,12 +637,21 @@
 
     </div>
 </div>
+
 @section Scripts{
     <script>
         var urlGetDataStockBy = '@Url.Action("GetDataStockBy", "Home")';
+        var urlGetNews = '@Url.Action("LoadMoreNewsPersonal", "Personal")';
         var arrayCompany = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(companyGroupPerson.Select(x=>x.CompanyCode)))');
         var isShow = false;
         var Arraychart=[];
+      
+        $(function () {
+            arrayCompany.forEach((item) => {
+                loadDataChartHeader("chart-doanh-nghiep-" + item, '6MONTH', item);
+            });
+        });
+
         function loadDataChartHeader(el, type, code) {
             var url = urlGetDataStockBy + '?type=' + type + '&code=' + code;
             var params = "";
@@ -687,12 +678,6 @@
                 $('.content-extent').addClass('d-none');
             }
         }
-        $(function () {
-            arrayCompany.forEach((item) => {
-                loadDataChartHeader("chart-doanh-nghiep-" + item, '6MONTH', item);
-            });
-        });
-
        function renderChart(containerId, code, priceData, volumeData, openPrice, min, max, isStock = true) {
             const chartAtr = {
                 lineColor: '#ffb800',
@@ -798,7 +783,7 @@
                         let time = Highcharts.dateFormat('%A, %e/%b/%Y %H:%M', this.points[0].point.x);
                         let index = Math.round((this.points[0].point.y + Number.EPSILON) * 100) / 100;
                         let volume = this.points[1].point.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        return code + ":" + time + "<br>Giá:" + $.number(isStock ? index / 1000 : index, 2) + ",Volume:" + $.number(volume, 0);
+                        return code + ":" + time + "<br>Giá:" + CommonHelper.formatNumber(isStock ? index / 1000 : index, 2) + ",Volume:" + CommonHelper.formatNumber(volume, 0);
                     }
                 },
                 series: [
@@ -873,6 +858,17 @@
                 item.setSize(width);
             });
         });
+
+        function LoadMoreNews(e) {
+            var page = parseInt($('#getnew-page').val());
+            if (page == 4)
+                $(e).addClass('d-none');
+            page += 1;
+            $('#getnew-page').val(page);
+            var code = $("#personal-code").val();
+            var param = { nqsCode: code, page: page };
+            App.loadPartialAppendCallback(urlGetNews, param, ".news-personal .c-template-list ul", function () { });
+        }
     </script>
 
 }

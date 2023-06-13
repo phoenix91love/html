@@ -87,16 +87,14 @@
 
 <div class="container mt-3 h-show-mobile">
     <div class="w-100">
-        <a href="https://dop.cake.vn/affiliate?ref=NQS-S3328858" target="_blank"><img src="~/Upload/images/PR_640x320_mb.png" class="w-100" alt="banner" /></a>
+        <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
     </div>
-    <div class="swiper-container topcontents mt-3 mb-3 swiper-container-horizontal swiper-container-android">
-        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
-            @if (bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
-            {
-                Html.RenderAction("ChartHeader", "Home");
-            }
-        </div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    <div class="swiper-container topcontents mt-3 mb-3">
+
+        @if (bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
+        {
+            Html.RenderAction("ChartHeader", "Home");
+        }
     </div>
 
 </div>

@@ -2,67 +2,133 @@
 
 <div class="col-lg-12">
     <form id="gdp-form">
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="lbl-gdp-from-quy">Xem theo</label>
-                <select class="form-control" id="lbl-gdp-view-by" name="type">
-                    <option value="0">Quý</option>
-                    <option value="1">Năm</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
-            <div class="form-group">
-                <label for="ddl-gdp-from-quy">Từ Quý</label>
-                <select class="form-control" id="ddl-gdp-from-quy" name="fromQuy">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+        @if (!ViewBag.IsMobile)
+        {
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="lbl-gdp-from-quy">Xem theo</label>
+                    <select class="form-control" id="lbl-gdp-view-by" name="type">
+                        <option value="0">Quý</option>
+                        <option value="1">Năm</option>
+                    </select>
+                </div>
             </div>
 
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-gdp-from-nam" class="lbl-gdp-from-nam">Năm</label>
-                <select class="form-control" id="ddl-gdp-from-nam" name="fromYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
+                <div class="form-group">
+                    <label for="ddl-gdp-from-quy">Từ Quý</label>
+                    <select class="form-control" id="ddl-gdp-from-quy" name="fromQuy">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
-            <div class="form-group">
-                <label for="ddl-gdp-to-quy">Đến Quý</label>
-                <select class="form-control" id="ddl-gdp-to-quy" name="toQuy">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters(M.Common.Helpers.DateTimeHelper.GetQuarter(DateTime.Now)))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-gdp-from-nam" class="lbl-gdp-from-nam">Năm</label>
+                    <select class="form-control" id="ddl-gdp-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-gdp-to-nam" class="lbl-gdp-to-nam">Năm</label>
-                <select class="form-control" id="ddl-gdp-to-nam" name="toYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
+                <div class="form-group">
+                    <label for="ddl-gdp-to-quy">Đến Quý</label>
+                    <select class="form-control" id="ddl-gdp-to-quy" name="toQuy">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters(M.Common.Helpers.DateTimeHelper.GetQuarter(DateTime.Now)))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-gdp-to-nam" class="lbl-gdp-to-nam">Năm</label>
+                    <select class="form-control" id="ddl-gdp-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+
+
+
+                    </select>
+                </div>
+
             </div>
 
-        </div>
-        <div class="col-lg-1 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label>&nbsp;</label>
-                <button type="button" class="btn btn-blue btn-search-gdp">Xem</button>
+
+            <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-blue btn-search-gdp">Xem</button>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <label for="lbl-gdp-from-quy" class="col-form-label col-3">Xem theo</label>
+                <div class="col-3">
+                    <select class="form-control" id="lbl-gdp-view-by" name="type">
+                        <option value="0">Quý</option>
+                        <option value="1">Năm</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-gdp-from-quy" class="col-form-label col-3">Từ</label>
+                <div class="col-3">
+                    <select class="form-control" id="ddl-gdp-from-quy" name="fromQuy">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <label for="ddl-gdp-from-nam" class="col-form-label col-2 lbl-gdp-from-nam">Năm</label>
+                <div class="col-3">
+                    <select class="form-control" id="ddl-gdp-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-gdp-to-quy" class="col-form-label col-3">Đến</label>
+                <div class="col-3">
+                    <select class="form-control" id="ddl-gdp-to-quy" name="toQuy">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetQuarters(M.Common.Helpers.DateTimeHelper.GetQuarter(DateTime.Now)))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <label for="ddl-gdp-to-nam" class="col-form-label col-2 lbl-gdp-to-nam">Năm</label>
+                <div class="col-3">
+                    <select class="form-control" id="ddl-gdp-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                    <button type="button" class="btn btn-blue btn-search-gdp">Xem</button>
+                </div>
+            </div>
+        }
+
     </form>
 </div>

@@ -16,7 +16,7 @@
     <div class="c-box__content">
         <ul class="is-line-bottom">
             <li class="active">
-                <b style="color: #3b1b70;">Lãi xuất</b>
+                <b style="color: #3b1b70;">Lãi suất</b>
             </li>
 
         </ul>
@@ -29,13 +29,13 @@
                 <span style="width: 20%; display: inline-block; text-align: right;"><b>12 tháng</b></span>
             </li>
             @{
-                foreach (var item in Model.ExchangeData["LAIXUAT"])
+                foreach (var item in Model["LAIXUAT"])
                 {
                     <li title="@item.Name">
                         <span style="width: 32%; display: inline-block;">@item.Name</span>
-                        <span style="width: 20%; display: inline-block; text-align: right;">@item.Value.ToString("N2")</span>
-                        <span style="width: 20%; display: inline-block; text-align: right;">@item.PerChange.ToString("N2")</span>
-                        <span style="width: 20%; display: inline-block; text-align: right;">@item.Change.ToString("N2")</span>
+                        <span style="width: 20%; display: inline-block; text-align: right;">@(item.Value == 0 ? "-" : item.Value.ToString("N2"))</span>
+                        <span style="width: 20%; display: inline-block; text-align: right;">@(item.PerChange == 0 ? "-" : item.PerChange.ToString("N2"))</span>
+                        <span style="width: 20%; display: inline-block; text-align: right;">@(item.Change == 0 ? "-" : item.Change.ToString("N2"))</span>
                     </li>
                 }
             }
@@ -63,9 +63,13 @@
         <ul class="contentinfo ul-tigia" data-tab="tigia" style="display: block;">
             <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
             @{
-                foreach (var item in Model.ExchangeData["MoneyExchange"])
+                foreach (var item in Model["MoneyExchange"])
                 {
-                    <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Code</span><span class="price">@item.Value.ToString("N0")</span><span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span></li>
+                    <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
+                        <span class="code">@item.Code</span>
+                        <span class="price">@item.Value.ToString("N0")</span>
+                        <span class="text-center change price-change ">@(item.Change > 0 ? "+" + item.Change : (item.Change < 0 ? "" + item.Change : ""))@(item.Change > 0 ? "(+" + item.PerChange+")" : (item.Change < 0 ? "(" + item.PerChange + "%)" : "")) </span>
+                    </li>
                 }
             }
 
@@ -77,12 +81,12 @@
         <ul class="contentinfo ul-tigia" data-tab="giavang" style="display: none;">
             <li class="label1"><span class="code">Mã</span><span class="price">Giá mua</span><span class="change">Giá bán</span></li>
             @{
-                foreach (var item in Model.ExchangeData["GoldExchange"])
+                foreach (var item in Model["GoldExchange"])
                 {
                     <li title="@item.Name">
                         <span class="code">@item.Code</span>
-                        <span class="price text-right">@item.Change.ToString("N0")</span>
-                        <span class="change text-right">@item.Value.ToString("N0")</span>
+                        <span class="price text-right">@(item.Change == 0 ? "-" : item.Change.ToString("N0"))</span>
+                        <span class="change text-right">@(item.Value==0? "-" : item.Value.ToString("N0"))</span>
                     </li>
                 }
             }
@@ -109,7 +113,7 @@
         <ul class="contentinfo ul-hanghoacoin" data-tab="hanghoa" style="display: block;">
             <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
             @{
-                foreach (var item in Model.ExchangeData["HHExchange"])
+                foreach (var item in Model["HHExchange"])
                 {
                     <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))">
                         <span class="code">
@@ -129,7 +133,7 @@
         <ul class="contentinfo ul-hanghoacoin" data-tab="coin" style="display: none;">
             <li class="label1"><span class="code">Mã</span><span class="price">Giá bán</span><span class="change">Thay đổi</span></li>
             @{
-                foreach (var item in Model.ExchangeData["CoinExchange"])
+                foreach (var item in Model["CoinExchange"])
                 {
                     <li title="@item.Name" class="@(item.Status > 0 ? "green" : (item.Status < 0 ? "red" : ""))"><span class="code">@item.Name</span><span class="price">@item.Value.ToString("N2")</span><span class="text-center change price-change ">@(item.Change.ToString("N2") + "("+ @item.PerChange.ToString("N2") + "%)")</span></li>
 

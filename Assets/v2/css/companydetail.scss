@@ -997,6 +997,30 @@
                         background: #F8F8F8;
                         border-radius: 10px;
                     }
+
+                    .unit {
+                        float: right;
+
+                        @include r(320) {
+                            .desktop {
+                                display: none;
+                            }
+
+                            .mobile {
+                                display: block;
+                            }
+                        }
+
+                        @include r(768) {
+                            .desktop {
+                                display: block;
+                            }
+
+                            .mobile {
+                                display: none;
+                            }
+                        }
+                    }
                 }
 
                 .company-financial {
@@ -1430,7 +1454,7 @@
                                 vertical-align: middle;
                                 text-align: right;
 
-                                :nth-child(1) {
+                                td:nth-child(1) {
                                     text-align: left !important;
                                     align-self: center;
                                     vertical-align: middle;
@@ -2589,7 +2613,7 @@
         margin-bottom: 8px;
     }
 
-    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul li {
+    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul.new-info li {
         border-right: none;
         border-bottom: 1px solid #E5E5E5;
         padding: 10px 0;
@@ -2598,13 +2622,13 @@
         justify-content: flex-start;
     }
 
-    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul li:last-child {
+    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul.new-info li:last-child {
         border: none;
         margin: 0;
         padding: 10px 0 0;
     }
 
-    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul li span:first-child {
+    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul.new-info li span:first-child {
         border-right: none;
         align-self: center;
         font-size: 14px;
@@ -2612,7 +2636,7 @@
         margin-right: 0;
     }
 
-    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul li a {
+    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul.new-info li a {
         margin-left: 30px;
         font-size: 12px;
         line-height: 16px;

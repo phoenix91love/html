@@ -8,7 +8,7 @@
     getDisplayCode(code) {
         if (code === "VN-Index") code = "VnIndex";
         if (code === "HNX-Index") code = "HnxIndex";
-        if (code === "UPCOM-Index") code = "Upcom";
+        if (code === "UPCOM-Index") code = "UPCoM";
         if (code === "VN30-Index") code = "VN30";
         if (code === "HNX30-Index") code = "HNX30";
         return code;
@@ -58,6 +58,9 @@
         let form_data = new FormData(document.querySelector(formEl));
         let queryString = new URLSearchParams(form_data).toString();
         return queryString;
+    },
+    formatNumber: function (n, decimals) {
+        return $.number(n, decimals, '.', ',');
     }
 }
 

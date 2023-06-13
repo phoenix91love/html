@@ -50,16 +50,20 @@
                                     @(item.Year5==0?"N/A":item.Year5.FormatNumber())
                                 </td>*@
                             <td scope="col">
-                                @(item.Year4 == 0 ? "N/A" : item.Year4.FormatNumber())
+                                <span class="d-none d-lg-block"> @(item.Year4 == 0?"N/A": (item.Year4*1000).FormatNumberUnit(0))</span>
+                                <span class="d-block d-lg-none"> @(item.Year4 == 0?"N/A": item.Year4.FormatNumberUnit(0))</span>
                             </td>
                             <td scope="col">
-                                @(item.Year3 == 0 ? "N/A" : item.Year3.FormatNumber())
+                                <span class="d-none d-lg-block"> @(item.Year3 == 0?"N/A": (item.Year3*1000).FormatNumberUnit(0))</span>
+                                <span class="d-block d-lg-none"> @(item.Year3 == 0?"N/A": item.Year3.FormatNumberUnit(0))</span>
                             </td>
                             <td scope="col">
-                                @(item.Year2 == 0 ? "N/A" : item.Year2.FormatNumber())
+                                <span class="d-none d-lg-block"> @(item.Year2 == 0?"N/A": (item.Year2*1000).FormatNumberUnit(0))</span>
+                                <span class="d-block d-lg-none"> @(item.Year2 == 0?"N/A": item.Year2.FormatNumberUnit(0))</span>
                             </td>
                             <td scope="col">
-                                @(item.Year1 == 0 ? "N/A" : item.Year1.FormatNumber())
+                                <span class="d-none d-lg-block"> @(item.Year1 == 0?"N/A": (item.Year1*1000).FormatNumberUnit(0))</span>
+                                <span class="d-block d-lg-none"> @(item.Year1 == 0?"N/A": item.Year1.FormatNumberUnit(0))</span>
                             </td>
                             <td>
                                 @*<img src="@("https://chart.googleapis.com/chart?cht=bvs&chd=t:"+NumberHelper.GetValueGoogleApi_4Colum(item.Year4,item.Year3,item.Year2,item.Year1)+"&chs=60x30&chco=3b1b70&chbh=5&chf=bg,s,f9f8fa00")" />*@

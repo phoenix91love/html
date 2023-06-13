@@ -62,9 +62,9 @@
                         var code = $('.hd-code').val();
                         code = CommonHelper.getDisplayCode(code);
                         $('.vn-stock-code').html(code);
-                        $(".vn-stock-price").html($.number(item.Price, 2));
-                        $(".vn-stock-change").html($.number(item.Change, 2));
-                        $(".vn-stock-per-change").html("(" + $.number(item.PerChange, 2) + "%)");
+                        $(".vn-stock-price").html(CommonHelper.formatNumber(item.Price, 2));
+                        $(".vn-stock-change").html(CommonHelper.formatNumber(item.Change, 2));
+                        $(".vn-stock-per-change").html("(" + CommonHelper.formatNumber(item.PerChange, 2) + "%)");
                         if (item.Change > 0) {
                             $(".vn-stock-change, .vn-stock-per-change").removeClass("red");
                             $(".vn-stock-change, .vn-stock-per-change").addClass("green");
@@ -75,14 +75,14 @@
                         }
 
 
-                        $(".vn-vonhoa").html($.number(item.MarketCap, 2) + " tỷ");
-                        $(".vn-klgd").html($.number(item.Klgd, 0));
-                        $(".vn-gtgd").html($.number(item.Gtgd, 2) + " tỷ");
-                        $(".vn-nnmua").html($.number(item.NNmua, 0));
-                        $(".vn-nnban").html($.number(item.NNban, 0));
+                        $(".vn-vonhoa").html(CommonHelper.formatNumber(item.MarketCap, 2) + " tỷ");
+                        $(".vn-klgd").html(CommonHelper.formatNumber(item.Klgd, 0));
+                        $(".vn-gtgd").html(CommonHelper.formatNumber(item.Gtgd, 2) + " tỷ");
+                        $(".vn-nnmua").html(CommonHelper.formatNumber(item.NNmua, 0));
+                        $(".vn-nnban").html(CommonHelper.formatNumber(item.NNban, 0));
 
-                        $(".vn-highest").html($.number(item.Highest, 2));
-                        $(".vn-lowest").html($.number(item.Lowest, 2));
+                        $(".vn-highest-lowest").html(CommonHelper.formatNumber(item.Lowest, 2) + " / " + CommonHelper.formatNumber(item.Highest, 2));
+                        $(".vn-highest-lowest-52t").html(CommonHelper.formatNumber(item.Lowest52T, 2) + " / " + CommonHelper.formatNumber(item.Highest52T, 2));
                         $(".div-last-update").html(item.LastUpdate);
 
                     }
@@ -103,9 +103,9 @@
                 listData.forEach(item => {
                     if ($('.hd-code-world').val() == item.Code) {
                         $('.' + tab + '-stock-code').html($('.hd-code-world').val());
-                        $('.' + tab + '-stock-price').html($.number(item.Price, 2));
-                        $('.' + tab + '-stock-change').html($.number(item.Change, 2));
-                        $('.' + tab + '-stock-per-change').html("(" + $.number(item.PerChange, 2) + "%)");
+                        $('.' + tab + '-stock-price').html(CommonHelper.formatNumber(item.Price, 2));
+                        $('.' + tab + '-stock-change').html(CommonHelper.formatNumber(item.Change, 2));
+                        $('.' + tab + '-stock-per-change').html("(" + CommonHelper.formatNumber(item.PerChange, 2) + "%)");
                         if (item.Change > 0) {
                             $('.' + tab + '-stock-change, .tg-stock-per-change').removeClass("red");
                             $('.' + tab + '-stock-change, .tg-stock-per-change').addClass("green");
@@ -116,18 +116,18 @@
                         }
 
 
-                        $('.' + tab + '-klgd').html($.number(item.Klgd, 0));
-                        $('.' + tab + '-gtgd').html($.number(item.Gtgd, 0));
+                        $('.' + tab + '-klgd').html(CommonHelper.formatNumber(item.Klgd, 0));
+                        $('.' + tab + '-gtgd').html(CommonHelper.formatNumber(item.Gtgd, 0));
 
-                        $('.' + tab + '-highest').html($.number(item.Highest, 2));
-                        $('.' + tab + '-lowest').html($.number(item.Lowest, 2));
+                        $('.' + tab + '-highest').html(CommonHelper.formatNumber(item.Highest, 2));
+                        $('.' + tab + '-lowest').html(CommonHelper.formatNumber(item.Lowest, 2));
                         $('.div-last-update-world').html(item.LastUpdate);
                     }
 
-                    $("." + item.Code + "-price").html($.number(item.Price, 2));
-                    $("." + item.Code + "-change").html($.number(item.Change, 2));
+                    $("." + item.Code + "-price").html(CommonHelper.formatNumber(item.Price, 2));
+                    $("." + item.Code + "-change").html(CommonHelper.formatNumber(item.Change, 2));
                     $("." + item.Code + "-change").addClass(item.Change > 0 ? "green" : (item.Change < 0 ? "red" : ""));
-                    $("." + item.Code + "-per-change").html("(" + $.number(item.PerChange, 2) + "%)");
+                    $("." + item.Code + "-per-change").html("(" + CommonHelper.formatNumber(item.PerChange, 2) + "%)");
                     $("." + item.Code + "-per-change").addClass(item.Change > 0 ? "green" : (item.Change < 0 ? "red" : ""));
                     if (item.Change > 0) {
                         $("." + item.Code + "-price, ." + item.Code + "-per-change").removeClass("red");
@@ -168,30 +168,20 @@
                 // enable HTML for labels
                 chart.labels().useHtml(true);
 
-                // configure labels
-                //chart.labels().format(
-                //    "<span style='font-weight:bold; color: #ffffff'>{%name}<br/>{%Perchange}%</span>"
-                //);
                 chart.labels().format(function () {
-                    return "<span style='font-weight:bold; color: #ffffff'>" + this.name + "<br/>" + $.number(this.getData("Perchange"), 2) + "%</span>"
+                    return "<span style='font-weight:bold; color: #ffffff'>" + this.name + "<br/>" + CommonHelper.formatNumber(this.getData("Perchange"), 2) + "%</span>"
                 });
-                // configure tooltips
-                //chart.tooltip().format(
-                //    "<div style='width: 200px;'>Giá: {%Price} {%Change} {%Perchange}%\n7D: {%Price7Day} {%Change7Day} {%Perchange7Day}%\nKLGD: {%TotalVolume}\nGTGD: {%TotalValue}\nNN Mua: {%NnMua}\nNN bán: {%NnBan}</div>"
-                //);
+                
                 chart.tooltip().useHtml(true);
                 var isMobile = $("body").hasClass("mobile");
                 if (isMobile) {
                     chart.tooltip().enabled(true);
                 }
                 chart.tooltip().titleFormat(function () {
-                    return "<span style='font-size: 15px;'>" + this.getData("name")  + ":</span> <span style='font-size: 13px;'>" + this.getData("CompanyName") + "</span>";
+                    return "<span style='font-size: 15px;'>" + this.getData("name") + ":</span> <span style='font-size: 13px;'>" + this.getData("CompanyName") + "</span>";
                 });
                 chart.tooltip().format(function () {
-                    //return "<div class='div-tree-map-tooltip'>Giá: " + $.number(this.getData("Price"), 2) + " " + $.number(this.getData("Change"), 2) + " " + $.number(this.getData("Perchange"), 2)
-                    //    + "%\n7D: " + $.number(this.getData("Price7Day"), 2) + " " + $.number(this.getData("Change7Day"), 2) + " "
-                    //    + $.number(this.getData("Perchange7Day"), 2) + "%\nKLGD: " + $.number(this.getData("TotalVolume"), 2) + "\nGTGD: "
-                    //    + $.number(this.getData("TotalValue"), 2) + "\nNN Mua: " + $.number(this.getData("NnMua"), 2) + "\nNN bán: " + $.number(this.getData("NnBan"), 2) + "</div>";
+                    
                     var priceClass = "";
                     var price7DClass = "";
                     if (this.getData("Change") > 0) priceClass = "green";
@@ -200,12 +190,12 @@
                     if (this.getData("Change7Day") < 0) price7DClass = "red";
 
                     var str = "<table class='tb-tree-map-tooltip'><tbody>"
-                    str += "<tr><td>Giá hiện tại:</td><td class='text-right'>" + $.number(this.getData("Price"), 2) + "</td><td class='text-right " + priceClass + "'>" + $.number(this.getData("Change"), 2) + "</td><td class='text-right " + priceClass + "'>(" + $.number(this.getData("Perchange"), 2) + "%)</td></tr>";
-                    str += "<tr><td>7 ngày trước:</td><td class='text-right'>" + $.number(this.getData("Price7Day"), 2) + "</td><td class='text-right " + price7DClass + "'>" + $.number(this.getData("Change7Day"), 2) + "</td><td class='text-right " + price7DClass + "'>(" + $.number(this.getData("Perchange7Day"), 2) + "%)</td></tr>";
-                    str += "<tr><td>KLGD: </td><td class='text-right'>" + $.number(this.getData("TotalVolume"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
-                    str += "<tr><td>GTGD: </td><td class='text-right'>" + $.number(this.getData("TotalValue"), 2) + "&nbsp;tỷ</td><td colspan='2'></td></tr>";
-                    str += "<tr><td>NN Mua:</td><td class='text-right'>" + $.number(this.getData("NnMua"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
-                    str += "<tr><td>NN Bán:</td><td class='text-right'>" + $.number(this.getData("NnBan"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
+                    str += "<tr><td>Giá hiện tại:</td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("Price"), 2) + "</td><td class='text-right " + priceClass + "'>" + CommonHelper.formatNumber(this.getData("Change"), 2) + "</td><td class='text-right " + priceClass + "'>(" + CommonHelper.formatNumber(this.getData("Perchange"), 2) + "%)</td></tr>";
+                    str += "<tr><td>7 ngày trước:</td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("Price7Day"), 2) + "</td><td class='text-right " + price7DClass + "'>" + CommonHelper.formatNumber(this.getData("Change7Day"), 2) + "</td><td class='text-right " + price7DClass + "'>(" + CommonHelper.formatNumber(this.getData("Perchange7Day"), 2) + "%)</td></tr>";
+                    str += "<tr><td>KLGD: </td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("TotalVolume"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
+                    str += "<tr><td>GTGD: </td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("TotalValue"), 2) + "&nbsp;tỷ</td><td colspan='2'></td></tr>";
+                    str += "<tr><td>NN Mua:</td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("NnMua"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
+                    str += "<tr><td>NN Bán:</td><td class='text-right'>" + CommonHelper.formatNumber(this.getData("NnBan"), 0) + "&nbsp;cp</td><td colspan='2'></td></tr>";
                     return str += "</tbody></table>";
                 });
 
@@ -278,9 +268,9 @@
                 if (percentValueTang < 25)
                     percentValueTang = 25;
 
-                $('.thongso ul.pbdt').append('<li title="' + result.Data3[0] + '" style="background-color: #fc0002; width: ' + percentValueGiam + '%">' + $.number(result.Data3[0], 2) + '</li>');
-                $('.thongso ul.pbdt').append('<li title="' + result.Data3[1] + '" style="background-color: #ffb800; color: #000; width: ' + percentValueKoDoi + '%">' + $.number(result.Data3[1], 2) + '</li>');
-                $('.thongso ul.pbdt').append('<li title="' + result.Data3[2] + '" style="background-color: #33a42e; width: ' + percentValueTang + '%">' + $.number(result.Data3[2], 2) + '</li>');
+                $('.thongso ul.pbdt').append('<li title="' + result.Data3[0] + '" style="background-color: #fc0002; width: ' + percentValueGiam + '%">' + CommonHelper.formatNumber(result.Data3[0], 2) + '</li>');
+                $('.thongso ul.pbdt').append('<li title="' + result.Data3[1] + '" style="background-color: #ffb800; color: #000; width: ' + percentValueKoDoi + '%">' + CommonHelper.formatNumber(result.Data3[1], 2) + '</li>');
+                $('.thongso ul.pbdt').append('<li title="' + result.Data3[2] + '" style="background-color: #33a42e; width: ' + percentValueTang + '%">' + CommonHelper.formatNumber(result.Data3[2], 2) + '</li>');
             }
         });
     },
@@ -322,6 +312,7 @@ $('#tabChart').on('shown.bs.tab', function (event) {
     $(".index-data[data-tab='" + tab + "']").css("display", "block");
     if (tab == "vn") {
         $('.hd-code').val(code);
+        $('.a-btn-view-detail-ex-index').attr("href", configCommonUrl.history + code)
         HomePage.loadDataExChart();
         HomePage.loadExIndex();
         var exCode = "";
@@ -369,6 +360,7 @@ $(".rd-select-chart").change(function () {
         HomePage.loadDataExChart();
         HomePage.loadExIndex();
     } else {
+        $('.tablink[data-tab="tg"]').attr('data-code', code);
         $('.hd-code-world').val(code);
         HomePage.loadDataChartWorld();
         HomePage.loadWorldIndex();
@@ -463,3 +455,4 @@ $('.btn-tab-hanghoacoin').click(function () {
     $(this).addClass("active");
     $('.ul-hanghoacoin[data-tab="' + tab + '"]').css("display", "block");
 });
+

@@ -61,10 +61,10 @@
                     var price7day = this.getAttribute('data-price7day');
                     var change7day = this.getAttribute('data-change7day');
                     var perchange7day = this.getAttribute('data-perchange7day');
-                    var klgd = $.number(this.getAttribute('data-klgd'), 0);
+                    var klgd = CommonHelper.formatNumber(this.getAttribute('data-klgd'), 0);
                     var gtgd = this.getAttribute('data-gtgd');
-                    var nnmua = $.number(this.getAttribute('data-nnmua'), 0);
-                    var nnban = $.number(this.getAttribute('data-nnban'), 0);
+                    var nnmua = CommonHelper.formatNumber(this.getAttribute('data-nnmua'), 0);
+                    var nnban = CommonHelper.formatNumber(this.getAttribute('data-nnban'), 0);
                     var companyName = this.getAttribute('data-companyname');
                     var priceClass = "";
                     var price7DClass = "";
@@ -85,6 +85,8 @@
                     str += "</div>";
                     return str;
                 }
+            }).on("hide.bs.tooltip", () => {
+                $('.tooltip').remove();
             });
         }
     });

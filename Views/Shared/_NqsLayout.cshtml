@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="https://nqs.1cdn.vn/assets/images/favicon.ico" />
     <link rel="dns-prefetch" href="https://dulieu.nguoiquansat.vn/">
     <link rel="dns-prefetch" href="https://code.highcharts.com/">
 
@@ -20,7 +21,7 @@
     <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/stock/modules/accessibility.js"></script>
 
-    @Styles.Render("~/bundles/styles/custom")
+    @Styles.Render("~/Assets/v2/css/custom")
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Assets/bundles/bootstrap/bootstrap.min.js"></script>
     <script src="~/Assets/bundles/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -89,7 +90,7 @@
                     <li class="@(Request.RawUrl == Url.Action("History", "History") ? "active" : "")">
                         <a href="@Url.Action("History", "History")">Dữ liệu giao dịch</a>
                     </li>
-                    <li class="@(Request.RawUrl.Contains(Url.Action("CompanyList", "Company")) || Request.RawUrl.Contains(Url.Action("CompanyDetail", "Company")) ? "active" : "")">
+                    <li class="@(Request.RawUrl.Contains(Url.Action("CompanyList", "Company"))||Request.RawUrl.Contains(Url.Action("CompanyListSearch", "Company")) || Request.RawUrl.Contains(Url.Action("CompanyDetail", "Company")) ? "active" : "")">
                         <a href="@Url.Action("CompanyList", "Company")">Dữ liệu doanh nghiệp</a>
                     </li>
                     <li class="@(Request.RawUrl == Url.Action("Index", "Profession") ? "active" : "")">
@@ -99,7 +100,7 @@
                         <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
                     </li>
                     <li class="@(Request.RawUrl == Url.Action("ViMo", "ViMo") ? "active" : "")">
-                        <a href="#">Vĩ mô</a>
+                        <a href="@Url.Action("ViMo", "ViMo")">Vĩ mô</a>
                     </li>
                     <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">
                         <a href="@Url.Action("EventList", "Event")">Sự kiện</a>
@@ -124,7 +125,7 @@
                                 <li class="@(Request.RawUrl == Url.Action("History", "History") ? "active" : "")">
                                     <a href="@Url.Action("History", "History")">Dữ liệu giao dịch</a>
                                 </li>
-                                <li class="@(Request.RawUrl.Contains(Url.Action("CompanyList", "Company")) || Request.RawUrl.Contains(Url.Action("CompanyDetail", "Company")) ? "active" : "")">
+                                <li class="@(Request.RawUrl.Contains(Url.Action("CompanyList", "Company")) ||Request.RawUrl.Contains(Url.Action("CompanyListSearch", "Company")) || Request.RawUrl.Contains(Url.Action("CompanyDetail", "Company")) ? "active" : "")">
                                     <a href="@Url.Action("CompanyList", "Company")">Dữ liệu doanh nghiệp</a>
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("Index", "Profession") ? "active" : "")">
@@ -134,7 +135,7 @@
                                     <a href="@Url.Action("BoLocCoPhieuList", "statistics")">Bộ lọc cổ phiếu</a>
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("ViMo", "ViMo") ? "active" : "")">
-                                    <a href="#">Vĩ mô</a>
+                                    <a href="@Url.Action("ViMo", "ViMo")">Vĩ mô</a>
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">
                                     <a href="@Url.Action("EventList", "Event")">Sự kiện</a>

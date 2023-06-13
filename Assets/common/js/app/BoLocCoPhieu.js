@@ -28,6 +28,9 @@ var BoLocCoPhieu = {
         var vonHoaDen = $('#txt-vonhoa-to').val();
         var doanhThu4QuyTu = $('#txt-doanhthu-4quy-from').val();
         var doanhThu4QuyDen = $('#txt-doanhthu-4quy-to').val();
+        var doanhThuType = $('#ddl-type-doanhthu-type').val();
+        var loiNhuanType = $('#ddl-type-loinhuan-type').val();
+        var hasChiaCoTuc = $('#ddl-chiacotuc-tienmat').val();
 
         var obj = {
             exCode,
@@ -53,7 +56,10 @@ var BoLocCoPhieu = {
             vonHoaTu,
             vonHoaDen,
             doanhThu4QuyTu,
-            doanhThu4QuyDen
+            doanhThu4QuyDen,
+            doanhThuType,
+            loiNhuanType,
+            hasChiaCoTuc
         };
         const params = Object.keys(obj)
             .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
@@ -70,4 +76,8 @@ $(document).on("click", ".btn-search", function () {
 
 $(document).on("change", ".rd-nn-rong", function () {
     $('#hd-rd-mua-ban-rong-type').val($(this).val());
+});
+$(document).on("change", "#ddl-tang-giam-phien", function () {
+    $('.sp-sophien').html($("#ddl-tang-giam-phien option:selected").text());
 })
+

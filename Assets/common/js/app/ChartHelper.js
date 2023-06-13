@@ -117,8 +117,8 @@ var ChartHelper = {
                 formatter: function () {
                     let time = Highcharts.dateFormat('%A, %e/%b/%Y %H:%M', this.points[0].point.x);
                     let index = Math.round((this.points[0].point.y + Number.EPSILON) * 100) / 100;
-                    let volume = this.points[1].point.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    return code + ":" + time + "<br>Giá:" + $.number(isStock ? index / 1000 : index, 2) + ",Volume:" + $.number(volume, 0);
+                    let volume = this.points[1].point.y.toString();
+                    return code + ":" + time + "<br>Giá:" + CommonHelper.formatNumber(isStock ? index / 1000 : index, 2) + ",Volume:" + CommonHelper.formatNumber(volume, 0);
                 }
             },
             series: [
@@ -237,8 +237,11 @@ var ChartHelper = {
                     let highest = this.points[0].point.high;
                     let lowest = this.points[0].point.low;
                     let close = this.points[0].point.close;
-                    let volume = this.points[1].point.y.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    return code + ":" + time + "<br/>Mở cửa:" + $.number(open, 2) + "<br/>Cao nhất: " + $.number(highest, 2) + "<br/>Thấp nhất: " + $.number(lowest, 2) + "<br/>Đóng cửa: " + $.number(close, 2) + "<br/>KLGD:" + $.number(volume, 0);
+                    let volume = this.points[1].point.y.toString();
+                    return code + ":" + time + "<br/>Mở cửa:" + CommonHelper.formatNumber(open, 2) + "<br/>Cao nhất: " + CommonHelper.formatNumber(highest, 2) + "<br/>Thấp nhất: " + CommonHelper.formatNumber(lowest, 2) + "<br/>Đóng cửa: " + CommonHelper.formatNumber(close, 2) + "<br/>KLGD:" + CommonHelper.formatNumber(volume, 0);
+                },
+                style: {
+                    fontSize: 12
                 }
             },
 
@@ -359,120 +362,6 @@ var ChartHelper = {
             ]
         });
     },
-    renderChartColumnNN: function (containerId, type, buyData, sellData) {
-        let chart = Highcharts.chart(containerId, {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: type == 0 ? "Giá trị giao dịch" : "Khối lượng giao dịch"
-            },
-
-            credits: {
-                enabled: false
-            },
-            rangeSelector: {
-                inputEnabled: false,
-            },
-            xAxis: {
-                type: 'datetime',
-
-                labels: {
-                    rotation: -45,
-                },
-            },
-            yAxis: [
-                { // left y axis
-                    title: {
-                        enabled: false
-                    },
-                    labels: {
-                        x: -10,
-                        align: 'left',
-                        formatter: function () {
-                            return this.value;
-                        }
-                    },
-                    opposite: false,
-                    showFirstLabel: false
-                }
-            ],
-
-            legend: {
-                enabled: false
-            },
-            tooltip: {
-                formatter: function () {
-                    function renderUnit() {
-                        return "";
-                        if (type === 0) {
-                            return ' tỷ đồng'
-                        } else {
-                            return ' triệu cp'
-                        }
-                    }
-                    var points = this.points;
-                    var pointsLength = points.length;
-                    var tooltipMarkup = pointsLength
-                        ? '<span style="font-size: 10px">' +
-                        chart.time.dateFormat('%d.%m.%Y', points[0].key) +
-                        "</span><br/>"
-                        : "";
-                    var index;
-                    var y_value;
-                    for (index = 0; index < pointsLength; index += 1) {
-                        y_value = points[index].y;
-                        tooltipMarkup +=
-                            '<span style="color:' +
-                            points[index].series.color +
-                            '">\u25CF</span> ' +
-                            points[index].series.name +
-                            ": <b>" +
-                            y_value + renderUnit() +
-                            ' <span style="line-height: 25px;"></span></b><br/>';
-                    }
-                    return tooltipMarkup;
-                },
-                shared: true,
-                crosshairs: [
-                    {
-                        width: 1,
-                        color: "rgba(0, 0, 0, 0.1)",
-                        zIndex: 3,
-                    },
-                    false,
-                ],
-                useHTML: true,
-            },
-            plotOptions: {
-                series: {
-                    //pointWidth: 10,
-
-                }
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: type === 0 ? "Giá trị mua" : 'Khối lượng mua',
-                color: '#004370',
-                data: buyData,
-
-                label: {
-                    enabled: false,
-                },
-            }, {
-                name: type === 0 ? "Giá trị bán" : 'Khối lượng bán',
-                color: '#C32022',
-                data: sellData,
-
-                label: {
-                    enabled: false,
-                },
-            }
-            ],
-        });
-    },
     renderChartStackColumn: function (containerId, title, data1, data2) {
         var colors = [];
         colors[0] = "#0f0";//tăng
@@ -571,6 +460,7 @@ var ChartHelper = {
         const ctx = document.getElementById(containerId);
         var title = type == 0 ? "Giá trị giao dịch(tỷ đồng)" : "Khối lượng giao dịch(cổ phiếu)";
         var itemTitle = type == 0 ? "Giá trị " : "Khối lượng ";
+        var unit = type == 0 ? " (tỷ đồng)" : " (cổ phiếu)";
         const labels = time;
 
         const data = {
@@ -610,7 +500,13 @@ var ChartHelper = {
                         stacked: true,
                     },
                     y: {
-                        stacked: true
+                        stacked: true,
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, ticks) {
+                                return CommonHelper.formatNumber(value);
+                            }
+                        }
                     }
                 },
                 interaction: {
@@ -626,7 +522,19 @@ var ChartHelper = {
                         display: true,
                         text: title
                     },
+                    tooltip: {
+                        callbacks: {
 
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return itemTitle + "mua: " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 1)
+                                    return itemTitle + "bán: " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 2)
+                                    return itemTitle + "ròng: " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -673,9 +581,9 @@ var ChartHelper = {
                         callbacks: {
 
                             label: function (item) {
-                                return "Đóng góp: " + item.raw + " điểm";
+                                return "Đóng góp: " + CommonHelper.formatNumber(item.raw, 2) + " điểm";
                             },
-                        }
+                        },
                     }
                 },
                 responsive: false,
@@ -683,120 +591,28 @@ var ChartHelper = {
                     bar: {
                         backgroundColor: colorize()
                     }
+                },
+                interaction: {
+                    mode: 'point'
                 }
             }
         };
-
+        ctx.onclick = (evt) => {
+            const res = chart.getElementsAtEventForMode(
+                evt,
+                'nearest',
+                { intersect: true },
+                true
+            );
+            // If didn't click on a bar, `res` will be an empty array
+            if (res.length === 0) {
+                return;
+            }
+            window.open(configCommonUrl.companyDetail + chart.data.labels[res[0].index], "_self");
+        };
         var chart = new Chart(ctx, config);
         return chart;
     },
-    renderChartSlCp: function (containerId, giamSan, giam, khongDoi, tang, tangTran) {
-        const ctx = document.getElementById(containerId);
-
-        const data = {
-            labels: ["Giảm sàn", "Giảm", "Không đổi", "Tăng", "Tăng trần"],
-            datasets: [
-                {
-                    label: "x",
-                    data: [giamSan],
-                    borderColor: "#8eabdc",
-                    backgroundColor: "#8eabdc",
-                    order: 0
-                },
-                {
-                    data: [giam],
-                    borderColor: "#fc0002",
-                    backgroundColor: "#fc0002",
-                    order: 1
-                },
-                {
-                    label: "y",
-                    data: [khongDoi],
-                    borderColor: "#fee49a",
-                    backgroundColor: "#fee49a",
-                    order: 2,
-                },
-                {
-                    data: [tang],
-                    borderColor: "#33a42e",
-                    backgroundColor: "#33a42e",
-                    order: 3
-                },
-                {
-                    data: [tangTran],
-                    borderColor: "#efc2fa",
-                    backgroundColor: "#efc2fa",
-                    order: 4,
-                }
-            ]
-        };
-        const config = {
-            type: 'bar',
-            data: data,
-            height: 50,
-            options: {
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                indexAxis: 'y',
-                // Elements options apply to all of the options unless overridden in a dataset
-                // In this case, we are setting the border of each horizontal bar to be 2px wide
-                elements: {
-                    bar: {
-                        borderWidth: 2,
-                    }
-                },
-                responsive: true,
-                scales: {
-                    x: {
-                        stacked: true,
-                        display: false
-                    },
-                    y: {
-                        stacked: true,
-                        display: false
-                    },
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        display: false,
-                    },
-                    title: {
-                        display: false,
-
-                    }
-                },
-                animation: {
-                    onComplete: function (chart) {
-                        var chartInstance = chart.chart;
-                        var ctx = chartInstance.ctx;
-                        console.log(chartInstance);
-                        var width = chartInstance.boxes[0].width;
-                        ctx.textAlign = "center";
-                        chartInstance.data.datasets.forEach((dataset, i) => {
-                            var meta = chartInstance.getDatasetMeta(i);
-                            var startPoint = 0;
-                            Chart.helpers.each(meta.data.forEach(function (bar, index) {
-                                if (dataset.data[index] > 0) {
-
-                                    var pos = (bar.x - startPoint) + ((bar.x - startPoint) / 2);
-                                    startPoint = bar.x - startPoint;
-                                    ctx.fillText(dataset.data[index], pos, bar.y + 5);
-                                }
-                            }), this)
-                        });
-
-                    }
-                }
-            },
-        };
-
-        var chart = new Chart(ctx, config);
-        return chart;
-    },
-
     renderChartGdp: function (containerId, time, percentData, valueData) {
 
         const ctx = document.getElementById(containerId);
@@ -817,7 +633,7 @@ var ChartHelper = {
                 },
                 {
                     type: 'bar',
-                    label: "GDP theo giá hiện hành (tỷ đồng)",
+                    label: "GDP theo giá hiện hành ( triệu tỷ đồng)",
                     data: valueData,
                     borderColor: "#058dc7",
                     backgroundColor: "#058dc7",
@@ -836,7 +652,6 @@ var ChartHelper = {
                     y: {
                         display: true,
                         position: 'left',
-
                     },
                     y1: {
                         display: true,
@@ -845,6 +660,12 @@ var ChartHelper = {
                         grid: {
                             drawOnChartArea: false, // only want the grid lines for one axis to show up
                         },
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, ticks) {
+                                return CommonHelper.formatNumber(value / 1000000);
+                            }
+                        }
                     },
                     x: {
                         grid: {
@@ -870,9 +691,9 @@ var ChartHelper = {
 
                             label: function (item) {
                                 if (item.datasetIndex == 0)
-                                    return "Tăng trưởng GDP: " + item.raw + " (%)";
+                                    return "Tăng trưởng GDP: " + CommonHelper.formatNumber(item.raw, 2) + " (%)";
                                 if (item.datasetIndex == 1)
-                                    return "GDP theo giá hiện hành: " + $.number(item.raw, 0) + " (tỷ đồng)";
+                                    return "GDP theo giá hiện hành: " + CommonHelper.formatNumber(item.raw / 1000000, 2) + " ( triệu tỷ đồng)";
                             },
                         }
                     }
@@ -929,7 +750,14 @@ var ChartHelper = {
                         display: false,
                         text: title
                     },
-
+                    tooltip: {
+                        callbacks: {
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Chỉ số giá tiêu dùng: " + CommonHelper.formatNumber(item.raw, 2);
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -1002,11 +830,11 @@ var ChartHelper = {
                         callbacks: {
                             label: function (item) {
                                 if (item.datasetIndex == 0)
-                                    return "Cán cân thương mại: " + $.number(item.raw, 0) + " (triệu USD)";
+                                    return "Cán cân thương mại: " + CommonHelper.formatNumber(item.raw, 0) + " (triệu USD)";
                                 if (item.datasetIndex == 1)
-                                    return "Xuất khẩu: " + $.number(item.raw, 0) + " (triệu USD)";
+                                    return "Xuất khẩu: " + CommonHelper.formatNumber(item.raw, 0) + " (triệu USD)";
                                 if (item.datasetIndex == 2)
-                                    return "Nhập khẩu: " + $.number(item.raw, 0) + " (triệu USD)";
+                                    return "Nhập khẩu: " + CommonHelper.formatNumber(item.raw, 0) + " (triệu USD)";
                             },
                         }
                     }
@@ -1074,9 +902,9 @@ var ChartHelper = {
 
                             label: function (item) {
                                 if (item.datasetIndex == 0)
-                                    return "Đăng ký: " + $.number(item.raw, 2) + " (tỷ USD)";
+                                    return "Đăng ký: " + CommonHelper.formatNumber(item.raw, 2) + " (tỷ USD)";
                                 if (item.datasetIndex == 1)
-                                    return "Giải ngân FDI: " + $.number(item.raw, 2) + " (tỷ USD)";
+                                    return "Giải ngân FDI: " + CommonHelper.formatNumber(item.raw, 2) + " (tỷ USD)";
                             },
                         }
                     }
@@ -1172,7 +1000,20 @@ var ChartHelper = {
                         display: false,
                         text: title
                     },
-
+                    tooltip: {
+                        callbacks: {
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Tín dụng (MoM): " + CommonHelper.formatNumber(item.raw, 2);
+                                if (item.datasetIndex == 1)
+                                    return "Cung tiền M2 (MoM): " + CommonHelper.formatNumber(item.raw, 2);
+                                if (item.datasetIndex == 2)
+                                    return "Tăng trưởng tín dụng (YoY): " + CommonHelper.formatNumber(item.raw, 2);
+                                if (item.datasetIndex == 3)
+                                    return "Tăng trưởng Cung tiền M2 (YoY): " + CommonHelper.formatNumber(item.raw, 2);
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -1261,11 +1102,11 @@ var ChartHelper = {
 
                             label: function (item) {
                                 if (item.datasetIndex == 0)
-                                    return "Dân số: " + $.number(item.raw, 2) + " (triệu người)";
+                                    return "Dân số: " + CommonHelper.formatNumber(item.raw, 2) + " (triệu người)";
                                 if (item.datasetIndex == 1)
-                                    return "Số lượng lao động: " + $.number(item.raw, 2) + " (triệu người)";
+                                    return "Số lượng lao động: " + CommonHelper.formatNumber(item.raw, 2) + " (triệu người)";
                                 if (item.datasetIndex == 2)
-                                    return "Tỉ lệ lao động: " + $.number(item.raw, 2) + "(%)";
+                                    return "Tỉ lệ lao động: " + CommonHelper.formatNumber(item.raw, 2) + "(%)";
                             },
                         }
                     }
@@ -1329,7 +1170,16 @@ var ChartHelper = {
                         display: true,
                         text: title
                     },
-
+                    tooltip: {
+                        callbacks: {
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Giá mua: " + CommonHelper.formatNumber(item.raw, 0);
+                                if (item.datasetIndex == 1)
+                                    return "Giá bán: " + CommonHelper.formatNumber(item.raw, 0);
+                            },
+                        }
+                    }
                 }
             },
         };
@@ -1397,7 +1247,16 @@ var ChartHelper = {
                         display: true,
                         text: title
                     },
-
+                    tooltip: {
+                        callbacks: {
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return "Giá mua: " + CommonHelper.formatNumber(item.raw, 0);
+                                if (item.datasetIndex == 1)
+                                    return "Giá bán: " + CommonHelper.formatNumber(item.raw, 0);
+                            },
+                        }
+                    }
                 }
             },
         };

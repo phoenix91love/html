@@ -20,10 +20,12 @@
                         <div class="exchange">
                             <label for="ddl-exchange" class="col-form-label">Sàn</label>
                             <select id="ddl-exchange" class="form-control">
-                                <option value="" @(ViewBag.ExchangeId == 0 ? "selected" : "")>-- Tất cả --</option>
+                                <option value="" @(ViewBag.ExchangeId == 0 ? "selected" : "")>Tất cả</option>
                                 <option value="1" @(ViewBag.ExchangeId == 1 ? "selected" : "")>HOSE</option>
                                 <option value="2" @(ViewBag.ExchangeId == 2 ? "selected" : "")>HNX</option>
-                                <option value="5" @(ViewBag.ExchangeId == 5 ? "selected" : "")>UPCOM</option>
+                                <option value="5" @(ViewBag.ExchangeId == 5 ? "selected" : "")>UPCoM</option>
+                                <option value="3">VN30</option>
+                                <option value="4">HNX30</option>
                             </select>
                         </div>
 
@@ -71,6 +73,7 @@
                         label: "Name",
                         onSelectItem: function (item, element) {
                             $('#input-code').val(item.value);
+                            loadData(1);
                         }
                     });
                 }
@@ -110,7 +113,8 @@
                 loadData(1);
             });
 
-            $('#txt-input-code').mouseleave(function () {
+            $('#txt-input-code').mouseleave(function (e) {
+                e.preventDefault();
                 var value = $(this).val();
                 if (value == "") {
                     $('#input-code').val("");

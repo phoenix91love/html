@@ -80,7 +80,7 @@
 
 .comboTreeDropDownContainer li{
 	list-style-type: none;
-	padding-left: 15px;
+	padding-left: 5px;
 }
 
 .comboTreeDropDownContainer li .selectable{

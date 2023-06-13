@@ -2,66 +2,133 @@
 
 <div class="col-lg-12">
     <form id="fdi-form">
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="lbl-fdi-from-quy">Xem theo</label>
-                <select class="form-control" id="lbl-fdi-view-by" name="type">
-                    <option value="0">Tháng</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
-            <div class="form-group">
-                <label for="ddl-fdi-from-quy" >Từ tháng</label>
-                <select class="form-control" id="ddl-fdi-from-quy" name="fromThang">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+        @if (!ViewBag.IsMobile)
+        {
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="lbl-fdi-from-quy">Xem theo</label>
+                    <select class="form-control" id="lbl-fdi-view-by" name="type">
+                        <option value="0">Tháng</option>
+                    </select>
+                </div>
             </div>
 
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-fdi-from-nam" class="lbl-fdi-from-nam">Năm</label>
-                <select class="form-control" id="ddl-fdi-from-nam" name="fromYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 gdp-group-quy">
+                <div class="form-group">
+                    <label for="ddl-fdi-from-quy">Từ tháng</label>
+                    <select class="form-control" id="ddl-fdi-from-quy" name="fromThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2 fdi-group-quy">
-            <div class="form-group">
-                <label for="ddl-fdi-to-quy">Đến Tháng</label>
-                <select class="form-control" id="ddl-fdi-to-quy" name="toThang">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-fdi-from-nam" class="lbl-fdi-from-nam">Năm</label>
+                    <select class="form-control" id="ddl-fdi-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-2 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label for="ddl-fdi-to-nam" class="lbl-fdi-to-nam">Năm</label>
-                <select class="form-control" id="ddl-fdi-to-nam" name="toYear">
-                    @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
-                    {
-                        <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
-                    }
-                </select>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2 fdi-group-quy">
+                <div class="form-group">
+                    <label for="ddl-fdi-to-quy">Đến Tháng</label>
+                    <select class="form-control" id="ddl-fdi-to-quy" name="toThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label for="ddl-fdi-to-nam" class="lbl-fdi-to-nam">Năm</label>
+                    <select class="form-control" id="ddl-fdi-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+
+
+
+                    </select>
+                </div>
+
             </div>
 
-        </div>
-        <div class="col-lg-1 col-sm-12 col-12 mb-2">
-            <div class="form-group">
-                <label>&nbsp;</label>
-                <button type="button" class="btn btn-blue btn-search-fdi">Xem</button>
+
+            <div class="col-lg-1 col-sm-12 col-12 mb-2">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="button" class="btn btn-blue btn-search-fdi">Xem</button>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <label for="lbl-fdi-from-quy" class="col-form-label col-3">Xem theo</label>
+                <div class="col-4">
+                    <select class="form-control" id="lbl-fdi-view-by" name="type">
+                        <option value="0">Tháng</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-fdi-from-quy" class="col-form-label col-3">Từ tháng</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-fdi-from-quy" name="fromThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <label for="ddl-fdi-from-nam" class="col-form-label col-1">Năm</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-fdi-from-nam" name="fromYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears(DateTime.Now.AddYears(-1).Year))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ddl-fdi-to-quy" class="col-form-label col-3">Đến Tháng</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-fdi-to-quy" name="toThang">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetMonths(DateTime.Now.Month))
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+                    </select>
+                </div>
+                <label for="ddl-fdi-to-nam" class="col-form-label col-1">Năm</label>
+                <div class="col-4">
+                    <select class="form-control" id="ddl-fdi-to-nam" name="toYear">
+                        @foreach (var item in M.Common.Helpers.DateTimeHelper.GetYears())
+                        {
+                            <option value="@item.Value" @(item.Selected ? "selected" : "")>@item.Text</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-12 mb-2">
+                    <button type="button" class="btn btn-blue btn-search-fdi">Xem</button>
+                </div>
+            </div>
+        }
+
     </form>
 </div>

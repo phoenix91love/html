@@ -53,6 +53,8 @@
         dataSpecialPersonal = new List<CompanyPersonalGroupSpecialMdl>();
     }
     var countPercentStockCeo = (double)(NumberHelper.GetStockPercent(ViewBag.DataPercentStockCeo) ?? 0.0);
+    var dataNewShowPopup = (CompanyNewsMdl)ViewBag.DataNewsShowPopup;
+
 }
 @section Styles{
 
@@ -331,11 +333,11 @@
                                 }
 
                                 <div>
-                                    @Model.DataObject.ShortDescription
+                                    @Model.DataObject.ShortDescriptionFireant 
                                     @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
                                     {
                                         <div class="d-none content-extent">
-                                            @Html.Raw(Model.DataObject.ShortDescriptionFireant)
+                                            @Html.Raw(Model.DataObject.ShortDescription)
                                         </div>
                                         <div class="option">
                                             <a href="javascript:void(0)" onclick="ShowMoreDetail(this)">
@@ -351,7 +353,7 @@
                                 {
                                     <div>
                                         <div class="profession">
-                                            <a href="@Url.Action("CompanyList","Company",new { professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
+                                            <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0,  professionId=Model.DataObject.NganhGICSId })">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
                                         </div>
                                     </div>
                                 }
@@ -364,7 +366,7 @@
                                     <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
 
                                     <li><b>Đại diện pháp luật:</b> @Model.DataObject.PublishPersonalRule</li>
-                                    <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal</li>
+                                    <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal.Replace("Mr", string.Empty).Replace("Ms", string.Empty).Replace("Mrs", string.Empty).Trim().TrimStart('.')</li>
                                     <li><b>Niêm yết lần đầu:</b> @Model.DataObject.FirstTradeDate.ToString("dd/MM/yyyy")</li>
                                     <li><b>KLCP Niêm yết:</b> @Model.DataObject.CurrentCPNY.FormatNumber()</li>
                                     <li><b>KLCP Lưu hành:</b> @dataStock.ListingVolume.FormatNumber()</li>
@@ -385,10 +387,10 @@
                     <div id="tab4" class="tab tab-pane">
                         <div id="content-finance"></div>
                         <div id="content-finance-target"></div>
+                        <div class="unit"><span class="desktop">ĐVT: Triệu đồng</span> <span class="mobile">ĐVT: Tỷ đồng</span></div>
                     </div>
                     <input type="hidden" class="d-none" id="finance-typeView" value="1" />
-                    <input type="hidden" class="d-none" id="finance-year" value="@DateTime.Now.Year" />
-                    <input type="hidden" class="d-none" id="finance-quarter" value="@((int)(DateTime.Now.Month/3))" />
+                    <input type="hidden" class="d-none" id="finance-pageindex" value="0" />
                     <input type="hidden" class="d-none" id="finance-code" value="@Model.DataObject.Code" />
                     <input type="hidden" class="d-none" id="finance-target-year" value="@DateTime.Now.Year" />
                     <div id="tab5" class="tab tab-pane">
@@ -527,11 +529,11 @@
                     }
 
                     <div>
-                        @Model.DataObject.ShortDescription
+                        @Model.DataObject.ShortDescriptionFireant
                         @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
                         {
                             <div class="d-none content-extent">
-                                @Html.Raw(Model.DataObject.ShortDescriptionFireant)
+                                @Html.Raw(Model.DataObject.ShortDescription)
                             </div>
                             <div class="option">
                                 <a href="javascript:void(0)" onclick="ShowMoreDetail(this)">
@@ -549,7 +551,7 @@
                     {
                         <div>
                             <div class="profession">
-                                <a href="@Url.Action("CompanyList","Company",new { professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
+                                <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0, professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
                             </div>
                         </div>
                     }
@@ -561,9 +563,8 @@
                         <li><b>Website:</b> <a target="_blank" href="@Model.DataObject.Website">@Model.DataObject.Website</a></li>
                         <li><b>Tổng nhân sự:</b> @(Model.DataObject.EmployeeCount==0?"N/A":Model.DataObject.EmployeeCount.FormatNumber()) </li>
                         <li><b>Mã số kinh doanh:</b> @Model.DataObject.MSKinhDoanh</li>
-                        <li><b>Ngành nghề chính:</b> @Model.DataObject.NganhGICS</li>
                         <li><b>Đại diện pháp luật:</b> @Model.DataObject.PublishPersonalRule</li>
-                        <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal</li>
+                        <li><b>Đại diện công bố thông tin:</b> @Model.DataObject.PublishPersonal.Replace("Mr", string.Empty).Replace("Ms", string.Empty).Replace("Mrs", string.Empty).Trim().TrimStart('.')</li>
                         <li><b>Niêm yết lần đầu:</b> @Model.DataObject.FirstTradeDate.ToString("dd/MM/yyyy")</li>
                         <li><b>KLCP Niêm yết:</b> @Model.DataObject.CurrentCPNY.FormatNumber()</li>
                         <li><b>KLCP Lưu hành:</b> @dataStock.ListingVolume.FormatNumber()</li>
@@ -598,6 +599,8 @@
                         <span>@((item.MarketCap/1000000).FormatNumber())</span>
                     </li>
                 }
+
+
             </ul>
         </div>
         <!--end c-box-->
@@ -625,6 +628,58 @@
         </div>
     </div>
 </div>
+@functions
+{
+    public string TextEllipsis(string str, int maxLength, string side = "end", string ellipsis = "...")
+    {
+        if (str.Length > maxLength)
+        {
+            switch (side)
+            {
+                case "start":
+                    return ellipsis + str.Substring(str.Length - (maxLength - ellipsis.Length), maxLength);
+                case "mid":
+                    int sublen = maxLength / 2;
+                    return str.Substring(0, sublen) + "..." + str.Substring(str.Length - sublen, sublen);
+
+                case "end":
+                default:
+                    return str.Substring(0, maxLength - ellipsis.Length) + ellipsis;
+
+            }
+        }
+        return str;
+    }
+}
+
+@if (dataNewShowPopup != null)
+{
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalNewShowPopup">
+        <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="event-detail-title">@dataNewShowPopup.Title</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="event-detail-content">@Html.Raw(dataNewShowPopup.Content)</p>
+                    @if (!string.IsNullOrEmpty(dataNewShowPopup.File))
+                    {
+
+                        <p id="event-detail-download">
+                            File đính kèm:
+                            <br />
+                            <a target='_blank' href="@dataNewShowPopup.File">@TextEllipsis(dataNewShowPopup.File, 50, "mid", "...")</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <div class="modal modal-company-detail" tabindex="-1" role="dialog" id="Modal-company-detail">
     <div class="modal-dialog modal-dialog-centered" style="min-width: 30%;" role="document">
         <div class="modal-content">

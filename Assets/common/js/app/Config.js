@@ -1,5 +1,6 @@
 ﻿var configCommonUrl = {
     companyDetail: "/doanh-nghiep/",
+    history: "/du-lieu-giao-dich/"
 };
 var configHomeUrl = {
     homeGetCompanyWithoutPerson: "/home/getcompanywithoutperson",

@@ -1,0 +1,131 @@
+﻿@model Nqs.Models.FormModel.Iframe.BoxByStock
+@{
+    ViewBag.Title = "BoxByCode";
+    Layout = "~/Views/Shared/_IframeBoxLayout.cshtml";
+}
+<style>
+    .green {
+        color: #00873c;
+    }
+
+    .red {
+        color: #da374a;
+    }
+
+    .yellow {
+        color: #fed018;
+    }
+
+    .text {
+        color: #076DB6;
+        font-size: 15px;
+    }
+
+    .price {
+        font-weight: 700;
+        font-size: 25px;
+    }
+
+    .change {
+        font-size: 15px;
+        padding-top: 10px;
+    }
+
+        .change span:nth-child(2) {
+            font-weight: 700;
+        }
+
+    .name {
+        font-size: 15px;
+        color: #076DB6;
+        padding-top: 5px;
+        padding-bottom: 8px;
+    }
+
+    .line-bottom {
+        border-bottom: 0.500894px solid #E5E5E5;
+        margin-bottom: 5px;
+    }
+
+    .wrap {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        border-top: 4px solid #3B1B70;
+        padding: 5px;
+    }
+    .link-company{
+        font-weight: 700;
+    }
+</style>
+<div class="row wrap">
+    <div class="col-lg-12 col-12 line-bottom name">
+        @(Model.Code +": " + Model.Name)
+    </div>
+    <div class="col-lg-12 col-12 text">
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="row">
+                    <div class="col-lg-6 col-6">
+                        <h2 class="price">@(Model.Price.HasValue ? Model.Price.Value.ToString("N2") : "")</h2>
+                    </div>
+                    <div class="col-lg-6 col-6 change text-right @(Model.Change > 0 ? "green" : (Model.Change < 0 ? "red" : "yellow"))">
+                        <span>@(Model.Change.HasValue ? Model.Change.Value.ToString("N2") : "")</span>
+                        <span>(@(Model.PerChange.HasValue ? Model.PerChange.Value.ToString("N2")+"%" : ""))</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-6">
+                        KLGD
+                    </div>
+                    <div class="col-lg-6 col-6 text-right">
+                        @(Model.Volume.HasValue ? Model.Volume.Value.ToString("N0")+"(CP)" : "")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-6">
+                        NN mua ròng
+                    </div>
+                    <div class="col-lg-6 col-6 text-right">
+                        @(Model.NNMua.HasValue ? Model.NNMua.Value.ToString("N2")+"(tỷ đồng)" : "")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-12 link-company">
+                        <a href="@Url.Action("CompanyDetail", "Company", new { code=Model.Code })" target="_blank">
+                            Xem hồ sơ doanh nghiệp <svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.9502 3.43561L0.333916 6.65957L0.333916 0.21164L5.9502 3.43561Z" fill="#1776BB" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12" style="padding: 0px;">
+                <div id="chart-iframebox" style="min-height: 100px; width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var el = "chart-iframebox";
+        var code = "@Model.Code";
+        var url = configHomeUrl.homeGetDataBy + "?type=6MONTH&code="+code;
+        var params = "";
+        AjaxHelper.ajaxCall(url, params, function (result) {
+            if (result.ErrCode != "01") {
+
+                ChartHelper.renderChartIndex1(el,
+                    code,
+                    result.DataIndex,
+                    result.DataVolume,
+                    result.BasePrice,
+                    result.MinPrice,
+                    result.MaxPrice
+                );
+            }
+        });
+    });
+</script>

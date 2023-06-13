@@ -56,29 +56,15 @@ var CommonIndex = {
                     var cssColor = item.Change > 0 ? "green" : (item.Change < 0 ? "red" : "yellow");
                     var priceCssColor = item.Change > 0 ? "green" : (item.Change < 0 ? "red" : "black");
                     if (item.Type == 0) {
-                        //$('.header-' + item.Code + '-price').html($.number(item.Price, 2));
-                        //$('.header-' + item.Code + '-change').html($.number(item.Change, 2));
-                        //$('.header-' + item.Code + '-per-change').html($.number(item.PerChange, 2) + "%");
-                        //if (item.Change > 0) {
-                        //    $('.header-' + item.Code + '-color').removeClass("red");
-                        //    $('.header-' + item.Code + '-color').addClass("green");
-                        //    $('.header-' + item.Code + '-arow').removeClass("down");
-                        //    $('.header-' + item.Code + '-arow').addClass("up");
-                        //}
-                        //if (item.Change < 0) {
-                        //    $('.header-' + item.Code + '-color').removeClass("green");
-                        //    $('.header-' + item.Code + '-color').addClass("red");
-                        //    $('.header-' + item.Code + '-arow').removeClass("up");
-                        //    $('.header-' + item.Code + '-arow').addClass("down");
-                        //}
+                        
                     } else {
                         if (i < 5) {
                             $('.watch-list').prepend('<li class="wl is-border-right" data-code="' + item.Code + '"><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '"><div><span class="unit">' + item.Code +
-                                '</span><span class="' + priceCssColor + '">' + $.number(item.Price, 2) + '</span></div><div><span class="' + cssColor + '">' + $.number(item.Change, 2) + '</span><span class="' + cssColor + '">' + $.number(item.PerChange, 2) + '%</span></div></li>');
+                                '</span><span class="' + priceCssColor + '">' + CommonHelper.formatNumber(item.Price, 2) + '</span></div><div><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 2) + '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.PerChange, 2) + '%</span></div></li>');
                         }
 
-                        $('.watch-list-popup').append('<li class="li-watch-list-item-' + item.Code + '"><span>' + (i + 1) + '</span><span><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '">' + item.Code + '</a></span><span>' + $.number(item.Price, 2) +
-                            '</span><span class="' + cssColor + '">' + $.number(item.Change, 1) + '(' + $.number(item.PerChange, 2) +
+                        $('.watch-list-popup').append('<li class="li-watch-list-item-' + item.Code + '"><span>' + (i + 1) + '</span><span><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '">' + item.Code + '</a></span><span>' + CommonHelper.formatNumber(item.Price, 2) +
+                            '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 1) + '(' + CommonHelper.formatNumber(item.PerChange, 2) +
                             '%)</span><span><button class="a-btn-remove-item-watch-list" data-type="' + item.Type + '" data-code="' + item.Code + '" type="button"><i class="icon12-close"></i></button></span></li >');
 
                         i++;
@@ -238,11 +224,11 @@ var CommonIndex = {
                             name = item.Name;
                         }
                         $('ul.chiso').append('<li class="li-header-select ' + active + '" data-code="' + item.Code +
-                            '"><span>' + name + '</span><span>' + $.number(item.Price, 2) + '</span><span class="' + color + '">' + $.number(item.Change, 2) + '</span><span class="' + color + '">' + $.number(item.PerChange, 2) + '%</span><span class="' + arrow + '"></span></li>');
+                            '"><span>' + name + '</span><span>' + CommonHelper.formatNumber(item.Price, 2) + '</span><span class="' + color + '">' + CommonHelper.formatNumber(item.Change, 2) + '</span><span class="' + color + '">' + CommonHelper.formatNumber(item.PerChange, 2) + '%</span><span class="' + arrow + '"></span></li>');
                     } else {
-                        $('.header-' + item.Code + '-price').html($.number(item.Price, 2));
-                        $('.header-' + item.Code + '-change').html($.number(item.Change, 2));
-                        $('.header-' + item.Code + '-per-change').html($.number(item.PerChange, 2) + "%");
+                        $('.header-' + item.Code + '-price').html(CommonHelper.formatNumber(item.Price, 2));
+                        $('.header-' + item.Code + '-change').html(CommonHelper.formatNumber(item.Change, 2));
+                        $('.header-' + item.Code + '-per-change').html(CommonHelper.formatNumber(item.PerChange, 2) + "%");
                         if (item.Change > 0) {
                             $('.header-' + item.Code + '-color').removeClass("red");
                             $('.header-' + item.Code + '-color').addClass("green");
@@ -278,9 +264,9 @@ var CommonIndex = {
                 $('ul.thitruong li').remove();
 
                 result.forEach(function (item) {
-                    var val = $.number(item.Value,0);
+                    var val = CommonHelper.formatNumber(item.Value,0);
                     if (item.Code == "DAU-THO-WTI" || item.Code == "BTC")
-                        val = $.number(item.Value, 2);
+                        val = CommonHelper.formatNumber(item.Value, 2);
                     $('ul.thitruong').append('<li><span>' + item.Name + '</span><span>' + val + '</span></li>');
                 });
             }

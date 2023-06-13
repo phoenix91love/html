@@ -8,7 +8,7 @@
 <input class="d-none" type="hidden" id="news-page" value="@Model.CurrentPage" />
 <input class="d-none" type="hidden" id="news-pagesize" value="@(Model.DataList==null?0:Model.DataList.Count())" />
 
-<ul>
+<ul class="new-info">
     @foreach (var item in Model.DataList)
     {
         var randomId = System.Guid.NewGuid().ToString().ToLower();

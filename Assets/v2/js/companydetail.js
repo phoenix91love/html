@@ -71,14 +71,14 @@ function loadDataPriceHistory(exId, code) {
                 $('#pricehistory').append(`<li>
                     <span> `+ formatDateTodatemonthStr(data[i].Date) + `</span >
                     <span class="` + (data[i].Change > 0 ? 'green' : 'red') + `"> <span>` + data[i].ClosePrice + '</span><span> ' + Math.abs(data[i].Change) + '(' + Math.abs(data[i].PerChange) + `%)</span></span>
-                    <span>`+ new Intl.NumberFormat('EN').format(data[i].MatchVolBase.toFixed(0)) + `</span>
-                    <span>`+ new Intl.NumberFormat('EN').format(data[i].MatchVal.toFixed(2)) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0),0) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2),2) + `</span>
                    </li>`);
                 $('#pricehistory-mobile').append(`<li>
                     <span> `+ formatDateTodatemonthStr(data[i].Date) + `</span >
                     <span class="` + (data[i].Change > 0 ? 'green' : 'red') + `"> <span>` + data[i].ClosePrice + '</span><span> ' + Math.abs(data[i].Change) + '(' + Math.abs(data[i].PerChange) + `%)</span></span>
-                    <span>`+ new Intl.NumberFormat('EN').format(data[i].MatchVolBase.toFixed(0)) + `</span>
-                    <span>`+ new Intl.NumberFormat('EN').format(data[i].MatchVal.toFixed(2)) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0),0) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2),2) + `</span>
                    </li>`);
             }
             $('#pricehistory').append(`<li class="note">
@@ -93,10 +93,7 @@ function loadDataPriceHistory(exId, code) {
 
     });
 }
-Number.prototype.format = function (n, x) {
-    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
-};
+
 function addDays(date, days) {
     let dateCopy = new Date(date);
     dateCopy.setDate(date.getDate() + days);
@@ -220,13 +217,14 @@ $(document).ready(function () {
         }
     });
 
-    $('.r-tab .tile li:nth-child(1)').html('Ban lãnh đạo: ' + new Intl.NumberFormat('EN').format(percentStockCeo) + "%");
-    $('.r-tab .tile li:nth-child(2)').html('Nước ngoài: ' + new Intl.NumberFormat('EN').format(overRatios.toFixed(2)) + "%");
-    $('.r-tab .tile li:nth-child(3)').html('Khác: ' + new Intl.NumberFormat('EN').format((100.0 - overRatios - percentStockCeo)) + "%");
+    $('.r-tab .tile li:nth-child(1)').html('Ban lãnh đạo: ' + CommonHelper.formatNumber(percentStockCeo,2) + "%");
+    $('.r-tab .tile li:nth-child(2)').html('Nước ngoài: ' + CommonHelper.formatNumber(overRatios.toFixed(2),2) + "%");
+    $('.r-tab .tile li:nth-child(3)').html('Khác: ' + CommonHelper.formatNumber((100.0 - overRatios - percentStockCeo),2) + "%");
     loadFinanceByCode();
     LoadFinanceTarget();
     LoadMoreNews();
     CreateTooltip();
+    $('#modalNewShowPopup').modal('show');
 });
 
 function ShowDetail() {
@@ -235,99 +233,44 @@ function ShowDetail() {
 
 function loadFinanceByCode() {
     var code = $('#finance-code').val();
-    var year = $('#finance-year').val();
-    var quy = $('#finance-quarter').val();
+    var pageIndex = $('#finance-pageindex').val();
     var type = $('#finance-typeView').val();
-    var params = { code: code, quy: quy, year: year, type: type };
+    var params = { code: code, pageIndex: pageIndex, type: type };
     App.loadPartialCallback(urlCompanyFinaFinacial, params, "#content-finance", function () {
-        //$('.table-kqkd').treegrid();
-        //$('.table-bctc').treegrid();
         renderChartFinaceKQKD('chart-kqkd', 1, lableReportKQKD, dataReportKQKD1, dataReportKQKD2);
         renderChartFinaceKQKD('chart-cdkt', 2, lableReportCDKT, dataReportCDKT1, dataReportCDKT2);
     });
 }
 
 function getNextPropertiesBCTC() {
-    var type = $('#finance-typeView').val();
-    if (type == "1") {
-        var quy = parseInt($("#finance-quarter").val());
-        var currentYear = new Date().getFullYear();
-        var year = parseInt($('#finance-year').val());
-        if (quy == 4) {
-            if (year < currentYear) {
-                year = parseInt(year) + 1;
-                $("#finance-quarter").val(1);
-            } else
-                year = currentYear;
-            $('#finance-year').val(year);
-        } else {
-            if (quy < 4) {
-                if (currentYear == year && quy+1 >= (new Date().getMonth() / 3)) {
-                    return;
-                }
-                quy = parseInt(quy) + 1;
-                $("#finance-quarter").val(quy);
-            }
-        }
-    }
-    else {
-        var currentYear = new Date().getFullYear();
-        var year = parseInt($('#finance-year').val());
-        if (year < currentYear) {
-            year = parseInt(year) + 1;
-        } else
-            year = currentYear;
-        $('#finance-year').val(year);
-    }
+    var index = parseInt($('#finance-pageindex').val());
+    if (index == 0)
+        return;
+    $('#finance-pageindex').val(index - 1);
+    loadFinanceByCode();
 }
 
 function getPrePropertiesBCTC() {
-    var type = $('#finance-typeView').val();
-    if (type == "1") {
-        var quy = parseInt($("#finance-quarter").val());
-        if (quy == 1) {
-            $("#finance-quarter").val(4);
-            var year = parseInt($('#finance-year').val());
-            if (year > 2005) {
-                year = parseInt(year) - 1;
-            }
-            $('#finance-year').val(year);
-        } else {
-            if (quy > 1) {
-                quy = parseInt(quy) - 1;
-                $("#finance-quarter").val(quy);
-            }
-        }
-    }
-    else {
-        var year = parseInt($('#finance-year').val());
-        if (year > 2005) {
-            year = parseInt(year) - 1;
-        }
-        $('#finance-year').val(year);
-    }
+    if ($('#finishData').val() == 'true')
+        return;
+    var index = parseInt($('#finance-pageindex').val());
+    $('#finance-pageindex').val(index + 1);
+    loadFinanceByCode();
 }
 
 
 function financeNext() {
     getNextPropertiesBCTC();
-    loadFinanceByCode();
 }
 function financePre() {
     getPrePropertiesBCTC();
-    loadFinanceByCode();
 }
 function ChangeTypeView(i) {
     $('#finance-typeView').val(i);
-    $('#finance-year').val(new Date().getFullYear());
-    $('#finance-quarter').val(quarter_of_the_year());
+    $('#finance-pageindex').val(0);
     loadFinanceByCode();
 }
 
-function quarter_of_the_year() {
-    var month = new Date().getMonth() + 1;
-    return (Math.ceil(month / 3));
-}
 
 function LoadFinanceTarget(year) {
     if (year == undefined)
@@ -389,7 +332,7 @@ function renderChartFinaceKQKD(elementId, type, lables, data1, data2) {
                         display: false
                     },
                     ticks: {
-                        callback: (label) => new Intl.NumberFormat('en-US').format(label),
+                        callback: (label) => CommonHelper.formatNumber(label,2),
                         beginAtZero: true
                     },
                 }],
@@ -402,7 +345,7 @@ function renderChartFinaceKQKD(elementId, type, lables, data1, data2) {
                         //console.log('data', data);
                         //console.log('tooltipItem', tooltipItem);
                         let lable = data.datasets[tooltipItem.datasetIndex].label;
-                        return lable + ': ' + (new Intl.NumberFormat('en-US').format(tooltipItem.value));
+                        return lable + ': ' + (CommonHelper.formatNumber(tooltipItem.value,2));
                     }
                 }
             }
@@ -492,7 +435,7 @@ function CreateTooltip() {
             
             var str = `<div class='top-tool-tip'>
                         <h2><span class='code'>` + code + `</span> : <span class='name'>` + name +`</span></h2><hr/>
-                        <h3><span class='item1'>Giá: </span><span class='item2'>` + price + `</span><span class='item3 ` + priceClass + "'>" + change + `</span><span class='item4 ` + priceClass + "'>(" + perchange + `%)</span></h3>
+                        <h3><span class='item1'>Giá hiện tại: </span><span class='item2'>` + price + `</span><span class='item3 ` + priceClass + "'>" + change + `</span><span class='item4 ` + priceClass + "'>(" + perchange + `%)</span></h3>
                         <h3><span class='item1'>7 ngày trước:</span><span class='item2'>` + price7D + `</span><span class='item3 ` + price7DClass + "'>" + change7D + "</span><span class='item4 " + price7DClass + "'>(" + percentChange7D + `%)</span></h3>
                         <h3><span class='item1'>KLGD:</span><span class='item2'>` + klgd + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
                         <h3><span class='item1'>GTGD:</span><span class='item2'>` + gtgd + ` tỷ</span><span class='item3'></span><span class='item4'></span></h3>
@@ -501,5 +444,7 @@ function CreateTooltip() {
                     </div>`;
             return str;
         }
-    });
+    }).on('hide.bs.tooltip', () => {
+        $('.tooltip').remove();
+    });;
 }

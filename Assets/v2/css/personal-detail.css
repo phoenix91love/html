@@ -781,6 +781,55 @@
   body .l-main .history-content .history-body {
     font-size: 14px;
     list-style: circle; }
+  @media (min-width: 320px) {
+    body .l-main .news-personal .b-grid__img {
+      width: 44%; } }
+  @media (min-width: 768px) {
+    body .l-main .news-personal .b-grid__img {
+      width: 160px; } }
+  body .l-main .news-personal .h-show-pc {
+    display: none; }
+  @media (min-width: 320px) {
+    body .l-main .news-personal .b-grid__content {
+      width: 56%;
+      margin-top: unset; } }
+  @media (min-width: 768px) {
+    body .l-main .news-personal .b-grid__content {
+      width: calc(100% - 160px); } }
+  @media (min-width: 320px) {
+    body .l-main .news-personal .b-grid__content .h-show-mobile {
+      display: flex; } }
+  @media (min-width: 768px) {
+    body .l-main .news-personal .b-grid__content .h-show-mobile {
+      display: block; } }
+  body .l-main .news-personal .b-grid__content .h-show-mobile .b-grid__title {
+    width: 100%;
+    text-align: left; }
+    @media (min-width: 320px) {
+      body .l-main .news-personal .b-grid__content .h-show-mobile .b-grid__title {
+        padding-left: 15px; } }
+    @media (min-width: 768px) {
+      body .l-main .news-personal .b-grid__content .h-show-mobile .b-grid__title {
+        padding-left: unset; } }
+  @media (min-width: 320px) {
+    body .l-main .news-personal .b-grid__content .b-grid__desc {
+      display: none; } }
+  @media (min-width: 768px) {
+    body .l-main .news-personal .b-grid__content .b-grid__desc {
+      display: block; } }
+  @media (min-width: 320px) {
+    body .l-main .news-personal .b-grid__content div:last-child {
+      text-align: left;
+      padding-left: 15px; } }
+  @media (min-width: 768px) {
+    body .l-main .news-personal .b-grid__content div:last-child {
+      text-align: left;
+      padding-left: unset; } }
+  body .l-main .news-personal .btn-grey.m-auto {
+    background: #3b1b70;
+    color: #fff; }
+    body .l-main .news-personal .btn-grey.m-auto :hover {
+      color: #fff; }
   body .l-sidebar .info {
     padding: 23px 15px 10px;
     background: #F8F8F8;

@@ -72,10 +72,16 @@
                         <a href="#tab-gdp" class="tablink" data-id="1" data-toggle="tab">GDP</a>
                     </li>
                     <li>
-                        <a href="#tab-cpi-lamphat" class="tablink" data-id="2" data-toggle="tab">CPI - Lạm phát</a>
+                        <a href="#tab-cpi-lamphat" class="tablink" data-id="2" data-toggle="tab">
+                            <span class="h-show-pc">CPI - Lạm phát</span>
+                            <span class="h-show-mobile">CPI</span>
+                        </a>
                     </li>
                     <li>
-                        <a href="#tab-xuat-nhap-khau" class="tablink" data-id="3" data-toggle="tab">Xuất nhập khẩu</a>
+                        <a href="#tab-xuat-nhap-khau" class="tablink" data-id="3" data-toggle="tab">
+                            <span class="h-show-pc">Xuất nhập khẩu</span>
+                            <span class="h-show-mobile">XNK</span>
+                        </a>
                     </li>
                     <li>
                         <a href="#tab-fdi" class="tablink" data-id="4" data-toggle="tab">FDI</a>
@@ -84,10 +90,10 @@
                         <a href="#tab-tin-dung" class="tablink" data-id="5" data-toggle="tab">Tín dụng</a>
                     </li>
                     <li>
-                        <a href="#tab-dan-so-lao-dong" class="tablink" data-id="6" data-toggle="tab">Dân số lao động</a>
+                        <a href="#tab-dan-so-lao-dong" class="tablink" data-id="6" data-toggle="tab">Dân số</a>
                     </li>
                     <li>
-                        <a href="#tab-vang-ngoai-te" class="tablink" data-id="7" data-toggle="tab">Vàng ngoại tệ</a>
+                        <a href="#tab-vang-ngoai-te" class="tablink" data-id="7" data-toggle="tab">Giá</a>
                     </li>
                 </ul>
             </div>
@@ -177,8 +183,8 @@
             </div>
             <!--end c-box__content-->
         </div>
-        
-        @{Html.RenderPartial("~/Views/Shared/Partials/ExchangeRateRightBox.cshtml", Model); }
+
+        @{Html.RenderPartial("~/Views/Shared/Partials/ExchangeRateRightBox.cshtml", Model.ExchangeData); }
     </div>
 </div>
 

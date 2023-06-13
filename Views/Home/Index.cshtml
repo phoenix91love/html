@@ -33,7 +33,7 @@
                         <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="HNX-Index" data-toggle="tab">HNX</a>
                     </li>
                     <li>
-                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="UPCOM-Index" data-toggle="tab">UPcom</a>
+                        <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="UPCOM-Index" data-toggle="tab">UPCoM</a>
                     </li>
                     <li>
                         <a href="#tab-chart-vn" class="tablink" data-tab="vn" data-code="VN30-Index" data-toggle="tab">VN30</a>
@@ -55,6 +55,7 @@
                             <div class="b-grid__title">
                                 <span class="name vn-stock-code"></span>
                                 <span class="point vn-stock-price"></span>
+
                                 <span class="unit vn-stock-change price-change"></span>
                                 <span class="unit vn-stock-per-change price-change"></span>
                                 <span class="sp-last-update-data">
@@ -75,8 +76,8 @@
                                     <li><a href="javascript:void(0)" class="btn-load" data-type="5YEAR">5Y</a></li>
                                     <li><a href="javascript:void(0)" class="btn-load" data-type="">ALL</a></li>
                                 </ul>
-                                <div id="chart-index" style="height: 350px;"></div>
-
+                                <div id="chart-index" style="height: 325px;"></div>
+                                <div class="div-link-ex-detail"><a class="a-btn-view-detail-ex-index" href="/du-lieu-giao-dich/VN-Index">Xem chi tiết</a></div>
                             </div>
                             <div class="col-md-5">
                                 <div class="r-topnews index-data" data-tab="vn" style="display: block;">
@@ -86,8 +87,8 @@
                                         <li><span class="float-left">Giá trị GD</span><span class="float-right vn-gtgd"></span></li>
                                         <li><span class="float-left">NĐT NN Mua</span><span class="float-right vn-nnmua"></span></li>
                                         <li><span class="float-left">NĐT NN Bán</span><span class="float-right vn-nnban"></span></li>
-                                        <li><span class="float-left">Cao nhất</span><span class="float-right vn-highest"></span></li>
-                                        <li><span class="float-left">Thấp nhất</span><span class="float-right vn-lowest"></span></li>
+                                        <li><span class="float-left">Thấp/cao 1D</span><span class="float-right vn-highest-lowest"></span></li>
+                                        <li><span class="float-left">Thấp/cao 52T</span><span class="float-right vn-highest-lowest-52t"></span></li>
                                     </ul>
                                     <!--end l-top-news-->
                                     <div class="thongso">
@@ -187,7 +188,7 @@
                                             <select id="ddl-exchange" class="form-control">
                                                 <option value="HOSE">HOSE</option>
                                                 <option value="HNX">HNX</option>
-                                                <option value="UPCoM">UPCOM</option>
+                                                <option value="UPCoM">UPCoM</option>
                                             </select>
                                         </div>
                                         <label class="col-form-label col-lg-2 text-right h-show-pc">Tiêu chí</label>
@@ -250,7 +251,7 @@
                             <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="5" style="margin-right: 10px;">NN Mua</a></li>
                             <li><a class="a-btn-tab-type" href="javascript:void(0)" data-type="6" style="margin-right: 10px;">NN Bán</a></li>
                             <li> <a class="a-btn-tab-type1" href="javascript:void(0)" data-type="6" style="margin-right: 10px;">Quan tâm</a></li>
-                            <li><a class="a-btn-tab-type1" style="float:right; margin-right: 10px;">Tùy biến</a></li>
+                            <li><a class="a-btn-tab-type1" style="float:right; margin-right: 10px;" href="@Url.Action("BoLocCoPhieuList", "Statistics")">Tùy biến</a></li>
 
                         </ul>
                     </div>
@@ -363,7 +364,7 @@
             <!--end c-box__content-->
         </div>
         <!--end c-box-->
-        @{Html.RenderPartial("~/Views/Shared/Partials/ExchangeRateRightBox.cshtml", Model); }
+        @{Html.RenderPartial("~/Views/Shared/Partials/ExchangeRateRightBox.cshtml", Model.ExchangeData); }
         <!--end c-box-->
         <div class="c-box is-border is-primary is-minus-mobile c-update">
             <div class="c-box__title">
