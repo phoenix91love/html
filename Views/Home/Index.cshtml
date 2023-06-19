@@ -4,13 +4,17 @@
     ViewBag.PageName = "Toàn cảnh thị trường";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
 }
-
+@section metatags
+{
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="https://nguoiquansat.vn" />
+}
 @model Nqs.Models.FormModel.Stock.HomePageModel
 
 <script src="~/Assets/bundles/anychart/dist/js/anychart-core.min.js"></script>
 <script src="~/Assets/bundles/anychart/dist/js/anychart-treemap.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <input type="hidden" class="hd-tab" value="vn" />
 <input type="hidden" class="hd-type" value="DAY" />
 <input type="hidden" class="hd-code" value="VN-Index" />

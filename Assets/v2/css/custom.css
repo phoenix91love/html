@@ -1699,7 +1699,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 @media only screen and (min-width: 1200px) {
     .l-nav .top-header-watch-list.container {
         background: #f8f8f8;
-        padding: 14px 0;
+        padding: 5px 0;
         margin: 0 auto 0px;
         width: 100%;
         max-width: unset;
@@ -2470,7 +2470,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 
 
 .wrap-iframe .watch-list-modal .modal-content {
-    max-height: 280px;
+    max-height: 250px;
 }
 
 .wrap-iframe .modal-backdrop.show {
@@ -2532,4 +2532,30 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 
 .wrap-iframe ul.tab-tigia > li a {
     padding: 0 5px 0px 5px !important;
+}
+
+ul.tinmoi {
+    max-height: 195px;
+    overflow-y: auto;
+}
+
+.c-menu-expand span {
+    top: 8px !important;
+    background-color: #3b1b70;
+}
+
+    .c-menu-expand span:before, .c-menu-expand span:after {
+        background-color: #3b1b70;
+    }
+
+.c-menu-expand {
+    height: 21px !important;
+}
+
+.mobile.wrap-iframe .watch-list-modal .modal-body {
+    padding-top: 0px;
+}
+
+.mobile.wrap-iframe .watch-list-modal .c-search {
+    margin-left: 20px;
 }

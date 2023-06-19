@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/_IframeBoxLayout.cshtml";
 }
 <style>
+    body{
+        overflow: hidden;
+    }
+    .c-box .c-box__title {
+        padding-top: 8px !important;
+        padding-bottom: 7px !important;
+    }
     .c-box .c-box__title .c-box__title__name {
         display: inline !important;
     }
@@ -13,17 +20,41 @@
         text-transform: none;
         font-size: 13px;
         color: #3B1B70;
+        padding-top: 3px;
+    }
+    @@media only screen and (min-width: 330px) {
+        .c-thongke .c-box__content > ul.is-line-bottom > li a {
+            padding: 0 30px;
+        }
+
+        .c-thongke .c-box__content > ul.is-line-bottom > li:nth-child(2) a {
+            padding: 0 50px;
+        }
+    }
+    @@media only screen and (min-width: 300px) and (max-width: 330px) {
+        .c-thongke .c-box__content > ul.is-line-bottom > li a {
+            padding: 0 20px;
+        }
+
+        .c-thongke .c-box__content > ul.is-line-bottom > li:nth-child(2) a {
+            padding: 0 30px;
+        }
+    }
+   
+    @@media only screen and (max-width: 250px) {
+        .c-thongke .c-box__content > ul.is-line-bottom > li a {
+            padding: 0 10px;
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
     }
 
-    .c-thongke .c-box__content > ul.is-line-bottom > li a {
-        padding: 0 10px;
-        color: #000;
-        font-weight: bold;
-        font-size: 14px;
-    }
+
     .c-thongke .c-box__content > ul.is-line-bottom {
         text-transform: unset;
     }
+
         .c-thongke .c-box__content > ul.is-line-bottom > li a.active {
             color: #340C78;
         }
@@ -35,18 +66,20 @@
         .c-thongke .c-box__content > ul.is-line-bottom > li:nth-child(1) a {
             padding-left: 0px;
         }
-    .c-thongke .c-box__content > ul.contentinfo > li{
+
+    .c-thongke .c-box__content > ul.contentinfo > li {
         border-bottom: none !important;
     }
+
         .c-thongke .c-box__content > ul.contentinfo > li a {
             color: #340C78 !important;
         }
+
     .l-content {
         padding-top: 0px;
     }
 
     .item-code {
-       
         font-weight: bold;
     }
 
@@ -54,31 +87,46 @@
         color: #757575 !important;
         font-weight: 400;
     }
-    .top5-header-col-1, .top5-header-col-2, .top5-header-col-3{
+
+    .top5-header-col-1, .top5-header-col-2, .top5-header-col-3 {
         font-size: 14px;
         font-weight: bold;
     }
+
+    .top5-col-2, .top5-col-3 {
+        text-align: right !important;
+    }
+
+    .mobile .top5-col-2, .mobile .top5-col-3 {
+        text-align: center !important;
+    }
+
     .top5-header-col-1, .top5-col-1 {
         width: 23%;
         display: block;
         float: left;
     }
+
     .top5-header-col-2, .top5-col-2 {
         width: 43%;
         display: block;
         float: left;
     }
+
     .top5-header-col-3, .top5-col-3 {
         width: 34%;
         display: block;
         float: left;
     }
+
     .c-box__content {
         background: #F7F7F7 !important;
     }
+
     .c-box.is-minus-mobile .c-box__content {
-        padding: 10px 10px;
+        padding: 4px 8px 0 8px !important;
     }
+
     .c-box.c-update .c-box__title {
         background-color: #ededed;
     }
@@ -109,20 +157,16 @@
                             @foreach (var item in Model.Klgd)
                             {
                                 <li>
-                                    <span class="item-code top5-col-1">                                        
+                                    <span class="item-code top5-col-1">
                                         <a target="_top" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
                                     </span>
-                                    <span class="text-right top5-col-2">
+                                    <span class="top5-col-2">
                                         <span class="value-color">@item.Price.ToString("N2")</span>   <span class="@(item.PerChange > 0 ? "green" : (item.PerChange <0 ? "red" : "yellow"))">(@item.PerChange.ToString("n2")%) </span>
                                     </span>
-                                    <span class="value-color text-right top5-col-3">@item.Value.ToString("N0")</span>
+                                    <span class="value-color top5-col-3">@item.Value.ToString("N0")</span>
                                 </li>
                             }
 
-                            <li class="source">
-                                <span class="float-left"></span>
-                                <span class="float-right"></span>
-                            </li>
                         </ul>
                         <ul class="contentinfo" id="tab-2">
                             <li class="label1"><span class="top5-header-col-1">Mã CK</span><span class="text-center top5-header-col-2">Giá</span><span class="text-center top5-header-col-3">GTGD</span></li>
@@ -132,18 +176,15 @@
                                     <span class="item-code  top5-col-1">
                                         <a target="_top" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
                                     </span>
-                                    <span class="text-right  top5-col-2">
+                                    <span class="top5-col-2">
                                         <span class="value-color">
                                             @item.Price.ToString("N2")
                                         </span>   <span class="@(item.PerChange > 0 ? "green" : (item.PerChange <0 ? "red" : "yellow"))">(@item.PerChange.ToString("n2")%) </span>
                                     </span>
-                                    <span class="value-color text-right  top5-col-3">@item.Value.ToString("N2")</span>
+                                    <span class="value-color top5-col-3">@item.Value.ToString("N2")</span>
                                 </li>
                             }
-                            <li class="source">
-                                <span class="float-left"></span>
-                                <span class="float-right"></span>
-                            </li>
+                            
                         </ul>
                         <ul class="contentinfo" id="tab-3">
                             <li class="label1"><span class="top5-header-col-1">Mã CK</span><span class="text-center top5-header-col-2">Giá</span><span class="text-center top5-header-col-3">Mua ròng</span></li>
@@ -153,18 +194,15 @@
                                     <span class="item-code  top5-col-1">
                                         <a target="_top" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
                                     </span>
-                                    <span class="text-right  top5-col-2">
+                                    <span class=" top5-col-2">
                                         <span class="value-color">
                                             @item.Price.ToString("N2")
                                         </span>   <span class="@(item.PerChange > 0 ? "green" : (item.PerChange <0 ? "red" : "yellow"))">(@item.PerChange.ToString("n2")%) </span>
                                     </span>
-                                    <span class="value-color text-right  top5-col-3">@item.Value.ToString("N0")</span>
+                                    <span class="value-color top5-col-3">@item.Value.ToString("N0")</span>
                                 </li>
                             }
-                            <li class="source">
-                                <span class="float-left"></span>
-                                <span class="float-right"></span>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>

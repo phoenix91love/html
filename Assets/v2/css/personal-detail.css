@@ -150,12 +150,12 @@
         body .l-main .positon-content ul li :nth-child(1) {
           width: 12%; } }
     body .l-main .positon-content ul li :nth-child(2) {
-      width: 38%; }
+      width: 60%; }
     body .l-main .positon-content ul li :nth-child(3) {
-      width: 30%; }
+      width: 20%; }
     body .l-main .positon-content ul li :nth-child(4) {
       text-align: right;
-      width: 22%; }
+      width: 15%; }
     body .l-main .positon-content ul li span {
       color: #222222;
       font-size: 16px;

@@ -13,7 +13,7 @@
 
 <div class="tab__3 is-line-bottom">
     <ul class="l-tab">
-        <li><div>Tên cổ đông</div><div>Tỉ lệ</div></li>
+        <li><div>Tên cổ đông</div><div>Số lượng</div><div>Tỉ lệ</div></li>
         @foreach (var item in data.Where(x => x.Percent > 0).OrderByDescending(x => x.Percent).Take(10))
         {
             <li>
@@ -26,13 +26,14 @@
                 {
                     <div>@Html.Raw(string.IsNullOrEmpty(item.UserOrCompanyOwner) ? item.UserOrCompanyOwnerName : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>{item.UserOrCompanyOwnerName}</a>") </div>
                 }
-
+                <div>@(((double)item.CountStock).FormatNumberUnit(0))</div>
                 <div>@*<span class="vuong" style="background-color: @item.Color"></span>*@  @item.Percent.FormatNumber()%</div>
+
             </li>
         }
     </ul>
     <div class="r-tab">
-        <canvas id="charShearHolder" width="320" height="320"></canvas>
+        <canvas id="charShearHolder" width="150" height="150"></canvas>
         <ul class="tile">
             <li>Trong nước: N/A%</li>
             <li>Nước ngoài : N/A%</li>

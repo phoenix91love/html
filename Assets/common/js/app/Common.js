@@ -376,6 +376,12 @@ setInterval(() => {
     }
 
 }, 60 * 1000);
+setInterval(() => {
+    var isMobile = $("body").hasClass("mobile");
+    if (!isMobile) {
+        CommonIndex.loadHeaderNews();
+    }
+}, 3 * 60 * 1000);
 
 setInterval(() => {
     var isMobile = $("body").hasClass("mobile");

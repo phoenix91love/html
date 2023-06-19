@@ -219,9 +219,11 @@
 
             ul {
                 li {
-                    min-width: 150px;
+                   /* min-width: 150px;*/
                     border-bottom: 1px solid #ededed;
-
+                    padding-bottom:2px;
+                    margin-bottom:2px;
+                    line-height:1.8;
                     span:last-child {
                         margin-left: 10px;
                     }
@@ -1884,6 +1886,8 @@
         ul.c-box {
             li {
                 border-bottom: 1px solid #ededed;
+                padding-bottom:2px;
+                margin-bottom:2px;
             }
 
             li:last-child {
@@ -2127,7 +2131,7 @@
 
                             img {
                                 width: 90px;
-                                height: auto;
+                                height: 90px;
                                 position: relative;
                                 left: -6px;
                                 top: -5px;
@@ -2379,7 +2383,7 @@
     }
 
     .container-company-detail .l-main .personal-special ul {
-        padding: 11px 29px 10px 44px;
+     /*   padding: 11px 29px 10px 44px;*/
         background: #F8F8F8;
         border-radius: 10px;
         margin-bottom: 12px;

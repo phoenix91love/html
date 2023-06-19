@@ -2189,7 +2189,7 @@ ul.percent {
     background-color: transparent;
     position: absolute;
     z-index: 2;
-    top: 16px;
+    top: 9px;
     right: 10px;
     cursor: pointer;
 }
@@ -2394,11 +2394,11 @@ ul.percent {
 
     .c-header-inner__left {
         border-bottom: 0px solid #bdbdbd;
-        height: 66px;
+        height: 50px;
         text-align: center;
         margin-left: -15px;
         margin-right: -15px;
-        padding: 10px 15px;
+        padding: 5px 15px;
     }
 
     .pagination > li > a, .pagination > li > span {

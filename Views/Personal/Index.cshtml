@@ -38,6 +38,11 @@
     {
         dataNewsLinked = new List<CompanyGetNewsMdl>();
     }
+    var dataNewsGoogle = (GoogleCustomSearchMdl)ViewBag.NewsGoogle;
+    if (dataNewsGoogle == null)
+    {
+        dataNewsGoogle = new GoogleCustomSearchMdl() { DataSearchs = new List<DataSearch>() };
+    }
 }
 
 @section Styles{
@@ -397,10 +402,10 @@
                 }
 
                 @if (dataPersonal.PersonalStockRelationships.Any())
-                {
-                    dataPersonal.PersonalStockRelationships = dataPersonal.PersonalStockRelationships.Where(x => !string.IsNullOrEmpty(x.Relationship)).ToList();
+                    {
+                        var dataGroup = dataPersonal.PersonalStockRelationships.GroupBy(x => x.PersonalName).OrderByDescending(x=>x.Max(y=>y.CountStock));
 
-                    <div class="relationship-content">
+                         <div class="relationship-content">
                         <div class="title">Cá nhân liên quan</div>
                         <div class="relationship-detail">
                             <table class="table table-hover table-striped table-bordered table-common table-responsive">
@@ -416,33 +421,37 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in dataPersonal.PersonalStockRelationships)
+                                    @foreach (var itemGroup in dataGroup)
                                     {
-                                        <tr>
-                                            <td>
-                                                <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage) ? "/Upload/images/noimage.png" : System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString() + "/Image" + (item.PersonalImage.Replace(@"\", "/")))" /></div>
-                                            </td>
-                                            <td>
-                                                @if (string.IsNullOrEmpty(item.PersonalCode))
-                                                {
-                                                    <h3 class="b-grid__title">@item.PersonalName </h3>
-                                                }
-                                                else
-                                                {
-                                                    <h3>
-                                                        <a href='@Url.Action("Index", "Personal", new { nqsCode = item.PersonalCode.ToLower(), companyCode = ViewBag.CompanyCode, name = M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
-                                                            @item.PersonalName
-                                                        </a>
-                                                    </h3>
-                                                }
-                                            </td>
-                                            <td><span>@item.Relationship</span> </td>
-                                            <td><span> <a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></span></td>
-                                            <td><span> @item.CountStock.FormatNumber()</span></td>
-                                            <td><span> @item.LastUpdateDate.ToString("dd/MM/yyyy")</span></td>
-                                            <td><span> @item.CountValue.FormatNumberUnit(2)</span></td>
-                                        </tr>
+                                        foreach (var item in itemGroup)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="img"> <img src="@(string.IsNullOrEmpty(item.PersonalImage) ? "/Upload/images/noimage.png" : System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString() + "/Image" + (item.PersonalImage.Replace(@"\", "/")))" /></div>
+                                                </td>
+                                                <td>
+                                                    @if (string.IsNullOrEmpty(item.PersonalCode))
+                                                    {
+                                                        <h3 class="b-grid__title">@item.PersonalName </h3>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h3>
+                                                            <a href='@Url.Action("Index", "Personal", new { nqsCode = item.PersonalCode.ToLower(), companyCode = ViewBag.CompanyCode, name = M.Common.Extensions.RegexHelper.TiengVietKDau(item.PersonalName).ToLower() })'>
+                                                                @item.PersonalName
+                                                            </a>
+                                                        </h3>
+                                                    }
+                                                </td>
+                                                <td><span>@item.Relationship</span> </td>
+                                                <td><span> <a href="@Url.Action("CompanyDetail","Company",new {code=item.StockCode })">@item.StockCode</a></span></td>
+                                                <td><span> @item.CountStock.FormatNumber()</span></td>
+                                                <td><span> @item.LastUpdateDate.ToString("dd/MM/yyyy")</span></td>
+                                                <td><span> @item.CountValue.FormatNumberUnit(2)</span></td>
+                                            </tr>
+                                        }
                                     }
+
                                 </tbody>
                             </table>
                         </div>
@@ -450,19 +459,20 @@
                     </div>
                 }
 
-                @if (dataNewsLinked.Any())
-                {
-                    <div class="news-personal">
-                        <div class="c-box c-other mb-3">
-                            <div class="info-navbar-content">
-                                <ul class="nav info-navbar info-grey">
-                                    <li class="active"><a href="#news-relation" data-toggle="tab" class="nav-link">Tin liên quan</a></li>
-                                    <li><a href="#news-event" data-toggle="tab" class="nav-link">Sự kiện</a></li>
-                                    <li><a href="#news-google" data-toggle="tab" class="nav-link">Tin Google</a></li>
-                                </ul>
-                            </div>
-                            <div class="tab-content" id="newsTabContent">
-                                <div class="tab tab-pane active" id="news-relation">
+
+                <div class="news-personal">
+                    <div class="c-box c-other mb-3">
+                        <div class="info-navbar-content">
+                            <ul class="nav info-navbar info-grey">
+                                <li class="active"><a href="#news-relation" data-toggle="tab" class="nav-link">Tin liên quan</a></li>
+                                <li><a href="#news-event" data-toggle="tab" class="nav-link">Sự kiện</a></li>
+                                <li><a href="#news-google" data-toggle="tab" class="nav-link">Tin Google</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="newsTabContent">
+                            <div class="tab tab-pane active" id="news-relation">
+                                @if (dataNewsLinked.Any())
+                                {
                                     <div class="c-template-list">
                                         <ul>
                                             @foreach (var item in dataNewsLinked)
@@ -493,77 +503,49 @@
                                         <input type="hidden" value="1" id="getnew-page" />
                                         <a class="btn btn-grey m-auto" href="javascript:void(0)" onclick="LoadMoreNews(this)">Xem thêm</a>
                                     </div>
-                                </div>
-                                <div class="tab tab-pane" id="news-event">
-                                    <div class="c-template-list">
-                                        <ul>
-                                            @foreach (var item in dataNewsLinked.OrderByDescending(x => x.Title))
-                                            {
-                                                <li>
-                                                    <div class="b-grid">
-                                                        <div class="b-grid__row h-show-pc">
-                                                            <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
-                                                        </div>
-                                                        <div class="b-grid__img"><a href="@item.Url"><img src="@item.Thumbnai" alt="@item.Title" title="@item.Title"></a></div>
-                                                        <div class="b-grid__content">
-                                                            <div class="b-grid__row h-show-mobile">
-                                                                <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
-                                                            </div>
-                                                            <div class="b-grid__row b-grid__desc">
-                                                                @Html.Raw(item.ShortContent)
-                                                            </div>
-                                                            <div class="b-grid__row"><a class="b-grid__cat" href='@($"https://nguoiquansat.vn/{LoaiDau(item.Category)}".ToLower())'>@item.Category</a></div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-
-                                    <div class="w-100 text-right mt-3">
-                                        <input type="hidden" value="1" id="getnew-page" />
-                                        <a class="btn btn-grey m-auto" href="javascript:void(0)" onclick="LoadMoreNews(this)">Xem thêm</a>
-                                    </div>
-                                </div>
-                                <div class="tab tab-pane" id="news-google">
-                                    <div class="c-template-list">
-                                        <ul>
-                                            @foreach (var item in dataNewsLinked.OrderBy(x => x.Title))
-                                            {
-                                                <li>
-                                                    <div class="b-grid">
-                                                        <div class="b-grid__row h-show-pc">
-                                                            <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
-                                                        </div>
-                                                        <div class="b-grid__img"><a href="@item.Url"><img src="@item.Thumbnai" alt="@item.Title" title="@item.Title"></a></div>
-                                                        <div class="b-grid__content">
-                                                            <div class="b-grid__row h-show-mobile">
-                                                                <h3 class="b-grid__title"><a href="@item.Url">@item.Title</a></h3>
-                                                            </div>
-                                                            <div class="b-grid__row b-grid__desc">
-                                                                @Html.Raw(item.ShortContent)
-                                                            </div>
-                                                            <div class="b-grid__row"><a class="b-grid__cat" href='@($"https://nguoiquansat.vn/{LoaiDau(item.Category)}".ToLower())'>@item.Category</a></div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            }
-                                        </ul>
-
-                                    </div>
-
-                                    <div class="w-100 text-right mt-3">
-                                        <input type="hidden" value="1" id="getnew-page" />
-                                        <a class="btn btn-grey m-auto" href="javascript:void(0)" onclick="LoadMoreNews(this)">Xem thêm</a>
-                                    </div>
-                                </div>
+                                }
                             </div>
-                            
-                            <!--end c-box__content-->
+                            <div class="tab tab-pane" id="news-event">
+
+                            </div>
+                            <div class="tab tab-pane" id="news-google">
+                                @if (dataNewsGoogle.DataSearchs.Any())
+                                {
+                                    <div class="c-template-list">
+                                        <ul>
+                                            @foreach (var item in dataNewsGoogle.DataSearchs)
+                                            {
+                                                <li>
+                                                    <div class="b-grid">
+                                                        <div class="b-grid__row h-show-pc">
+                                                            <h3 class="b-grid__title"><a href="@item.Link">@item.Title</a></h3>
+                                                        </div>
+                                                        <div class="b-grid__img"><a href="@item.Link"><img src="@(item.Pagemaps.CseThumbnails==null?item.Pagemaps.CseImages?.FirstOrDefault()?.SrcImage: item.Pagemaps.CseThumbnails.FirstOrDefault().SrcImage)" alt="@item.Title" title="@item.Title"></a></div>
+                                                        <div class="b-grid__content">
+                                                            <div class="b-grid__row h-show-mobile">
+                                                                <h3 class="b-grid__title"><a href="@item.Link">@item.Title</a></h3>
+                                                            </div>
+                                                            <div class="b-grid__row b-grid__desc">
+                                                                @Html.Raw(item.Snippet)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+
+                                    </div>
+
+                               
+                                }
+                            </div>
                         </div>
-                        
+
+                        <!--end c-box__content-->
                     </div>
-                }
+
+                </div>
+
 
                 @*@if (dataPersonal.PersonalHistorys.Any())
                     {
@@ -619,8 +601,8 @@
                     @if (dataPersonal.PersonalHistorys.Any())
                     {
                         <div class="d-none content-extent">
-                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderBy(x => x.IndexHistory).Take(4).Select(x => x.History).Reverse())}.</br>" : string.Empty)}" : string.Empty)
-                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderBy(x => x.IndexHistory).Take(4).Select(x => x.History).Reverse())}.</br>" : string.Empty)}" : string.Empty)
+                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
+                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
                         </div>
                         <div class="option">
                             <a href="javascript:void(0)" onclick="ShowDetail(this)">Mở rộng</a>

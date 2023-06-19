@@ -100,8 +100,11 @@
     .container-company-detail .l-main .r-topnews {
       display: block; } }
   .container-company-detail .l-main .r-topnews ul li {
-    min-width: 150px;
-    border-bottom: 1px solid #ededed; }
+    /* min-width: 150px;*/
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    line-height: 1.8; }
     .container-company-detail .l-main .r-topnews ul li span:last-child {
       margin-left: 10px; }
     .container-company-detail .l-main .r-topnews ul li:last-child {
@@ -1188,7 +1191,9 @@
       margin-top: 0; } }
 
 .container-company-detail .l-sidebar ul.c-box li {
-  border-bottom: 1px solid #ededed; }
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 2px;
+  margin-bottom: 2px; }
 
 .container-company-detail .l-sidebar ul.c-box li:last-child {
   border-bottom: unset; }
@@ -1346,7 +1351,7 @@
           overflow: hidden; }
           .container-company-detail .l-sidebar .personal-special ul li .grid .g-img img {
             width: 90px;
-            height: auto;
+            height: 90px;
             position: relative;
             left: -6px;
             top: -5px; }
@@ -1508,7 +1513,7 @@
     border-bottom: none;
     padding-bottom: 0; }
   .container-company-detail .l-main .personal-special ul {
-    padding: 11px 29px 10px 44px;
+    /*   padding: 11px 29px 10px 44px;*/
     background: #F8F8F8;
     border-radius: 10px;
     margin-bottom: 12px; }
