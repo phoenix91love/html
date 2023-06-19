@@ -280,6 +280,38 @@ body {
             .desktop {
                 @include r(991) {
                     display: block;
+                    overflow: auto;
+                    padding-bottom: 5px;
+
+                    &::-webkit-scrollbar {
+                        height: 8px;
+                    }
+                    /* Track */
+                    &::-webkit-scrollbar-track {
+                        @include r(991) {
+                            background: #F4F4F4 !important;
+                        }
+                    }
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        @include r(991) {
+                            background: #3B1B70 !important;
+                            border-radius: 4px !important;
+                        }
+                    }
+                    /* Handle on hover */
+                    &::-webkit-scrollbar-thumb:hover {
+                        @include r(991) {
+                            background: #3B1B70 !important;
+                            border-radius: 4px !important;
+                        }
+                    }
+                }
+
+                li {
+                    @include r(991) {
+                        width: 780px;
+                    }
                 }
             }
 
@@ -293,7 +325,7 @@ body {
                 margin-bottom: 18px;
 
                 @include r(991) {
-                    margin-bottom: 20px;
+                    margin-bottom: 10px;
                 }
             }
 
@@ -307,8 +339,8 @@ body {
                         vertical-align: middle;
 
                         @include r(991) {
-                            font-size: 14px;
-                            line-height: 16px;
+                            font-size: 16px;
+                            line-height: 18px;
                         }
                     }
                 }
@@ -359,8 +391,8 @@ body {
                         line-height: 18px;
 
                         @include r(991) {
-                            font-size: 12px;
-                            line-height: 14px;
+                            font-size: 16px;
+                            line-height: 18px;
                         }
 
                         a {
@@ -369,8 +401,8 @@ body {
                             line-height: 18px;
 
                             @include r(991) {
-                                font-size: 12px;
-                                line-height: 14px;
+                                font-size: 16px;
+                                line-height: 18px;
                             }
                         }
                     }
@@ -388,6 +420,49 @@ body {
         }
 
         .stock-conent {
+            .desktop {
+                @include r(991) {
+                    display: block;
+                    overflow: auto;
+                    padding-bottom: 5px;
+
+                    &::-webkit-scrollbar {
+                        height: 8px;
+                    }
+                    /* Track */
+                    &::-webkit-scrollbar-track {
+                        @include r(991) {
+                            background: #F4F4F4 !important;
+                        }
+                    }
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                        @include r(991) {
+                            background: #3B1B70 !important;
+                            border-radius: 4px !important;
+                        }
+                    }
+                    /* Handle on hover */
+                    &::-webkit-scrollbar-thumb:hover {
+                        @include r(991) {
+                            background: #3B1B70 !important;
+                            border-radius: 4px !important;
+                        }
+                    }
+                }
+
+                li {
+                    @include r(991) {
+                        width: 780px;
+                    }
+                }
+            }
+
+            .mobile {
+                display: none;
+            }
+
+
             .title {
                 font-size: 18px;
                 font-weight: 600;
@@ -408,8 +483,8 @@ body {
                         vertical-align: middle;
 
                         @include r(991) {
-                            font-size: 14px;
-                            line-height: 16px;
+                            font-size: 16px;
+                            line-height: 18px;
                         }
 
                         &.label-unit {
@@ -467,8 +542,8 @@ body {
                         line-height: 18px;
 
                         @include r(991) {
-                            font-size: 12px;
-                            line-height: 14px;
+                            font-size: 16px;
+                            line-height: 18px;
                         }
 
                         a {
@@ -477,8 +552,8 @@ body {
                             line-height: 18px;
 
                             @include r(991) {
-                                font-size: 12px;
-                                line-height: 14px;
+                                font-size: 16px;
+                                line-height: 18px;
                             }
                         }
                     }
@@ -486,7 +561,7 @@ body {
 
                 &:nth-child(2) {
                     margin-bottom: 18px;
-                    padding-bottom: 18px;
+                    padding-bottom: 5px;
                     border-bottom: 1px solid #E5E5E5;
                 }
 
@@ -1344,6 +1419,10 @@ body {
                                         z-index: 1;
                                         top: 26px;
                                         right: -6px;
+
+                                        @include r(991) {
+                                            right: -18px;
+                                        }
                                     }
                                 }
                             }
@@ -1625,6 +1704,11 @@ body {
     }
 
     .l-sidebar {
+        @include r(991) {
+            display: block;
+        }
+
+
         .info {
             padding: 23px 15px 10px;
             background: #F8F8F8;
@@ -1667,7 +1751,7 @@ body {
         }
 
         .content-struct {
-            margin-top: 10px;
+            margin-top: 0;
             padding: 18px 15px 10px;
             background: #F8F8F8;
             border-radius: 10px;
