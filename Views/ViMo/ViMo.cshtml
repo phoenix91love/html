@@ -1,10 +1,18 @@
 ﻿@model Nqs.Models.FormModel.ViMo.ViMoListModel
 @{
-    ViewBag.Title = "Vĩ mô";
+    ViewBag.Title = "Người Quan Sát | Thông tin và dữ liệu kinh tế vĩ mô, chính sách vĩ mô, lạm phát, GDP, FDI, tỉ giá, lãi suất";
     ViewBag.PageName = "Vĩ mô";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
 }
-
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Thông tin và dữ liệu kinh tế vĩ mô, chính sách vĩ mô, lạm phát, GDP, FDI, tỉ giá, lãi suất">
+    <meta name="keywords" content="Kinh tế vĩ mô, lạm phát, GDP, giá cả hàng hóa, tỉ giá ngoại tệ, lãi suất ngân hàng, giá vàng, giá USD, thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo" />
+    <meta name="description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Thông tin và dữ liệu kinh tế vĩ mô, chính sách vĩ mô, lạm phát, GDP, xuất nhập khẩu, FDI, tỉ giá ngoại tệ, lãi suất ngân hàng, giá cả hàng hóa" />
+    <meta property="og:description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Thông tin và dữ liệu kinh tế vĩ mô, chính sách vĩ mô, lạm phát, GDP, xuất nhập khẩu, FDI, tỉ giá ngoại tệ, lãi suất ngân hàng, giá cả hàng hóa" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
+}
 @section Styles{
     @Styles.Render("~/bundles/styles/bootstrap-table")
     <style>

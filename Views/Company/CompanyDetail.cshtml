@@ -2,6 +2,7 @@
 @using M.Common.Extensions
 @using Nqs.Models.FormModel.Company
 @model CompanyInforMdl
+
 @{
 
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
@@ -55,6 +56,15 @@
     var countPercentStockCeo = (double)(NumberHelper.GetStockPercent(ViewBag.DataPercentStockCeo) ?? 0.0);
     var dataNewShowPopup = (CompanyNewsMdl)ViewBag.DataNewsShowPopup;
 
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Hồ sơ doanh nghiệp @ViewBag.Code - @ViewBag.Title">
+    <meta name="keywords" content="@ViewBag.Code, hồ sơ @ViewBag.Code, giá cổ phiếu @ViewBag.Code, ban lãnh đạo @ViewBag.Code, báo cáo tài chính @ViewBag.Code, tin tức @ViewBag.Code, sự kiện @ViewBag.Code, chia cổ tức @ViewBag.Code, cơ cấu sở hữu @ViewBag.Code" />
+    <meta name="description" content="Hồ sơ doanh nghiệp @ViewBag.Code - @ViewBag.Title. Thông tin và dữ liệu chuyên sâu @ViewBag.Code, diễn biến giá cổ phiếu @ViewBag.Code. Hồ sơ Ban lãnh đạo, cơ cấu sở hữu, chỉ số tài chính, báo cáo tài chính, tin tức sự kiện @ViewBag.Code" />
+    <meta property="og:description" content="Hồ sơ doanh nghiệp @ViewBag.Code - @ViewBag.Title. Thông tin và dữ liệu chuyên sâu @ViewBag.Code, diễn biến giá cổ phiếu @ViewBag.Code. Hồ sơ Ban lãnh đạo, cơ cấu sở hữu, chỉ số tài chính, báo cáo tài chính, tin tức sự kiện @ViewBag.Code" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 @section Styles{
 
@@ -298,6 +308,7 @@
                     <ul class="nav info-navbar info-grey">
                         <li class="active"><a href="#tab1" data-toggle="tab" class="nav-link">Tin tức sự kiện</a></li>
                         <li><a href="#tab6" data-toggle="tab" class="nav-link">Thông tin cơ bản</a></li>
+                        @*<li><a href="#tab7" data-toggle="tab" class="nav-link">Thông tin doanh nghiệp</a></li>*@
                         <li><a href="#tab2" data-toggle="tab" class="nav-link">Ban lãnh đạo</a></li>
                         <li><a href="#tab3" data-toggle="tab" class="nav-link">Cơ cấu sở hữu</a></li>
                         <li><a href="#tab4" data-toggle="tab" class="nav-link">Thông tin tài chính</a></li>
@@ -324,6 +335,11 @@
                             </div>
                         </div>
                     </div>
+                    @*<div id="tab7" class="tab tab-pane">
+                        <div class="c-box__content white__bg">
+                            @Html.Raw(Model.DataObject.DescriptionCafef)
+                        </div>
+                    </div>*@
                     <div id="tab6" class="tab tab-pane">
                         <div class="c-box__content white__bg">
                             <div class="c-news-info">
@@ -333,7 +349,7 @@
                                 }
 
                                 <div>
-                                    @Model.DataObject.ShortDescriptionFireant 
+                                    @Model.DataObject.ShortDescriptionFireant
                                     @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
                                     {
                                         <div class="d-none content-extent">

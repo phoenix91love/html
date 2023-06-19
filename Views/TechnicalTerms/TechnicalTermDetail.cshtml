@@ -89,7 +89,7 @@
                             <ul>
                                 @foreach (var item in arrarSymbol)
                                 {
-                                    <li><a href="@Url.Action("Index","TechnicalTerms",new { valueSearch=(item.Trim()=="#"?string.Empty: item.Trim()),typeSearch=1})">@item.Trim()</a></li>
+                                    <li><a href="@Url.Action("IndexBySearch","TechnicalTerms",new { valueSearch=(item.Trim()=="#"?string.Empty: item.Trim()),typeSearch=1})">@item.Trim()</a></li>
                                 }
                             </ul>
                         </div>
@@ -108,6 +108,10 @@
                             <p>
                                 @Html.Raw(Model.DataObject.Content)
                             </p>
+                        </div>
+                        <div class="note">
+                            <span>(*) Lưu ý: </span>
+                            <span>Nội dung được tổng hợp từ nhiều nguồn tin cậy, có giá trị tham khảo cho người tra cứu. Tuy nhiên, chúng tôi không chịu trách nhiệm trước mọi rủi ro do sử dụng nội dung này.</span>
                         </div>
                     </div>
 

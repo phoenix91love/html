@@ -1,9 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Thống kê ngành";
+    ViewBag.Title = "Người Quan Sát | Phân tích ngành hàng, thống kê dữ liệu ngành hàng, hồ sơ doanh nghiệp chuyên sâu";
     ViewBag.PageName = "Thống kê ngành";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     ViewBag.SubTitle = "Thống kê ngành";
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Phân tích ngành hàng, thống kê dữ liệu ngành hàng, hồ sơ doanh nghiệp chuyên sâu">
+    <meta name="keywords" content="Thị trường chứng khoán, diễn biến thị trường, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, tra cứu thuật ngữ kinh tế, phân tích kỹ thuật, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Thống kê, phân tích chi tiết theo ngành hàng, lĩnh vực kinh doanh. Tìm kiếm cơ hội đầu tư, tìm cổ phiếu tốt" />
+    <meta property="og:description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Thống kê, phân tích chi tiết theo ngành hàng, lĩnh vực kinh doanh. Tìm kiếm cơ hội đầu tư, tìm cổ phiếu tốt" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 @section Styles{
     @Styles.Render("~/bundles/styles/bootstrap-table")

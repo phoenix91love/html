@@ -96,13 +96,12 @@
                         float: left;
                         margin-right: 10px;
 
-                        @include r(991) {
-                            font-size: 16px;
-                        }
+
 
                         a {
                             color: #3b1b70;
                             font-family: "Roboto Condensed","Roboto",Arial;
+                            font-size: 20px;
 
                             &:hover, &.active {
                                 font-weight: 600;
@@ -187,8 +186,8 @@
     .l-sidebar {
         .top-news {
             .c-box__title {
-                background-color: #3b1b70;
-                color: #fff;
+                background-color: #f3f3f3;
+                color: #3b1b70;
             }
 
             ul {
@@ -257,8 +256,8 @@
 
         .read-more-top {
             .c-box__title {
-                background-color: #3b1b70;
-                color: #fff;
+                color: #3b1b70;
+                background-color: #f3f3f3;
                 font-family: "Roboto Condensed","Roboto",Arial;
             }
 
@@ -407,10 +406,23 @@
         }
     }
 
+    .note {
+        font-size: 13px;
+        margin-bottom: 10px;
+
+        span:first-child {
+            font-weight: 600;
+        }
+
+        span:last-child {
+            color: #757575;
+        }
+    }
+
     .read-more-top, .read-more {
         .c-box__title {
-            background-color: #3b1b70;
-            color: #fff;
+            color: #3b1b70;
+            background-color: #f3f3f3;
         }
 
         ul {
@@ -456,8 +468,8 @@
         }
 
         .c-box__title {
-            background-color: #3b1b70;
-            color: #fff;
+            color: #3b1b70;
+            background-color: #f3f3f3;
         }
 
         ul {
@@ -572,7 +584,8 @@
     .c-box.c-other {
         .c-box__title {
             margin-bottom: 20px;
-            background: #3b1b70;
+            color: #3b1b70;
+            background-color: #f3f3f3;
             padding-bottom: 5px;
 
             @include r(991) {
@@ -583,7 +596,6 @@
             .c-box__title__name {
                 font-size: 20px;
                 text-transform: uppercase;
-                color: #fff !important;
             }
         }
 

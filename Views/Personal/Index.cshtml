@@ -16,6 +16,7 @@
                     .Replace('đ', 'd').Replace('Đ', 'D').Replace(" ", "-");
     }
 }
+
 @{
 
     ViewBag.PageName = "Dữ liệu doanh nghiệp";
@@ -44,7 +45,15 @@
         dataNewsGoogle = new GoogleCustomSearchMdl() { DataSearchs = new List<DataSearch>() };
     }
 }
-
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Hồ sơ lãnh đạo, thông tin cá nhân @dataPersonal.Name - @(companyGroupPerson.Any()?$"{companyGroupPerson.First().CompanyName.Replace("CTCP", "Công ty Cổ phần")}({companyGroupPerson.First().CompanyCode})":string.Empty)">
+    <meta name="keywords" content="@dataPersonal.Name, @(companyGroupPerson.Any()?$"{companyGroupPerson.First().CompanyCode}":string.Empty), hồ sơ @dataPersonal.Name, tin tức @dataPersonal.Name, sự kiện @dataPersonal.Name, tài sản @dataPersonal.Name, giao dịch cổ phiếu @dataPersonal.Name, giá cổ phiếu @(companyGroupPerson.Any()?$"{companyGroupPerson.First().CompanyCode}":string.Empty)" />
+    <meta name="description" content="Hồ sơ lãnh đạo, thông tin cá nhân @dataPersonal.Name - @(companyGroupPerson.Any()?$"{companyGroupPerson.First().CompanyName.Replace("CTCP", "Công ty Cổ phần")}({companyGroupPerson.First().CompanyCode})":string.Empty). Thông tin và dữ liệu về @dataPersonal.Name. Tổng tài sản, tin tức sự kiện, giao dịch cổ phiếu @dataPersonal.Name" />
+    <meta property="og:description" content="Hồ sơ lãnh đạo, thông tin cá nhân @dataPersonal.Name - @(companyGroupPerson.Any()?$"{companyGroupPerson.First().CompanyName.Replace("CTCP", "Công ty Cổ phần")}({companyGroupPerson.First().CompanyCode})":string.Empty). Thông tin và dữ liệu về @dataPersonal.Name. Tổng tài sản, tin tức sự kiện, giao dịch cổ phiếu @dataPersonal.Name" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
+}
 @section Styles{
     @Styles.Render("~/bundles/styles/personal-detail")
 }
@@ -149,14 +158,18 @@
                     <div class="info">
                         @*<div class="title">Thông tin chi tiết</div>*@
                         <div class="content-personal">
-                            @dataPersonal.Name @(dataPersonal.Birthday.HasValue?$"sinh ngày {dataPersonal.Birthday?.ToString("dd/MM/yyyy")}.":string.Empty) @(!string.IsNullOrEmpty(dataPersonal.NguyenQuan)?$"Nguyên quán {dataPersonal.NguyenQuan}.":string.Empty)
+                            <b>@dataPersonal.Name</b> @(dataPersonal.Birthday.HasValue?$"sinh ngày {dataPersonal.Birthday?.ToString("dd/MM/yyyy")}.":string.Empty)
+                            @(!string.IsNullOrEmpty(dataPersonal.CMTND)?$"CMT {dataPersonal.CMTND}.":string.Empty)
+                            @(!string.IsNullOrEmpty(dataPersonal.NguyenQuan)?$"Nguyên quán {dataPersonal.NguyenQuan}.":string.Empty)
                             @(!string.IsNullOrEmpty(dataPersonal.NoiCuTru)?$"Hiện cư trú tại {dataPersonal.NoiCuTru}.":string.Empty)
+                            @(!string.IsNullOrEmpty(dataPersonal.TrinhDo)?$"Có trình độ {dataPersonal.TrinhDo}.":string.Empty)
+
 
                             @if (dataPersonal.PersonalHistorys.Any())
                             {
                                 <div class="d-none content-extent">
-                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
-                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
+                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập: <br/>&emsp;- {string.Join("<br/>&emsp;- ", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
+                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc: <br/>&emsp;- {string.Join("<br/>&emsp;- ", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
                                 </div>
                                 <div class="option">
                                     <a href="javascript:void(0)" onclick="ShowDetail(this)">
@@ -429,10 +442,10 @@
                 }
 
                 @if (dataPersonal.PersonalStockRelationships.Any())
-                    {
-                        var dataGroup = dataPersonal.PersonalStockRelationships.GroupBy(x => x.PersonalName).OrderByDescending(x=>x.Max(y=>y.CountStock));
+                {
+                    var dataGroup = dataPersonal.PersonalStockRelationships.GroupBy(x => x.PersonalName).OrderByDescending(x => x.Max(y => y.CountStock));
 
-                         <div class="relationship-content">
+                    <div class="relationship-content">
                         <div class="title">Cá nhân liên quan</div>
                         <div class="relationship-detail">
                             <table class="table table-hover table-striped table-bordered table-common table-responsive">
@@ -563,7 +576,7 @@
 
                                     </div>
 
-                               
+
                                 }
                             </div>
                         </div>

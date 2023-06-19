@@ -219,11 +219,12 @@
 
             ul {
                 li {
-                   /* min-width: 150px;*/
+                    /* min-width: 150px;*/
                     border-bottom: 1px solid #ededed;
-                    padding-bottom:2px;
-                    margin-bottom:2px;
-                    line-height:1.8;
+                    padding-bottom: 2px;
+                    margin-bottom: 2px;
+                    line-height: 1.8;
+
                     span:last-child {
                         margin-left: 10px;
                     }
@@ -733,18 +734,78 @@
                         }
 
                         .l-tab {
+                            width: 75%;
+
                             @include r(991) {
                                 width: 100%;
                                 margin-bottom: 20px;
                             }
+
+                            li {
+
+                                @include r(320) {
+                                    div:nth-child(1) {
+                                        width: 60%;
+                                    }
+
+                                    div:nth-child(2) {
+                                        width: 25%;
+                                        text-align: right;
+                                        margin-right: 15px;
+                                    }
+
+                                    div:nth-child(3) {
+                                        width: 15% ;
+                                        text-align: right;
+                                    }
+                                }
+
+                                @include r(768) {
+                                    div:nth-child(1) {
+                                        width: 65%;
+                                    }
+
+                                    div:nth-child(2) {
+                                        width: calc(20% - 15px);
+                                        text-align: right;
+                                        margin-right: 15px;
+                                    }
+
+                                    div:nth-child(3) {
+                                        width: calc(15% - 15px);
+                                        text-align: right;
+                                        margin-right: 15px;
+                                    }
+                                }
+                            }
                         }
 
                         .r-tab {
+                            width: 25%;
+
                             @include r(991) {
                                 width: 100%;
                             }
 
                             .tile {
+                                @include r(320) {
+                                    li {
+                                        width: 50%;
+                                    }
+                                }
+
+                                @include r(600) {
+                                    li {
+                                        width: 33%;
+                                    }
+                                }
+
+                                @include r(1024) {
+                                    li {
+                                        width: 100%
+                                    }
+                                }
+
                                 @include r(991) {
                                     margin-bottom: 0;
                                 }
@@ -1886,8 +1947,8 @@
         ul.c-box {
             li {
                 border-bottom: 1px solid #ededed;
-                padding-bottom:2px;
-                margin-bottom:2px;
+                padding-bottom: 2px;
+                margin-bottom: 2px;
             }
 
             li:last-child {
@@ -2383,7 +2444,7 @@
     }
 
     .container-company-detail .l-main .personal-special ul {
-     /*   padding: 11px 29px 10px 44px;*/
+        /*   padding: 11px 29px 10px 44px;*/
         background: #F8F8F8;
         border-radius: 10px;
         margin-bottom: 12px;

@@ -26,12 +26,10 @@
     .technical-terms .l-main .option div.filter-symbol ul li {
       float: left;
       margin-right: 10px; }
-      @media (max-width: 991px) {
-        .technical-terms .l-main .option div.filter-symbol ul li {
-          font-size: 16px; } }
       .technical-terms .l-main .option div.filter-symbol ul li a {
         color: #3b1b70;
-        font-family: "Roboto Condensed","Roboto",Arial; }
+        font-family: "Roboto Condensed","Roboto",Arial;
+        font-size: 20px; }
         .technical-terms .l-main .option div.filter-symbol ul li a:hover, .technical-terms .l-main .option div.filter-symbol ul li a.active {
           font-weight: 600;
           text-decoration: underline; }
@@ -86,8 +84,8 @@
       font-size: 16px; } }
 
 .technical-terms .l-sidebar .top-news .c-box__title {
-  background-color: #3b1b70;
-  color: #fff; }
+  background-color: #f3f3f3;
+  color: #3b1b70; }
 
 .technical-terms .l-sidebar .top-news ul li div.b-grid {
   min-height: 79px; }
@@ -133,8 +131,8 @@
           color: #ee7224; }
 
 .technical-terms .l-sidebar .read-more-top .c-box__title {
-  background-color: #3b1b70;
-  color: #fff;
+  color: #3b1b70;
+  background-color: #f3f3f3;
   font-family: "Roboto Condensed","Roboto",Arial; }
 
 .technical-terms .l-sidebar .read-more-top ul li {
@@ -229,9 +227,17 @@
   .technical-terms-detail .c-news-detail .b-maincontent p {
     font-size: 16px !important; } }
 
+.technical-terms-detail .note {
+  font-size: 13px;
+  margin-bottom: 10px; }
+  .technical-terms-detail .note span:first-child {
+    font-weight: 600; }
+  .technical-terms-detail .note span:last-child {
+    color: #757575; }
+
 .technical-terms-detail .read-more-top .c-box__title, .technical-terms-detail .read-more .c-box__title {
-  background-color: #3b1b70;
-  color: #fff; }
+  color: #3b1b70;
+  background-color: #f3f3f3; }
 
 .technical-terms-detail .read-more-top ul li, .technical-terms-detail .read-more ul li {
   width: 100%; }
@@ -259,8 +265,8 @@
     padding: 10px; } }
 
 .technical-terms-detail .top-news .c-box__title {
-  background-color: #3b1b70;
-  color: #fff; }
+  color: #3b1b70;
+  background-color: #f3f3f3; }
 
 @media (max-width: 991px) {
   .technical-terms-detail .top-news ul li {
@@ -344,7 +350,8 @@
 
 .technical-terms-detail .c-box.c-other .c-box__title {
   margin-bottom: 20px;
-  background: #3b1b70;
+  color: #3b1b70;
+  background-color: #f3f3f3;
   padding-bottom: 5px; }
   @media (max-width: 991px) {
     .technical-terms-detail .c-box.c-other .c-box__title {
@@ -352,8 +359,7 @@
       margin-bottom: 10px; } }
   .technical-terms-detail .c-box.c-other .c-box__title .c-box__title__name {
     font-size: 20px;
-    text-transform: uppercase;
-    color: #fff !important; }
+    text-transform: uppercase; }
 
 .technical-terms-detail .c-box.c-other .c-template-list ul li {
   border-bottom-color: #f1eded; }

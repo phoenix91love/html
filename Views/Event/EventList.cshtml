@@ -1,8 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Sự kiện";
+    ViewBag.Title = "Người Quan Sát | Lịch sự kiện doanh nghiệp, lịch trả cổ tức, họp đại hội cổ đông";
     ViewBag.PageName = "Sự kiện";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Lịch sự kiện doanh nghiệp, lịch trả cổ tức, họp đại hội cổ đông">
+    <meta name="keywords" content="Sự kiện doanh nghiệp, thông tin nội bộ doanh nghiệp, lịch trả cổ tức, lịch họp đại hội cổ đông, thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Tra cứu lịch sự kiện doanh nghiệp, lịch họp ĐHCĐ, lịch trả cổ tức. Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:description" content="Tra cứu lịch sự kiện doanh nghiệp, lịch họp ĐHCĐ, lịch trả cổ tức. Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 <link href="~/Assets/bundles/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
 <link href="~/Assets/bundles/bootstrap-table/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css" rel="stylesheet" />

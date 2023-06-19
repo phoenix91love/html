@@ -4,7 +4,16 @@
 @{
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     ViewBag.PageName = "Tra cứu thuật ngữ";
-    ViewBag.Title = "Tra cứu thuật ngữ";
+    ViewBag.Title = "Người Quan Sát | Tra cứu thuật ngữ kinh tế, thuật ngữ tài chính chứng khoán";
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Tra cứu thuật ngữ kinh tế, thuật ngữ tài chính chứng khoán">
+    <meta name="keywords" content="Thuật ngữ kinh tế, thuật ngữ chứng khoán, tra cứu thuật ngữ, thị trường chứng khoán, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Tra cứu thuật ngữ kinh tế, thuật ngữ chứng khoán. Thông tin dữ liệu kinh tế tài chính chuyên sâu, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:description" content="Tra cứu thuật ngữ kinh tế, thuật ngữ chứng khoán. Thông tin dữ liệu kinh tế tài chính chuyên sâu, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 @section Styles{
     @Styles.Render("~/bundles/styles/technical-term")
@@ -28,12 +37,12 @@
             <div class="c-news-detail">
                 <div class="b-maincontent">
                     <div class="option">
-                        <div class="tag">
+                        @*<div class="tag">
                             <a href="javascript:void(0)" data-type="1" onclick="SetTag(this)">Bất động sản</a>
                             <a href="javascript:void(0)" data-type="2" onclick="SetTag(this)">Tài chính</a>
                             <a href="javascript:void(0)" data-type="3" onclick="SetTag(this)">Ngân hàng</a>
                             <a href="javascript:void(0)" data-type="4" onclick="SetTag(this)">Chứng khoán</a>
-                        </div>
+                        </div>*@
                         <div class="search">
                             <div class="input-group col-md-4">
                                 <div class="custom-autocomplete-terms">

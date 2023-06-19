@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="https://nqs.1cdn.vn/assets/images/favicon.ico" />
     <link rel="dns-prefetch" href="https://dulieu.nguoiquansat.vn/">
     <link rel="dns-prefetch" href="https://code.highcharts.com/">
-
+    <link rel="canonical" href="https://dulieu.nguoiquansat.vn" />
     <link rel="stylesheet" href="~/Assets/bundles/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Assets/bundles/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css" />
 
@@ -106,6 +106,9 @@
                     <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">
                         <a href="@Url.Action("EventList", "Event")">Sự kiện</a>
                     </li>
+                    <li class="@(Request.RawUrl.ToLower().Contains(Url.Action("Index", "TechnicalTerms").ToLower())||Request.RawUrl.ToLower().Contains(Url.Action("TechnicalTermDetail", "TechnicalTerms").ToLower()) ? "active" : "")">
+                        <a href="@Url.Action("Index", "TechnicalTerms")">Thuật ngữ</a>
+                    </li>
                 </ul>
                 @*}
                     else
@@ -140,6 +143,9 @@
                                 </li>
                                 <li class="@(Request.RawUrl == Url.Action("EventList", "Event") ? "active" : "")">
                                     <a href="@Url.Action("EventList", "Event")">Sự kiện</a>
+                                </li>
+                                <li class="@(Request.RawUrl.ToLower().Contains(Url.Action("Index", "TechnicalTerms").ToLower())||Request.RawUrl.ToLower().Contains(Url.Action("TechnicalTermDetail", "TechnicalTerms").ToLower()) ? "active" : "")">
+                                    <a href="@Url.Action("Index", "TechnicalTerms")">Thuật ngữ</a>
                                 </li>
                             </ul>
                         </div>

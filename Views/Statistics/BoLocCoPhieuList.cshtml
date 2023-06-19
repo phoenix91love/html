@@ -1,13 +1,23 @@
 ﻿
 @{
-    ViewBag.Title = "Bộ lọc cổ phiếu";
+    ViewBag.Title = "Người Quan Sát | Lọc cổ phiếu tốt, tìm kiếm cơ hội đầu tư";
     ViewBag.PageName = "Bộ lọc cổ phiếu";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Lọc cổ phiếu tốt, tìm kiếm cơ hội đầu tư">
+    <meta name="keywords" content="Thị trường chứng khoán, diễn biến thị trường, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, tra cứu thuật ngữ kinh tế, phân tích kỹ thuật, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Bộ lọc cổ phiếu chi tiết theo dữ liệu giao dịch, dữ liệu tài chính doanh nghiệp, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Giúp bạn tìm kiếm cơ hội đầu tư cổ phiếu, mua bán cổ phiếu tốt" />
+    <meta property="og:description" content="Bộ lọc cổ phiếu chi tiết theo dữ liệu giao dịch, dữ liệu tài chính doanh nghiệp, hồ sơ doanh nghiệp, hồ sơ lãnh đạo. Giúp bạn tìm kiếm cơ hội đầu tư cổ phiếu, mua bán cổ phiếu tốt" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 <style>
     .loc-cp-form label {
         padding-right: 0px;
     }
+
     .loc-cp-form .input-group-text {
         font-size: 11px;
         font-weight: 700;

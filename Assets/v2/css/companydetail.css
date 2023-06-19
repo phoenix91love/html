@@ -440,18 +440,51 @@
       bottom: 0;
       left: 2%; } }
 
-@media (max-width: 991px) {
-  .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab {
-    width: 100%;
-    margin-bottom: 20px; } }
+.container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab {
+  width: 75%; }
+  @media (max-width: 991px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab {
+      width: 100%;
+      margin-bottom: 20px; } }
+  @media (min-width: 320px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(1) {
+      width: 60%; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(2) {
+      width: 25%;
+      text-align: right;
+      margin-right: 15px; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(3) {
+      width: 15%;
+      text-align: right; } }
+  @media (min-width: 768px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(1) {
+      width: 65%; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(2) {
+      width: calc(20% - 15px);
+      text-align: right;
+      margin-right: 15px; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .l-tab li div:nth-child(3) {
+      width: calc(15% - 15px);
+      text-align: right;
+      margin-right: 15px; } }
 
-@media (max-width: 991px) {
-  .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab {
-    width: 100%; } }
-
-@media (max-width: 991px) {
-  .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab .tile {
-    margin-bottom: 0; } }
+.container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab {
+  width: 25%; }
+  @media (max-width: 991px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab {
+      width: 100%; } }
+  @media (min-width: 320px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab .tile li {
+      width: 50%; } }
+  @media (min-width: 600px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab .tile li {
+      width: 33%; } }
+  @media (min-width: 1024px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab .tile li {
+      width: 100%; } }
+  @media (max-width: 991px) {
+    .container-company-detail .l-main .content-struct .c-box__content #tab3 .tab__3 .r-tab .tile {
+      margin-bottom: 0; } }
 
 @media (max-width: 991px) {
   .container-company-detail .l-main .content-struct .c-box__content #tab3 ul li {

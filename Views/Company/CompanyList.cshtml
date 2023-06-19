@@ -1,11 +1,20 @@
 ﻿@using M.Common.Extensions
 @using Nqs.Models.FormModel.Common
 @{
-    ViewBag.Title = "Dữ liệu doanh nghiệp";
+    ViewBag.Title = "Người Quan Sát | Hồ sơ doanh nghiệp, hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ lãnh đạo";
     ViewBag.PageName = "Dữ liệu doanh nghiệp";
     Layout = "~/Views/Shared/_NqsLayout.cshtml";
     var dataProfess = (BaseModels<List<Nqs.Models.FormModel.Profession.ProfessionTreeMdl>>)ViewBag.DataProfess;
-   
+
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Hồ sơ doanh nghiệp, hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ lãnh đạo">
+    <meta name="keywords" content="Thị trường chứng khoán, diễn biến thị trường, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, tra cứu thuật ngữ kinh tế, phân tích kỹ thuật, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, thuật ngữ kinh tế, kinh tế vĩ mô, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, thuật ngữ kinh tế, kinh tế vĩ mô, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 @section styles{
     @Styles.Render("~/bundles/styles/company-list")
@@ -45,7 +54,7 @@
                     </form>
                 </div>
             </div>
-          
+
             <div class="row">
                 <div class="col-lg-12" id="grid-data">
                 </div>
