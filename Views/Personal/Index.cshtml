@@ -145,6 +145,33 @@
                         </div>
                     </div>
                     <hr class="clearfix" />
+
+                    <div class="info">
+                        @*<div class="title">Thông tin chi tiết</div>*@
+                        <div class="content-personal">
+                            @dataPersonal.Name @(dataPersonal.Birthday.HasValue?$"sinh ngày {dataPersonal.Birthday?.ToString("dd/MM/yyyy")}.":string.Empty) @(!string.IsNullOrEmpty(dataPersonal.NguyenQuan)?$"Nguyên quán {dataPersonal.NguyenQuan}.":string.Empty)
+                            @(!string.IsNullOrEmpty(dataPersonal.NoiCuTru)?$"Hiện cư trú tại {dataPersonal.NoiCuTru}.":string.Empty)
+
+                            @if (dataPersonal.PersonalHistorys.Any())
+                            {
+                                <div class="d-none content-extent">
+                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
+                                    @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
+                                </div>
+                                <div class="option">
+                                    <a href="javascript:void(0)" onclick="ShowDetail(this)">
+                                        <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 1.44238L7.5 8.51716L14 1.44238" stroke="white" stroke-width="2" />
+                                        </svg>
+                                    </a>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+
+                    <hr class="clearfix" />
                 </div>
                 @if (dataPersonal.PositionPersonals.Any())
                 {
@@ -592,26 +619,6 @@
         </div>
         <!--end l-main-->
         <div class="l-sidebar">
-            <div class="info">
-                <div class="title">Thông tin chi tiết</div>
-                <div class="content-personal">
-                    @dataPersonal.Name @(dataPersonal.Birthday.HasValue?$"sinh ngày {dataPersonal.Birthday?.ToString("dd/MM/yyyy")}.":string.Empty) @(!string.IsNullOrEmpty(dataPersonal.NguyenQuan)?$"Nguyên quán {dataPersonal.NguyenQuan}.":string.Empty)
-                    @(!string.IsNullOrEmpty(dataPersonal.NoiCuTru)?$"Hiện cư trú tại {dataPersonal.NoiCuTru}.":string.Empty)
-
-                    @if (dataPersonal.PersonalHistorys.Any())
-                    {
-                        <div class="d-none content-extent">
-                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 1) ? $"Quá trình học tập:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 1).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
-                            @Html.Raw(dataPersonal.PersonalHistorys.Any() ? $"{(dataPersonal.PersonalHistorys.Any(x => x.Type == 2) ? $"Quá trình làm việc:</br>{string.Join("- <br/>", dataPersonal.PersonalHistorys.Where(x => x.Type == 2).OrderByDescending(x => x.IndexHistory).Select(x => x.History))}.</br>" : string.Empty)}" : string.Empty)
-                        </div>
-                        <div class="option">
-                            <a href="javascript:void(0)" onclick="ShowDetail(this)">Mở rộng</a>
-                        </div>
-
-                    }
-
-                </div>
-            </div>
             @if (companyGroupPerson.Any())
             {
                 <div class="c-grey content-struct">
@@ -729,10 +736,10 @@
         function ShowDetail(e) {
             isShow = !isShow;
             if (isShow) {
-                $(e).text('Thu gọn');
+                $(e).addClass('collapse-text');
                 $('.content-extent').removeClass('d-none');
             } else {
-                $(e).text('Mở rộng');
+                $(e).removeClass('collapse-text');
                 $('.content-extent').addClass('d-none');
             }
         }
