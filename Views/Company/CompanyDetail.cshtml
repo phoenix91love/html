@@ -168,14 +168,11 @@
             <div class="r-topnews col-lg-5">
                 <ul class="c-box is-border is-line-bottom mb-3">
                     <li><span class="float-left">Tham chiếu</span><span class="float-right">@dataStock.BasePrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Sàn</span><span class="float-right">@dataStock.Bottom.FormatNumber()</span></li>
-                    <li><span class="float-left">Trần</span><span class="float-right">@dataStock.Top.FormatNumber()</span></li>
+                    <li><span class="float-left">Sàn/Trần</span><span class="float-right">@dataStock.Bottom.FormatNumber() / @dataStock.Top.FormatNumber()</span></li>
                     <li><span class="float-left">Mở cửa</span><span class="float-right">@dataStock.OpenPrice.FormatNumber()</span></li>
                     @*<li><span class="float-left">Đóng cửa</span><span class="float-right">@dataStock.ClosePrice.FormatNumber()</span></li>*@
-                    <li><span class="float-left">Thấp nhất</span><span class="float-right">@dataStock.MinPrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Cao nhất</span><span class="float-right">@dataStock.MaxPrice.FormatNumber()</span></li>
-                    <li><span class="float-left">Thấp 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber()</span></li>
-                    <li><span class="float-left">Cao 52T</span><span class="float-right">@dataStock.Max52T.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp/Cao 1D</span><span class="float-right">@dataStock.MinPrice.FormatNumber() / @dataStock.MaxPrice.FormatNumber()</span></li>
+                    <li><span class="float-left">Thấp/Cao 52T</span><span class="float-right">@dataStock.Min52T.FormatNumber() / @dataStock.Max52T.FormatNumber()</span></li>
                     <li><span class="float-left">KLGD</span><span class="float-right">@dataStock.Volume.FormatNumber()</span></li>
                     <li><span class="float-left">GTGD</span><span class="float-right">@(dataStock.Value.FormatNumberUnit(type:3))</span></li>
                 </ul>
