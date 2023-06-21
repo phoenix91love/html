@@ -346,8 +346,8 @@
                                 }
 
                                 <div>
-                                    @Model.DataObject.ShortDescriptionFireant
-                                    @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
+                                    @Html.Raw(Model.DataObject.DescriptionCafef)
+                                    @*@if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
                                     {
                                         <div class="d-none content-extent">
                                             @Html.Raw(Model.DataObject.ShortDescription)
@@ -360,7 +360,7 @@
                                             </a>
                                         </div>
 
-                                    }
+                                    }*@
                                 </div>
                                 @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
                                 {
@@ -542,8 +542,8 @@
                     }
 
                     <div>
-                        @Model.DataObject.ShortDescriptionFireant
-                        @if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
+                        @Html.Raw(Model.DataObject.ShortDescriptionFireant)
+                        @*@if (!string.IsNullOrEmpty(Model.DataObject.ShortDescriptionFireant))
                         {
                             <div class="d-none content-extent">
                                 @Html.Raw(Model.DataObject.ShortDescription)
@@ -556,9 +556,7 @@
                                 </a>
                             </div>
 
-                        }
-
-
+                        }*@
                     </div>
                     @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
                     {
