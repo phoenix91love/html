@@ -485,16 +485,25 @@
                         &.nav-tab4 {
                             a {
                                 &:before {
-                                    display: none;
+                                    @include r(1024px) {
+                                        display: none;
+                                    }
                                 }
                             }
                         }
 
-                        @include r(1024px) {
-
-                            &.nav-tab5 {
+                        &.nav-tab5 {
+                            @include r(1024px) {
                                 display: none;
                                 border-right: none;
+                            }
+
+                            a {
+                                &:before {
+                                    @include r(991) {
+                                        display: none;
+                                    }
+                                }
                             }
                         }
 
@@ -1808,6 +1817,12 @@
                     }
 
                     .c-news-info {
+                        img {
+                            height: 60px;
+                            width: auto;
+                        }
+
+
                         div.option {
                             text-align: center;
                         }
@@ -1993,6 +2008,8 @@
             }
 
             img {
+                width: 60%;
+
                 + div {
                     display: -webkit-box;
                     -webkit-line-clamp: 4;
