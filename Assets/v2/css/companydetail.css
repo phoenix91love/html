@@ -109,6 +109,14 @@
       margin-left: 10px; }
     .container-company-detail .l-main .r-topnews ul li:last-child {
       border-bottom: none; }
+    .container-company-detail .l-main .r-topnews ul li span.color-red {
+      color: #DA374A; }
+    .container-company-detail .l-main .r-topnews ul li span.color-green {
+      color: #00873C; }
+    .container-company-detail .l-main .r-topnews ul li span.color-violet {
+      color: #3B1B70; }
+    .container-company-detail .l-main .r-topnews ul li span.color-yellow {
+      color: #DF9C00; }
 
 .container-company-detail .l-main .r-topnews.mobile {
   margin: 0px -15px 0px -15px;
@@ -163,6 +171,14 @@
         .container-company-detail .l-main .r-topnews.mobile ul li:nth-child(2n + 1) {
           padding-right: 5px;
           width: 50%; } }
+      .container-company-detail .l-main .r-topnews.mobile ul li span.color-red {
+        color: #DA374A; }
+      .container-company-detail .l-main .r-topnews.mobile ul li span.color-green {
+        color: #00873C; }
+      .container-company-detail .l-main .r-topnews.mobile ul li span.color-violet {
+        color: #3B1B70; }
+      .container-company-detail .l-main .r-topnews.mobile ul li span.color-yellow {
+        color: #DF9C00; }
     .container-company-detail .l-main .r-topnews.mobile ul li.note {
       display: grid;
       width: 100%;
@@ -664,20 +680,21 @@
       display: none; } }
 
 .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content p span {
-  border-right: none !important;
-  color: #222 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  font-weight: inherit; }
+  border-right: unset;
+  color: #222;
+  padding: unset;
+  margin: unset;
+  font-weight: normal; }
 
 .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content ul li {
-  margin: 0 0 10px; }
+  margin: 0 0 10px;
+  font-weight: normal; }
   .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content ul li span {
-    border-right: none !important;
-    color: #222 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    font-weight: normal !important; }
+    border-right: unset;
+    color: #222;
+    padding: unset;
+    margin: unset;
+    font-weight: normal; }
 
 .container-company-detail .l-main .content-struct .c-box__content .company-financial .option {
   margin-bottom: 5px; }

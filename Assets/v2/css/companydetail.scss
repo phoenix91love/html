@@ -232,6 +232,24 @@
                     &:last-child {
                         border-bottom: none;
                     }
+
+                    span {
+                        &.color-red {
+                            color: #DA374A;
+                        }
+
+                        &.color-green {
+                            color: #00873C;
+                        }
+
+                        &.color-violet {
+                            color: #3B1B70;
+                        }
+
+                        &.color-yellow {
+                            color: #DF9C00;
+                        }
+                    }
                 }
             }
         }
@@ -318,6 +336,24 @@
                         @include r(991) {
                             padding-right: 5px;
                             width: 50%;
+                        }
+                    }
+
+                    span {
+                        &.color-red {
+                            color: #DA374A;
+                        }
+
+                        &.color-green {
+                            color: #00873C;
+                        }
+
+                        &.color-violet {
+                            color: #3B1B70;
+                        }
+
+                        &.color-yellow {
+                            color: #DF9C00;
                         }
                     }
                 }
@@ -1096,24 +1132,25 @@
                     .c-box__content {
                         p {
                             span {
-                                border-right: none !important;
-                                color: #222 !important;
-                                padding: 0 !important;
-                                margin: 0 !important;
-                                font-weight: inherit;
+                                border-right: unset;
+                                color: #222;
+                                padding: unset;
+                                margin: unset;
+                                font-weight: normal;
                             }
                         }
 
                         ul {
                             li {
                                 margin: 0 0 10px;
+                                font-weight: normal;
 
                                 span {
-                                    border-right: none !important;
-                                    color: #222 !important;
-                                    padding: 0 !important;
-                                    margin: 0 !important;
-                                    font-weight: normal !important;
+                                    border-right: unset;
+                                    color: #222;
+                                    padding: unset;
+                                    margin: unset;
+                                    font-weight: normal;
                                 }
                             }
                         }
