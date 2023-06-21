@@ -274,20 +274,18 @@
         top: 8px; }
     .container-company-detail .l-main .content-struct .c-box__content ul.nav li:first-child a {
       padding: 5px 15px 5px 5px; }
-    .container-company-detail .l-main .content-struct .c-box__content ul.nav li:nth-child(5) a:before {
+    .container-company-detail .l-main .content-struct .c-box__content ul.nav li.nav-tab5 a:before {
       display: none; }
+    @media (min-width: 1024px) {
+      .container-company-detail .l-main .content-struct .c-box__content ul.nav li.nav-tab6 {
+        display: none;
+        border-right: none; }
+      .container-company-detail .l-main .content-struct .c-box__content ul.nav li.nav-tab3 {
+        display: none;
+        border-right: none; } }
   .container-company-detail .l-main .content-struct .c-box__content ul.nav li.active a {
     color: #3B1B70;
     font-weight: 600; }
-  @media (min-width: 1024px) {
-    .container-company-detail .l-main .content-struct .c-box__content ul.nav :nth-child(5) {
-      border-right: none; }
-    .container-company-detail .l-main .content-struct .c-box__content ul.nav :nth-child(2) {
-      display: none;
-      border-right: none; }
-    .container-company-detail .l-main .content-struct .c-box__content ul.nav :nth-child(6) {
-      display: none;
-      border-right: none; } }
   .container-company-detail .l-main .content-struct .c-box__content ul.nav::-webkit-scrollbar {
     height: 3px !important; }
   .container-company-detail .l-main .content-struct .c-box__content ul.nav::-webkit-scrollbar-track {
