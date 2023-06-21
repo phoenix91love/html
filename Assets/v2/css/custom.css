@@ -884,6 +884,21 @@ h2.Headlines {
     .b-maincontent p {
         font-size: 1.2em !important;
     }
+
+    .c-box .c-box__content .c-news-new ul li h4 a {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .c-box .c-box__content .c-news-new ul li h4 a span:first-child {
+            margin: 1px 0 0;
+            width: 40px;
+        }
+
+        .c-box .c-box__content .c-news-new ul li h4 a span:last-child {
+            color: #222;
+            width: calc(100% - 40px);
+        }
 }
 
 .toolbar a {
