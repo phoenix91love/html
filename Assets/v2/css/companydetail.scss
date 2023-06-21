@@ -462,26 +462,27 @@
 
                         a {
                             white-space: nowrap;
-                            padding: 5px 15px;
+                            padding: 5px 10px;
+                            font-size: 16px;
 
                             &:before {
                                 content: '';
                                 width: 1px;
-                                height: 20px;
+                                height: 18px;
                                 background: #c9c9c9;
                                 position: absolute;
                                 right: 0;
-                                top: 8px;
+                                top: 7px;
                             }
                         }
 
                         &:first-child {
                             a {
-                                padding: 5px 15px 5px 5px;
+                                padding: 5px 10px 5px 5px;
                             }
                         }
 
-                        &.nav-tab5 {
+                        &.nav-tab4 {
                             a {
                                 &:before {
                                     display: none;
@@ -491,15 +492,14 @@
 
                         @include r(1024px) {
 
-                            &.nav-tab6 {
+                            &.nav-tab5 {
                                 display: none;
                                 border-right: none;
                             }
+                        }
 
-                            &.nav-tab3 {
-                                display: none;
-                                border-right: none;
-                            }
+                        &.nav-tab7 {
+                            display: none;
                         }
                     }
 
@@ -509,7 +509,7 @@
                     }
 
                     &::-webkit-scrollbar {
-                        height: 3px !important;
+                        height: 5px !important;
                     }
                     /* Track */
                     &::-webkit-scrollbar-track {
@@ -1078,6 +1078,34 @@
 
                             .mobile {
                                 display: none;
+                            }
+                        }
+                    }
+                }
+
+                #tab6 {
+                    .c-box__content {
+                        p {
+                            span {
+                                border-right: none !important;
+                                color: #222 !important;
+                                padding: 0 !important;
+                                margin: 0 !important;
+                                font-weight: inherit;
+                            }
+                        }
+
+                        ul {
+                            li {
+                                margin: 0 0 10px;
+
+                                span {
+                                    border-right: none !important;
+                                    color: #222 !important;
+                                    padding: 0 !important;
+                                    margin: 0 !important;
+                                    font-weight: normal !important;
+                                }
                             }
                         }
                     }
@@ -1962,6 +1990,16 @@
         .c-news-info {
             div.option {
                 text-align: center;
+            }
+
+            img {
+                + div {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
 
             .profession {
