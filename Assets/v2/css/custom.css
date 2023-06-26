@@ -2589,3 +2589,7 @@ ul.tinmoi {
 .mobile.wrap-iframe .watch-list-modal .c-search {
     margin-left: 20px;
 }
+
+.l-topic-grid.top-content .is-line-bottom {
+    border-bottom: 1px solid #f1eded;
+}

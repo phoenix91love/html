@@ -558,9 +558,9 @@
                                                 <li>
                                                     <div class="b-grid">
                                                         <div class="b-grid__row h-show-pc">
-                                                            <h3 class="b-grid__title"><a href="@item.Link">@item.Title</a></h3>
+                                                            <h3 class="b-grid__title"><a href="@item.Link">@(item?.Title)</a></h3>
                                                         </div>
-                                                        <div class="b-grid__img"><a href="@item.Link"><img src="@(item.Pagemaps.CseThumbnails==null?item.Pagemaps.CseImages?.FirstOrDefault()?.SrcImage: item.Pagemaps.CseThumbnails.FirstOrDefault().SrcImage)" alt="@item.Title" title="@item.Title"></a></div>
+                                                        <div class="b-grid__img"><a href="@item.Link"><img src="@(item.Pagemaps?.CseThumbnails==null?item.Pagemaps?.CseImages?.FirstOrDefault()?.SrcImage: item.Pagemaps?.CseThumbnails?.FirstOrDefault()?.SrcImage)" alt="@item.Title" title="@item.Title"></a></div>
                                                         <div class="b-grid__content">
                                                             <div class="b-grid__row h-show-mobile">
                                                                 <h3 class="b-grid__title"><a href="@item.Link">@item.Title</a></h3>

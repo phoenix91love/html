@@ -22,8 +22,8 @@
     }
     else
     {
-        ViewBag.SubTitle = $"Giải nghĩa thuật ngữ: {Model.DataObject.Title}";
-        ViewBag.Title = $"Giải nghĩa thuật ngữ: {Model.DataObject.Title}";
+        ViewBag.SubTitle = $"Giải thích thuật ngữ: {Model.DataObject.Title}";
+        ViewBag.Title = $"Giải thích thuật ngữ: {Model.DataObject.Title}";
     }
 }
 @{
@@ -58,6 +58,23 @@
         return regex.Replace(temp, String.Empty)
                     .Replace('đ', 'd').Replace('Đ', 'D').Replace(" ", "-");
     }
+
+    public string StripHTML(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return string.Empty;
+        return Regex.Replace(input, "<.*?>", String.Empty);
+    }
+
+}
+@section metatags
+{
+    <meta property="og:title" content="Giải thích thuật ngữ: @(Model.DataObject?.Title)">
+    <meta name="keywords" content="Tra cứu thuật ngữ, @(Model.DataObject?.Title), @(Model.DataObject?.Title) là gì, thuật ngữ kinh tế, thuật ngữ chứng khoán, kiến thức tài chính" />
+    <meta name="description" content="@(string.Join(" ",StripHTML(Model.DataObject?.Content).Trim().Split(' ').Take(20)))..." />
+    <meta property="og:description" content="@(string.Join(" ",StripHTML(Model.DataObject?.Content).Trim().Split(' ').Take(20)))..." />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
 }
 <div class="technical-terms-detail">
     @if (Model.DataObject == null)

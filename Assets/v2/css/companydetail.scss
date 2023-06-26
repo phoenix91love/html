@@ -240,17 +240,37 @@
                         }
 
                         &.color-green {
-                            color: #00873C;
+                            color: #33a42e;
                             margin: unset;
                         }
 
                         &.color-violet {
-                            color: #3B1B70;
+                            color: #6784b5;
                             margin: unset;
                         }
 
                         &.color-yellow {
                             color: #DF9C00;
+                            margin: unset;
+                        }
+
+                        &.color-san {
+                            color: #6982ad;
+                            margin: unset;
+                        }
+
+                        &.color-tran {
+                            color: #c735eb;
+                            margin: unset;
+                        }
+
+                        &.color-low {
+                            color: #fc0002;
+                            margin: unset;
+                        }
+
+                        &.color-height {
+                            color: #33a42e;
                             margin: unset;
                         }
                     }
@@ -1148,17 +1168,30 @@
                             }
                         }
 
-                        ul {
-                            li {
-                                margin: 0 0 10px;
-                                font-weight: normal;
+                        .content-description {
+                            font-size: 14px;
+                            line-height: 2;
 
-                                span {
-                                    border-right: unset;
-                                    color: #222;
-                                    padding: unset;
-                                    margin: unset;
+                            span {
+                                margin: unset;
+                                line-height: 2;
+                            }
+
+                            ul {
+                                li {
+                                    margin: 0 0 10px;
                                     font-weight: normal;
+                                    line-height: 2;
+
+                                    span {
+                                        border-right: unset;
+                                        color: #222;
+                                        padding: unset;
+                                        margin: unset;
+                                        font-weight: normal;
+                                        display: contents;
+                                        line-height: 2;
+                                    }
                                 }
                             }
                         }

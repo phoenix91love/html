@@ -18,6 +18,7 @@ var configHomeUrl = {
     homeGetHeaderExchangeRate: "/home/GetHeaderExchangeRate",
     homeGetHeaderNews: "/home/GetHeaderNews",
     homeGetTopCpAnhHuong: "/home/GetTopCpAnhHuong",
+    homeGetDongTien: "/home/GetDongTien",
 };
 
 var historyUrl = {
@@ -49,4 +50,12 @@ var vimoUrl = {
     vimoTinDung: "/vimo/tindung",
     vimoDanSoLaoDong: "/vimo/dsld",
     vimoVangNgoaiTe: "/vimo/vangngoaite",
+}
+
+var colors = {
+    tang: "#33a42e",
+    giam: "#fc0002",
+    tran: "#c735eb",
+    san: "#6982ad",
+    khongDoi: "#ffb800"
 }

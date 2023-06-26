@@ -22,7 +22,7 @@
                         code,
                         result.DataIndex,
                         result.DataVolume,
-                        result.BasePrice
+                        false
                     );
                 }
             }
@@ -145,8 +145,9 @@
     loadTopIndex: function () {
         var code = $('.hd-top-code').val();
         var type = $('.hd-top-type').val();
+        var xPhien = $('#top-x-phien').val();
         var url = configHomeUrl.homeTopIndex;
-        var params = "code=" + code + "&type=" + type;
+        var params = "code=" + code + "&type=" + type + "&xPhien=" + xPhien;
         AjaxHelper.ajaxCall(url, params, function (result) {
             $(".top-content").html(result);
         });
@@ -171,7 +172,7 @@
                 chart.labels().format(function () {
                     return "<span style='font-weight:bold; color: #ffffff'>" + this.name + "<br/>" + CommonHelper.formatNumber(this.getData("Perchange"), 2) + "%</span>"
                 });
-                
+
                 chart.tooltip().useHtml(true);
                 var isMobile = $("body").hasClass("mobile");
                 if (isMobile) {
@@ -181,7 +182,7 @@
                     return "<span style='font-size: 15px;'>" + this.getData("name") + ":</span> <span style='font-size: 13px;'>" + this.getData("CompanyName") + "</span>";
                 });
                 chart.tooltip().format(function () {
-                    
+
                     var priceClass = "";
                     var price7DClass = "";
                     if (this.getData("Change") > 0) priceClass = "green";
@@ -288,11 +289,28 @@
             }
         });
     },
+    loadDongTienChart: function (code) {
+        var url = configHomeUrl.homeGetDongTien;
+        var params = "code=" + code;
+        AjaxHelper.ajaxCall(url, params, function (result) {
+
+            if (this.chartDongTien != null)
+                this.chartDongTien.destroy();
+            if (this.chartTop5Nganh != null)
+                this.chartTop5Nganh.destroy();
+
+            this.chartDongTien = ChartHelper.renderChartDongTienChartJs("container-dong-tien-x-day", result);
+            this.chartTop5Nganh = ChartHelper.renderChartTop5NganhChartJs("container-dong-tien-top-nganh", result);
+            
+
+        });
+    },
 }
 
 HomePage.loadDataExChart();
 HomePage.loadExIndex();
 HomePage.loadTopIndex();
+HomePage.loadDongTienChart("VN-Index");
 HomePage.loadStockMap();
 HomePage.loadNNDataChart("VN-Index");
 HomePage.loadTkSlCp("HOSE");
@@ -384,6 +402,10 @@ $('.a-btn-tab-type').click(function () {
     HomePage.loadTopIndex();
 });
 
+$('#top-x-phien').change(function () {
+    HomePage.loadTopIndex();
+});
+
 $('#ddl-top-cp-exchange').change(function () {
     var code = $(this).val();
     $('.hd-top-code').val(code);
@@ -456,3 +478,10 @@ $('.btn-tab-hanghoacoin').click(function () {
     $('.ul-hanghoacoin[data-tab="' + tab + '"]').css("display", "block");
 });
 
+$('.a-btn-tab-dong-tien').click(function () {
+
+    $('.a-btn-tab-dong-tien').parent("li.active").removeClass("active");
+    $(this).parent("li").addClass("active");
+    var code = $(this).attr("data-code");
+    HomePage.loadDongTienChart(code);
+});

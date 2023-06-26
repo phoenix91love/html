@@ -52,6 +52,10 @@
 
         gtag('config', 'G-NWJFMPMVCW');
     </script>
+    <script async src="https://static.amcdn.vn/tka/cdn.js" type="text/javascript"></script>
+    <script>var arfAsync = arfAsync || [];</script>
+    <script id="arf-core-js" onerror="window.arferrorload=true;" src="//media1.admicro.vn/cms/Arf.min.js" async></script>
+
 </head>
 <body class="@(bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"]+"") == true ? "mobile" : "")">
     <div class="c-topbox">
@@ -76,7 +80,23 @@
         </div>
         <!--end l-nav-->
         <div class="container mt-5 mb-3 h-show-pc">
-            <div class="w-100"><a href="https://dop.cake.vn/affiliate?ref=NQS-S3328858" target="_blank"><img src="~/Upload/images/PR_640x320_pc.jpg" class="w-100" alt="banner" /></a></div>
+            <div class="w-100">
+                @{
+                    var r = new Random();
+                    var x = r.Next(1, 100);
+                    if (x <= 50)
+                    {
+                        <a href="https://dop.cake.vn/affiliate?ref=NQS-S3328858" target="_blank"><img src="~/Upload/images/PR_640x320_pc.jpg" class="w-100" alt="banner" /></a>
+                    }
+                    else
+                    {
+                        <zone id="l5mb9o8m"></zone>
+                        <script>arfAsync.push("l5mb9o8m");</script>
+                    }
+                }
+
+
+            </div>
         </div>
 
         <!--Content page part-->

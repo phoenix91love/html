@@ -87,7 +87,26 @@
 
 <div class="container mt-3 h-show-mobile">
     <div class="w-100">
-        <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
+        @{
+            var r = new Random();
+            var x = r.Next(1, 100);
+            if (x <= 50)
+            {
+                <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
+            }
+            else
+            {
+               if (@Model != "false")
+                {
+                    <zone id="l5mbm2um"></zone>
+                    <script>arfAsync.push("l5mbm2um");</script>
+                }
+                else
+                {
+                    <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
+                }
+            }
+        }
     </div>
     <div class="swiper-container topcontents mt-3 mb-3">
 

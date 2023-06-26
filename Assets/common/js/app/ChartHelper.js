@@ -44,8 +44,16 @@ var ChartHelper = {
             navigator: {
                 enabled: false
             },
-
             title: {
+                text: code.length == 3 ? "<span style='opacity: 0.5; font-size: 25px;'>" + code + "</span>" : "",
+                floating: true,
+                align: 'left',
+                x: 50,
+                y: 21,
+                style: {
+                    color: "#242323"
+                },
+                useHTML: true,
                 enabled: false
             },
             xAxis: [{
@@ -103,14 +111,14 @@ var ChartHelper = {
             tooltip: {
                 style: {
                     color: 'black',
-                    fontSize: '10px',
+                    fontSize: '12px',
                     fontWeight: 'bold'
                 },
                 backgroundColor: 'transparent',
                 borderWidth: 0,
                 shadow: false,
                 positioner: function () {
-                    return { x: 60, y: 0 };
+                    return { x: 120, y: 0 };
                 },
                 valueDecimals: 0,
                 shared: true,
@@ -118,7 +126,7 @@ var ChartHelper = {
                     let time = Highcharts.dateFormat('%A, %e/%b/%Y %H:%M', this.points[0].point.x);
                     let index = Math.round((this.points[0].point.y + Number.EPSILON) * 100) / 100;
                     let volume = this.points[1].point.y.toString();
-                    return code + ":" + time + "<br>Giá:" + CommonHelper.formatNumber(isStock ? index / 1000 : index, 2) + ",Volume:" + CommonHelper.formatNumber(volume, 0);
+                    return code + ":" + time + "<br>Giá: " + CommonHelper.formatNumber(isStock ? index / 1000 : index, 2) + ", KLGD: " + CommonHelper.formatNumber(volume, 0);
                 }
             },
             series: [
@@ -164,7 +172,7 @@ var ChartHelper = {
             ]
         });
     },
-    renderChartCandleStick: function (containerId, code, priceData, volumeData, openPrice) {
+    renderChartCandleStick: function (containerId, code, priceData, volumeData, isStock = true) {
         const chartAtr = {
             lineColor: 'rgba(255,158,13,1)',
             redColor: 'rgba(239, 83, 80, 1)',
@@ -189,8 +197,16 @@ var ChartHelper = {
             navigator: {
                 enabled: false
             },
-
             title: {
+                text: isStock ? "<span style='opacity: 0.5; font-size: 25px;'>" + code + "</span>" : "",
+                floating: true,
+                align: 'left',
+                x: 50,
+                y: 21,
+                style: {
+                    color: "#242323"
+                },
+                useHTML: true,
                 enabled: false
             },
             plotOptions: {
@@ -1254,6 +1270,264 @@ var ChartHelper = {
                                     return "Giá mua: " + CommonHelper.formatNumber(item.raw, 0);
                                 if (item.datasetIndex == 1)
                                     return "Giá bán: " + CommonHelper.formatNumber(item.raw, 0);
+                            },
+                        }
+                    }
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+
+    renderChartDongTienChartJs: function (containerId, data) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "Diễn biến dòng tiền 5 phiên gần nhất";
+        var date1 = data.Date[0];
+        var date2 = data.Date[1];
+        var date3 = data.Date[2];
+        var date4 = data.Date[3];
+        var date5 = data.Date[4];
+        var datasets = [];
+        if (data.Day1.length > 0) {
+            datasets.push({
+                type: 'line',
+                label: date1,
+                data: data.Day1,
+                borderWidth: 1.5,
+                borderColor: "blue",
+                backgroundColor: "blue",
+                order: 0
+            });
+        }
+        if (data.Day2.length > 0) {
+            datasets.push({
+                type: 'line',
+                label: date2,
+                data: data.Day2,
+                borderWidth: 1.5,
+                borderColor: "red",
+                backgroundColor: "red",
+                order: 1
+            });
+        }
+        if (data.Day3.length > 0) {
+            datasets.push({
+                type: 'line',
+                label: date3,
+                data: data.Day3,
+                borderWidth: 1.5,
+                borderColor: "green",
+                backgroundColor: "green",
+                order: 2,
+            });
+        }
+        if (data.Day4.length > 0) {
+            datasets.push({
+                type: 'line',
+                label: date4,
+                data: data.Day4,
+                borderWidth: 1.5,
+                borderColor: "cyan",
+                backgroundColor: "cyan",
+                order: 3,
+
+            });
+        }
+        if (data.Day5.length > 0) {
+            datasets.push({
+                type: 'line',
+                label: 'Hiện tại',
+                data: data.Day5,
+                borderWidth: 2,
+                borderColor: "purple",
+                backgroundColor: "purple",
+                order: 4,
+            });
+        }
+        var unit = " (tỷ đồng)";
+
+        const dataConfig = {
+            labels: data.Time,
+            datasets: datasets
+        };
+        const config = {
+            type: 'line',
+            data: dataConfig,
+            options: {
+                responsive: true,
+
+                elements: {
+
+                    point: {
+                        radius: 0
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+
+                    y: {
+                        ticks: {
+                            // forces step size to be 50 units
+                            stepSize: 2000
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                        labels: {
+                            boxWidth: 10,
+                            boxHeight: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    },
+                    tooltip: {
+                        callbacks: {
+
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return date1 + ": " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 1)
+                                    return date2 + ": " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 2)
+                                    return date3 + ": " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 3)
+                                    return date4 + ": " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                                if (item.datasetIndex == 4)
+                                    return date5 + ": " + CommonHelper.formatNumber(item.raw, 2) + unit;
+                            },
+                        }
+                    }
+                }
+            },
+        };
+
+        var chart = new Chart(ctx, config);
+        return chart;
+    },
+    renderChartTop5NganhChartJs: function (containerId, data) {
+
+        const ctx = document.getElementById(containerId);
+        var title = "Top 5 ngành hút tiền nhiều nhất (phiên hiện tại)";
+        var nganh1 = data.Nganh[0];
+        var nganh2 = data.Nganh[1];
+        var nganh3 = data.Nganh[2];
+        var nganh4 = data.Nganh[3];
+        var nganh5 = data.Nganh[4];
+
+        var val1 = data.NganhValue[0];
+        var val2 = data.NganhValue[1];
+        var val3 = data.NganhValue[2];
+        var val4 = data.NganhValue[3];
+        var val5 = data.NganhValue[4];
+
+        var datasets = [];
+        datasets.push({
+            type: 'bar',
+            barPercentage: 2,
+            label: nganh1,
+            data: [{ x: nganh1, y: val1 }],
+            bordercolor: "blue",
+            backgroundColor: "blue",
+            order: 0
+        });
+        datasets.push({
+            type: 'bar',
+            barPercentage: 2,
+            label: nganh2,
+            data: [{ x: nganh2, y: val2 }],
+            bordercolor: "red",
+            backgroundColor: "red",
+            order: 1
+        });
+        datasets.push({
+            type: 'bar',
+            barPercentage: 2,
+            label: nganh3,
+            data: [{ x: nganh3, y: val3 }],
+            borderColor: "green",
+            backgroundColor: "green",
+            order: 2,
+        });
+        datasets.push({
+            type: 'bar',
+            barPercentage: 2,
+            label: nganh4,
+            data: [{ x: nganh4, y: val4 }],
+            borderColor: "cyan",
+            backgroundColor: "cyan",
+            order: 3,
+
+        });
+        datasets.push({
+            type: 'bar',
+            barPercentage: 2,
+            label: nganh5,
+            data: [{ x: nganh5, y: val5 }],
+            borderColor: "purple",
+            backgroundColor: "purple",
+            order: 4,
+        });
+        var unit = " (tỷ đồng)";
+
+        const dataConfig = {
+            datasets: datasets
+        };
+        const config = {
+            type: 'bar',
+            data: dataConfig,
+            options: {
+                responsive: true,
+
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    x: {
+                        display: true,
+                    },
+                    y: {
+                        ticks: {
+                            // forces step size to be 50 units
+                            stepSize: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: false,
+                        align: 'center',
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    },
+                    tooltip: {
+                        callbacks: {
+
+                            label: function (item) {
+                                if (item.datasetIndex == 0)
+                                    return nganh1 + ": " + CommonHelper.formatNumber(item.raw.y, 2) + unit;
+                                if (item.datasetIndex == 1)
+                                    return nganh2 + ": " + CommonHelper.formatNumber(item.raw.y, 2) + unit;
+                                if (item.datasetIndex == 2)
+                                    return nganh3 + ": " + CommonHelper.formatNumber(item.raw.y, 2) + unit;
+                                if (item.datasetIndex == 3)
+                                    return nganh4 + ": " + CommonHelper.formatNumber(item.raw.y, 2) + unit;
+                                if (item.datasetIndex == 4)
+                                    return nganh5 + ": " + CommonHelper.formatNumber(item.raw.y, 2) + unit;
                             },
                         }
                     }

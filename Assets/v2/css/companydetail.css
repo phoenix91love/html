@@ -113,13 +113,25 @@
       color: #DA374A;
       margin: unset; }
     .container-company-detail .l-main .r-topnews ul li span.color-green {
-      color: #00873C;
+      color: #33a42e;
       margin: unset; }
     .container-company-detail .l-main .r-topnews ul li span.color-violet {
-      color: #3B1B70;
+      color: #6784b5;
       margin: unset; }
     .container-company-detail .l-main .r-topnews ul li span.color-yellow {
       color: #DF9C00;
+      margin: unset; }
+    .container-company-detail .l-main .r-topnews ul li span.color-san {
+      color: #6982ad;
+      margin: unset; }
+    .container-company-detail .l-main .r-topnews ul li span.color-tran {
+      color: #c735eb;
+      margin: unset; }
+    .container-company-detail .l-main .r-topnews ul li span.color-low {
+      color: #fc0002;
+      margin: unset; }
+    .container-company-detail .l-main .r-topnews ul li span.color-height {
+      color: #33a42e;
       margin: unset; }
 
 .container-company-detail .l-main .r-topnews.mobile {
@@ -694,15 +706,24 @@
   margin: unset;
   font-weight: normal; }
 
-.container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content ul li {
-  margin: 0 0 10px;
-  font-weight: normal; }
-  .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content ul li span {
-    border-right: unset;
-    color: #222;
-    padding: unset;
+.container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content .content-description {
+  font-size: 14px;
+  line-height: 2; }
+  .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content .content-description span {
     margin: unset;
-    font-weight: normal; }
+    line-height: 2; }
+  .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content .content-description ul li {
+    margin: 0 0 10px;
+    font-weight: normal;
+    line-height: 2; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content .content-description ul li span {
+      border-right: unset;
+      color: #222;
+      padding: unset;
+      margin: unset;
+      font-weight: normal;
+      display: contents;
+      line-height: 2; }
 
 .container-company-detail .l-main .content-struct .c-box__content .company-financial .option {
   margin-bottom: 5px; }
