@@ -44,7 +44,7 @@ function loadDataPriceHistory(exId, code) {
             $('#pricehistory-mobile').empty();
             $('#pricehistory').empty();
             $('#pricehistory').append(`<li><div class="c-box__title">
-                                                <div class="c-box__title__name">Lịch sử giao dịch</div>
+                                                <h2 class="c-box__title__name">Lịch sử giao dịch</h2>
                                             </div>
                                         </li>
                                         <li class="labelname">
@@ -55,7 +55,7 @@ function loadDataPriceHistory(exId, code) {
                                         </li>`);
             $('#pricehistory-mobile').append(`<li>
                                                 <div class="c-box__title">
-                                                    <div class="c-box__title__name">Lịch sử giao dịch</div>
+                                                    <h2 class="c-box__title__name">Lịch sử giao dịch</h2>
                                                 </div>
                                             </li>
                                         <li class="labelname">

@@ -59,7 +59,7 @@
 }
 <div class="personal-detail">
     <input type="hidden" id="personal-code" value="@dataPersonal.PersonalCode" />
-    <div class="title-name"><span>Cá nhân</span> <span>@dataPersonal.Name</span> </div>
+    <div class="title-name"><h1><span>Cá nhân</span> <span>@dataPersonal.Name</span></h1></div>
     <hr class="clearfix" />
 
     <div class="c-content-flex">
@@ -190,7 +190,7 @@
                 {
                     var index = 0;
                     <div class="positon-content">
-                        <div class="title">Chức vụ hiện tại</div>
+                        <div class="title"><h2>Chức vụ hiện tại</h2></div>
                         <ul class="desktop">
                             <li>
                                 <span>STT</span>
@@ -236,7 +236,7 @@
                     <div class="stock-conent">
                         @if (namgiu.Any())
                         {
-                            <div class="title">Cổ phiếu sở hữu</div>
+                            <div class="title"><h2>Cổ phiếu sở hữu</h2></div>
                             <ul class="desktop">
                                 <li>
                                     <span>STT</span>
@@ -337,7 +337,7 @@
                         @if (sohuu.Any())
                         {
                             index = 0;
-                            <div class="title">Cổ phiếu đại diện sở hữu</div>
+                            <div class="title"><h2>Cổ phiếu đại diện sở hữu</h2></div>
                             <ul class="desktop">
                                 <li>
                                     <span>STT</span>
@@ -446,7 +446,7 @@
                     var dataGroup = dataPersonal.PersonalStockRelationships.GroupBy(x => x.PersonalName).OrderByDescending(x => x.Max(y => y.CountStock));
 
                     <div class="relationship-content">
-                        <div class="title">Cá nhân liên quan</div>
+                        <div class="title"><h2>Cá nhân liên quan</h2></div>
                         <div class="relationship-detail">
                             <table class="table table-hover table-striped table-bordered table-common table-responsive">
                                 <thead>
@@ -504,9 +504,9 @@
                     <div class="c-box c-other mb-3">
                         <div class="info-navbar-content">
                             <ul class="nav info-navbar info-grey">
-                                <li class="active"><a href="#news-relation" data-toggle="tab" class="nav-link">Tin liên quan</a></li>
-                                <li><a href="#news-event" data-toggle="tab" class="nav-link">Sự kiện</a></li>
-                                <li><a href="#news-google" data-toggle="tab" class="nav-link">Tin Google</a></li>
+                                <li class="active"><a href="#news-relation" data-toggle="tab" class="nav-link"><h2>Tin liên quan</h2></a></li>
+                                <li><a href="#news-event" data-toggle="tab" class="nav-link"><h2>Sự kiện</h2></a></li>
+                                <li><a href="#news-google" data-toggle="tab" class="nav-link"><h2>Tin Google</h2></a></li>
                             </ul>
                         </div>
                         <div class="tab-content" id="newsTabContent">
@@ -635,19 +635,19 @@
             @if (companyGroupPerson.Any())
             {
                 <div class="c-grey content-struct">
-                    <div class="title">Doanh nghiệp liên quan</div>
+                    <div class="title"><h2>Doanh nghiệp liên quan</h2></div>
                     <div class="tab-struct">
                         <ul class="nav info-navbar info-grey">
                             @foreach (var item in companyGroupPerson)
                             {
-                                <li class="@(item.CompanyCode==companyGroupPerson.First().CompanyCode?"active":string.Empty)"><a href="#tab-@item.CompanyCode" data-toggle="tab" class="nav-link">@item.CompanyCode</a></li>
+                                <li class="@(item.CompanyCode==companyGroupPerson.First().CompanyCode?"active":string.Empty)"><h3><a href="#tab-@item.CompanyCode" data-toggle="tab" class="nav-link">@item.CompanyCode</a></h3></li>
                             }
                         </ul>
                         <div class="tab-content">
                             @foreach (var item in companyGroupPerson)
                             {
                                 <div id="tab-@item.CompanyCode" class="tab tab-pane @(item.CompanyCode == companyGroupPerson.First().CompanyCode ? "active" : string.Empty)">
-                                    <div>@item.CompanyName</div>
+                                    <h4>@item.CompanyName</h4>
                                     <div>
                                         @item.CompanyCode
                                         <div class="b-grid__title box">
@@ -669,7 +669,7 @@
                                             var dataGroupPosition = data.GroupBy(x => x.PersonalCode);
                                             <div class="struct">
                                                 <div>
-                                                    <div>@data.FirstOrDefault().GroupName</div>
+                                                    <h2>@data.FirstOrDefault().GroupName</h2>
                                                 </div>
                                                 <div>
                                                     <ul class="is-line-bottom">

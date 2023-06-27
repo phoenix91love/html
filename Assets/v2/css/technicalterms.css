@@ -177,6 +177,12 @@
       @media (max-width: 991px) {
         .technical-terms-detail .option div.filter-symbol ul li {
           font-size: 16px; } }
+      .technical-terms-detail .option div.filter-symbol ul li h2 {
+        font-family: unset;
+        line-height: unset;
+        font-weight: unset;
+        margin-bottom: 0;
+        font-size: unset; }
       .technical-terms-detail .option div.filter-symbol ul li a {
         color: #3b1b70;
         font-family: "Roboto Condensed","Roboto",Arial; }
@@ -238,6 +244,8 @@
 .technical-terms-detail .read-more-top .c-box__title, .technical-terms-detail .read-more .c-box__title {
   color: #3b1b70;
   background-color: #f3f3f3; }
+  .technical-terms-detail .read-more-top .c-box__title h2, .technical-terms-detail .read-more .c-box__title h2 {
+    margin-bottom: 0; }
 
 .technical-terms-detail .read-more-top ul li, .technical-terms-detail .read-more ul li {
   width: 100%; }
@@ -267,6 +275,8 @@
 .technical-terms-detail .top-news .c-box__title {
   color: #3b1b70;
   background-color: #f3f3f3; }
+  .technical-terms-detail .top-news .c-box__title h2 {
+    margin-bottom: 0; }
 
 @media (max-width: 991px) {
   .technical-terms-detail .top-news ul li {
@@ -357,6 +367,12 @@
     .technical-terms-detail .c-box.c-other .c-box__title {
       padding-bottom: 9px;
       margin-bottom: 10px; } }
+  .technical-terms-detail .c-box.c-other .c-box__title h2 {
+    margin-bottom: 0;
+    font-family: unset;
+    font-weight: unset;
+    line-height: unset;
+    font-size: unset; }
   .technical-terms-detail .c-box.c-other .c-box__title .c-box__title__name {
     font-size: 20px;
     text-transform: uppercase; }

@@ -31,6 +31,14 @@
     body .title-name + .clearfix {
       border-top: solid 1px #E5E5E5;
       margin: 19px 0; }
+    body .title-name h1 {
+      margin-bottom: 0;
+      font-family: unset;
+      line-height: unset;
+      font-size: unset;
+      font-weight: unset; }
+      body .title-name h1:nth-child(1)::after {
+        content: none; }
   body .l-main .b-maincontent {
     margin-bottom: 18px; }
     @media (max-width: 991px) {
@@ -170,6 +178,12 @@
     @media (max-width: 991px) {
       body .l-main .positon-content .title {
         margin-bottom: 10px; } }
+    body .l-main .positon-content .title h2 {
+      margin-bottom: 0;
+      font-family: unset;
+      line-height: unset;
+      font-size: unset;
+      font-weight: unset; }
   body .l-main .positon-content ul li:first-child {
     font-weight: 600;
     color: #222222;
@@ -261,6 +275,12 @@
     color: #3B1B70;
     text-transform: uppercase;
     margin-bottom: 18px; }
+    body .l-main .stock-conent .title h2 {
+      margin-bottom: 0;
+      font-family: unset;
+      line-height: unset;
+      font-size: unset;
+      font-weight: unset; }
   body .l-main .stock-conent ul li:first-child {
     font-weight: 600;
     color: #222222;
@@ -539,6 +559,12 @@
     color: #3B1B70;
     text-transform: uppercase;
     margin-bottom: 10px; }
+    body .l-main .relationship-content .title h2 {
+      margin-bottom: 0;
+      font-family: unset;
+      line-height: unset;
+      font-size: unset;
+      font-weight: unset; }
   body .l-main .relationship-content ul li:first-child {
     font-weight: 600;
     color: #222222;
@@ -956,6 +982,12 @@
         line-height: 21px;
         text-transform: uppercase;
         padding-bottom: 16px; }
+        body .l-main .news-personal .info-navbar-content .info-navbar li .nav-link h2 {
+          margin-bottom: 0;
+          font-family: unset;
+          line-height: unset;
+          font-size: unset;
+          font-weight: unset; }
         body .l-main .news-personal .info-navbar-content .info-navbar li .nav-link:before {
           content: '';
           width: 1px;
@@ -1083,6 +1115,12 @@
         body .l-sidebar .content-struct div.title:first-child {
           font-size: 16px;
           line-height: 20px; } }
+      body .l-sidebar .content-struct div.title:first-child h2 {
+        margin-bottom: 0;
+        font-family: unset;
+        line-height: unset;
+        font-size: unset;
+        font-weight: unset; }
     body .l-sidebar .content-struct .tab-struct {
       margin-top: 10px; }
       body .l-sidebar .content-struct .tab-struct ul.info-navbar {
@@ -1092,6 +1130,12 @@
           border-right: none;
           padding: 0;
           margin: 0 5px; }
+          body .l-sidebar .content-struct .tab-struct ul.info-navbar li h3 {
+            margin-bottom: 0;
+            font-family: unset;
+            font-size: unset;
+            line-height: unset;
+            font-weight: unset; }
           body .l-sidebar .content-struct .tab-struct ul.info-navbar li a {
             padding: 0 6px 3px 6px;
             position: relative;
@@ -1117,6 +1161,12 @@
               @media (max-width: 991px) {
                 body .l-sidebar .content-struct .tab-struct ul.info-navbar li a:before {
                   height: 13px; } }
+            body .l-sidebar .content-struct .tab-struct ul.info-navbar li a h3 {
+              margin-bottom: 0;
+              font-family: unset;
+              line-height: unset;
+              font-size: unset;
+              font-weight: unset; }
           body .l-sidebar .content-struct .tab-struct ul.info-navbar li.active a {
             background: none;
             font-weight: 600; }
@@ -1141,13 +1191,13 @@
         margin-top: 10px; }
         body .l-sidebar .content-struct .tab-struct .tab-content .chart {
           margin-bottom: 10px; }
-        body .l-sidebar .content-struct .tab-struct .tab-content .tab div:first-child {
+        body .l-sidebar .content-struct .tab-struct .tab-content .tab h4:first-child {
           font-size: 16px;
           font-weight: 600;
           color: #222;
           text-align: center; }
           @media (max-width: 991px) {
-            body .l-sidebar .content-struct .tab-struct .tab-content .tab div:first-child {
+            body .l-sidebar .content-struct .tab-struct .tab-content .tab h4:first-child {
               font-size: 14px; } }
         body .l-sidebar .content-struct .tab-struct .tab-content .tab > div:nth-child(2) {
           display: flex;
@@ -1205,6 +1255,12 @@
               body .l-sidebar .content-struct .tab-struct .tab-content .struct > div:first-child {
                 font-size: 16px;
                 line-height: 20px; } }
+          body .l-sidebar .content-struct .tab-struct .tab-content .struct > div h2 {
+            font-family: unset;
+            font-size: unset;
+            margin-bottom: 0;
+            font-weight: unset;
+            text-align: center; }
           @media (max-width: 991px) {
             body .l-sidebar .content-struct .tab-struct .tab-content .struct ul {
               padding: 0 15px; } }

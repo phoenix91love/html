@@ -12,7 +12,7 @@
 <div class="c-template-list">
     @foreach (var group in dataGroup)
     {
-        <div class="group-name">@group.FirstOrDefault().GroupName</div>
+        <h3 class="group-name">@group.FirstOrDefault().GroupName</h3>
         <ul class="is-line-bottom">
             @{
                 var groupPersonal = group.GroupBy(x => x.PersonalId).OrderBy(x => x.FirstOrDefault().PositionIndex);

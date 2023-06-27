@@ -96,8 +96,6 @@
                         float: left;
                         margin-right: 10px;
 
-
-
                         a {
                             color: #3b1b70;
                             font-family: "Roboto Condensed","Roboto",Arial;
@@ -328,6 +326,14 @@
                         font-size: 16px;
                     }
 
+                    h2 {
+                        font-family: unset;
+                        line-height: unset;
+                        font-weight: unset;
+                        margin-bottom: 0;
+                        font-size: unset;
+                    }
+
                     a {
                         color: #3b1b70;
                         font-family: "Roboto Condensed","Roboto",Arial;
@@ -423,6 +429,10 @@
         .c-box__title {
             color: #3b1b70;
             background-color: #f3f3f3;
+
+            h2 {
+                margin-bottom: 0;
+            }
         }
 
         ul {
@@ -470,6 +480,10 @@
         .c-box__title {
             color: #3b1b70;
             background-color: #f3f3f3;
+
+            h2 {
+                margin-bottom: 0;
+            }
         }
 
         ul {
@@ -591,6 +605,14 @@
             @include r(991) {
                 padding-bottom: 9px;
                 margin-bottom: 10px;
+            }
+
+            h2 {
+                margin-bottom: 0;
+                font-family: unset;
+                font-weight: unset;
+                line-height: unset;
+                font-size: unset;
             }
 
             .c-box__title__name {

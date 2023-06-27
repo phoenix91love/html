@@ -80,7 +80,7 @@
     @if (Model.DataObject == null)
     {
         <div class="b-grid__title">
-            <span class="name">@ViewBag.SubTitle</span>
+            <h1 class="name">@ViewBag.SubTitle</h1>
         </div>
         return;
     }
@@ -106,7 +106,7 @@
                             <ul>
                                 @foreach (var item in arrarSymbol)
                                 {
-                                    <li><a href="@Url.Action("IndexBySearch","TechnicalTerms",new { valueSearch=(item.Trim()=="#"?string.Empty: item.Trim()),typeSearch=1})">@item.Trim()</a></li>
+                                    <li><h2><a href="@Url.Action("IndexBySearch","TechnicalTerms",new { valueSearch=(item.Trim()=="#"?string.Empty: item.Trim()),typeSearch=1})">@item.Trim()</a></h2></li>
                                 }
                             </ul>
                         </div>
@@ -119,7 +119,7 @@
                     </div>
                     <div>
                         <div class="b-grid__title">
-                            <span class="name">@Model.DataObject.Title</span>
+                            <h1 class="name">@Model.DataObject.Title</h1>
                         </div>
                         <div>
                             <p>
@@ -135,7 +135,7 @@
                     @if (dataNewsLinked.Any())
                     {
                         <div class="c-box c-other mb-3">
-                            <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Bài viết liên quan</a></div>
+                            <div class="c-box__title grey__bg"><h2><a class="c-box__title__name" href="#">Bài viết liên quan</a></h2></div>
                             <div class="c-template-list">
                                 <ul>
                                     @foreach (var item in dataNewsLinked)
@@ -172,33 +172,33 @@
         <div class="l-sidebar">
             <div class="c-box read-more">
                 <div class="c-box__title">
-                    <div class="c-box__title__name">Xem thêm</div>
+                    <h2 class="c-box__title__name">Xem thêm</h2>
                 </div>
                 <ul class="c-box is-border is-line-bottom mb-3">
                     @foreach (var item in dataReadMore.DataObject)
                     {
                         <li>
-                            <span><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></span>
+                            <h3><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></h3>
                         </li>
                     }
                 </ul>
             </div>
             <div class="c-box read-more-top">
                 <div class="c-box__title">
-                    <div class="c-box__title__name">Tra cứu nhiều</div>
+                    <h2 class="c-box__title__name">Tra cứu nhiều</h2>
                 </div>
                 <ul class="c-box is-border is-line-bottom mb-3">
                     @foreach (var item in dataReadTop.DataObject)
                     {
                         <li>
-                            <span><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></span>
+                            <h3><a href="@Url.Action("TechnicalTermDetail","TechnicalTerms",new { title=M.Common.Extensions.RegexHelper.TiengVietKDau(item.Title).ToLower(),id=item.TermId})">@item.Title</a></h3>
                         </li>
                     }
                 </ul>
             </div>
             <div class="c-box top-news">
                 <div class="c-box__title">
-                    <div class="c-box__title__name">Tin tức nổi bật</div>
+                    <h2 class="c-box__title__name">Tin tức nổi bật</h2>
                 </div>
                 <ul class="c-box is-border">
                     @foreach (var item in dataNews.DataList)

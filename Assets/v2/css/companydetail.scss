@@ -524,6 +524,12 @@
                         margin-bottom: unset;
                         border-right: none;
 
+                        h2 {
+                            margin-bottom: 0;
+                            font-size: unset;
+                            font-family: unset;
+                        }
+
                         a {
                             white-space: nowrap;
                             padding: 5px 10px;
@@ -602,12 +608,20 @@
                     #company-News {
                         .sml_title {
                             font-size: 16px;
+                            margin-bottom: 0;
                         }
 
                         ul {
                             li {
                                 display: flex;
                                 justify-content: flex-start;
+
+                                h4 {
+                                    margin-bottom: 0;
+                                    font-family: unset;
+                                    font-size: unset;
+                                    line-height: unset;
+                                }
                             }
                         }
                     }
@@ -772,6 +786,7 @@
                         font-family: 'Roboto Condensed';
                         color: #3b1b85;
                         text-transform: uppercase;
+                        margin-top: 20px;
                     }
                 }
 
@@ -2379,6 +2394,30 @@
     .c-box .c-box__title a.c-box__title__name {
         text-transform: uppercase;
     }
+
+    .l-main .c-box.history#pricehistory-mobile .c-box__title h2.c-box__title__name {
+        width: unset !important;
+        font-family: unset;
+        line-height: unset;
+        font-weight: unset;
+        margin-bottom: 0;
+    }
+
+    .l-sidebar .c-box .c-box__title h2 {
+        margin-bottom: 0;
+    }
+
+    .l-main .c-box.c-other .c-box__title h2 {
+        margin-bottom: 0;
+        font-family: unset;
+        line-height: unset;
+        font-size: unset;
+        font-weight: unset;
+    }
+
+    .l-main .c-box.c-other .sml_title {
+        margin-bottom: 0;
+    }
 }
 
 .top-tool-tip {
@@ -2801,7 +2840,7 @@
         border: 1px solid #F1F1F1;
     }
 
-    .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News .sml_title {
+    .container-company-detail .l-main .content-struct .c-box__content #tab1 #company-News .sml_title {
         font-size: 18px;
         line-height: 21px;
         font-weight: 600;
@@ -2832,9 +2871,10 @@
     }
 
     .container-company-detail .l-main .c-box.is-minus-mobile.is-border #company-News ul.new-info li a {
-        margin-left: 30px;
+        padding-left: 30px;
         font-size: 12px;
         line-height: 16px;
+        display: block;
     }
 
     .container-company-detail .l-main .c-box.is-minus-mobile.is-border .c-box.c-other {

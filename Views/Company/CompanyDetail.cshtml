@@ -74,14 +74,14 @@
     @if (string.IsNullOrEmpty(Model.DataObject.Code))
     {
         <div class="b-grid__title">
-            <span class="name">@ViewBag.SubTitle</span>
+            <h1><span class="name">@ViewBag.SubTitle</span></h1>
         </div>
         return;
     }
     else
     {
         <div class="b-grid__title">
-            <span class="name">@ViewBag.SubTitle</span>
+            <h1><span class="name">@ViewBag.SubTitle</span></h1>
         </div>
     }
 
@@ -282,7 +282,7 @@
             <ul class="c-box history is-border is-line-bottom mb-3 d-lg-none" id="pricehistory-mobile">
                 <li>
                     <div class="c-box__title">
-                        <div class="c-box__title__name">Lịch sử giao dịch</div>
+                        <h2 class="c-box__title__name">Lịch sử giao dịch</h2>
                     </div>
                 </li>
                 <li class="labelname">
@@ -303,13 +303,13 @@
             <div class="c-box__content">
                 <div class="info-navbar-content">
                     <ul class="nav info-navbar info-grey">
-                        <li class="active nav-tab1"><a href="#tab1" data-toggle="tab" class="nav-link">Tin tức sự kiện</a></li>
-                        <li class="nav-tab6"><a href="#tab6" data-toggle="tab" class="nav-link">Thông tin cơ bản</a></li>
-                        <li class="nav-tab7"><a href="#tab7" data-toggle="tab" class="nav-link">Thông tin doanh nghiệp</a></li>
-                        <li class="nav-tab2"><a href="#tab2" data-toggle="tab" class="nav-link">Ban lãnh đạo</a></li>
-                        <li class="nav-tab3"><a href="#tab3" data-toggle="tab" class="nav-link">Cơ cấu sở hữu</a></li>
-                        <li class="nav-tab4"><a href="#tab4" data-toggle="tab" class="nav-link">Thông tin tài chính</a></li>
-                        <li class="nav-tab5"><a href="#tab5" data-toggle="tab" class="nav-link">Doanh nghiệp tương đương</a></li>
+                        <li class="active nav-tab1"><h2><a href="#tab1" data-toggle="tab" class="nav-link">Tin tức sự kiện</a></h2></li>
+                        <li class="nav-tab6"><h2><a href="#tab6" data-toggle="tab" class="nav-link">Thông tin cơ bản</a></h2></li>
+                        <li class="nav-tab7"><h2><a href="#tab7" data-toggle="tab" class="nav-link">Thông tin doanh nghiệp</a></h2></li>
+                        <li class="nav-tab2"><h2><a href="#tab2" data-toggle="tab" class="nav-link">Ban lãnh đạo</a></h2></li>
+                        <li class="nav-tab3"><h2><a href="#tab3" data-toggle="tab" class="nav-link">Cơ cấu sở hữu</a></h2></li>
+                        <li class="nav-tab4"><h2><a href="#tab4" data-toggle="tab" class="nav-link">Thông tin tài chính</a></h2></li>
+                        <li class="nav-tab5"><h2><a href="#tab5" data-toggle="tab" class="nav-link">Doanh nghiệp tương đương</a></h2></li>
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -318,7 +318,7 @@
                         <div id="company-News" class="mb-3"></div>
                         <div class="c-box c-other ">
                             <div class="option-events">
-                                <div class="sml_title">Lịch sự kiện</div>
+                                <h3 class="sml_title">Lịch sự kiện</h3>
                                 <select id="option-events" class="form-control">
                                     <option value="0" data-type="0">Tất cả</option>
                                     @foreach (var item in ViewBag.ListType)
@@ -441,7 +441,7 @@
 
         <!--end topnews-->
         <div class="c-box c-other mb-3">
-            <div class="c-box__title grey__bg"><a class="c-box__title__name" href="#">Tin doanh nghiệp</a></div>
+            <div class="c-box__title grey__bg"><h2><a class="c-box__title__name" href="#">Tin doanh nghiệp</a></h2></div>
             <div class="c-template-list">
                 <ul id="company-get-news">
                 </ul>
@@ -518,7 +518,7 @@
         <ul class="c-box history is-border is-line-bottom mb-3 d-sm-none d-none d-lg-block" id="pricehistory">
             <li>
                 <div class="c-box__title">
-                    <div class="c-box__title__name">Lịch sử giao dịch</div>
+                    <h2 class="c-box__title__name">Lịch sử giao dịch</h2>
                 </div>
             </li>
             <li class="labelname">
@@ -536,7 +536,7 @@
 
         <div class="c-box is-border is-primary is-minus-mobile d-none d-lg-block">
             <div class="c-box__title">
-                <div class="c-box__title__name">Giới thiệu</div>
+                <h2 class="c-box__title__name">Giới thiệu</h2>
             </div>
             <div class="c-box__content white__bg">
                 <div class="c-news-info">
@@ -592,7 +592,7 @@
         <!--end c-box__content-->
         <div class="c-box top-eps">
             <div class="c-box__title">
-                <div class="c-box__title__name">Top 10 EPS tương đương</div>
+                <h2 class="c-box__title__name">Top 10 EPS tương đương</h2>
             </div>
             <ul class="c-box history is-border is-line-bottom mb-3">
                 <li class="labelname">
