@@ -2593,3 +2593,30 @@ ul.tinmoi {
 .l-topic-grid.top-content .is-line-bottom {
     border-bottom: 1px solid #f1eded;
 }
+.celling {
+    color: #c735eb !important;
+}
+.flooring {
+    color: #6982ad !important;
+}
+ul.follow li span.celling::before {
+    content: '';
+    -webkit-mask-box-image: url("../images/icons/arrow-up.svg");
+    width: 12px;
+    height: 12px;
+    display: block;
+    float: left;
+    margin: auto 5px auto 0;
+    background-color: #c735eb;
+}
+
+ul.follow li span.flooring::before {
+    content: '';
+    -webkit-mask-box-image: url("../images/icons/arrow-down.svg");
+    width: 12px;
+    height: 12px;
+    display: block;
+    float: left;
+    margin: auto 5px auto 0;
+    background-color: #6982ad;
+}

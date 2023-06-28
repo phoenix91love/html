@@ -49,22 +49,7 @@
 </nav>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".a-btn-show-modal-detail").click(function () {
-            var id = $(this).attr("data-id");
-            var title = $("#title-" + id).html();
-            var url = $("#link-download-" + id).html();
-            var content = $("#content-" + id).html();
-            $("#event-detail-title").html("");
-            $("#event-detail-content").html("");
-            $("#event-detail-download").html("");
-
-            $("#event-detail-title").html(title);
-            $("#event-detail-content").html(content);
-            if (url != "" && url != null)
-                $("#event-detail-download").html("<a target='_blank' href=" + url + ">" + url + "</a>");
-
-            $('.modal-detail').modal('show');
-        });
+        
 
         $('#event-tracotucbangtienmat-table').bootstrapTable({
             fixedColumns: true,

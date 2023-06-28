@@ -34,13 +34,14 @@
             data-gtgd="@item.TotalValue"
             data-nnmua="@item.TooltipNNMuaVol"
             data-nnban="@item.TooltipNNBanVol"
-            data-companyname="@item.TooltipName">
+            data-companyname="@item.TooltipName"
+            data-color="@item.Color">
 
             <span class="col-1">@item.RowIndex</span>
-            <span class="col-2 code"><a href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></span>
+            <span class="col-2 code"><a class="@item.Color" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a></span>
             <span class="col-3 text-right">@item.Value.FormatNumber()</span>
-            <span class="col-3 text-right @(item.Change > 0 ? "green" : "red")">@item.Price.FormatNumber()</span>
-            <span class="col-3 text-right @(item.Change > 0 ? "green" : "red")">@(item.Change.FormatNumber() + " ("+ item.PerChange.FormatNumber() + "%)")</span>
+            <span class="col-3 text-right @item.Color">@item.Price.FormatNumber()</span>
+            <span class="col-3 text-right @item.Color">@(item.Change.FormatNumber() + " ("+ item.PerChange.FormatNumber() + "%)")</span>
         </li>
     }
 </ul>
@@ -66,11 +67,10 @@
                     var nnmua = CommonHelper.formatNumber(this.getAttribute('data-nnmua'), 0);
                     var nnban = CommonHelper.formatNumber(this.getAttribute('data-nnban'), 0);
                     var companyName = this.getAttribute('data-companyname');
-                    var priceClass = "";
+                    var color = this.getAttribute('data-color');
+                    var priceClass = color;
                     var price7DClass = "";
 
-                    if (this.getAttribute('data-change') > 0) priceClass = "green";
-                    if (this.getAttribute('data-change') < 0) priceClass = "red";
                     if (this.getAttribute('data-change7day') > 0) price7DClass = "green";
                     if (this.getAttribute('data-change7day') < 0) price7DClass = "red";
 

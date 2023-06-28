@@ -46,19 +46,19 @@
                         }
                         else
                         {
-                            <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
+                            <a class="a-in-table @item.Color" href="@Url.Action("CompanyDetail", "Company", new { code=item.Code })">@item.Code</a>
                         }
                     }
 
                 </td>
                 <td class="right">@item.PrePrice.FormatNumber()</td>
                 <td class="right">@item.AdjPrice.FormatNumber()</td>
-                <td class="right">@item.HighestPrice.FormatNumber()</td>
-                <td class="right">@item.LowestPrice.FormatNumber()</td>
-                <td class="right">@item.OpenPrice.FormatNumber()</td>
-                <td class="right">@item.ClosePrice.FormatNumber()</td>
-                <td class="right @(item.PerChange>0 ? "green" : (item.PerChange < 0 ? "red" : "") )">@item.Change.FormatNumber()</td>
-                <td class="right @(item.PerChange>0 ? "green" : (item.PerChange < 0 ? "red" : "") )">@item.PerChange.FormatNumberPercent()</td>
+                <td class="right @item.ColorHighest">@item.HighestPrice.FormatNumber()</td>
+                <td class="right @item.ColorLowest">@item.LowestPrice.FormatNumber()</td>
+                <td class="right @item.ColorOpen">@item.OpenPrice.FormatNumber()</td>
+                <td class="right @item.Color">@item.ClosePrice.FormatNumber()</td>
+                <td class="right @item.Color">@item.Change.FormatNumber()</td>
+                <td class="right @item.Color">@item.PerChange.FormatNumberPercent()</td>
                 <td class="right">@item.MatchVol.FormatNumber()</td>
                 <td class="right">@item.MatchVal.FormatNumber()</td>
                 <td class="right">@item.PtVol.FormatNumber()</td>

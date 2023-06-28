@@ -834,19 +834,19 @@ ul.c-box.is-line-bottom li.note span {
 }
 
 .yellow {
-    color: #fed018;
+    color: #fed018 !important;
 }
 
 .green {
-    color: #00873c;
+    color: #00873c !important;
 }
 
 .blue {
-    color: #076db6;
+    color: #076db6 !important;
 }
 
 .red {
-    color: #da374a;
+    color: #da374a !important;
 }
 
 .is-line-bottom {

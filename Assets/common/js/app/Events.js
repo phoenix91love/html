@@ -57,3 +57,19 @@ $(document).on("mouseleave", "#txt-input-code", function () {
         $('#input-code').val("");
     }
 });
+$(document).on("click", ".a-btn-show-modal-detail", function () {
+    var id = $(this).attr("data-id");
+    var title = $("#title-" + id).html();
+    var url = $("#link-download-" + id).html();
+    var content = $("#content-" + id).html();
+    $("#event-detail-title").html("");
+    $("#event-detail-content").html("");
+    $("#event-detail-download").html("");
+
+    $("#event-detail-title").html(title);
+    $("#event-detail-content").html(content);
+    if (url != "" && url != null)
+        $("#event-detail-download").html("<a target='_blank' href=" + url + ">" + url + "</a>");
+
+    $('.modal-detail').modal('show');
+});
