@@ -183,10 +183,8 @@
                 });
                 chart.tooltip().format(function () {
 
-                    var priceClass = "";
+                    var priceClass = this.getData("Color");
                     var price7DClass = "";
-                    if (this.getData("Change") > 0) priceClass = "green";
-                    if (this.getData("Change") < 0) priceClass = "red";
                     if (this.getData("Change7Day") > 0) price7DClass = "green";
                     if (this.getData("Change7Day") < 0) price7DClass = "red";
 

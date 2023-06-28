@@ -25,17 +25,17 @@
                     <div class="form-group row">
                         <label for="input-from-date" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Từ ngày</label>
 
-                        <div class="col-lg-2 col-sm-12 col-9 mb-2">
-                            <input type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
+                        <div class="col-lg-1 col-sm-12 col-9 mb-2">
+                            <input style="width: 90px;" type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
                         </div>
                         <label for="input-to-date" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Đến ngày</label>
-                        <div class="col-lg-2 col-sm-12 col-9 mb-2">
-                            <input type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
+                        <div class="col-lg-1 col-sm-12 col-9 mb-2">
+                            <input style="width: 90px;" type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
                         </div>
 
                         <label for="ddl-exchange" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Sàn</label>
-                        <div class="col-lg-2 col-sm-12 col-9 mb-2">
-                            <select id="ddl-exchange" class="form-control">
+                        <div class="col-lg-1 col-sm-12 col-9 mb-2">
+                            <select id="ddl-exchange" class="form-control" style="width: 80px;">
                                 <option value="" selected>Tất cả</option>
                                 <option value="HOSE">HOSE</option>
                                 <option value="HNX">HNX</option>
@@ -44,8 +44,8 @@
                                 <option value="HNX30">HNX30</option>
                             </select>
                         </div>
-                        <label for="txt-input-code" class="col-lg-1 col-sm-12 col-3 col-form-label text-right h-show-mobile">Mã CK</label>
-                        <div class="col-lg-2 col-sm-12 col-9">
+                        <label for="txt-input-code" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Mã CK</label>
+                        <div class="col-lg-3 col-sm-12 col-9">
                             <input type="hidden" class="form-control" id="input-code" value="@Model" />
                             <input type="text" class="form-control" id="txt-input-code" placeholder="Mã chứng khoán" />
                         </div>

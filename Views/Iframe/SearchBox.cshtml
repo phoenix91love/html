@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "SearchBox";
+    Layout = "~/Views/Shared/_IFrameLayout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery/common")
+<script type="text/javascript">
+    CommonIndex.bindHeaderSearchBox();
+    $(document).on("keyup", ".txt-keyword-header-mobile", function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) {
+            var data = $(this).val();
+            var inIframe = $('body').hasClass("wrap-iframe");
+            if (inIframe)
+                window.parent.location.href = "https://nguoiquansat.vn/search?q=" + data;
+            else
+                window.location.href = "https://nguoiquansat.vn/search?q=" + data;
+        }
+    });
+    $(document).on("click", ".btn-header-mobile-search", function () {
+        var data = $(".txt-keyword-header-mobile").val();
+        if (data == "")
+            return;
+        var inIframe = $('body').hasClass("wrap-iframe");
+        if (inIframe)
+            window.parent.location.href = "https://nguoiquansat.vn/search?q=" + data;
+        else
+            window.location.href = "https://nguoiquansat.vn/search?q=" + data;
+    });
+</script>
+<div class="c-search">
+    <div class="c-search__inner custom-autocomplete">
+        <input class="form-control txt-keyword-header-mobile" type="text" name="" placeholder="Mã CK / Từ khóa" autocomplete="off" />
+        <button class="c-search__btn btn-header-mobile-search" type="button" style="padding-top: 10px;">
+            <i class="icon16-search"></i>
+        </button>
+    </div>
+</div>
