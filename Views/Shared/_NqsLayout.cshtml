@@ -9,6 +9,7 @@
     <link rel="dns-prefetch" href="https://dulieu.nguoiquansat.vn/">
     <link rel="dns-prefetch" href="https://code.highcharts.com/">
     <link rel="canonical" href="https://dulieu.nguoiquansat.vn" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Assets/bundles/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Assets/bundles/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css" />
 
@@ -30,7 +31,7 @@
     <script src="~/Assets/v2/js/swiper.min.js"></script>
 
     <script src="~/Assets/bundles/bootstrap-4-autocomplete/bootstrap-4-autocomplete.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @Scripts.Render("~/bundles/jquery/common")
 
     @RenderSection("Styles", required: false)
@@ -248,6 +249,76 @@
                 }
             });
         });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var searchData = "";
+        $('.txt-keyword-header').select2({
+            placeholder: "Mã CK / Từ khóa",
+            allowClear: true,
+            dropdownAutoWidth: true,
+            tags: true,
+            minimumInputLength: 2,
+            ajax: {
+                delay: 250,
+                url: '@Url.Action("GetSearchBoxData", "Home")',
+                dataType: 'json',
+                data: function (params) {
+                    searchData = params.term
+                    var query = {
+                        search: params.term,
+                    }
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data) {
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            templateResult: formatRepo,
+            language: {
+
+                inputTooShort: function () {
+                    return "Nhập ít nhất 2 ký tự để tìm kiếm";
+                }
+            }
+
+        });
+        function formatRepo(repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+            var idx = repo.text.toLowerCase().indexOf(searchData.toLowerCase());
+            var text = repo.text.substring(0, idx)
+                + '<span class="red">' + repo.text.substring(idx, idx + searchData.length) + '</span>'
+                + repo.text.substring(idx + searchData.length, repo.text.length);
+
+            var $container = $(
+                "<div class='select2-result-repository clearfix'>" + text + "</div>"
+            );
+            return $container;
+        }
+
+        $('.txt-keyword-header').on('select2:select', function (e) {
+            var data = e.params.data;
+            if (data.id === data.text) {
+                window.location.href = "https://nguoiquansat.vn/search?q=" + data.text;
+            } else {
+
+                if (data.type != 0) {
+                    var name = CommonHelper.replacePersonName(CommonHelper.removeVietnameseTones(data.name));
+                    window.location.href = "/ca-nhan-nqs_" + data.id + "/" + name;
+                }
+                else
+                    window.location.href = configCommonUrl.companyDetail + data.id;
+            }
+        });
+
+    });
     </script>
     <script src='https://dataview.nguoiquansat.vn/dulieu.js'></script>
 </body>
