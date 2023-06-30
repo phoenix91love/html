@@ -1763,7 +1763,79 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
         outline: none;
     }
 
+.l-sidebar .c-thongke .c-box__content {
+    padding: 0;
+}
 
+    .l-sidebar .c-thongke .c-box__content .contentinfo {
+        padding: 0 15px
+    }
+
+
+    .l-sidebar .c-thongke .c-box__content ul.is-line-bottom {
+        padding: 10px 10px 10px 18px;
+        position: relative;
+        float: none;
+        display: flex;
+        background: #EAEBED;
+    }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li.active {
+            font-weight: 700;
+            font-family: "Roboto Condensed","Roboto",Arial;
+            text-transform: uppercase;
+            font-size: 18px;
+            line-height: 21px;
+        }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a {
+            display: block;
+            position: relative;
+            border-right: none;
+            font-weight: 700;
+            font-family: "Roboto Condensed","Roboto",Arial;
+            text-transform: uppercase;
+            font-size: 18px;
+            line-height: 21px;
+        }
+
+            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a:after {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 15px;
+                right: 0;
+                top: 1px;
+                background: #c9c9c9;
+            }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li:first-child a {
+            padding-left: 0;
+            margin-right: 0;
+        }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li:last-child a:after {
+            content: none;
+        }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li.active a {
+            color: #222;
+            margin-right: 0;
+        }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a:hover {
+            color: #222;
+        }
+
+        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom:before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            left: 0;
+            top: 10px;
+            background: #ee7224;
+        }
 
 
 @media only screen and (min-width: 1200px) {
@@ -2016,79 +2088,6 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
     .l-nav .c-mega-menu .c-category-flex .c-footer-social.mobile {
         display: none;
     }
-
-    .l-sidebar .c-thongke .c-box__content {
-        padding: 0;
-    }
-        .l-sidebar .c-thongke .c-box__content .contentinfo {
-            padding: 0 15px
-        }
-
-
-        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom {
-            padding: 10px 10px 10px 18px;
-            position: relative;
-            float: none;
-            display: flex;
-            background: #EAEBED;
-        }
-
-            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li.active {
-                font-weight: 700;
-                font-family: "Roboto Condensed","Roboto",Arial;
-                text-transform: uppercase;
-                font-size: 18px;
-                line-height: 21px;
-            }
-
-            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a {
-                display: block;
-                position: relative;
-                border-right: none;
-                font-weight: 700;
-                font-family: "Roboto Condensed","Roboto",Arial;
-                text-transform: uppercase;
-                font-size: 18px;
-                line-height: 21px;
-            }
-
-                .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a:after {
-                    content: '';
-                    position: absolute;
-                    width: 1px;
-                    height: 15px;
-                    right: 0;
-                    top: 1px;
-                    background: #c9c9c9;
-                }
-
-            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li:first-child a {
-                padding-left: 0;
-                margin-right: 0;
-            }
-
-            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li:last-child a:after {
-                content: none;
-            }
-
-            .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li.active a {
-                color: #222;
-                margin-right: 0;
-            }
-
-                .l-sidebar .c-thongke .c-box__content ul.is-line-bottom li a:hover {
-                    color: #222;
-                }
-
-        .l-sidebar .c-thongke .c-box__content ul.is-line-bottom:before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 20px;
-            left: 0;
-            top: 10px;
-            background: #ee7224;
-        }
 }
 
 
