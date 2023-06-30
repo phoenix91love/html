@@ -1739,12 +1739,13 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
 .l-nav .c-search .select2-container--default .select2-selection--single {
     border: none;
     background: transparent;
-    height: 28px;
+    height: 25px;
 }
 
     .l-nav .c-search .select2-container--default .select2-selection--single .select2-selection__clear {
         height: 28px;
         margin-right: 0;
+        padding-top: 5px;
     }
 
 
@@ -2206,7 +2207,7 @@ tb-tree-map-tooltip td:nth-child(0), tb-tree-map-tooltip td:nth-child(1) {
     }
 
         .l-nav .c-search .c-search__inner {
-            padding: 5px 39px 5px 12px;
+            padding: 3px 39px 5px 0px;
         }
 
             .l-nav .c-search .c-search__inner input {

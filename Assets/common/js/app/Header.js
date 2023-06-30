@@ -38,10 +38,7 @@ $(document).ready(function () {
         CommonIndex.loadDataChartWorldMobile("N225");
         CommonIndex.loadDataChartWorldMobile("HSI");
     }
-    setTimeout(() => {
-        CommonIndex.bindHeaderSearchBox();
-    }, 2000);
-
+    CommonIndex.bindHeaderSearchBox();
 });
 
 setInterval(() => {
@@ -63,7 +60,6 @@ setInterval(() => {
         CommonIndex.loadDataChartHeaderMobile("chart-UpcomIndex", "UPCOM-Index");
     } else {
         CommonIndex.loadWatchList();
-
     }
 
 }, 60 * 1000);
@@ -93,9 +89,9 @@ $(document).on("keyup", ".txt-keyword-header, .txt-keyword-header-mobile", funct
 
     }
 });
-$(document).on("click", ".btn-header-search", function () {
+$(document).on("click", ".btn-header-search, .btn-header-mobile-search", function () {
     var data = $(".txt-keyword-header").val();
-    if (data == "")
+    if (data == "" || data == null || data == undefined)
         return;
     var inIframe = $('body').hasClass("wrap-iframe");
     if (inIframe)
@@ -103,18 +99,6 @@ $(document).on("click", ".btn-header-search", function () {
     else
         window.location.href = "https://nguoiquansat.vn/search?q=" + data;
 });
-
-$(document).on("click", ".btn-header-mobile-search", function () {
-    var data = $(".txt-keyword-header-mobile").val();
-    if (data == "")
-        return;
-    var inIframe = $('body').hasClass("wrap-iframe");
-    if (inIframe)
-        window.parent.location.href = "https://nguoiquansat.vn/search?q=" + data;
-    else
-        window.location.href = "https://nguoiquansat.vn/search?q=" + data;
-});
-
 
 $(document).on("click", ".a-btn-show-popup-watch-list", function () {
     $('.watch-list-modal').modal('show');
@@ -151,5 +135,21 @@ $(document).on("click", ".li-header-select", function () {
             CommonIndex.loadDataChartHeader();
         else
             CommonIndex.loadDataChartWorld(code);
+    }
+});
+
+
+$(document).on('select2:select', ".txt-keyword-header", function (e) {
+    var data = e.params.data;
+    if (data.id === data.text) {
+        window.location.href = "https://nguoiquansat.vn/search?q=" + data.text;
+    } else {
+
+        if (data.type != 0) {
+            var name = CommonHelper.replacePersonName(CommonHelper.removeVietnameseTones(data.name));
+            window.location.href = "/ca-nhan-nqs_" + data.id + "/" + name;
+        }
+        else
+            window.location.href = configCommonUrl.companyDetail + data.id;
     }
 });

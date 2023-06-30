@@ -55,7 +55,6 @@
     }
     var countPercentStockCeo = (double)(NumberHelper.GetStockPercent(ViewBag.DataPercentStockCeo) ?? 0.0);
     var dataNewShowPopup = (CompanyNewsMdl)ViewBag.DataNewsShowPopup;
-
 }
 @section metatags
 {
@@ -93,7 +92,7 @@
             <div class="l-topnews b-grid__row col-lg-7">
 
                 <div class="b-grid__title box">
-                    <span class="point @NumberHelper.GetStockColor(dataStock.Bottom*1000, dataStock.ChangePercent, Model.DataObject.SanGD, dataStock.Current * 1000)"> @dataStock.Current.FormatNumber()</span>
+                    <span class="point"> @dataStock.Current.FormatNumber()</span>
 
                     <span class="unit @(dataStock.Change > 0 ? "green" : (dataStock.Change<0? "red":"yellow")) ">
                         @if (dataStock.Change > 0)

@@ -271,40 +271,58 @@ var CommonIndex = {
         });
     },
     bindHeaderSearchBox: function () {
-        CommonIndex.loadCompany("", 0, 1, function (result) {
-            if (result.ErrCode != "01") {
-                var isMobile = $("body").hasClass("mobile");
-                var el = ".txt-keyword-header";
-                if (isMobile) {
-                    el = ".txt-keyword-header-mobile";
-                }
-                $(el).autocomplete({
-                    source: result.DataList,
-                    highlightClass: 'text-danger',
-                    maximumItems: 10,
-                    treshold: 1,
-                    value: "Code",
-                    label: "Name",
-                    byThreeChar: true,
-                    onSelectItem: function (item, element) {
-                        var isInt = Number.isInteger(item.value);
-                        var inIframe = $('body').hasClass("wrap-iframe");
-                        if (isInt) {
-                            var name = CommonHelper.replacePersonName(CommonHelper.removeVietnameseTones(item.label));
-                            if (!inIframe)
-                                window.location.href = "/ca-nhan-nqs_" + item.value + "/" + name;
-                            else
-                                window.parent.location.href = "/ca-nhan-nqs_" + item.value + "/" + name;
-                        } else {
-                            if (!inIframe)
-                                window.location.href = configCommonUrl.companyDetail + item.value;
-                            else
-                                window.parent.location.href = configCommonUrl.companyDetail + item.value;
-                        }
+      
+        var searchData = "";
+        $('.txt-keyword-header').select2({
+            placeholder: "Mã CK / Từ khóa",
+            allowClear: true,
+            dropdownAutoWidth: true,
+            tags: true,
+            minimumInputLength: 2,
+            ajax: {
+                delay: 250,
+                url: configHomeUrl.homeGetSearchBoxData,
+                dataType: 'json',
+                data: function (params) {
+                    searchData = params.term
+                    var query = {
+                        search: params.term,
                     }
-                });
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data) {
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            templateResult: formatRepo,
+            language: {
+
+                inputTooShort: function () {
+                    return "Nhập ít nhất 2 ký tự để tìm kiếm";
+                }
             }
+
         });
+        function formatRepo(repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+            var idx = repo.text.toLowerCase().indexOf(searchData.toLowerCase());
+            var text = repo.text.substring(0, idx)
+                + '<span class="red">' + repo.text.substring(idx, idx + searchData.length) + '</span>'
+                + repo.text.substring(idx + searchData.length, repo.text.length);
+
+            var $container = $(
+                "<div class='select2-result-repository clearfix'>" + text + "</div>"
+            );
+            return $container;
+        }
+
     }
 };
 
