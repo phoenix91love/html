@@ -1,6 +1,6 @@
 ﻿var configCommonUrl = {
     companyDetail: "/doanh-nghiep/",
-    history: "/du-lieu-giao-dich/"
+    history: "/du-lieu-giao-dich/",
 };
 var configHomeUrl = {
     homeGetCompanyWithoutPerson: "/home/getcompanywithoutperson",
@@ -19,6 +19,7 @@ var configHomeUrl = {
     homeGetHeaderNews: "/home/GetHeaderNews",
     homeGetTopCpAnhHuong: "/home/GetTopCpAnhHuong",
     homeGetDongTien: "/home/GetDongTien",
+    homeGetSearchBoxData: "/home/GetSearchBoxData"
 };
 
 var historyUrl = {
