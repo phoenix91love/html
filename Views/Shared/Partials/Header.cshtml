@@ -1,40 +1,44 @@
-﻿<div class="container h-show-pc top-header-watch-list">
-    <div class="c-content-flex">
-        <div class="c-content-inner__left d-flex">
-            <div class="c-logo">
-                <a href="https://nguoiquansat.vn" target="_top">
-                    <img class="lazyload" src="~/Upload/images/logo.svg" data-src="https://asset.1cdn.vn/nqs/images/logo.svg" alt="logo">
-                </a>
+﻿
+@if (!Request.Browser.IsMobileDevice)
+{
+    <div class="container h-show-pc top-header-watch-list">
+        <div class="c-content-flex">
+            <div class="c-content-inner__left d-flex">
+                <div class="c-logo">
+                    <a href="https://nguoiquansat.vn" target="_top">
+                        <img class="lazyload" src="~/Upload/images/logo.svg" data-src="https://asset.1cdn.vn/nqs/images/logo.svg" alt="logo">
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="c-content-inner__right ">
-            <ul class="wl watch-list">
-                <li class="li-btn-wl">
-                    <button type="button" class="btn btn-blue a-btn-show-popup-watch-list">
-                        Watch list
-                    </button>
-                </li>
-                <li>
-                    <div class="c-search-wrapper">
-                        <div class="c-search">
-                            <div class="c-search__inner custom-autocomplete">
-                                <select class="form-control txt-keyword-header" name="state"></select>
-                                <button class="c-search__btn btn-header-search" type="button"><i class="icon16-search"></i></button>
-                                <button class="c-search__close js-search-close" type="button"><i class="icon12-close"></i></button>
+            <div class="c-content-inner__right ">
+                <ul class="wl watch-list">
+                    <li class="li-btn-wl">
+                        <button type="button" class="btn btn-blue a-btn-show-popup-watch-list">
+                            Watch list
+                        </button>
+                    </li>
+                    <li>
+                        <div class="c-search-wrapper">
+                            <div class="c-search">
+                                <div class="c-search__inner custom-autocomplete">
+                                    <input class="form-control txt-keyword-header" name="state" />
+                                    <button class="c-search__btn btn-header-search" type="button"><i class="icon16-search"></i></button>
+                                    <button class="c-search__close js-search-close" type="button"><i class="icon12-close"></i></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a class="btn btn-light h-show-mobile js-search-expand" href="#">Tìm kiếm<i class="icon16-search is-right"></i></a>
-                </li>
-            </ul>
+                        <a class="btn btn-light h-show-mobile js-search-expand" href="#">Tìm kiếm<i class="icon16-search is-right"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+}
 <!--end c-header-banner-->
 <div class="c-nav-inner">
     <div class="c-header">
         <div class="container">
-            @if (!bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
+            @if (!Request.Browser.IsMobileDevice)
             {
                 <div class="row topnews h-show-pc">
                     @{Html.RenderAction("ChartHeader", "Home");}
@@ -61,63 +65,70 @@
         <!--end container-->
     </div>
     <!--end c-header-->
-    <div class="c-button h-show-mobile">
-        <div class="container">
-            <ul class="d-flex">
-                <li><a target="_top" href="@Url.Action("Index", "Home")" class="btn btn-light">Market</a></li>
-                <li>
-                    <button type="button" class="btn btn-light a-btn-show-popup-watch-list">
-                        Watch list
-                    </button>
-                </li>
-                <li>
-                    <div class="c-search">
-                        <div class="c-search__inner custom-autocomplete">
-                            <select class="form-control txt-keyword-header" name="state" style="width: 100%;"></select>
-                            <button class="c-search__btn btn-header-mobile-search" type="button">
-                                <i class="icon16-search"></i>
-                            </button>
+    @if (Request.Browser.IsMobileDevice)
+    {
+        <div class="c-button h-show-mobile">
+            <div class="container">
+                <ul class="d-flex">
+                    <li><a target="_top" href="@Url.Action("Index", "Home")" class="btn btn-light">Market</a></li>
+                    <li>
+                        <button type="button" class="btn btn-light a-btn-show-popup-watch-list">
+                            Watch list
+                        </button>
+                    </li>
+                    <li>
 
+                        <div class="c-search">
+                            <div class="c-search__inner custom-autocomplete txt-keyword-header-mobile">
+                                @*<select class="form-control txt-keyword-header" name="state" style="width: 100%;"></select>*@
+                                <input class="form-control " type="text" name="" placeholder="Mã CK / Từ khóa" autocomplete="off" disabled />
+                                <button class="c-search__btn btn-header-mobile-search" type="button">
+                                    <i class="icon16-search"></i>
+                                </button>
+
+                            </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    }
 </div>
-
-<div class="container mt-3 h-show-mobile">
-    <div class="w-100">
-        @{
-            var r = new Random();
-            var x = r.Next(1, 100);
-            if (x <= 50)
-            {
-                <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
-            }
-            else
-            {
-               if (@Model != "false")
+@if (Request.Browser.IsMobileDevice)
+{
+    <div class="container mt-3 h-show-mobile">
+        <div class="w-100">
+            @{
+                var r = new Random();
+                var x = r.Next(1, 100);
+                if (x <= 50)
                 {
-                    <zone id="l5mbm2um"></zone>
-                    <script>arfAsync.push("l5mbm2um");</script>
+                    <a href="https://xti.com.vn/san-pham-xti" target="_blank"><img src="~/Upload/images/xti_mb.jpg" class="w-100" alt="banner" /></a>
                 }
                 else
                 {
-                    <a href="https://opes.com.vn/" target="_blank"><img src="~/Upload/images/opes-mobile.jpg" class="w-100" alt="banner" /></a>
+                    if (@Model != "false")
+                    {
+                        <zone id="l5mbm2um"></zone>
+                        <script>arfAsync.push("l5mbm2um");</script>
+                    }
+                    else
+                    {
+                        <a href="https://xti.com.vn/san-pham-xti" target="_blank"><img src="~/Upload/images/xti_mb.jpg" class="w-100" alt="banner" /></a>
+                    }
                 }
             }
-        }
-    </div>
-    <div class="swiper-container topcontents mt-3 mb-3">
+        </div>
+        <div class="swiper-container topcontents mt-3 mb-3">
 
-        @if (bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
-        {
-            Html.RenderAction("ChartHeader", "Home");
-        }
-    </div>
+            @if (Request.Browser.IsMobileDevice)
+            {
+                Html.RenderAction("ChartHeader", "Home");
+            }
+        </div>
 
-</div>
+    </div>
+}
 
 @if (@Model != "false")
 {

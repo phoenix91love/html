@@ -16,7 +16,15 @@
     font-weight: 600;
     color: #222222;
     display: flex;
-    justify-content: flex-start; }
+    justify-content: flex-start;
+    /* :nth-child(1) {
+            &::after {
+                content: "/";
+                margin: 0 5px;
+            }
+        }*/
+    /* :nth-child(2) {
+        }*/ }
     @media (max-width: 991px) {
       body .title-name {
         font-size: 25px;
@@ -25,9 +33,6 @@
         margin-bottom: 14px; }
         body .title-name + .clearfix {
           display: none; } }
-    body .title-name :nth-child(1)::after {
-      content: "/";
-      margin: 0 5px; }
     body .title-name + .clearfix {
       border-top: solid 1px #E5E5E5;
       margin: 19px 0; }

@@ -14,7 +14,7 @@
 }
 <link rel="stylesheet" href="~/Assets/bundles/treegrid/css/jquery.treegrid.css" />
 <script src="~/Assets/bundles/treegrid/js/jquery.treegrid.min.js"></script>
-<input type="hidden" id="hd-tab" class="hd-tab" value="kqkd" />
+<input type="hidden" id="hd-tab" class="hd-tab" value="@ViewBag.Type" />
 <input type="hidden" id="hd-company-code" class="hd-company-code" value="@ViewBag.Code" />
 <input type="hidden" id="hd-current-year" class="hd-current-year" value="@DateTime.Now.Year" />
 
@@ -23,16 +23,16 @@
 
         <div class="row">
             <ul class="info-navbar info-grey" id="mainTab">
-                <li class="active">
+                <li class="@(ViewBag.Type=="kqkd"?"active":string.Empty)">
                     <a href="#kqkd-tab" class="tablink" data-id="kqkd" data-toggle="tab">Kết quả kinh doanh</a>
                 </li>
-                <li>
+                <li  class="@(ViewBag.Type=="cdkt"?"active":string.Empty)">
                     <a href="#cdkt-tab" class="tablink" data-id="cdkt" data-toggle="tab">Cân đối kế toán</a>
                 </li>
 
             </ul>
             <div class="tab-content clearfix">
-                <div class="tab-pane active" id="kqkd-tab">
+                <div class="tab-pane @(ViewBag.Type=="kqkd"?"active":string.Empty)" id="kqkd-tab">
                     <input type="hidden" id="hd-kqkd-year" class="hd-kqkd-year" value="@ViewBag.YearQuarter.Year" />
                     <input type="hidden" id="hd-kqkd-quarter" class="hd-kqkd-quarter" value="@ViewBag.YearQuarter.Quarter" />
                     <div class="table-responsive-sm table-scroll">
@@ -58,7 +58,7 @@
                     <div class="table-responsive-sm table-scroll grid-kqkd">
                     </div>
                 </div>
-                <div class="tab-pane" id="cdkt-tab">
+                <div class="tab-pane @(ViewBag.Type=="cdkt"?"active":string.Empty)" id="cdkt-tab">
                     <input type="hidden" id="hd-cdkt-year" class="hd-cdkt-year" value="@ViewBag.YearQuarter.Year" />
                     <input type="hidden" id="hd-cdkt-quarter" class="hd-cdkt-quarter" value="@ViewBag.YearQuarter.Quarter" />
                     <div class="table-responsive-sm table-scroll">

@@ -1,0 +1,39 @@
+﻿@model Nqs.Models.FormModel.Common.BasePagingModel<Nqs.Models.FormModel.News.BcptModel>
+<div class="table-responsive-sm table-scroll">
+    <br />
+    <table class="table table-bordered table-common" id="bcpt-table">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Ngày</th>
+                <th scope="col" style="min-width: 300px;">Tiêu đề</th>
+                <th scope="col">Nguồn</th>
+                <th scope="col" style="min-width: 100px;">Mã CK liên quan</th>
+                <th scope="col" style="min-width: 100px;"></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DataList)
+            {
+                <tr>
+                    <td class="center" scope="row">@item.RowIndex</td>
+                    <td class="center">@item.Date</td>
+                    <td class="left">
+                        <a href="@Url.Action("BcptDetail", "Report",  new { id=item.Id })">@item.Title</a>
+                    </td>
+
+                    <td class="center">@item.Source</td>
+                    <td class="center">@item.StockCode</td>
+                    <td class="center">
+                        <a href="@item.FileUrl" target="_blank">Xem file</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<nav id="common-paging">
+    @{Html.RenderPartial("Partials/Paging", Model);}
+</nav>

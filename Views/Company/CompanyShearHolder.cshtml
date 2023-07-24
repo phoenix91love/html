@@ -24,7 +24,7 @@
                 }
                 else
                 {
-                    <div>@Html.Raw(string.IsNullOrEmpty(item.UserOrCompanyOwner) ? item.UserOrCompanyOwnerName : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>{item.UserOrCompanyOwnerName}</a>") </div>
+                    <div>@Html.Raw((string.IsNullOrEmpty(item.UserOrCompanyOwner) || item.UserOrCompanyOwner.Contains("NQS_")) ? item.UserOrCompanyOwnerName : $"<a href='{Url.Action("CompanyDetail", "Company", new { code = item.UserOrCompanyOwner })}'>{item.UserOrCompanyOwnerName}</a>") </div>
                 }
                 <div>@(((double)item.CountStock).FormatNumberUnit(0))</div>
                 <div>@*<span class="vuong" style="background-color: @item.Color"></span>*@  @item.Percent.FormatNumber()%</div>

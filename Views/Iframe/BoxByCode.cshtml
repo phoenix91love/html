@@ -16,6 +16,14 @@
         color: #fed018;
     }
 
+    .celling {
+        color: #c735eb !important;
+    }
+
+    .flooring {
+        color: #6982ad !important;
+    }
+
     .text {
         color: #076DB6;
         font-size: 15px;
@@ -23,23 +31,21 @@
 
     .price {
         font-weight: 700;
-        font-size: 25px;
+        font-size: 24px;
     }
 
     .change {
-        font-size: 15px;
-        padding-top: 10px;
+        font-size: 12.2px;
+        padding-top: 7px;
     }
 
-        .change span:nth-child(2) {
-            font-weight: 700;
-        }
-
     .name {
-        font-size: 15px;
+        font-size: 13px;
         color: #076DB6;
         padding-top: 5px;
         padding-bottom: 8px;
+        padding-left: 0;
+        font-family: 'Roboto';
     }
 
     .line-bottom {
@@ -48,62 +54,106 @@
     }
 
     .wrap {
-        font-family: 'Roboto';
         font-style: normal;
         font-weight: 500;
         font-size: 15px;
         border-top: 4px solid #3B1B70;
-        padding: 5px;
+        border-bottom: 1px solid rgba(34, 34, 34, 0.3);
+        border-right: 1px solid rgba(34, 34, 34, 0.3);
+        border-left: 1px solid rgba(34, 34, 34, 0.3);
+        padding: 5px 0px 5px 10px;
     }
-    .link-company{
+
+    .link-company {
         font-weight: 700;
+        padding: 5px 5px 5px 0px;
+        font-size: 12px;
+    }
+
+    .green::before {
+        background-image: url('../../Assets/v2/images/icons/iconup.svg');
+        width: 13px;
+        height: 13px;
+        content: '';
+        display: inline-block;
+        background-repeat: no-repeat;
+        margin-right: 0px;
+    }
+
+    .red::before {
+        background-image: url(../../Assets/v2/images/icons/icondown.svg);
+        width: 13px;
+        height: 15px;
+        content: '';
+        display: inline-block;
+        background-repeat: no-repeat;
+        margin-right: 0px;
     }
 </style>
-<div class="row wrap">
+<div class="row wrap" style="margin-left: 0px; margin-right: 0px;">
     <div class="col-lg-12 col-12 line-bottom name">
-        @(Model.Code +": " + Model.Name)
+        @{
+            var name = Model.Name + " (" + Model.Code + " - " + Model.ExCode + ")";
+
+            <span>@(name.Length > 55 ? name.Substring(0, 55) : name)</span>
+        }
     </div>
-    <div class="col-lg-12 col-12 text">
+    <div class="col-lg-12 col-12">
         <div class="row">
-            <div class="col-lg-8 col-12">
+            <div class="col-lg-12 col-12">
                 <div class="row">
-                    <div class="col-lg-6 col-6">
-                        <h2 class="price">@(Model.Price.HasValue ? Model.Price.Value.ToString("N2") : "")</h2>
+                    <div class="col-lg-3 col-3 text-center" style="padding: 0; color: rgba(34, 34, 34, 0.7); font-size: 13px; ">
+                        Giá
                     </div>
-                    <div class="col-lg-6 col-6 change text-right @(Model.Change > 0 ? "green" : (Model.Change < 0 ? "red" : "yellow"))">
-                        <span>@(Model.Change.HasValue ? Model.Change.Value.ToString("N2") : "")</span>
-                        <span>(@(Model.PerChange.HasValue ? Model.PerChange.Value.ToString("N2")+"%" : ""))</span>
+                    <div class="col-lg-3 col-5 text-center" style="padding: 0; color: rgba(34, 34, 34, 0.7); font-size: 13px; ">
+                        Thay đổi
+                    </div>
+                    <div class="col-lg-4 col-4 text-center" style="padding: 0; color: rgba(34, 34, 34, 0.7); font-size: 13px; ">
+                        KLGD
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-6">
-                        KLGD
+                    <div class="col-lg-3 col-3 text" style="text-align:center;">
+                        <h2 class="price">@(Model.Price.HasValue ? Model.Price.Value.ToString("N2") : "")</h2>
                     </div>
-                    <div class="col-lg-6 col-6 text-right">
+                    <div class="col-lg-3 col-5 change @Model.Color" style="text-align:center;">
+                        <span>@(Model.Change.HasValue ? Model.Change.Value.ToString("N2") : "")</span>
+                        <span>(@(Model.PerChange.HasValue ?  Model.PerChange.Value.ToString("N2")+"%" : ""))</span>
+                    </div>
+                    <div class="col-lg-4 col-4" style="text-align: center; padding-top: 10px; font-size: 12.2px; color: #076DB6">
                         @(Model.Volume.HasValue ? Model.Volume.Value.ToString("N0")+"(CP)" : "")
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-lg-6 col-6">
-                        NN mua ròng
+                        <div class="row">
+                            <div class="col-lg-12 col-12" style="color: rgba(34, 34, 34, 0.7); padding: 5px 5px 5px 0px; font-size: 12px; ">
+                                Cập nhật: @Model.Time
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12" style="color: rgba(34, 34, 34, 0.7); padding: 5px 5px 5px 0px; font-size: 12px; ">
+                                Diễn biến giá 6 tháng
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12  link-company">
+                                <a style="color: #1776BB !important;" href="@Url.Action("CompanyDetail", "Company", new { code=Model.Code })" target="_blank">
+                                    Xem hồ sơ doanh nghiệp <svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.9502 3.43561L0.333916 6.65957L0.333916 0.21164L5.9502 3.43561Z" fill="#1776BB" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 col-6 text-right">
-                        @(Model.NNMua.HasValue ? Model.NNMua.Value.ToString("N2")+"(tỷ đồng)" : "")
+                    <div class="col-lg-6 col-6">
+                        <div id="chart-iframebox" style="min-height: 90px; width: 100%;"></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-12 link-company">
-                        <a href="@Url.Action("CompanyDetail", "Company", new { code=Model.Code })" target="_blank">
-                            Xem hồ sơ doanh nghiệp <svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.9502 3.43561L0.333916 6.65957L0.333916 0.21164L5.9502 3.43561Z" fill="#1776BB" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+
             </div>
-            <div class="col-lg-4 col-12" style="padding: 0px;">
-                <div id="chart-iframebox" style="min-height: 100px; width: 100%;"></div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -123,7 +173,8 @@
                     result.DataVolume,
                     result.BasePrice,
                     result.MinPrice,
-                    result.MaxPrice
+                    result.MaxPrice,
+                    false
                 );
             }
         });

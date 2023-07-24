@@ -274,7 +274,7 @@ var ChartHelper = {
             }]
         });
     },
-    renderChartIndex1: function (containerId, code, priceData, volumeData, openPrice, min, max) {
+    renderChartIndex1: function (containerId, code, priceData, volumeData, openPrice, min, max, showx=true) {
         var isMobile = $("body").hasClass("mobile");
 
         const chartAtr = {
@@ -315,7 +315,7 @@ var ChartHelper = {
                 lineWidth: 0,
                 tickInterval: 1800 * 1000,
                 tickWidth: 1,
-                visible: !isMobile
+                visible: showx ? !isMobile : false
             }],
             yAxis: [
                 {
@@ -341,6 +341,7 @@ var ChartHelper = {
                         zIndex: 3
                     }],
                     lineWidth: 0,
+                    visible: showx ? !isMobile : false
                 }
             ],
             tooltip: {
@@ -474,7 +475,7 @@ var ChartHelper = {
     renderChartColumnNNChartJs: function (containerId, type, time, buyData, sellData, rongData) {
 
         const ctx = document.getElementById(containerId);
-        var title = type == 0 ? "Giá trị giao dịch(tỷ đồng)" : "Khối lượng giao dịch(cổ phiếu)";
+        var title = type == 0 ? "Giá trị giao dịch (tỷ đồng)" : "Khối lượng giao dịch (cổ phiếu)";
         var itemTitle = type == 0 ? "Giá trị " : "Khối lượng ";
         var unit = type == 0 ? " (tỷ đồng)" : " (cổ phiếu)";
         const labels = time;
@@ -531,8 +532,12 @@ var ChartHelper = {
                 },
                 plugins: {
                     legend: {
-                        position: 'top',
-                        display: false,
+                        position: 'bottom',
+                        display: true,
+                        labels: {
+                            boxWidth: 10,
+                            boxHeight: 10
+                        }
                     },
                     title: {
                         display: true,

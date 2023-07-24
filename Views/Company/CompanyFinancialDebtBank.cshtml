@@ -1,0 +1,400 @@
+﻿@using M.Common.Helpers
+@using M.Common.Extensions;
+@using Nqs.Models.FormModel.Company
+
+@model CompanyDebtBankViewByCodeMdl
+
+<div class="sub-option d-flex">
+    <span>Cơ cấu nợ</span>
+</div>
+<div class="info-navbar-content">
+    <ul class="nav info-navbar info-grey">
+        <li class="active nav-tab"><h2><a href="#debtBank-group" data-toggle="tab" class="nav-link">Nợ theo nhóm</a></h2></li>
+        <li class="nav-tab"><h2><a href="#debtBank-limited" data-toggle="tab" class="nav-link">Nợ theo kỳ hạn</a></h2></li>
+        <li class="nav-tab"><h2><a href="#debtBank-lend" data-toggle="tab" class="nav-link">Cho vay</a></h2></li>
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab tab-pane active" id="debtBank-group">
+        <div class="info-navbar-content">
+            <ul class="nav info-navbar info-grey">
+                <li class="active nav-tab"><h2><a href="#debtBank-group-quarter" data-toggle="tab" class="nav-link">Theo Quý</a></h2></li>
+                <li class="nav-tab"><h2><a href="#debtBank-group-year" data-toggle="tab" class="nav-link">Theo Năm</a></h2></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab tab-pane active" id="debtBank-group-quarter">
+                @{
+                    var groupQuarter = Model.GroupQuater;
+                    if (groupQuarter.Any())
+                    {
+                        <table class="table table-hover table-striped table-bordered table-common ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value4
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value3
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value2
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value1
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in groupQuarter.Skip(1))
+                                {
+                                    if (NumberHelper.GetValueObject(item.CountValue) > 0)
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="sub-option-bottom">
+                            <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                            <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                        </div>
+                    }
+                }
+
+            </div>
+            <div class="tab tab-pane" id="debtBank-group-year">
+                @{
+                    groupQuarter = Model.GroupYear;
+                    if (groupQuarter.Any())
+                    {
+                        <table class="table table-hover table-striped table-bordered table-common ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value4
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value3
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value2
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value1
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in groupQuarter.Skip(1))
+                                {
+                                    if (NumberHelper.GetValueObject(item.CountValue) > 0)
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="sub-option-bottom">
+                            <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                            <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="tab tab-pane" id="debtBank-limited">
+        <div class="info-navbar-content">
+            <ul class="nav info-navbar info-grey">
+                <li class="active nav-tab"><h2><a href="#debtBank-limited-quarter" data-toggle="tab" class="nav-link">Theo Quý</a></h2></li>
+                <li class="nav-tab"><h2><a href="#debtBank-limited-year" data-toggle="tab" class="nav-link">Theo Năm</a></h2></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab tab-pane active" id="debtBank-limited-quarter">
+                @{
+                    groupQuarter = Model.LimitedQuarter;
+                    if (groupQuarter.Any())
+                    {
+                        <table class="table table-hover table-striped table-bordered table-common ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value4
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value3
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value2
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value1
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in groupQuarter.Skip(1))
+                                {
+                                    if (NumberHelper.GetValueObject(item.CountValue) > 0)
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="sub-option-bottom">
+                            <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                            <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="tab tab-pane" id="debtBank-limited-year">
+                @{
+                    groupQuarter = Model.LimitedYear;
+                    if (groupQuarter.Any())
+                    {
+                        <table class="table table-hover table-striped table-bordered table-common ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value4
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value3
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value2
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value1
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in groupQuarter.Skip(1))
+                                {
+                                    if (NumberHelper.GetValueObject(item.CountValue) > 0)
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="sub-option-bottom">
+                            <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                            <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="tab tab-pane" id="debtBank-lend">
+        <div class="info-navbar-content">
+            <ul class="nav info-navbar info-grey">
+                @*<li class="active nav-tab"><h2><a href="#debtBank-lend-quarter" data-toggle="tab" class="nav-link">Theo Quý</a></h2></li>*@
+                <li class="nav-tab active"><h2><a href="#debtBank-lend-year" data-toggle="tab" class="nav-link">Theo Năm</a></h2></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            @*<div class="tab tab-pane active" id="debtBank-lend-quarter">
+                    @{
+                        groupQuarter = Model.LendQuarter;
+                        if (groupQuarter.Any())
+                        {
+                            <table class="table table-hover table-striped table-bordered table-common">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+
+                                        </th>
+                                        <th scope="col">
+                                            @groupQuarter.FirstOrDefault().Value4
+                                        </th>
+                                        <th scope="col">
+                                            @groupQuarter.FirstOrDefault().Value3
+                                        </th>
+                                        <th scope="col">
+                                            @groupQuarter.FirstOrDefault().Value2
+                                        </th>
+                                        <th scope="col">
+                                            @groupQuarter.FirstOrDefault().Value1
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in groupQuarter.Skip(1))
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>@(double.Parse(item.Value4.ToString())==0?"N/A": double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</td>
+                                            <td>@(double.Parse(item.Value3.ToString()) == 0?"N/A": double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</td>
+                                            <td>@(double.Parse(item.Value2.ToString()) == 0?"N/A": double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</td>
+                                            <td>@(double.Parse(item.Value1.ToString()) == 0?"N/A": double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="sub-option-bottom">
+                                <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                                <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                            </div>
+                        }
+                    }
+                </div>*@
+            <div class="tab tab-pane active" id="debtBank-lend-year">
+                @{
+                    groupQuarter = Model.LendYear;
+                    if (groupQuarter.Any())
+                    {
+                        <table class="table table-hover table-striped table-bordered table-common ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value4
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value3
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value2
+                                    </th>
+                                    <th scope="col">
+                                        @groupQuarter.FirstOrDefault().Value1
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in groupQuarter.Skip(1))
+                                {
+                                    if (NumberHelper.GetValueObject(item.CountValue) > 0)
+                                    {
+                                        <tr>
+                                            <td>@item.ColumName</td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value4.ToString()) == 0 ? "N/A" : double.Parse(item.Value4.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value3.ToString()) == 0 ? "N/A" : double.Parse(item.Value3.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block"> @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none">  @(double.Parse(item.Value2.ToString()) == 0 ? "N/A" : double.Parse(item.Value2.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                            <td>
+                                                <span class="d-none d-lg-block">@(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(2))</span>
+                                                <span class="d-block d-lg-none"> @(double.Parse(item.Value1.ToString()) == 0 ? "N/A" : double.Parse(item.Value1.ToString()).FormatNumberUnit(3))</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="sub-option-bottom">
+                            <span class="d-none d-lg-block">ĐVT: Triệu đồng</span>
+                            <span class="d-block d-lg-none">ĐVT: Tỷ đồng</span>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

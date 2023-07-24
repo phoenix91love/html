@@ -59,7 +59,7 @@
 }
 <div class="personal-detail">
     <input type="hidden" id="personal-code" value="@dataPersonal.PersonalCode" />
-    <div class="title-name"><h1><span>Cá nhân</span> <span>@dataPersonal.Name</span></h1></div>
+    <div class="title-name"><h1><span>@dataPersonal.Name</span></h1></div>
     <hr class="clearfix" />
 
     <div class="c-content-flex">
@@ -204,7 +204,7 @@
                                 <li>
                                     <span>@index</span>
 
-                                    @if (string.IsNullOrEmpty(item.CompanyCode))
+                                    @if (string.IsNullOrEmpty(item.CompanyCode) || item.CompanyCode.Contains("NQS_"))
                                     {
 
                                         <span>

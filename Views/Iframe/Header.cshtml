@@ -11,22 +11,45 @@
         <div class="modal-content p-3">
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-9 col-9">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="c-search">
                             <div class="c-search__inner">
                                 <input class="form-control" id="txt-keyword" type="text" name="" placeholder="Mã chứng khoán muốn theo dõi" />
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>
+                    @*<div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>*@
                 </div>
             </div>
             <ul class="c-box follow is-line-bottom m-3 watch-list-popup">
             </ul>
+            <div class="modal-footer d-block" style="text-align: center; padding: 0;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
     </div>
 </div>
-
+<div class="modal search-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-top" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="c-search">
+                            <div class="c-search__inner custom-autocomplete">
+                                <select class="form-control txt-keyword-header" name="state" style="width: 100%;"></select>
+                                <button class="c-search__btn btn-header-search" type="button"><i class="icon16-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-block" style="text-align: center; padding: 0;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var swiper = new Swiper(".topcontents", {
         slidesPerView: "auto",

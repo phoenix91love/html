@@ -19,7 +19,8 @@ var configHomeUrl = {
     homeGetHeaderNews: "/home/GetHeaderNews",
     homeGetTopCpAnhHuong: "/home/GetTopCpAnhHuong",
     homeGetDongTien: "/home/GetDongTien",
-    homeGetSearchBoxData: "/home/GetSearchBoxData"
+    homeGetSearchBoxData: "/home/GetSearchBoxData",
+    homeGetSearchThuatNguBoxData: "/home/GetSearchThuatNguBoxData"
 };
 
 var historyUrl = {
@@ -52,7 +53,9 @@ var vimoUrl = {
     vimoDanSoLaoDong: "/vimo/dsld",
     vimoVangNgoaiTe: "/vimo/vangngoaite",
 }
-
+var bcptUrl = {
+    bcptPartialList: "/Report/BcptPartialList",
+};
 var colors = {
     tang: "#33a42e",
     giam: "#fc0002",

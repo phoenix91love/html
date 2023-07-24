@@ -3,7 +3,7 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -57,7 +57,7 @@
         gtag('config', 'G-NWJFMPMVCW');
     </script>
 </head>
-<body class="@(bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"]+"") == true ? "mobile" : "") wrap-iframe l-nav">
+<body class="@(Request.Browser.IsMobileDevice ? "mobile" : "") wrap-iframe l-nav">
     @RenderBody()
 </body>
 </html>

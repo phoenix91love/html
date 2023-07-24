@@ -49,56 +49,67 @@
                             <th scope="col">Lợi nhuận 4 quý</th>
                         }
                     }
+
+                    @if (Model.Data.ShowEvent)
+                    {
+                        <th scope="col" style="min-width: 100px;">Cổ tức(VNĐ)</th>
+                        <th scope="col" style="min-width: 100px;">Ngày GDKHQ</th>
+                    }
                 </tr>
 
             </thead>
             <tbody>
                 @foreach (var item in Model.DataList)
                 {
-                <tr>
-                    <td class="center" scope="row">@item.RowIndex</td>
+                    <tr>
+                        <td class="center" scope="row">@item.RowIndex</td>
 
-                    <td class="center">
-                        @{
-                            var listExclude = new List<string>() { "VN-Index", "HNX-Index", "UPCoM-Index", "VN30-Index", "HNX30-Index" };
-                            if (listExclude.Contains(item.Code))
-                            {
-                                @item.Code
+                        <td class="center">
+                            @{
+                                var listExclude = new List<string>() { "VN-Index", "HNX-Index", "UPCoM-Index", "VN30-Index", "HNX30-Index" };
+                                if (listExclude.Contains(item.Code))
+                                {
+                                    @item.Code
+                                }
+                                else
+                                {
+                                    <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a>
+                                }
                             }
-                            else
-                            {
-                                <a class="a-in-table" href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a>
-                            }
+
+                        </td>
+                        <td class="left">@item.CompanyName</td>
+                        <td class="center">@item.ExCode</td>
+                        <td class="right">@item.VonHoa</td>
+                        <td class="right">@item.Price</td>
+                        @if (Model.Data.ShowThayDoiGia)
+                        {
+                            <td class="right" scope="col">@item.PerChangexDay</td>
                         }
+                        @if (Model.Data.ShowKlGd)
+                        {
+                            <td class="right" scope="col">@item.KLGD</td>
+                            <td class="right" scope="col">@item.KLTB5</td>
 
-                    </td>
-                    <td class="left">@item.CompanyName</td>
-                    <td class="center">@item.ExCode</td>
-                    <td class="right">@item.VonHoa</td>
-                    <td class="right">@item.Price</td>
-                    @if (Model.Data.ShowThayDoiGia)
-                    {
-                        <td class="right" scope="col">@item.PerChangexDay</td>
-                    }
-                    @if (Model.Data.ShowKlGd)
-                    {
-                        <td class="right" scope="col">@item.KLGD</td>
-                        <td class="right" scope="col">@item.KLTB5</td>
+                        }
+                        @if (Model.Data.ShowNNMuaBanRong)
+                        {
+                            <td class="right" scope="col">@item.Rong</td>
 
-                    }
-                    @if (Model.Data.ShowNNMuaBanRong)
-                    {
-                        <td class="right" scope="col">@item.Rong</td>
-
-                    }
-                    @if (Model.Data.ShowCstc)
-                    {
-                        <td class="right" scope="col">@item.EPS</td>
-                        <td class="right" scope="col">@item.PE</td>
-                        <td class="right" scope="col">@item.DoanhThu4Quy</td>
-                        <td class="right" scope="col">@item.LoiNhuan4Quy</td>
-                    }
-                </tr>
+                        }
+                        @if (Model.Data.ShowCstc)
+                        {
+                            <td class="right" scope="col">@item.EPS</td>
+                            <td class="right" scope="col">@item.PE</td>
+                            <td class="right" scope="col">@item.DoanhThu4Quy</td>
+                            <td class="right" scope="col">@item.LoiNhuan4Quy</td>
+                        }
+                        @if (Model.Data.ShowEvent)
+                        {
+                            <td class="right" scope="col">@item.PriceVnd</td>
+                            <td class="right" scope="col">@item.DateHdKhq</td>
+                        }
+                    </tr>
                 }
 
             </tbody>

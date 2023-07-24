@@ -21,7 +21,7 @@
         @foreach (var item in dataCompanyChild)
         {
             <li>
-                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) && !item.CompanyChildCode.Contains("NQS_") ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
                 <span class="col-2">@(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
                 <span class="col-2">@(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
                 <div class="col-2 d-flex">
@@ -39,7 +39,7 @@
         @foreach (var item in dataCompanyLinked)
         {
             <li>
-                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span class="col-4">@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) && !item.CompanyChildCode.Contains("NQS_") ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
                 <span class="col-2">@(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
                 <span class="col-2">@(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
                 <div class="col-2 d-flex">
@@ -60,7 +60,7 @@
         @foreach (var item in dataCompanyChild)
         {
             <li>
-                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) && !item.CompanyChildCode.Contains("NQS_") ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
                 <span>Vốn điều lệ: @(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
                 <span>Vốn góp: @(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
                 <span>Tỉ lệ sở hữu: @((item.TiLeSoHuu??0).FormatNumberPercent())</span>
@@ -78,7 +78,7 @@
         @foreach (var item in dataCompanyLinked)
         {
             <li>
-                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
+                <span>@item.Name@Html.Raw((!string.IsNullOrEmpty(item.CompanyChildCode) && !item.CompanyChildCode.Contains("NQS_") ? $"<span><a href='{Url.Action("CompanyDetail", "Company", new { code = item.CompanyChildCode })}'>({item.CompanyChildCode}) </a></span>" : ""))</span>
                 <span>Vốn điều lệ: @(item.VonDieuLe == null||item.VonDieuLe==0?"N/A":item.VonDieuLe.Value.FormatNumber())</span>
                 <span>Vốn góp: @(item.VonGop==null || item.VonGop == 0 ? "N/A" : item.VonGop.Value.FormatNumber())</span>
                 <span>Tỉ lệ sở hữu: @((item.TiLeSoHuu??0).FormatNumberPercent())</span>

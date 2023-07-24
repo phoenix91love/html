@@ -54,7 +54,7 @@
     },
     loadExIndex: function () {
         var url = configHomeUrl.homeGetExIndex;
-        var params = "";
+        var params = "code=" + $('.hd-code').val();
         AjaxHelper.ajaxCall(url, params, function (result) {
             if (result.ErrCode != "01") {
                 result.DataList.forEach(item => {
@@ -313,12 +313,12 @@ HomePage.loadStockMap();
 HomePage.loadNNDataChart("VN-Index");
 HomePage.loadTkSlCp("HOSE");
 HomePage.loadTopCpAnhHuongChart("HOSE");
-
-setInterval(function () {
-    HomePage.loadDataExChart();
-    HomePage.loadExIndex();
-}, 1000 * 60);
-
+if (CommonHelper.isInTransactionTime()) {
+    setInterval(function () {
+        HomePage.loadDataExChart();
+        HomePage.loadExIndex();
+    }, 1000 * 60);
+}
 $('#tabChart').on('shown.bs.tab', function (event) {
     var tab = $(event.target).attr('data-tab');
     var code = $(event.target).attr('data-code');

@@ -32,11 +32,12 @@ var PriceHistory = {
         var fromDate = $('#input-from-date').val();
         var toDate = $('#input-to-date').val();
         var code = $('#input-code').val();
+        var idNganh = $('#ddl-nganh').val();
         if (code === "")
             code = $('#txt-input-code').val();
 
         var exId = $('#ddl-exchange').val();
-        var params = "page=" + page + "&fromDate=" + fromDate + "&toDate=" + toDate + "&exId=" + exId + "&code=" + code;
+        var params = "page=" + page + "&fromDate=" + fromDate + "&toDate=" + toDate + "&exId=" + exId + "&code=" + code + "&idNganh=" + idNganh;
         if (tab === "1") {
             App.loadPartial(historyUrl.priceHistory, params, "#1a");
         }

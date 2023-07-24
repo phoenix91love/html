@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="~/Assets/v2/css/style.min.css" />
     <link rel="stylesheet" href="~/Assets/v2/css/swiper.min.css" />
-    <link rel="stylesheet" href="~/Assets/v2/css/all.css?v=1" />
+    <link rel="stylesheet" href="~/Assets/v2/css/all.css?v=2" />
 
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/stock/modules/data.js"></script>
@@ -58,7 +58,7 @@
     <script id="arf-core-js" onerror="window.arferrorload=true;" src="//media1.admicro.vn/cms/Arf.min.js" async></script>
 
 </head>
-<body class="@(bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"]+"") == true ? "mobile" : "")">
+<body class="@(Request.Browser.IsMobileDevice ? "mobile" : "")">
     <div class="c-topbox">
         <!--Header part-->
         <!--l-nav-->
@@ -77,7 +77,45 @@
                 <!--end container-->
             </div>
             <!--end c-menu-outer-->
-
+            <!-- Modal search -->
+            <div class="modal search-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-top" role="document">
+                    <div class="modal-content p-3">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="c-search">
+                                        <div class="c-search__inner custom-autocomplete search-top">
+                                            <input class="form-control txt-keyword-header" name="state" style="width: 100%;" />
+                                            <button class="c-search__btn btn-header-search" type="button"><i class="icon16-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-12 text-left">
+                                    <label style="font-weight: bold; font-size: 15px">Hoặc</label>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="c-search">
+                                        <div class="c-search__inner custom-autocomplete search-thuat-ngu">
+                                            <input class="form-control txt-thuatngu-header" name="state" style="width: 100%;" />
+                                            <button class="c-search__btn btn-header-search-thuatngu" type="button"><i class="icon16-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-block" style="text-align: center; padding: 0;">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--end l-nav-->
         <div class="container mt-5 mb-3 h-show-pc">
@@ -87,7 +125,7 @@
                     var x = r.Next(1, 100);
                     if (x <= 50)
                     {
-                        <a href="https://dop.cake.vn/affiliate?ref=NQS-S3328858" target="_blank"><img src="~/Upload/images/PR_640x320_pc.jpg" class="w-100" alt="banner" /></a>
+                        <a href="https://xti.com.vn/san-pham-xti" target="_blank"><img src="~/Upload/images/xti_pc.jpg" class="w-100" alt="banner" /></a>
                     }
                     else
                     {
@@ -103,8 +141,8 @@
         <!--Content page part-->
         <div class="container d-flex top-menu">
             <div class="c-topnews is-line-bottom">
-                @*@if (!bool.Parse(Request.RequestContext.RouteData.Values["IsMobile"] + ""))
-                    {*@
+                @*@if (!Request.Browser.IsMobileDevice)
+        {*@
                 <ul class="w-100 h-show-pc">
                     <li class="@(Request.RawUrl == Url.Action("Index", "Home") ? "active" : "")">
                         <a href="@Url.Action("Index", "Home")">Toàn cảnh thị trường</a>
@@ -132,8 +170,8 @@
                     </li>
                 </ul>
                 @*}
-                    else
-                    {*@
+        else
+        {*@
                 <div class="h-show-mobile">
                     <div class="w-100">
                         <span class="catname">@ViewBag.PageName</span>
@@ -205,18 +243,22 @@
             <div class="modal-content p-3">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-9 col-9">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="c-search">
                                 <div class="c-search__inner">
                                     <input class="form-control" id="txt-keyword" type="text" name="" placeholder="Mã chứng khoán muốn theo dõi" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>
+                        @*<div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>*@
                     </div>
                 </div>
+
                 <ul class="c-box follow is-line-bottom m-3 watch-list-popup">
                 </ul>
+                <div class="modal-footer d-block" style="text-align: center; padding: 0;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
             </div>
         </div>
     </div>
@@ -249,11 +291,6 @@
                 }
             });
         });
-    </script>
-    <script type="text/javascript">
-    $(document).ready(function () {
-        
-    });
     </script>
 
     <script src='https://dataview.nguoiquansat.vn/dulieu.js'></script>

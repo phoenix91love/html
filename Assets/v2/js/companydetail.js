@@ -71,14 +71,14 @@ function loadDataPriceHistory(exId, code) {
                 $('#pricehistory').append(`<li>
                     <span> `+ formatDateTodatemonthStr(data[i].Date) + `</span >
                     <span class="` + (data[i].Change > 0 ? 'green' : 'red') + `"> <span>` + data[i].ClosePrice + '</span><span> ' + Math.abs(data[i].Change) + '(' + Math.abs(data[i].PerChange) + `%)</span></span>
-                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0),0) + `</span>
-                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2),2) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0), 0) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2), 2) + `</span>
                    </li>`);
                 $('#pricehistory-mobile').append(`<li>
                     <span> `+ formatDateTodatemonthStr(data[i].Date) + `</span >
                     <span class="` + (data[i].Change > 0 ? 'green' : 'red') + `"> <span>` + data[i].ClosePrice + '</span><span> ' + Math.abs(data[i].Change) + '(' + Math.abs(data[i].PerChange) + `%)</span></span>
-                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0),0) + `</span>
-                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2),2) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVolBase.toFixed(0), 0) + `</span>
+                    <span>`+ CommonHelper.formatNumber(data[i].MatchVal.toFixed(2), 2) + `</span>
                    </li>`);
             }
             $('#pricehistory').append(`<li class="note">
@@ -217,9 +217,9 @@ $(document).ready(function () {
         }
     });
 
-    $('.r-tab .tile li:nth-child(1)').html('Ban lãnh đạo: ' + CommonHelper.formatNumber(percentStockCeo,2) + "%");
-    $('.r-tab .tile li:nth-child(2)').html('Nước ngoài: ' + CommonHelper.formatNumber(overRatios.toFixed(2),2) + "%");
-    $('.r-tab .tile li:nth-child(3)').html('Khác: ' + CommonHelper.formatNumber((100.0 - overRatios - percentStockCeo),2) + "%");
+    $('.r-tab .tile li:nth-child(1)').html('Ban lãnh đạo: ' + CommonHelper.formatNumber(percentStockCeo, 2) + "%");
+    $('.r-tab .tile li:nth-child(2)').html('Nước ngoài: ' + CommonHelper.formatNumber(overRatios.toFixed(2), 2) + "%");
+    $('.r-tab .tile li:nth-child(3)').html('Khác: ' + CommonHelper.formatNumber((100.0 - overRatios - percentStockCeo), 2) + "%");
     loadFinanceByCode();
     LoadFinanceTarget();
     LoadMoreNews();
@@ -239,6 +239,8 @@ function loadFinanceByCode() {
     App.loadPartialCallback(urlCompanyFinaFinacial, params, "#content-finance", function () {
         renderChartFinaceKQKD('chart-kqkd', 1, lableReportKQKD, dataReportKQKD1, dataReportKQKD2);
         renderChartFinaceKQKD('chart-cdkt', 2, lableReportCDKT, dataReportCDKT1, dataReportCDKT2);
+        LoadDataChartCompareProfession();
+        LoadCompanyDebtBank();
     });
 }
 
@@ -332,7 +334,7 @@ function renderChartFinaceKQKD(elementId, type, lables, data1, data2) {
                         display: false
                     },
                     ticks: {
-                        callback: (label) => CommonHelper.formatNumber(label,2),
+                        callback: (label) => CommonHelper.formatNumber(label, 2),
                         beginAtZero: true
                     },
                 }],
@@ -345,7 +347,7 @@ function renderChartFinaceKQKD(elementId, type, lables, data1, data2) {
                         //console.log('data', data);
                         //console.log('tooltipItem', tooltipItem);
                         let lable = data.datasets[tooltipItem.datasetIndex].label;
-                        return lable + ': ' + (CommonHelper.formatNumber(tooltipItem.value,2));
+                        return lable + ': ' + (CommonHelper.formatNumber(tooltipItem.value, 2));
                     }
                 }
             }
@@ -377,13 +379,14 @@ function TextEllipsis(str, maxLength, side = "end", ellipsis = "...") {
 
 function LoadMoreNews(e) {
     var page = parseInt($('#getnew-page').val());
-    if (page == 4)
-        $(e).addClass('d-none');
     page += 1;
     $('#getnew-page').val(page);
     var code = $("#input-code").val();
     var param = { code: code, page: page };
-    App.loadPartialAppendCallback(urlGetNews, param, "#company-get-news", function () { });
+    App.loadPartialAppendCallback(urlGetNews, param, "#company-get-news", function () {
+        if ($('#company-get-news-finish').val() == '1')
+            $(e).addClass('d-none');
+    });
 }
 var isShow = false;
 function ShowMoreDetail(e) {
@@ -415,36 +418,152 @@ function CreateTooltip() {
             var price = this.getAttribute('data-price');
             var change = this.getAttribute('data-change');
             var perchange = this.getAttribute('data-percent-change');
-            var klgd =this.getAttribute('data-volume');
+            var klgd = this.getAttribute('data-volume');
             var gtgd = this.getAttribute('data-value');
-            var nnmua =this.getAttribute('data-foreign-buy');
-            var nnban =this.getAttribute('data-foreign-sell');
+            var nnmua = this.getAttribute('data-foreign-buy');
+            var nnban = this.getAttribute('data-foreign-sell');
             var price7D = this.getAttribute('data-priceBefor7day');
             var change7D = this.getAttribute('data-changeBefor7day');
             var percentChange7D = this.getAttribute('data-changePercentBefor7day');
-            var priceClass = "";
-            var price7DClass = "";
-            
 
-            if (parseFloat(change.replace(/,/g,'')) > 0) priceClass = "green";
-            if (parseFloat(change.replace(/,/g, '')) == 0) priceClass = "yellow";
-            if (parseFloat(change.replace(/,/g, '')) < 0) priceClass = "red";
-            if (parseFloat(change7D.replace(/,/g, '')) > 0) price7DClass = "green";
+            let priceClass = this.getAttribute('data-PriceClass');
+            let price7DClass = '';
+            //if (parseFloat(change.replace(/,/g,'')) > 0) priceClass = "green";
+            //if (parseFloat(change.replace(/,/g, '')) == 0) priceClass = "yellow";
+            //if (parseFloat(change.replace(/,/g, '')) < 0) priceClass = "red";
+            if (parseFloat(change7D.replace(/,/g, '')) > 0) price7DClass = "green-price";
             if (parseFloat(change7D.replace(/,/g, '')) == 0) price7DClass = "yellow";
-            if (parseFloat(change7D.replace(/,/g, '')) < 0) price7DClass = "red";
-            
+            if (parseFloat(change7D.replace(/,/g, '')) < 0) price7DClass = "red-price";
+
             var str = `<div class='top-tool-tip'>
-                        <h2><span class='code'>` + code + `</span> : <span class='name'>` + name +`</span></h2><hr/>
+                        <h2><span class='code'>` + code + `</span> : <span class='name'>` + name + `</span></h2><hr/>
                         <h3><span class='item1'>Giá hiện tại: </span><span class='item2'>` + price + `</span><span class='item3 ` + priceClass + "'>" + change + `</span><span class='item4 ` + priceClass + "'>(" + perchange + `%)</span></h3>
                         <h3><span class='item1'>7 ngày trước:</span><span class='item2'>` + price7D + `</span><span class='item3 ` + price7DClass + "'>" + change7D + "</span><span class='item4 " + price7DClass + "'>(" + percentChange7D + `%)</span></h3>
                         <h3><span class='item1'>KLGD:</span><span class='item2'>` + klgd + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
                         <h3><span class='item1'>GTGD:</span><span class='item2'>` + gtgd + ` tỷ</span><span class='item3'></span><span class='item4'></span></h3>
                         <h3><span class='item1'>NN Mua:</span><span class='item2'>` + nnmua + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
-                        <h3><span class='item1'>NN Bán:</span><span class='item2'>` + nnban +` cp</span><span class='item3'></span><span class='item4'></span></h3>
+                        <h3><span class='item1'>NN Bán:</span><span class='item2'>` + nnban + ` cp</span><span class='item3'></span><span class='item4'></span></h3>
                     </div>`;
             return str;
         }
     }).on('hide.bs.tooltip', () => {
         $('.tooltip').remove();
     });;
+}
+
+function LoadDataChartCompareProfession() {
+    var param = { code: $("#input-code").val(), type: $('#compareType').val() };
+    AjaxHelper.ajaxCall(urlGetDataCompareProfession, param, function (data) {
+        if (data != undefined && data.length > 0)
+            InitChartCompareProfession(data);
+    });
+}
+function InitChartCompareProfession(data) {
+    var dataChart = [];
+    var currentCode = $("#input-code").val();
+    data.forEach(function print(item, index) {
+        var subItem = {
+            x: item.Code == currentCode ? data.length / 2 : Math.floor(Math.random() * data.length),
+            y: item.Value / 1000000000, z: item.Value / 1000000000,
+            name: item.Code,
+            reportTime: item.ReportTime,
+            valueView: CommonHelper.formatNumber(item.Value / 1000000000.0, 2),
+            color: item.Code != currentCode ? '#c735eb' : '#ee7224',
+            fillColor: item.Code != currentCode ? '#c735eb' : '#ee7224',
+        };
+        dataChart.push(subItem);
+    });
+    var title = "";
+    switch (dataChart[0].Type) {
+        case 1:
+            title = "Tổng doanh thu";
+            break;
+        case 2:
+            title = "Tổng lợi nhuận"
+            break;
+        case 3:
+            title = "Tổng tài sản"
+            break;
+        case 4:
+            title = "Tổng vốn chủ sở hữu"
+            break;
+    }
+    Highcharts.chart('chart-compare-profession', {
+        chart: {
+            type: 'bubble',
+            plotBorderWidth: 1,
+            zoomType: 'xy'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        title: {
+            text: title,
+            align: 'bottom'
+        },
+
+        xAxis: {
+            startOnTick: false,
+            endOnTick: false,
+            gridLineWidth: 1,
+            title: {
+                enabled: true,
+                text: '(*) Số liệu so sánh tính theo kỳ báo cáo gần nhất',
+                align: 'left'
+            },
+        },
+        yAxis: {
+            startOnTick: false,
+            endOnTick: false,
+            title: {
+                text: dataChart[0].Name
+            },
+            labels: {
+                formatter: function () {
+                    return CommonHelper.formatNumber(this.value, 0) + 'Tỷ';
+                }
+            },
+            maxPadding: 0.2,
+        },
+
+        tooltip: {
+            useHTML: true,
+            headerFormat: '<table>',
+            pointFormat: `<tr><th colspan="2"><h3>{point.name}</h3></th></tr>
+                <tr><td>{point.valueView}Tỷ</td></tr>
+                <tr><td>(*){point.reportTime}</td></tr>`,
+            footerFormat: '</table>',
+            followPointer: true
+        },
+
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }
+        },
+
+        series: [{
+            data: dataChart,
+            colorByPoint: true,
+        }]
+
+    });
+}
+
+function ComboboxCompareProfessionType() {
+    LoadDataChartCompareProfession();
+}
+
+function LoadCompanyDebtBank() {
+    var typeBCTC = parseInt($('#company-financial-type').val());
+    if (typeBCTC != 3)
+        return;
+    var param = { code: $("#input-code").val() };
+    App.loadPartialAppendCallback(urlGetDataDebtBank, param, "#company-financial-debtBank-content", function () {
+    });
 }

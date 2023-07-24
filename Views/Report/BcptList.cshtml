@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Người Quan Sát | Lịch sự kiện doanh nghiệp, lịch trả cổ tức, họp đại hội cổ đông";
+    ViewBag.PageName = "Báo cáo phân tích";
+    Layout = "~/Views/Shared/_NqsLayout.cshtml";
+}
+@section metatags
+{
+    <meta property="og:title" content="Người Quan Sát | Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, hồ sơ doanh nghiệp">
+    <meta name="keywords" content="Thị trường chứng khoán, diễn biến thị trường, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, tra cứu thuật ngữ kinh tế, phân tích kỹ thuật, cơ hội đầu tư, lọc cổ phiếu tốt" />
+    <meta name="description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, thuật ngữ kinh tế, kinh tế vĩ mô, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:description" content="Hệ thống dữ liệu chuyên sâu về thị trường chứng khoán, kinh tế tài chính, hồ sơ doanh nghiệp, hồ sơ lãnh đạo, thuật ngữ kinh tế, kinh tế vĩ mô, phân tích kỹ thuật, tìm kiếm cơ hội đầu tư" />
+    <meta property="og:image" content="https://nqs.1cdn.vn/assets/images/ogimage1105.png" />
+    <meta property="og:url" content="@Request.Url" />
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <form>
+                    <div class="form-group row">
+                        <label for="input-from-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Từ ngày</label>
+                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                            <input type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
+                        </div>
+                        <label for="input-to-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Đến ngày</label>
+                        <div class="col-lg-2 col-sm-8 col-8 mb-2">
+                            <input type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
+                        </div>
+                        <label for="input-from-date" class="col-lg-1 col-sm-4 col-4 col-form-label">Nguồn</label>
+                        <div class="col-lg-3 col-sm-8 col-8">
+                            <select id="ddl-source" class="form-control">
+                                <option value="0" >-- Tất cả --</option>
+                                @foreach (var item in ViewBag.ListSource)
+                                {
+                                    <option value="@item.Value" data-type="@item.AppendData">@item.Text</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="input-code" class="col-lg-1 col-sm-4 col-4 col-form-label">Mã CK</label>
+                        <div class="col-lg-3 col-sm-8 col-8 mb-2">
+                            <input type="text" class="form-control" id="txt-input-code" placeholder="Mã CK">
+                        </div>
+                        <div class="col-lg-1 col-sm-12 col-12">
+                            <button type="button" class="btn btn-blue btn-search">Tìm kiếm</button>
+                        </div>
+                    </div>
+                   
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-data">
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/bcpt")

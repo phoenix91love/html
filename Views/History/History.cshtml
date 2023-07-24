@@ -29,13 +29,16 @@
                             <input style="width: 90px;" type="text" class="form-control" id="input-from-date" readonly placeholder="Từ ngày" value="@ViewBag.FromDate">
                         </div>
                         <label for="input-to-date" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Đến ngày</label>
-                        <div class="col-lg-1 col-sm-12 col-9 mb-2">
+                        <div class="col-lg-1 col-sm-12 col-9">
                             <input style="width: 90px;" type="text" class="form-control" id="input-to-date" readonly placeholder="Đến ngày" value="@ViewBag.ToDate">
                         </div>
 
+
+                    </div>
+                    <div class="form-group row">
                         <label for="ddl-exchange" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Sàn</label>
                         <div class="col-lg-1 col-sm-12 col-9 mb-2">
-                            <select id="ddl-exchange" class="form-control" style="width: 80px;">
+                            <select id="ddl-exchange" class="form-control" style="width: 90px;">
                                 <option value="" selected>Tất cả</option>
                                 <option value="HOSE">HOSE</option>
                                 <option value="HNX">HNX</option>
@@ -44,11 +47,29 @@
                                 <option value="HNX30">HNX30</option>
                             </select>
                         </div>
+
                         <label for="txt-input-code" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Mã CK</label>
                         <div class="col-lg-3 col-sm-12 col-9">
                             <input type="hidden" class="form-control" id="input-code" value="@Model" />
-                            <input type="text" class="form-control" id="txt-input-code" placeholder="Mã chứng khoán" />
+                            <input type="text" class="form-control mb-2" id="txt-input-code" placeholder="Mã chứng khoán" />
                         </div>
+                        <label for="ddl-nganh" class="col-lg-1 col-sm-12 col-3 col-form-label text-right">Ngành</label>
+                        <div class="col-lg-3 col-sm-12 col-9">
+                            <select id="ddl-nganh" class="form-control">
+                                <option value="" selected>Tất cả ngành</option>
+                                @foreach (var p in ViewBag.ListNganh)
+                                {
+                                    <optgroup label="@p.Text">
+                                        @foreach (var c in p.Childs)
+                                        {
+                                            <option value="@c.Value">@c.Text</option>
+                                        }
+                                    </optgroup>
+                                }
+
+                            </select>
+                        </div>
+
                         <div class="col-lg-1 col-sm-3 col-12">
                             <button type="button" class="btn btn-blue btn-search">Tìm kiếm</button>
                         </div>

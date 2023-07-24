@@ -61,6 +61,25 @@
     },
     formatNumber: function (n, decimals) {
         return $.number(n, decimals, '.', ',');
+    },
+    isInTransactionTime: function () {
+        var currentDate = new Date();
+        const firstDate = new Date();
+        firstDate.setHours(9);
+        firstDate.setMinutes(15);
+        firstDate.setSeconds(0);
+
+        const secondDate = new Date();
+        secondDate.setHours(15);
+        secondDate.setMinutes(0);
+        secondDate.setSeconds(0);
+        
+        var dayOfWeek = currentDate.getDay();
+        console.log(currentDate, firstDate, secondDate, dayOfWeek);
+        if (dayOfWeek === 0 || dayOfWeek === 6 || (currentDate < firstDate) || currentDate > secondDate) {
+            return false;
+        }
+        return true;
     }
 }
 

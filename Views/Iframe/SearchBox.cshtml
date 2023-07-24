@@ -4,17 +4,38 @@
     Layout = "~/Views/Shared/_IFrameLayout.cshtml";
 }
 @Scripts.Render("~/bundles/jquery/common")
-
-<div class="c-search">
-    <div class="c-search__inner custom-autocomplete">
-        <select class="form-control txt-keyword-header" name="state" style="width: 100%;"></select>
-        <button class="c-search__btn btn-header-mobile-search" type="button" style="padding-top: 10px;">
-            <i class="icon16-search"></i>
-        </button>
+<div class="row">
+    <div class="col-12">
+        <div class="c-search">
+            <div class="c-search__inner custom-autocomplete">
+                <input class="form-control txt-keyword-header" name="state" style="width: 100%;" />
+                <button class="c-search__btn btn-header-mobile-search" type="button" style="padding-top: 10px;">
+                    <i class="icon16-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12 text-left">
+        <label style="font-weight: bold; font-size: 15px">Hoặc</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-12">
+        <div class="c-search">
+            <div class="c-search__inner custom-autocomplete search-thuat-ngu">
+                <input class="form-control txt-thuatngu-header" name="state" style="width: 100%;" />
+                <button class="c-search__btn btn-header-search-thuatngu" type="button"><i class="icon16-search"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
     CommonIndex.bindHeaderSearchBox();
+    CommonIndex.bindHeaderThuatNguSearchBox();
     $(document).on("click", ".btn-header-search, .btn-header-mobile-search", function () {
         var data = $(".txt-keyword-header").val();
         if (data == "" || data == null || data == undefined)

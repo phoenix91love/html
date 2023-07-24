@@ -16,6 +16,7 @@
 }
 @if (Model == null || !Model.Any())
 {
+    <input value="1" type="hidden" id="company-get-news-finish"/>
     return;
 }
 @foreach (var item in Model)

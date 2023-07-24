@@ -1,5 +1,6 @@
-﻿CommonIndex.loadWatchList();
-setTimeout(() => {
+﻿var isMobile = $("body").hasClass("mobile");
+if (isMobile) {
+    CommonIndex.loadWatchList();
     CommonIndex.loadCompany("", 0, 0, function (result) {
         if (result.ErrCode != "01") {
 
@@ -17,12 +18,13 @@ setTimeout(() => {
             });
         }
     });
-}, 1000);
+}
 $(document).on("click", ".a-btn-remove-item-watch-list", function () {
     var code = $(this).attr("data-code");
     var type = $(this).attr("data-type");
     if (type == 1) {
         CommonIndex.excludeCodeDefault(code, type);
+        CommonIndex.removeItemWatchList(code);
     } else {
         CommonIndex.removeItemWatchList(code);
     }

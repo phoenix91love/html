@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_IFrameLayout.cshtml";
 }
 @Scripts.Render("~/bundles/jquery/common")
-<div class="swiper-container topcontents mt-3 mb-3" style="margin-top: 0px !important;">
+<div class="swiper-container topcontents mt-3 mb-3" style="margin-top: 0px !important; padding-left: 10px;">
     <div class="swiper-wrapper">
         <div class="swiper-slide swiper-slide-active">
             <div class="header-VN-Index-color d-flex">
@@ -109,19 +109,23 @@
 </div>
 <script type="text/javascript">
     function loadData() {
-        CommonIndex.loadHeaderIndex();
-        CommonIndex.loadDataChartWorldMobile("DJI");
-        CommonIndex.loadDataChartWorldMobile("N225");
-        CommonIndex.loadDataChartWorldMobile("HSI");
-        CommonIndex.loadDataChartHeaderMobile("chart-VnIndex", "VN-Index");
-        CommonIndex.loadDataChartHeaderMobile("chart-HnxIndex", "HNX-Index");
-        CommonIndex.loadDataChartHeaderMobile("chart-UpcomIndex", "UPCOM-Index");
+        var isMobile = $("body").hasClass("mobile");
+        if (isMobile) {
+            CommonIndex.loadHeaderIndex();
+            CommonIndex.loadDataChartWorldMobile("DJI");
+            CommonIndex.loadDataChartWorldMobile("N225");
+            CommonIndex.loadDataChartWorldMobile("HSI");
+            CommonIndex.loadDataChartHeaderMobile("chart-VnIndex", "VN-Index");
+            CommonIndex.loadDataChartHeaderMobile("chart-HnxIndex", "HNX-Index");
+            CommonIndex.loadDataChartHeaderMobile("chart-UpcomIndex", "UPCOM-Index");
+        }
     }
     loadData();
-    setInterval(() => {
-        loadData();
-    }, 60 * 1000);
-
+    if (CommonHelper.isInTransactionTime()) {
+        setInterval(() => {
+            loadData();
+        }, 60 * 1000);
+    }
     var swiper = new Swiper(".topcontents", {
         slidesPerView: "auto",
         spaceBetween: 10,

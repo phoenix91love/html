@@ -139,9 +139,9 @@
     }
 }
 
-FinanceHistory.loadDataKqkd();
-//begin cdkt
-FinanceHistory.loadDataCdkt();
+//FinanceHistory.loadDataKqkd();
+////begin cdkt
+//FinanceHistory.loadDataCdkt();
 
 $('#btn-kqkd-prev').click(function () {
     FinanceHistory.getNamQuyKqkdPre();
@@ -178,4 +178,12 @@ $('#btn-cdkt-next').click(function () {
 
 $('#ddl-cdkt-type').change(function () {
     FinanceHistory.loadDataCdkt();
+});
+
+$(function () {
+    var tabInit = $('#hd-tab').val();
+    if (tabInit == 'kqkd')
+        FinanceHistory.loadDataKqkd();
+    else
+        FinanceHistory.loadDataCdkt();
 });

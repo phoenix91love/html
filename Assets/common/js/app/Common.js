@@ -18,8 +18,9 @@ var CommonIndex = {
         }
         var inStorage = localStorage.getItem("watch-list");
         var arrCode = [];
+        var arrData = [];
         if (inStorage) {
-            var arrData = $.parseJSON(inStorage);
+            arrData = $.parseJSON(inStorage);
             arrData.forEach(function (item) {
 
                 arrCode.push(item.Code);
@@ -30,26 +31,34 @@ var CommonIndex = {
         AjaxHelper.ajaxCall(configHomeUrl.homeGetWatchList, params, function (result) {
             $('li.wl, .watch-list-popup li').remove();
             let i = 0;
+            var codeFound = [];
             result.forEach(function (item) {
-                if (arrExclude.indexOf(item.Code) < 0) {
+                if (arrExclude.indexOf(item.Code) < 0 || arrCode.indexOf(item.Code) >= 0) {
+
+                    codeFound.push(item.Code);
                     var cssColor = item.Color;
                     var priceCssColor = item.Change == 0 ? "black" : cssColor;
-                    if (item.Type == 0) {
-                        
-                    } else {
-                        if (i < 5) {
-                            $('.watch-list').prepend('<li class="wl is-border-right" data-code="' + item.Code + '"><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '"><div><span class="unit">' + item.Code +
-                                '</span><span class="' + priceCssColor + '">' + CommonHelper.formatNumber(item.Price, 2) + '</span></div><div><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 2) + '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.PerChange, 2) + '%</span></div></li>');
-                        }
-
-                        $('.watch-list-popup').append('<li class="li-watch-list-item-' + item.Code + '"><span>' + (i + 1) + '</span><span><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '">' + item.Code + '</a></span><span>' + CommonHelper.formatNumber(item.Price, 2) +
-                            '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 1) + '(' + CommonHelper.formatNumber(item.PerChange, 2) +
-                            '%)</span><span><button class="a-btn-remove-item-watch-list" data-type="' + item.Type + '" data-code="' + item.Code + '" type="button"><i class="icon12-close"></i></button></span></li >');
-
-                        i++;
+                    if (i < 5) {
+                        $('.watch-list').prepend('<li class="wl is-border-right" data-code="' + item.Code + '"><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '"><div><span class="unit">' + item.Code +
+                            '</span><span class="' + priceCssColor + '">' + CommonHelper.formatNumber(item.Price, 2) + '</span></div><div><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 2) + '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.PerChange, 2) + '%</span></div></li>');
                     }
+
+                    $('.watch-list-popup').append('<li class="li-watch-list-item-' + item.Code + '"><span>' + (i + 1) + '</span><span><a target="_top" href="' + configCommonUrl.companyDetail + item.Code + '">' + item.Code + '</a></span><span>' + CommonHelper.formatNumber(item.Price, 2) +
+                        '</span><span class="' + cssColor + '">' + CommonHelper.formatNumber(item.Change, 1) + '(' + CommonHelper.formatNumber(item.PerChange, 2) +
+                        '%)</span><span><button class="a-btn-remove-item-watch-list" data-type="' + item.Type + '" data-code="' + item.Code + '" type="button"><i class="icon12-close"></i></button></span></li >');
+
+                    i++;
                 }
             });
+            //localStorage.setItem("watch-list", JSON.stringify(codeFound));
+            var listItem = [];
+            codeFound.forEach(function (item) {
+                var index = arrData.findIndex(x => x.Code == item);
+                if (index >= 0) {
+                    listItem.push(arrData[index]);
+                }
+            });
+            localStorage.setItem("watch-list", JSON.stringify(listItem));
         });
     },
     saveWatchList: function (item) {
@@ -204,6 +213,8 @@ var CommonIndex = {
                         }
                         $('ul.chiso').append('<li class="li-header-select ' + active + '" data-code="' + item.Code +
                             '"><span>' + name + '</span><span>' + CommonHelper.formatNumber(item.Price, 2) + '</span><span class="' + color + '">' + CommonHelper.formatNumber(item.Change, 2) + '</span><span class="' + color + '">' + CommonHelper.formatNumber(item.PerChange, 2) + '%</span><span class="' + arrow + '"></span></li>');
+                        //$('ul.chiso li').addClass("blink");
+                        //setTimeout(() => { $('ul.chiso li').removeClass("blink"); }, 3000);
                     } else {
                         $('.header-' + item.Code + '-price').html(CommonHelper.formatNumber(item.Price, 2));
                         $('.header-' + item.Code + '-change').html(CommonHelper.formatNumber(item.Change, 2));
@@ -243,7 +254,7 @@ var CommonIndex = {
                 $('ul.thitruong li').remove();
 
                 result.forEach(function (item) {
-                    var val = CommonHelper.formatNumber(item.Value,0);
+                    var val = CommonHelper.formatNumber(item.Value, 0);
                     if (item.Code == "DAU-THO-WTI" || item.Code == "BTC")
                         val = CommonHelper.formatNumber(item.Value, 2);
                     $('ul.thitruong').append('<li><span>' + item.Name + '</span><span>' + val + '</span></li>');
@@ -271,16 +282,19 @@ var CommonIndex = {
         });
     },
     bindHeaderSearchBox: function () {
-      
+
         var searchData = "";
-        $('.txt-keyword-header').select2({
-            placeholder: "Mã CK / Từ khóa",
+        var $elementSelect = $('.txt-keyword-header');
+        $elementSelect.select2({
+            placeholder: "Mã CK/ Lãnh đạo / Từ khóa",
             allowClear: true,
+            selectOnClose: false,
             dropdownAutoWidth: true,
+            minimumInputLength: 1,
+            //dropdownParent: $('body').hasClass("mobile") ? $('.search-modal') : $('body'),
             tags: true,
-            minimumInputLength: 2,
             ajax: {
-                delay: 250,
+                delay: 500,
                 url: configHomeUrl.homeGetSearchBoxData,
                 dataType: 'json',
                 data: function (params) {
@@ -289,6 +303,118 @@ var CommonIndex = {
                         search: params.term,
                     }
                     // Query parameters will be ?search=[term]&type=public
+                    return query;
+                },
+                processResults: function (data) {
+                    var allData = [{ id: searchData, text: searchData }];
+                    var itemsThreeChar = data.filter(x => x.id.substring(0, searchData.toLowerCase().length).toLowerCase() == searchData.toLowerCase());
+                    var itemsNotThreeChar = data.filter(x => x.id.substring(0, searchData.toLowerCase().length).toLowerCase() != searchData.toLowerCase());
+                    for (var i = 0; i < itemsThreeChar.length; i++) {
+                        var item = itemsThreeChar[i];
+                        allData.push(item);
+                    }
+                    for (var i = 0; i < itemsNotThreeChar.length; i++) {
+                        var item = itemsNotThreeChar[i];
+                        allData.push(item);
+                    }
+
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: allData
+                    };
+                },
+                cache: true
+            },
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection,
+            language: {
+                inputTooShort: function () {
+                    return "";
+                }, noResults: function () {
+                    return "";
+                }
+            }
+        });
+
+
+        //var isMobile = $('body').hasClass("mobile");
+        //if (isMobile) {
+        //    $elementSelect.select2("open");
+        //    $('.select2-container').trigger("click");
+        //}
+
+        $(document).on('click', '.search-top .select2-container', function () {
+            $('.select2-search__field').focus();
+        });
+
+        $elementSelect.on('select2:select', function (e) {
+            var inIframe = $('body').hasClass("wrap-iframe");
+            var data = e.params.data;
+            if (data.hasOwnProperty('name')) {
+                if (data.type != 0) {
+                    var name = CommonHelper.replacePersonName(CommonHelper.removeVietnameseTones(data.text));
+
+                    if (inIframe)
+                        window.parent.location.href = "/ca-nhan-nqs_" + data.id + "/" + name;
+                    else
+                        window.location.href = "/ca-nhan-nqs_" + data.id + "/" + name;
+                }
+                else
+                    if (inIframe)
+                        window.parent.location.href = configCommonUrl.companyDetail + data.id;
+                    else
+                        window.location.href = configCommonUrl.companyDetail + data.id;
+            } else {
+                if (inIframe)
+                    window.parent.location.href = "https://nguoiquansat.vn/search?q=" + data.text;
+                else
+                    window.location.href = "https://nguoiquansat.vn/search?q=" + data.text;
+            }
+        });
+
+        function formatRepo(repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+
+            var text = repo.text;
+            if (repo.name) {
+                var combindText = ("*" + repo.text + "$" + (repo.type == 0 ? " - " : "#") + repo.name);
+                var idx = combindText.toLowerCase().indexOf(searchData.toLowerCase());
+                text = combindText.substring(0, idx)
+                    + '<span class="red">' + combindText.substring(idx, idx + searchData.length) + '</span>'
+                    + combindText.substring(idx + searchData.length, combindText.length);
+            }
+            var $container = $(
+                "<div class='select2-result-repository clearfix'>" + text.replace("*", "<b>").replace("$", "</b>").replace("#", "<br/>") + "</div>"
+            );
+            return $container;
+        }
+
+        function formatRepoSelection(repo) {
+            var text = CommonHelper.replaceAll(CommonHelper.replaceAll(repo.text, "<b>", ""), "</b>", "");
+            return text;
+        }
+    },
+    bindHeaderThuatNguSearchBox: function () {
+
+        var searchData = "";
+        var $elementSelect = $('.txt-thuatngu-header');
+        $elementSelect.select2({
+            placeholder: "Tra cứu thuật ngữ kinh tế",
+            allowClear: true,
+            selectOnClose: false,
+            dropdownAutoWidth: true,
+            minimumInputLength: 2,
+            ajax: {
+                delay: 500,
+                url: configHomeUrl.homeGetSearchThuatNguBoxData,
+                dataType: 'json',
+                data: function (params) {
+                    searchData = params.term
+                    var query = {
+                        search: params.term,
+                    }
                     return query;
                 },
                 processResults: function (data) {
@@ -301,28 +427,46 @@ var CommonIndex = {
             },
             templateResult: formatRepo,
             language: {
-
                 inputTooShort: function () {
-                    return "Nhập ít nhất 2 ký tự để tìm kiếm";
+                    return "";
+                }, noResults: function () {
+                    return "";
                 }
             }
-
         });
+
+        $(document).on('click', '.search-thuat-ngu .select2-container', function () {
+            $('.select2-search__field').focus();
+        });
+        $elementSelect.on('select2:select', function (e) {
+            var inIframe = $('body').hasClass("wrap-iframe");
+            var data = e.params.data;
+            if (data.hasOwnProperty('name')) {
+                if (inIframe)
+                    window.parent.location.href = data.name;
+                else
+                    window.location.href = data.name;
+
+            }
+        });
+
         function formatRepo(repo) {
             if (repo.loading) {
                 return repo.text;
             }
-            var idx = repo.text.toLowerCase().indexOf(searchData.toLowerCase());
-            var text = repo.text.substring(0, idx)
-                + '<span class="red">' + repo.text.substring(idx, idx + searchData.length) + '</span>'
-                + repo.text.substring(idx + searchData.length, repo.text.length);
 
+            var text = repo.text;
+            if (repo.text) {
+                var idx = repo.text.toLowerCase().indexOf(searchData.toLowerCase());
+                text = repo.text.substring(0, idx)
+                    + '<span class="red">' + repo.text.substring(idx, idx + searchData.length) + '</span>'
+                    + repo.text.substring(idx + searchData.length, repo.text.length);
+            }
             var $container = $(
                 "<div class='select2-result-repository clearfix'>" + text + "</div>"
             );
             return $container;
         }
-
     }
 };
 
