@@ -241,6 +241,7 @@ function loadFinanceByCode() {
         renderChartFinaceKQKD('chart-cdkt', 2, lableReportCDKT, dataReportCDKT1, dataReportCDKT2);
         LoadDataChartCompareProfession();
         LoadCompanyDebtBank();
+        LoadCompanyFinanceReportFile();
     });
 }
 
@@ -566,4 +567,17 @@ function LoadCompanyDebtBank() {
     var param = { code: $("#input-code").val() };
     App.loadPartialAppendCallback(urlGetDataDebtBank, param, "#company-financial-debtBank-content", function () {
     });
+}
+function LoadCompanyFinanceReportFile() {
+    var param = { code: $("#input-code").val() };
+    App.loadPartialAppendCallback(urlGetFinanceFileReport, param, "#company-financial-reportFile", function () {
+    });
+}
+
+function ShowAllFireReport(e) {
+    var guidId = $(e).attr('data-guid');
+    $('#' + guidId+' tr').each(function (index) {
+        $(this).removeClass('d-none');
+    });
+    $($(e).closest('tr')).remove();
 }

@@ -763,6 +763,24 @@
 .container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-debtBank-content .tab-content .tab-content table tbody td {
   text-align: right; }
 
+.container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .info-navbar-content {
+  margin-bottom: 5px; }
+  .container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .info-navbar-content ul {
+    margin-bottom: 5px; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .info-navbar-content ul li {
+      margin: 0; }
+    .container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .info-navbar-content ul li:last-child a::before {
+      background: unset; }
+
+.container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .tab-content table tr th {
+  text-align: center; }
+
+.container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .tab-content table tr td:nth-child(1) {
+  text-align: left; }
+
+.container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .tab-content table tr td:nth-child(2), .container-company-detail .l-main .content-struct .c-box__content #tab4 #company-financial-reportFile .tab-content table tr td:nth-child(3) {
+  text-align: center; }
+
 .container-company-detail .l-main .content-struct .c-box__content #tab6 .c-box__content p span {
   border-right: unset;
   color: #222;

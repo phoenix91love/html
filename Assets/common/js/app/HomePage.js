@@ -81,10 +81,9 @@
                         $(".vn-nnmua").html(CommonHelper.formatNumber(item.NNmua, 0));
                         $(".vn-nnban").html(CommonHelper.formatNumber(item.NNban, 0));
 
-                        $(".vn-highest-lowest").html(CommonHelper.formatNumber(item.Lowest, 2) + " / " + CommonHelper.formatNumber(item.Highest, 2));
+                        $(".vn-highest-lowest").html("<span class='" + item.LowestColor + "'>" + CommonHelper.formatNumber(item.Lowest, 2) + "</span> / " + "<span class='" + item.HighestColor + "'>" + CommonHelper.formatNumber(item.Highest, 2)) + "</span>";
                         $(".vn-highest-lowest-52t").html(CommonHelper.formatNumber(item.Lowest52T, 2) + " / " + CommonHelper.formatNumber(item.Highest52T, 2));
                         $(".div-last-update").html(item.LastUpdate);
-
                     }
                 });
 
@@ -482,4 +481,20 @@ $('.a-btn-tab-dong-tien').click(function () {
     $(this).parent("li").addClass("active");
     var code = $(this).attr("data-code");
     HomePage.loadDongTienChart(code);
+});
+
+$('.thongso ul.slcp, .thongso ul.pbdt').click(function () {
+    var code = $('.hd-code').val();
+    var strCode = "";
+    if (code == "VN-Index")
+        strCode = "HOSE";
+    if (code == "HNX-Index")
+        strCode = "HNX";
+    if (code == "UPCOM-Index")
+        strCode = "UPCOM";
+    if (code == "VN30-Index")
+        strCode = "VN30";
+    if (code == "HNX30-Index")
+        strCode = "HNX30";
+    window.location.href = configCommonUrl.history + strCode;
 });

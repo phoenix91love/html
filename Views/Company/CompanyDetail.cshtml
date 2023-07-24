@@ -72,16 +72,16 @@
 <div class="c-content-flex container-company-detail">
     @if (string.IsNullOrEmpty(Model.DataObject.Code))
     {
-        <div class="b-grid__title">
-            <h1><span class="name">@ViewBag.SubTitle</span></h1>
-        </div>
+    <div class="b-grid__title">
+        <h1><span class="name">@ViewBag.SubTitle</span></h1>
+    </div>
         return;
     }
     else
     {
-        <div class="b-grid__title">
-            <h1><span class="name">@ViewBag.SubTitle</span></h1>
-        </div>
+    <div class="b-grid__title">
+        <h1><span class="name">@ViewBag.SubTitle</span></h1>
+    </div>
     }
 
     <input type="hidden" id="input-code" value="@Model.DataObject.Code" />
@@ -98,15 +98,15 @@
                     <span class="unit  @NumberHelper.GetStockColorByDetail(dataStock.Current*1000,dataStock.ChangePercent,Model.DataObject.SanGD,dataStock.BasePrice*1000)">
                         @if (dataStock.Change > 0)
                         {
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                        </svg>
                         }
                         else if (dataStock.Change < 0)
                         {
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z" />
+                        </svg>
                         }
 
                         @( dataStock.Change >= 0? $"{(dataStock.Change/1000).FormatNumber()}": $"{ Math.Abs(dataStock.Change).FormatNumberUnit(1)}")
@@ -118,7 +118,7 @@
                     <span class="exchange">Sàn: <span>@Model.DataObject.SanGD</span></span>
                     @if (Model.DataObject.KyQuy)
                     {
-                        <span class="status">Tình trạng: <span><span>Được</span> GD ký quỹ </span></span>
+                    <span class="status">Tình trạng: <span><span>Được</span> GD ký quỹ </span></span>
                     }
                 </div>
                 <div class="">
@@ -142,26 +142,26 @@
                 <ul class="phantich1">
                     @foreach (var item in dataStockLikeProfess)
                     {
-                        <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"yellow") )" data-toggle="tooltip"
-                            data-price="@item.CompanyStock.Current.FormatNumber()"
-                            data-code="@item.Code"
-                            data-name="@item.Name"
-                            data-change="@item.CompanyStock.Change.FormatNumberUnit(1)"
-                            data-percent-change="@item.CompanyStock.ChangePercent.FormatNumber()"
-                            data-priceBefor7day="@item.CompanyStock.ClosePriceBefor7Day.FormatNumber()"
-                            data-changeBefor7day="@item.CompanyStock.ChangeBefor7Day.FormatNumberUnit(1)"
-                            data-changePercentBefor7day="@item.CompanyStock.ChangePercentBefor7Day.FormatNumber()"
-                            data-volume="@item.CompanyStock.Volume.FormatNumber()"
-                            data-value="@item.CompanyStock.Value.FormatNumberUnit(3)"
-                            data-foreign="@item.CompanyStock.ForeignRoom.FormatNumber()"
-                            data-foreign-buy="@item.CompanyStock.ForeignBuy.FormatNumber()"
-                            data-foreign-sell="@item.CompanyStock.ForeignSell.FormatNumber()"
-                            data-PriceClass="@NumberHelper.GetStockColorByDetail(item.CompanyStock.Current*1000,item.CompanyStock.ChangePercent,item.CompanyStock.ExchangeName,item.CompanyStock.BasePrice*1000)">
-                            <span><a href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a></span>
-                            <span>@item.CompanyStock.Current.ToString("N1")</span>
-                            <span>@(item.CompanyStock.Change > 0? $"+{item.CompanyStock.Change.FormatNumberUnit(1)}": (item.CompanyStock.Change <0? $"{item.CompanyStock.Change.FormatNumberUnit(1)}":"0"))</span>
-                            <span>@( item.CompanyStock.Change > 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}":(item.CompanyStock.Change < 0 ? $"{(item.CompanyStock.ChangePercent).FormatNumber()}":"0"))%</span>
-                        </li>
+                    <li class="@(item.CompanyStock.Change > 0 ? "green" :(item.CompanyStock.Change < 0? "red":"yellow") )" data-toggle="tooltip"
+                        data-price="@item.CompanyStock.Current.FormatNumber()"
+                        data-code="@item.Code"
+                        data-name="@item.Name"
+                        data-change="@item.CompanyStock.Change.FormatNumberUnit(1)"
+                        data-percent-change="@item.CompanyStock.ChangePercent.FormatNumber()"
+                        data-priceBefor7day="@item.CompanyStock.ClosePriceBefor7Day.FormatNumber()"
+                        data-changeBefor7day="@item.CompanyStock.ChangeBefor7Day.FormatNumberUnit(1)"
+                        data-changePercentBefor7day="@item.CompanyStock.ChangePercentBefor7Day.FormatNumber()"
+                        data-volume="@item.CompanyStock.Volume.FormatNumber()"
+                        data-value="@item.CompanyStock.Value.FormatNumberUnit(3)"
+                        data-foreign="@item.CompanyStock.ForeignRoom.FormatNumber()"
+                        data-foreign-buy="@item.CompanyStock.ForeignBuy.FormatNumber()"
+                        data-foreign-sell="@item.CompanyStock.ForeignSell.FormatNumber()"
+                        data-PriceClass="@NumberHelper.GetStockColorByDetail(item.CompanyStock.Current*1000,item.CompanyStock.ChangePercent,item.CompanyStock.ExchangeName,item.CompanyStock.BasePrice*1000)">
+                        <span><a href="@Url.Action("CompanyDetail", "Company", new { code = item.Code })">@item.Code</a></span>
+                        <span>@item.CompanyStock.Current.ToString("N1")</span>
+                        <span>@(item.CompanyStock.Change > 0? $"+{item.CompanyStock.Change.FormatNumberUnit(1)}": (item.CompanyStock.Change <0? $"{item.CompanyStock.Change.FormatNumberUnit(1)}":"0"))</span>
+                        <span>@( item.CompanyStock.Change > 0? $"+{(item.CompanyStock.ChangePercent).FormatNumber()}":(item.CompanyStock.Change < 0 ? $"{(item.CompanyStock.ChangePercent).FormatNumber()}":"0"))%</span>
+                    </li>
                     }
                 </ul>
             </div>
@@ -246,25 +246,25 @@
                     var groupPersonal = dataSpecialPersonal.OrderBy(x => (x.Position.OrderBy(y => y.PositionIndex)).FirstOrDefault().PositionIndex);
                     foreach (CompanyPersonalGroupSpecialMdl itemPersonal in groupPersonal)
                     {
-                        <li>
-                            <div class="grid">
-                                <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
-                                <div class="g-content">
-                                    <h3 class="g-title">
-                                        @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
-                                    </h3>
-                                    <ul>
-                                        @{
+                    <li>
+                        <div class="grid">
+                            <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
+                            <div class="g-content">
+                                <h3 class="g-title">
+                                    @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
+                                </h3>
+                                <ul>
+                                    @{
 
                                             foreach (var sub in itemPersonal.Position.OrderBy(x => x.PositionIndex))
                                             {
-                                                <li>@sub.PositionName</li>
+                                        <li>@sub.PositionName</li>
                                             }
-                                        }
-                                    </ul>
-                                </div>
+                                    }
+                                </ul>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
 
                     }
@@ -316,7 +316,7 @@
                                     <option value="0" data-type="0">Tất cả</option>
                                     @foreach (var item in ViewBag.ListType)
                                     {
-                                        <option value="@item.Value" data-type="@item.AppendData">@item.Text</option>
+                                    <option value="@item.Value" data-type="@item.AppendData">@item.Text</option>
                                     }
                                 </select>
                             </div>
@@ -335,7 +335,7 @@
                             <div>
                                 @if (!string.IsNullOrEmpty(Model.DataObject.Logo))
                                 {
-                                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
+                                <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
                                 }
 
                                 <div class="content-description">
@@ -362,11 +362,11 @@
                                 <div class="c-news-info">
                                     @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
                                     {
-                                        <div>
-                                            <div class="profession">
-                                                <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0,  professionId=Model.DataObject.NganhGICSId })">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
-                                            </div>
+                                    <div>
+                                        <div class="profession">
+                                            <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0,  professionId=Model.DataObject.NganhGICSId })">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
                                         </div>
+                                    </div>
                                     }
                                     <ul>
                                         <li><b>Trụ sở:</b> @Model.DataObject.Location</li>
@@ -418,14 +418,14 @@
                             </li>
                             @foreach (var item in topEPS)
                             {
-                                <li>
-                                    <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
-                                    <span>@item.Exchange</span>
-                                    <span>@item.EPS.FormatNumber()</span>
-                                    <span>@item.Price.FormatNumber()</span>
-                                    <span>@item.PE.FormatNumber()</span>
-                                    <span>@((item.MarketCap/1000000).FormatNumber())</span>
-                                </li>
+                            <li>
+                                <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
+                                <span>@item.Exchange</span>
+                                <span>@item.EPS.FormatNumber()</span>
+                                <span>@item.Price.FormatNumber()</span>
+                                <span>@item.PE.FormatNumber()</span>
+                                <span>@((item.MarketCap/1000000).FormatNumber())</span>
+                            </li>
                             }
                         </ul>
                     </div>
@@ -486,25 +486,25 @@
                 @{
                     foreach (CompanyPersonalGroupSpecialMdl itemPersonal in groupPersonal)
                     {
-                        <li>
-                            <div class="grid">
-                                <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
-                                <div class="g-content">
-                                    <h3 class="g-title">
-                                        @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
-                                    </h3>
-                                    <ul>
-                                        @{
+                    <li>
+                        <div class="grid">
+                            <div class="g-img"><a href="@Url.Action("Index","Personal",new { nqsCode=itemPersonal.PersonalCode.ToLower(), name =M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })"><img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+itemPersonal.PersonalImage.Replace(@"\","/"))" alt="@itemPersonal.PersonalName" title="@itemPersonal.PersonalName"></a></div>
+                            <div class="g-content">
+                                <h3 class="g-title">
+                                    @Html.Raw(string.IsNullOrEmpty(itemPersonal.PersonalCode) ? itemPersonal.PersonalName : $"<a href='{Url.Action("Index", "Personal", new { nqsCode = itemPersonal.PersonalCode.ToLower(), name = M.Common.Extensions.RegexHelper.TiengVietKDau(itemPersonal.PersonalName).ToLower() })}'>{itemPersonal.PersonalName}</a>")
+                                </h3>
+                                <ul>
+                                    @{
 
                                             foreach (var sub in itemPersonal.Position.OrderBy(x => x.PositionIndex))
                                             {
-                                                <li>@sub.PositionName</li>
+                                        <li>@sub.PositionName</li>
                                             }
-                                        }
-                                    </ul>
-                                </div>
+                                    }
+                                </ul>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
 
                     }
@@ -539,7 +539,7 @@
                 <div class="c-news-info">
                     @if (!string.IsNullOrEmpty(Model.DataObject.Logo))
                     {
-                        <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
+                    <img src="@(System.Configuration.ConfigurationManager.AppSettings["static_domain"].ToString()+"/Image"+Model.DataObject.Logo.Replace(@"\","/"))">
                     }
 
                     <div>
@@ -561,11 +561,11 @@
                     </div>
                     @if (!string.IsNullOrEmpty(Model.DataObject.NganhGICS))
                     {
-                        <div>
-                            <div class="profession">
-                                <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0, professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
-                            </div>
+                    <div>
+                        <div class="profession">
+                            <a href="@Url.Action("CompanyListSearch","Company",new {code=string.Empty,exId=0, professionId=Model.DataObject.NganhGICSId})">  <span>Nhóm ngành: @(Model.DataObject.NganhGICS.Split('/').Last()) </span></a>
                         </div>
+                    </div>
                     }
 
                     <ul>
@@ -602,14 +602,14 @@
                 </li>
                 @foreach (var item in topEPS)
                 {
-                    <li>
-                        <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
-                        <span>@item.Exchange</span>
-                        <span>@item.EPS.FormatNumber()</span>
-                        <span>@item.Price.FormatNumber()</span>
-                        <span>@item.PE.FormatNumber()</span>
-                        <span>@((item.MarketCap/1000000).FormatNumber())</span>
-                    </li>
+                <li>
+                    <span><a href="@Url.Action("CompanyDetail","Company",new {code=item.Code })">@item.Code</a></span>
+                    <span>@item.Exchange</span>
+                    <span>@item.EPS.FormatNumber()</span>
+                    <span>@item.Price.FormatNumber()</span>
+                    <span>@item.PE.FormatNumber()</span>
+                    <span>@((item.MarketCap/1000000).FormatNumber())</span>
+                </li>
                 }
 
 
@@ -640,6 +640,7 @@
         </div>
     </div>
 </div>
+
 @functions
 {
     public string TextEllipsis(string str, int maxLength, string side = "end", string ellipsis = "...")
@@ -667,32 +668,32 @@
 @if (dataNewShowPopup != null)
 {
 
-    <div class="modal" tabindex="-1" role="dialog" id="modalNewShowPopup">
-        <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 id="event-detail-title">@dataNewShowPopup.Title</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="event-detail-content">@Html.Raw(dataNewShowPopup.Content)</p>
-                    @if (!string.IsNullOrEmpty(dataNewShowPopup.File))
+<div class="modal" tabindex="-1" role="dialog" id="modalNewShowPopup">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 50%;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="event-detail-title">@dataNewShowPopup.Title</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="event-detail-content">@Html.Raw(dataNewShowPopup.Content)</p>
+                @if (!string.IsNullOrEmpty(dataNewShowPopup.File))
                     {
 
-                        <p id="event-detail-download">
-                            File đính kèm:
-                            <br />
-                            <a target='_blank' href="@dataNewShowPopup.File">@TextEllipsis(dataNewShowPopup.File, 50, "mid", "...")</a>
-                        </p>
+                <p id="event-detail-download">
+                    File đính kèm:
+                    <br />
+                    <a target='_blank' href="@dataNewShowPopup.File">@TextEllipsis(dataNewShowPopup.File, 50, "mid", "...")</a>
+                </p>
                     }
-                </div>
             </div>
         </div>
     </div>
+</div>
 }
-<div class="modal modal-company-detail" tabindex="-1" role="dialog" id="Modal-company-detail">
+@*<div class="modal modal-company-detail" tabindex="-1" role="dialog" id="Modal-company-detail">
     <div class="modal-dialog modal-dialog-centered" style="min-width: 30%;" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -756,7 +757,11 @@
 
         </div>
     </div>
-</div>
+</div>*@
+<form id="tracking-form">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="code" value="@Model.DataObject.Code" />
+</form>
 @section Scripts
 {
     <script rel="preload" src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -772,8 +777,12 @@
         var urlGetNews = '@Url.Action("CompanyGetNews", "Company")';
         var urlGetDataCompareProfession = '@Url.Action("CompanyFinancialCompareProfession","Company")';
         var urlGetDataDebtBank = '@Url.Action("CompanyFinancialDebtBank", "Company")';
+        var urlGetFinanceFileReport = '@Url.Action("CompanyFinanceReportFile", "Company")';
         var overRatios = parseFloat('@Model.DataObject.ForeignOwnership*100');
         var percentStockCeo = parseFloat('@countPercentStockCeo.FormatNumber()');
+        AjaxHelper.ajaxCallFormSubmitWithBeforeSend("#tracking-form", "@Url.Action("tracking", "statistics")", function () { }, function (res) {
+	console.log(res);
+})
     </script>
     @Scripts.Render("~/bundles/script/company-detail")
 
