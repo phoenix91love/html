@@ -164,5 +164,9 @@ $(document).ready(function () {
             }
         }
     });
+
+    $(document).on("click", "#btnShowSearchModal", function () {
+        $('.new-search-modal').modal('show');
+    });
 });
 

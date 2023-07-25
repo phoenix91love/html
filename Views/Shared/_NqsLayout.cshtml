@@ -142,7 +142,7 @@
         <div class="container d-flex top-menu">
             <div class="c-topnews is-line-bottom">
                 @*@if (!Request.Browser.IsMobileDevice)
-        {*@
+                    {*@
                 <ul class="w-100 h-show-pc">
                     <li class="@(Request.RawUrl == Url.Action("Index", "Home") ? "active" : "")">
                         <a href="@Url.Action("Index", "Home")">Toàn cảnh thị trường</a>
@@ -170,8 +170,8 @@
                     </li>
                 </ul>
                 @*}
-        else
-        {*@
+                    else
+                    {*@
                 <div class="h-show-mobile">
                     <div class="w-100">
                         <span class="catname">@ViewBag.PageName</span>
@@ -263,6 +263,79 @@
         </div>
     </div>
 
+    <div class="modal new-search-modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-top" role="document">
+            <div class="modal-content p-3">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="c-search">
+                                <div class="c-search__inner">
+                                    <input class="form-control" id="txt-new-keyword" type="text" name="" placeholder="Mã chứng khoán muốn theo dõi" />
+                                    <a href="javascript:;" id="btnNewSearch">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.1567 6.63698C11.1567 9.13317 9.13317 11.1567 6.63698 11.1567C4.14079 11.1567 2.11723 9.13317 2.11723 6.63698C2.11723 4.14079 4.14079 2.11723 6.63698 2.11723C9.13317 2.11723 11.1567 4.14079 11.1567 6.63698ZM6.63698 12.524C9.88827 12.524 12.524 9.88827 12.524 6.63698C12.524 3.38569 9.88827 0.75 6.63698 0.75C3.38569 0.75 0.75 3.38569 0.75 6.63698C0.75 9.88827 3.38569 12.524 6.63698 12.524Z" fill="#3B1B70" stroke="#3B1B70" stroke-width="0.5" />
+                                            <rect x="9.86768" y="11.2119" width="1.90026" height="5.70079" rx="0.794287" transform="rotate(-45 9.86768 11.2119)" fill="#3B1B70" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="box-filter">
+                                <div class="radio">
+                                    <input id="radio-search" name="radio" type="radio" checked>
+                                    <label for="radio-search" class="radio-label">Tìm kiếm</label>
+                                </div>
+                                <div class="radio">
+                                    <input id="radio-term" name="radio" type="radio">
+                                    <label for="radio-term" class="radio-label">Tra cứu thuật ngữ</label>
+                                </div>
+                            </div>
+                            <div class="box-search-recent">
+                                <div class="box-header">
+                                    <div class="box-title">Tìm kiếm gần đây</div>
+                                    <div class="btn-remove">
+                                        <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.1402 3.34707C9.2643 3.15246 7.37709 3.05221 5.49551 3.05221C4.38008 3.05221 3.26465 3.11118 2.14923 3.22913L1 3.34707M4.09841 2.75146L4.22234 1.97893C4.31248 1.4187 4.38008 1 5.33214 1H6.80811C7.76016 1 7.8334 1.44229 7.9179 1.98483L8.04184 2.75146M9.92905 5.21057L9.56287 11.149C9.5009 12.0749 9.4502 12.7943 7.87847 12.7943H4.26178C2.69004 12.7943 2.63934 12.0749 2.57737 11.149L2.2112 5.21057M5.12933 9.55089H7.00528M4.66175 7.19202H7.47849" stroke="#3B1B70" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="box-content">
+                                    <ul class="list-search">
+                                        <li>VNM</li>
+                                        <li>TCB</li>
+                                        <li>Ngân hàng ngoại thương</li>
+                                        <li>Kết quả kinh doanh quý 2</li>
+                                        <li>Cổ phiếu CII</li>
+                                        <li>Vingroup</li>
+                                        <li>Thị trường</li>
+                                        <li>VPBank</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="box-care">
+                                <div class="box-header">
+                                    <div class="box-title">Quan tâm nhất</div>
+                                </div>
+                                <div class="box-content">
+                                    <ul class="list-care">
+                                        <li>VNM</li>
+                                        <li>TCB</li>
+                                        <li>Ngân hàng ngoại thương</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-lg-2 col-md-2 col-sm-3 col-3"><button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button></div>*@
+                    </div>
+                </div>
+                <div class="modal-footer d-block" style="text-align: center; padding: 0;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @RenderSection("Scripts", required: false)
     <script>
         var swiper = new Swiper(".topcontents", {
@@ -292,7 +365,6 @@
             });
         });
     </script>
-
     <script src='https://dataview.nguoiquansat.vn/dulieu.js'></script>
 </body>
 </html>
